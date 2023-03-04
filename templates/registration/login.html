@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Zaloguj się - Banknoty
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="bg-body-tertiary">
+    <section class="container d-flex flex-column ">
+        <div class="align-items-center justify-content-center g-0 min-vh-100 row">
+            <div class="py-8 py-xl-0 col-lg-5 col-md-5">
+                <div class="card border border-0 shadow">
+                    <div class="p-5 card-body">
+                        <div class="mb-4">
+                            <a href="/">
+                                <img src="{% static 'images/logo-no-background.png' %}" alt="" class="mb-4" style="max-height: 72px;">
+                            </a>
+                            <h2 class="mb-1 fw-bold">Zaloguj się</h2>
+                            <span class="message text-end mb-0 fw-light">Nie masz konta?
+                                <a href="/members/register" class="already_link ms-1">Zarejestruj się</a>
+                            </span>
+                        </div>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <h6 class="form-label mt-4 text-start fw-bold">{{form.username.label}}</h6>
+                            <input type="text" name="username" class="form-control" autofocus>
+                            <h6 class="form-label mt-3 text-start fw-bold">{{form.password.label}}</h6>
+                            <input type="password" name="password" class="form-control" >
+                            <div class="my-3 col-lg-12 col-md-12">
+                                <div class="d-md-flex justify-content-between align-items-center">
+                                    <div class="mb-3 mb-md-0">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="formBasicCheckbox" class="form-check-input">
+                                            <label title="" for="formBasicCheckbox" class="form-check-label message text-end mb-0 fw-light">
+                                                Zapamiętaj mnie
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <a class="already_link fw-light" href="/authentication/forget-password">
+                                        Nie pamiętasz hasła?
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 mt-3 mb-2">
+                                <button class="btn btn-register" type="submit">Zaloguj się</button>
+                            </div>
+                        </form>
+                        {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger fw-light px-2 py-2 my-3" role="alert">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <hr class="my-4">
+                        <div class="mt-4 text-center">
+                            <button class="btn btn-socialmedia btn-facebook rounded-3" href="/authentication/sign-in/">
+                                <i class="fab fa-facebook"></i>
+                            </button>
+                            <button class="btn btn-socialmedia btn-twitter rounded-3" href="/authentication/sign-in/">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="btn btn-socialmedia btn-linkedin rounded-3" href="/authentication/sign-in/">
+                                <i class="fab fa-linkedin"></i>
+                            </button>
+                            <button class="btn btn-socialmedia btn-github rounded-3" href="/authentication/sign-in/">
+                                <i class="fab fa-github"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+{% endblock %}

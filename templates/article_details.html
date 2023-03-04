@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ blog.title }}
+{% endblock %}
+
+{% block navbar %}
+   {% load static %}
+    <nav class="navbar bg-body-tertiary py-3">
+        <div class="container text-center">
+            <div class="row row-cols-1 d-flex justify-content-center container-fluid">
+                <div class="col">
+                    <div class="d-flex justify-content-center container-fluid">
+                        <a class="navbar-brand m-0 p-0" href="/">
+                            <img class="img img-fluid mx-auto d-block"
+                                 src="{% static 'images/logo-no-background.png' %}" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col px-0">
+                   <div class="d-flex justify-content-center container-fluid pb-0 px-0">
+                        <ul class="nav p-0">
+                            <li class="nav-item nav-color nav_border-left-2 nav_border-right-1">
+                                <a class="nav-color nav-link fw-normal" href="/">Strona główna</a>
+                            </li>
+                            <li class="nav-item nav-color nav_border-left-1 nav_border-right-1">
+                                <a class="nav-color nav-link fw-normal" href="#">Kategorie</a>
+                            </li>
+                            <li class="nav-item nav-color nav_border-left-1 nav_border-right-1">
+                                <a class="nav-link nav-color fw-normal" href="#">O nas</a>
+                            </li>
+                            <li class="nav-item nav-color nav_border-left-1 nav_border-right-2">
+                                <a class="nav-link nav-color fw-normal" href="#">Kontakt</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="bg-body-tertiary ">
+        <div class="container text-center pb-3 pt-4 px-5">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0">
+                    </div>
+                    <div class="col p-0">
+                        <div class="card-title" style="text-align: center; color: #000080">
+                            <h1 style="display: inline-block; text-align: left;">
+                                {{ blog.title }}
+                            </h1>
+                            <div class="container text-center">
+                                <div class="row row-cols-3">
+                                    <div class="col-3 text-start p-0">
+                                        <small class="text-muted">{{ blog.date_posted | date:"j E Y" }}</small>
+                                    </div>
+                                    <div class="col-9 ps-3 ps-md-0 p-0">
+                                        <hr style="color:darkgoldenrod; opacity: 0.75">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 d-none d-lg-block p-0 ">
+                        <div class="btn-group-vertical sticky-top pt-3" role="group" aria-label="Vertical button group" style="left: -30px;">
+                            <a class="border-color border-comment text-center px-3 py-3 border border-bottom-0 border-bottom-0" href="" style="background-color: navy">
+                                <h2 class="p-0 m-0" style="font-family: 'Mr De Haviland', cursive;">12</h2>
+                            </a>
+                            <a class="border-color text-center p-3 border border-half" href="">
+                                <i class="text-center fa-brands fa-facebook fa-2xl"></i>
+                            </a>
+                            <a class="border-color text-center p-3 border border-half" href="">
+                                <i class="text-center fa-brands fa-twitter fa-2xl"></i>
+                            </a>
+                            <a class="border-color text-center p-3 border border-half" href="">
+                                <i class="text-center fa-brands fa-instagram fa-2xl"></i>
+                            </a>
+                            <a class="border-color text-center p-3 border border-half" href="">
+                                <i class="text-center fa-brands fa-pinterest-p fa-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-0 p-0 d-none d-lg-block d-xl-none"></div>
+                    <div class="col pt-3 p-0">
+                        <div class="card-title card-text" style="text-align: center; color: #000080;">
+                            <div style="display: inline-block; text-align: left; max-width: 100%;">
+                                {{ blog.content | safe }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
+                    Zrobić pasek udostępniania pod treścią i  dalej tak jak jest u vintage czyli polecane
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

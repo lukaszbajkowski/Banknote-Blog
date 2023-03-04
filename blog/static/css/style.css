@@ -1,0 +1,326 @@
+
+.img {
+  max-width: 100%;
+  height: 120px !important;
+}
+
+.nav-color{
+    border-color: #000080 !important;
+    color: #000080 !important;
+    font-size: 1.25rem !important;
+}
+
+.nav-color:hover {
+    color: rgba(0, 0, 128, 0.7) !important;
+    border-color: rgba(0, 0, 128, 0.7) !important;
+    font-size: 1.25rem !important;
+}
+
+.nav_border-left-1 {
+    border-left: 0.5px solid !important;
+}
+
+.nav_border-left-2 {
+    border-left: 1px solid !important;
+}
+
+.nav_border-right-1 {
+    border-right: 0.5px solid !important;
+}
+
+.nav_border-right-2 {
+    border-right: 1px solid !important;
+}
+
+.card-photo {
+    aspect-ratio: 1/1 !important;
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.card-text > div > * > img {
+    max-width: 100% !important;
+}
+
+.card-text > div > * > img {
+    max-width: 100% !important;
+}
+
+.card-text > div > * {
+    color: black;
+}
+
+.card-text > div > * > * > * > * > a , .card-text > div > * > * > * > * > a :visited,
+.card-text > div > * > * > * > a , .card-text > div > * > * > * > a :visited,
+.card-text > div > * > * > a , .card-text > div > * > * > a :visited,
+.card-text > div > * > a , .card-text > div > * > a :visited  {
+    color: rgba(0, 0, 128, 0.7) !important;
+    text-decoration: none !important;
+}
+
+.card-text > div > * > * > * > * > a:hover,
+.card-text > div > * > * > * > a:hover,
+.card-text > div > * > *>  a :hover,
+.card-text > div > * > a :hover {
+    color: #000080 !important;
+    text-decoration: underline !important;
+}
+
+.card-text > div > * > * > h1,
+.card-text > div > * > * > h2,
+.card-text > div > * > * > h3,
+.card-text > div > * > * > h4,
+.card-text > div > * > * > h5,
+.card-text > div > * > * > h6,
+.card-text > div > * > h1,
+.card-text > div > * > h2,
+.card-text > div > * > h3,
+.card-text > div > * > h4,
+.card-text > div > * > h5,
+.card-text > div > * > h6,
+.card-text > div > h1,
+.card-text > div > h2,
+.card-text > div > h3,
+.card-text > div > h4,
+.card-text > div > h5,
+.card-text > div > h6 {
+    color: #000080 !important;
+}
+
+.card-link{
+    text-decoration: none !important;
+    color: #000080 !important;
+}
+
+.card-link:hover {
+    color: rgba(0, 0, 128, 0.7) !important;
+}
+
+.border-color {
+    color: rgba(108, 117, 125, 0.5);
+    text-align: center;
+    width: 100%;
+}
+
+.border-color:hover {
+    color: black;
+    border-color: rgb(0, 0, 0) !important;
+}
+
+.border-half{
+    border-color: rgba(108, 117, 125, 0.5) !important;
+    border-bottom: 0.5px;
+    border-top: 0.5px
+}
+
+.border-half:hover {
+    border-color: rgb(0, 0, 0);
+}
+
+.border-comment {
+    color: white;
+    border-color: navy !important;
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+.border-comment:hover {
+    background-color: rgba(0, 0, 128, 0.7) !important;
+    border-color: rgba(0, 0, 128, 0) !important;
+    color: white;
+}
+
+.btn-register, .btn-socialmedia {
+    color: white;
+    background-color: #000066;
+}
+
+.btn.btn-register:active,
+.btn.btn-register:hover,
+.btn-register:focus {
+    color: white; !important;
+    background-color: #000059;
+    box-shadow: 0 4px 11px rgba(0, 0, 89, 0.3);
+    border-color: rgba(0,0,0,0);
+}
+
+.btn-log {
+    color: navy;
+    border-color: navy !important;
+}
+
+.btn.btn-log:active,
+.btn.btn-log:hover,
+.btn.btn-log:focus {
+    color: navy;
+    background-color: rgba(0, 0, 128, 0.1);
+    border-color: rgba(0,0,0,0);
+}
+
+.btn-list {
+    color: navy;
+    border-color: rgba(0,0,0,0) !important;
+}
+
+.btn.btn-list:active,
+.btn.btn-list:hover,
+.btn.btn-list:focus {
+    color: navy;
+    background-color: rgba(0, 0, 128, 0.1);
+    border-color: rgba(0,0,0,0);
+}
+
+.btn-logout {
+    color: navy;
+}
+
+.btn.btn-logout:active,
+.btn.btn-logout:hover,
+.btn.btn-logout:focus {
+    color: darkred;
+    background-color: rgba(139, 0, 0, 0.1);
+    border-color: rgba(0,0,0,0);
+}
+
+.btn-nav {
+    color: navy;
+}
+
+.btn-nav:hover {
+    color: rgba(0, 0, 128, 0.5);
+}
+
+.btn-socialmedia {
+    transition: 0.2s;
+    min-width: 42px;
+    min-height: 42px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.btn-facebook {
+    transition: 0.2s;
+}
+
+.btn.btn-facebook:active,
+.btn.btn-facebook:hover,
+.btn.btn-facebook:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(24, 119, 242);
+    border-color: rgba(0,0,0,0);
+}
+
+.btn-twitter {
+    transition: 0.2s;
+}
+
+.btn.btn-twitter:active,
+.btn.btn-twitter:hover,
+.btn.btn-twitter:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(29, 161, 242);
+    border-color: rgba(0,0,0,0);
+}
+
+.btn-linkedin {
+    transition: 0.2s;
+}
+
+.btn.btn-linkedin:active,
+.btn.btn-linkedin:hover,
+.btn.btn-linkedin:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(0, 119, 181);
+    border-color: rgba(0,0,0,0);
+}
+
+.btn-github {
+    transition: 0.2s;
+}
+
+.btn.btn-github:active,
+.btn.btn-github:hover,
+.btn.btn-github:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(23, 21, 21);
+    border-color: rgba(0,0,0,0);
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  }
+
+.form .registration-form {
+    display: none;
+  }
+
+.form-control:focus {
+    border-color: dodgerblue;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(30, 144, 255, 0.4);
+}
+
+.already_link {
+    color: rgb(0, 0, 128);
+    text-decoration: none;
+    border-bottom: none;
+    transition: 0.2s;
+}
+
+.already_link:hover {
+    color: rgba(0, 0, 128, 0.5);
+    transition: 0.2s;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.alert_register {
+    color: darkred;
+    box-shadow: 0px 0px 10px 0px rgba(139, 0, 0, 0.1);
+    border-color: darkred;
+    border-radius: 0px;
+}
+
+.form-check-input:checked {
+    background-color: navy;
+    border-color: navy;
+}
+
+.form-control:focus {
+    border-color: navy;
+    box-shadow: 0 0 0 .25rem rgba(0, 0, 128, 0.1);
+}
+
+@media only screen and (max-width: 767px) {
+    .nav-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+    }
+
+    .add-shadow {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+}
+
+#btn-bars {
+    transition: 0.2s;
+}
+
+
+
