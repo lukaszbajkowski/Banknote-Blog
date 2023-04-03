@@ -1,105 +1,551 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{ blog.title }}
+    Banknoty - {{ posts.title }}
 {% endblock %}
 
 {% block navbar %}
-   {% load static %}
-    <nav class="navbar bg-body-tertiary py-3">
-        <div class="container text-center">
-            <div class="row row-cols-1 d-flex justify-content-center container-fluid">
-                <div class="col">
-                    <div class="d-flex justify-content-center container-fluid">
-                        <a class="navbar-brand m-0 p-0" href="/">
-                            <img class="img img-fluid mx-auto d-block"
-                                 src="{% static 'images/logo-no-background.png' %}" alt="Logo">
-                        </a>
+    {% load static %}
+        {% if user.is_authenticated %}
+            <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
+                <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
+                    <a class="navbar-brand py-2 me-5" href="/">
+                        <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 72px">
+                    </a>
+                    <div class="d-flex justify-content-between">
+                        <button class="navbar-toggler border border-0 ps-0 pe-0" onclick="toggle()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
+                            <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
+                        </button>
+                        <li class="d-block d-xl-none" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
+                        <div class="dropdown d-block d-xl-none">
+                            <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
+                                <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px">
+                                <li>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
+                                                <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
+                                            </div>
+                                            <div class="col-8 ps-0 pe-3">
+                                                <div class="row ps-0" style="padding-right: 12px">
+                                                    <div class="col ps-0 pe-0 ms-1">
+                                                        <h6 class="my-1" style="color: navy">
+                                                            {% if user.first_name and user.last_name %}
+                                                                {{ user.first_name }} {{ user.last_name }}
+                                                            {% elif user.first_name %}
+                                                                {{ user.first_name }}
+                                                            {% elif user.last_name %}
+                                                                {{ user.last_name }}
+                                                            {% else %}
+                                                                {{ user.username }}
+                                                            {% endif %}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row ps-0" style="padding-right: 12px">
+                                                    <div class="col ps-0 pe-0 ms-1 lh-1">
+                                                        <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
+                                                            {% if user.email %}
+                                                                {{ user.email }}
+                                                            {% endif %}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><hr class="dropdown-divider mx-2 my-3"></li>
+                                <li class="mx-3">
+                                    <div class="d-grid gap-0">
+                                        <button class="btn btn-list" href="#" style="text-align: left; ">
+                                            <i class="fa-solid fa-bookmark me-2"></i>
+                                            Moje posty
+                                        </button>
+                                        <button class="btn btn-list" href="#" style="text-align: left; ">
+                                            <i class="fa-solid fa-gear me-2"></i>
+                                            Ustawienia
+                                        </button>
+                                        <button class="btn btn-list" href="#" style="text-align: left; ">
+                                             <i class="fa-regular fa-circle-question me-2"></i>
+                                            Informacje
+                                        </button>
+                                        <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
+                                                <i class="fa-solid fa-power-off me-2"></i>
+                                            Wyloguj się
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <div class="navbar-nav ms-auto">
+                            <a class="nav-link btn-nav px-4" href="/">
+                                <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
+                            </a>
+                            <li class="nav-item px-0 dropdown">
+                                <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle" href="#" data-bs-toggle="dropdown" style="padding-top: 12px; padding-bottom: 12px; font-size: 20px; line-height: 24px">
+                                    Artykuły
+                                    <i class="fa-solid fa-angle-down fa-2xs "></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4" style="right: 0px">
+                                    <div class="row g-3">
+                                        <div class="col-5 mb-3">
+                                            <h5 class="title fw-bold" style="color:navy;">Kategorie</h5>
+                                            <ul class="list-unstyled">
+                                                {% for ca in category|slice:":5"%}
+                                                    {% if forloop.first %}
+                                                        <li style="margin-top: 12px">
+                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                                {{ ca.name }}
+                                                            </a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li style="margin-top: 6px">
+                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                                {{ ca.name }}
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <li style="margin-top: 6px; position: absolute; bottom: 40px">
+                                                    <a class="fw-bold border-bottom show-all" href="{% url 'category-all' %}">
+                                                        Pokaż wszystkie
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-7">
+                                            <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
+                                            <ul class="list-unstyled">
+                                                {% for post in po reversed %}
+                                                    {% if forloop.counter == 2 or forloop.counter == 3 %}
+                                                       <li>
+                                                            <a href="{% url 'article-detail' post.id %}" class="sub-item" style="text-decoration: none">
+                                                                <div class="container">
+                                                                    <div class="row pb-2">
+                                                                        <div class="col-4 ps-0" style="max-height: 100px; max-width: 100px">
+                                                                            <img class="card-photo text-left" src="{{ post.background.url }}" alt="..." style="max-height: 100px; max-width: 100px">
+                                                                        </div>
+                                                                        <div class="col-8 p-0">
+                                                                            <div>{{ post.title|truncatechars:35 }}</div>
+                                                                            <div style="color: rgba(0,0,0,0.5)">{{ post.date_posted | date:"j E Y" }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <li style="margin-top: 6px">
+                                                    <a class="fw-bold border-bottom show-all" href="#" style="">
+                                                        Pokaż wszystkie
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+						    </li>
+                            <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
+                                <h5 class="text-center text-md-start fw-light my-1">O autorze</h5>
+                            </a>
+                            <li class="d-none d-xl-block" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
+                            <div class="dropdown d-none d-xl-block">
+                                <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
+                                    <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px;">
+                                    <li>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
+                                                    <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
+                                                </div>
+                                                <div class="col-8 ps-0 pe-3">
+                                                    <div class="row ps-0" style="padding-right: 12px">
+                                                        <div class="col ps-0 pe-0 ms-1">
+                                                            <h6 class="my-1" style="color: navy">
+                                                                {% if user.first_name and user.last_name %}
+                                                                    {{ user.first_name }} {{ user.last_name }}
+                                                                {% elif user.first_name %}
+                                                                    {{ user.first_name }}
+                                                                {% elif user.last_name %}
+                                                                    {{ user.last_name }}
+                                                                {% else %}
+                                                                    {{ user.username }}
+                                                                {% endif %}
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row ps-0" style="padding-right: 12px">
+                                                        <div class="col ps-0 pe-0 ms-1 lh-1">
+                                                            <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
+                                                                {% if user.email %}
+                                                                    {{ user.email }}
+                                                                {% endif %}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><hr class="dropdown-divider mx-2 my-3"></li>
+                                    <li class="mx-3">
+                                        <div class="d-grid gap-0">
+                                            <button class="btn btn-list" href="#" style="text-align: left; ">
+                                                <i class="fa-solid fa-bookmark me-2"></i>
+                                                Moje posty
+                                            </button>
+                                            <button class="btn btn-list" href="#" style="text-align: left; ">
+                                                <i class="fa-solid fa-gear me-2"></i>
+                                                Ustawienia
+                                            </button>
+                                            <button class="btn btn-list" href="#" style="text-align: left; ">
+                                                 <i class="fa-regular fa-circle-question me-2"></i>
+                                                Informacje
+                                            </button>
+                                            <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
+                                                    <i class="fa-solid fa-power-off me-2"></i>
+                                                Wyloguj się
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col px-0">
-                   <div class="d-flex justify-content-center container-fluid pb-0 px-0">
-                        <ul class="nav p-0">
-                            <li class="nav-item nav-color nav_border-left-2 nav_border-right-1">
-                                <a class="nav-color nav-link fw-normal" href="/">Strona główna</a>
-                            </li>
-                            <li class="nav-item nav-color nav_border-left-1 nav_border-right-1">
-                                <a class="nav-color nav-link fw-normal" href="#">Kategorie</a>
-                            </li>
-                            <li class="nav-item nav-color nav_border-left-1 nav_border-right-1">
-                                <a class="nav-link nav-color fw-normal" href="#">O nas</a>
-                            </li>
-                            <li class="nav-item nav-color nav_border-left-1 nav_border-right-2">
-                                <a class="nav-link nav-color fw-normal" href="#">Kontakt</a>
-                            </li>
-                        </ul>
+            </nav>
+        {% else %}
+            <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
+                <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
+                    <a class="navbar-brand py-2 me-5" href="/">
+                        <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 72px">
+                    </a>
+                    <div class="d-flex justify-content-between">
+                        <button class="navbar-toggler collapsed border border-0 ps-0 pe-0" onclick="toggle()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
+                            <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
+                        </button>
+                        <li class="d-none d-sm-none d-md-block d-lg-block d-xl-none" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
+                        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-none">
+                            <a class="btn btn-log ms-3 px-4" href="{% url 'login' %}">
+                                <h5 class="fw-light my-1">Zaloguj się</h5>
+                            </a>
+                            <a class="btn btn-register ms-3 px-4" href="{% url 'register' %}">
+                                <h5 class="fw-light my-1">Dołącz teraz</h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <div class="navbar-nav ms-auto">
+                            <a class="nav-link btn-nav px-4" href="/">
+                                <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
+                            </a>
+                            <li class="nav-item px-0 dropdown">
+                                <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle" href="#" data-bs-toggle="dropdown" style="padding-top: 12px; padding-bottom: 12px; font-size: 20px; line-height: 24px">
+                                    Artykuły
+                                    <i class="fa-solid fa-angle-down fa-2xs "></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4">
+                                    <div class="row g-3">
+                                        <div class="col-5 mb-3">
+                                            <h5 class="title fw-bold" style="color:navy;">Kategorie</h5>
+                                            <ul class="list-unstyled">
+                                                {% for ca in category|slice:":5"%}
+                                                    {% if forloop.first %}
+                                                        <li style="margin-top: 12px">
+                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                                {{ ca.name }}
+                                                            </a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li style="margin-top: 6px">
+                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                                {{ ca.name }}
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <li style="margin-top: 6px; position: absolute; bottom: 40px">
+                                                    <a class="fw-bold border-bottom show-all" href="{% url 'category-all' %}">
+                                                        Pokaż wszystkie
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-7">
+                                            <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
+                                            <ul class="list-unstyled">
+                                                {% for post in po reversed %}
+                                                    {% if forloop.counter == 2 or forloop.counter == 3 %}
+                                                       <li>
+                                                            <a href="{% url 'article-detail' post.id %}" class="sub-item" style="text-decoration: none">
+                                                                <div class="container">
+                                                                    <div class="row pb-2">
+                                                                        <div class="col-4 ps-0" style="max-height: 100px; max-width: 100px">
+                                                                            <img class="card-photo text-left" src="{{ post.background.url }}" alt="{{ post.id }}" style="max-height: 100px; max-width: 100px">
+                                                                        </div>
+                                                                        <div class="col-8 p-0">
+                                                                            <div>{{ post.title|truncatechars:35 }}</div>
+                                                                            <div style="color: rgba(0,0,0,0.5)">{{ post.date_posted | date:"j E Y" }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <li style="margin-top: 6px">
+                                                    <a class="fw-bold border-bottom show-all" href="#" style="">
+                                                        Pokaż wszystkie
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+						    </li>
+                            <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
+                                <h5 class="text-center text-md-start fw-light my-1">O autorze</h5>
+                            </a>
+                            <li class="d-none d-xl-block" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
+                            <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-log px-4 border" href="{% url 'login' %}">
+                                <h5 class="fw-light my-1">Zaloguj się</h5>
+                            </a>
+                            <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-register px-4" href="{% url 'register' %}">
+                                <h5 class="fw-light my-1">Dołącz teraz</h5>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </nav>
+            </nav>
+        {% endif %}
 {% endblock %}
 
 {% block content %}
     <div class="bg-body-tertiary ">
-        <div class="container text-center pb-3 pt-4 px-5">
+        <div class="container text-center pb-3 pt-4 px-5 px-sm-3 px-md-5">
             <div class="container text-center">
                 <div class="row">
-                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0">
-                    </div>
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
                     <div class="col p-0">
-                        <div class="card-title" style="text-align: center; color: #000080">
-                            <h1 style="display: inline-block; text-align: left;">
-                                {{ blog.title }}
-                            </h1>
-                            <div class="container text-center">
-                                <div class="row row-cols-3">
-                                    <div class="col-3 text-start p-0">
-                                        <small class="text-muted">{{ blog.date_posted | date:"j E Y" }}</small>
+                        <div class="py-2 mx-5 px-5 text-center">
+                            {% for category in posts.category.all %}
+                                <a style="text-decoration: none !important;" href="{% url 'category-detail' category.id %}">
+                                    <span class="text-muted text-black badge rounded-pill mt-2 px-3 py-2 fw-light" style="background-color: #eff1f3">
+                                        {{ category.name }}
+                                    </span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                        <h1 class="text-center py-3" style="color:navy;"> {{ posts.title }}</h1>
+                        <div class="row pb-4">
+                            <div class="col">
+                                <div class="row pe-2">
+                                    <div class="d-flex justify-content-end p-0">
+                                        <a href="{% url 'author-detail' posts.author.author.pk %}">
+                                            <img class="card-photo rounded-circle p-0" src="{{ posts.author.author.profile_pic.url }}" alt="Author article profile picture" style="height: 48px; width: 48px">
+                                        </a>
                                     </div>
-                                    <div class="col-9 ps-3 ps-md-0 p-0">
-                                        <hr style="color:darkgoldenrod; opacity: 0.75">
+                                </div>
+                            </div>
+                            <div class="col my-auto ps-2">
+                                <div class="row text-start">
+                                    <small class="ps-2 fw-bold text-capitalize">
+                                        <a class="first-post" style="text-decoration: none" href="{% url 'author-detail' posts.author.author.pk %}">
+                                            {% if posts.author.author.user.first_name and posts.author.author.user.last_name %}
+                                                    {{ posts.author.author.user.first_name }} {{ posts.author.author.user.last_name }}
+                                                {% elif posts.author.author.user.first_name %}
+                                                    {{ posts.author.author.user.first_name }}
+                                                {% elif posts.author.author.user.last_name %}
+                                                    {{ posts.author.author.user.last_name }}
+                                                {% else %}
+                                                    {{ posts.author.author.user.username }}
+                                            {% endif %}
+                                        </a>
+                                    </small>
+                                </div>
+                                <div class="row text-start">
+                                    <small class="ps-2 fw-light text-capitalize" style="color: rgba(0,0,0, .6)">
+                                        {{ posts.date_posted | date:"j E Y" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
+                </div>
+                <div class="row">
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 d-none d-lg-block p-0 "></div>
+                    <div class="col pt-3 p-0">
+                        <div class="card-title card-text" style="text-align: center; color: #000080;">
+                            <div style="display: inline-block; text-align: left; max-width: 100%;">
+                                {{ posts.content | safe }}
+                            </div>
+                            <hr class="mt-5 text-sm">
+                        </div>
+                    </div>
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
+                </div>
+                <div class="row">
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 d-none d-lg-block p-0 "></div>
+                    <div class="col p-0">
+                        <div class="card-title card-text" style="text-align: center; color: #000080;">
+                            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-0">
+                                <div class="col-md-5 mx-auto d-flex align-items-center">
+                                    <h5 class="mb-3 mb-md-0 fw-light" style="color: navy">Podziel się tym artykułem</h5>
+                                </div>
+                                <ul class="nav col-sm-12 col-md-7 px-sm-2 px-md-0 mx-auto justify-content-sm-center justify-content-md-end list-unstyled d-flex">
+                                    <div class=" text-end">
+                                        <button class="btn btn-log me-2" style="min-height: 42px;">
+                                            <i class="fa-regular fa-copy pe-2"></i>Kopiuj link
+                                        </button>
+                                        <button class="btn btn-socialmedia btn-bookmark rounded-circle">
+                                            <i class="fa-solid fa-bookmark"></i>
+                                        </button>
+                                        <button class="btn btn-socialmedia btn-facebook rounded-circle">
+                                            <i class="fab fa-facebook"></i>
+                                        </button>
+                                        <button class="btn btn-socialmedia btn-twitter rounded-circle">
+                                            <i class="fab fa-twitter"></i>
+                                        </button>
+                                        <button class="btn btn-socialmedia btn-linkedin rounded-circle">
+                                            <i class="fab fa-linkedin"></i>
+                                        </button>
+                                    </div>
+                                </ul>
+                            </footer>
+                        </div>
+                    </div>
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
+                </div>
+                <div class="row">
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 d-none d-lg-block p-0 "></div>
+                    <div class="col p-0">
+                        <div class="card-title card-text pt-5 mt-5" style="text-align: start; color: navy;">
+                            <h2 class="fst-italic" style="font-family: 'Mr De Haviland', cursive;">O autorze</h2>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col-12 pb-3 pb-sm-0 col-sm-3 col-md-2 col-xl-2">
+                                <a class="card-link" href="{% url 'author-detail' posts.author.author.pk %}">
+                                    <img class="card-photo rounded-circle" src="{{ posts.author.author.profile_pic.url }}" alt="Author article profile picture" style="height: 96px; width: 96px">
+                                </a>
+                            </div>
+                            <div class="col-12 col-sm-9 col-md-10 col-xl-10 ps-auto ps-sm-0 ps-md-3 ps-lg-0">
+                                <div class="row">
+                                    <div class="col-12 ps-0 ps-sm-3 ps-md-3 ps-lg-3 ps-xl-3">
+                                        <small class="fw-bold">
+                                            <a class="first-post" style="text-decoration: none;" href="{% url 'author-detail' posts.author.author.pk %}">
+                                                <h4 class="first-post text-capitalize text-center text-sm-start">
+                                                    {% if posts.author.author.user.first_name and posts.author.author.user.last_name %}
+                                                        {{ posts.author.author.user.first_name }} {{ posts.author.author.user.last_name }}
+                                                    {% elif posts.author.author.user.first_name %}
+                                                        {{ posts.author.author.user.first_name }}
+                                                    {% elif posts.author.author.user.last_name %}
+                                                        {{ posts.author.author.user.last_name }}
+                                                    {% else %}
+                                                        {{ posts.author.author.user.username }}
+                                                    {% endif %}
+                                                </h4>
+                                            </a>
+                                            <p class="text-black fw-light text-start" style="font-size: 16px">
+                                                {{ posts.author.author.bio }}
+                                            </p>
+                                        </small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 d-none d-lg-block p-0 ">
-                        <div class="btn-group-vertical sticky-top pt-3" role="group" aria-label="Vertical button group" style="left: -30px;">
-                            <a class="border-color border-comment text-center px-3 py-3 border border-bottom-0 border-bottom-0" href="" style="background-color: navy">
-                                <h2 class="p-0 m-0" style="font-family: 'Mr De Haviland', cursive;">12</h2>
-                            </a>
-                            <a class="border-color text-center p-3 border border-half" href="">
-                                <i class="text-center fa-brands fa-facebook fa-2xl"></i>
-                            </a>
-                            <a class="border-color text-center p-3 border border-half" href="">
-                                <i class="text-center fa-brands fa-twitter fa-2xl"></i>
-                            </a>
-                            <a class="border-color text-center p-3 border border-half" href="">
-                                <i class="text-center fa-brands fa-instagram fa-2xl"></i>
-                            </a>
-                            <a class="border-color text-center p-3 border border-half" href="">
-                                <i class="text-center fa-brands fa-pinterest-p fa-2xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-0 p-0 d-none d-lg-block d-xl-none"></div>
-                    <div class="col pt-3 p-0">
-                        <div class="card-title card-text" style="text-align: center; color: #000080;">
-                            <div style="display: inline-block; text-align: left; max-width: 100%;">
-                                {{ blog.content | safe }}
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
-                    Zrobić pasek udostępniania pod treścią i  dalej tak jak jest u vintage czyli polecane
                 </div>
             </div>
+        </div>
+    </div>
+{% endblock %}
 
+{% block newsletter %}
+    <div class="bg-body-tertiary pt-4 px-4 pb-4">
+        <div class="container shadow rounded" style="background-color: rgb(25, 138, 80)">
+            <div class="container p-5">
+                <div class="row">
+                    <div class="col-12 col-lg-6 text-start text-white">
+                        <h5 class="fw-bold">Dołącz do naszego biuletynu</h5>
+                        <h6 class="fw-light">Raz w tygodniu wyślemy Ci przyjemną wiadomość. Bez zbędnego spamu.</h6>
+                    </div>
+                    <div class="col-12 col-lg-6 pt-3 pt-lg-0 d-flex align-items-center">
+                        <div class="input-group p-3 bg-body-tertiary rounded shadow">
+                            <input type="email" maxlength="256" class="form-control form-subscribe bg-body-tertiary border-0 me-4" placeholder="Wprowadź mail">
+                            <button class="btn btn-register rounded px-3">Subskrybuj</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foo %}
+    <div class="bg-body-tertiary">
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-3">
+                <div class="col-sm-12 col-md-12 col-lg-2 mx-auto justify-content-start d-flex align-items-center">
+                    <img class="img mx-sm-auto mx-auto mx-lg-0 img-fluid d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 48px">
+                </div>
+                <ul class="nav col-sm-12 col-md-12 col-lg-10 mx-auto justify-content-center justify-content-lg-end list-unstyled d-flex">
+                    <div class="text-end">
+                        <ul class="nav ">
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="#">
+                                    <h5 class="fw-light my-1">Artykuły</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="{% url 'author-all' %}">
+                                    <h5 class="fw-light my-1">O autorze</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="#">
+                                    <h5 class="fw-light my-1">Regulamin serwisu</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="#">
+                                    <h5 class="fw-light my-1">Polityka prywatności</h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+            </footer>
+            <hr class="mt-4 text-sm">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+                <div class="col-12 col-md-6 mx-auto d-flex align-items-center justify-content-center justify-content-md-start">
+                    <span class="mb-3 mb-md-0 fw-light" style="color: navy">© 2023 Banknoty. Wszelkie prawa zastrzeżone.</span>
+                </div>
+                <ul class="nav col-12 col-sm-12 col-md-6 px-sm-2 px-md-0 mx-auto justify-content-center justify-content-md-end list-unstyled d-flex">
+                    <div class=" text-end">
+                        <button class="btn btn-socialmedia btn-facebook rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-facebook"></i>
+                        </button>
+                        <button class="btn btn-socialmedia btn-twitter rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="btn btn-socialmedia btn-linkedin rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-linkedin"></i>
+                        </button>
+                        <button class="btn btn-socialmedia btn-github rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-github"></i>
+                        </button>
+                    </div>
+                </ul>
+            </footer>
         </div>
     </div>
 {% endblock %}

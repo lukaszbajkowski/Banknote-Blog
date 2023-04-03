@@ -1,4 +1,3 @@
-
 .img {
   max-width: 100%;
   height: 120px !important;
@@ -42,30 +41,63 @@
 
 .card-text > div > * > img {
     max-width: 100% !important;
+    box-shadow: 0 .5rem 1rem rgba(33,37,41, .15)!important;
+    border-radius: 4px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
 }
 
-.card-text > div > * > img {
-    max-width: 100% !important;
+.card-text > div > *:has(img){
+    text-indent: 0%;
 }
 
 .card-text > div > * {
     color: black;
 }
 
+.card-text > div > * {
+    text-indent: 5%;
+}
+
+.card-text > div > *:has(q),
+.card-text > div > q {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    border-left: navy 3px solid;
+    color: navy;
+    text-indent: 0%;
+    padding-top: .5rem;
+    padding-bottom: 1rem;
+}
+
+.card-text > div > *:has(q):before,
+.card-text > div > q:before {
+    content: '\f10d';
+    font-family: 'Font Awesome 5 Free';
+    left: -1rem;
+    font-size: 2rem;
+    position: relative;
+    text-indent: 0%;
+}
+
 .card-text > div > * > * > * > * > a , .card-text > div > * > * > * > * > a :visited,
 .card-text > div > * > * > * > a , .card-text > div > * > * > * > a :visited,
 .card-text > div > * > * > a , .card-text > div > * > * > a :visited,
 .card-text > div > * > a , .card-text > div > * > a :visited  {
-    color: rgba(0, 0, 128, 0.7) !important;
+    color: rgba(0, 0, 128, 0.7) ;
     text-decoration: none !important;
+    text-indent: 0%;
 }
 
 .card-text > div > * > * > * > * > a:hover,
 .card-text > div > * > * > * > a:hover,
 .card-text > div > * > *>  a :hover,
 .card-text > div > * > a :hover {
-    color: #000080 !important;
+    color: #000080;
     text-decoration: underline !important;
+    text-indent: 0%;
 }
 
 .card-text > div > * > * > h1,
@@ -87,6 +119,7 @@
 .card-text > div > h5,
 .card-text > div > h6 {
     color: #000080 !important;
+    text-indent: 0%;
 }
 
 .card-link{
@@ -159,9 +192,10 @@
     border-color: rgba(0,0,0,0);
 }
 
-.btn-list {
+.btn-list, .btn-facebook-opacity, .btn-twitter-opacity, .btn-instagram-opacity, .btn-pinterest-opacity {
     color: navy;
     border-color: rgba(0,0,0,0) !important;
+    transition: .2s;
 }
 
 .btn.btn-list:active,
@@ -170,6 +204,42 @@
     color: navy;
     background-color: rgba(0, 0, 128, 0.1);
     border-color: rgba(0,0,0,0);
+    transition: .2s;
+}
+
+.btn.btn-facebook-opacity:active,
+.btn.btn-facebook-opacity:hover,
+.btn.btn-facebook-opacity:focus {
+    color: rgb(24, 119, 242);
+    background-color: rgba(24, 119, 242, 0.1);
+    border-color: rgba(0,0,0,0);
+    transition: .2s;
+}
+
+.btn.btn-twitter-opacity:active,
+.btn.btn-twitter-opacity:hover,
+.btn.btn-twitter-opacity:focus {
+    color: rgb(29, 161, 242);
+    background-color: rgba(29, 161, 242, 0.1);
+    border-color: rgba(0,0,0,0);
+    transition: .2s;
+}
+
+.btn.btn-instagram-opacity:active,
+.btn.btn-instagram-opacity:hover,
+.btn.btn-instagram-opacity:focus {
+    color: rgb(0, 0, 0);
+    background-color: rgba(172, 43, 172, 0.1);
+    transition: .2s;
+}
+
+.btn.btn-pinterest-opacity:active,
+.btn.btn-pinterest-opacity:hover,
+.btn.btn-pinterest-opacity:focus {
+    color: rgba(230, 0, 35, 1);
+    background-color: rgba(230, 0, 35, 0.1);
+    border-color: rgba(0,0,0,0);
+    transition: .2s;
 }
 
 .btn-logout {
@@ -192,12 +262,35 @@
     color: rgba(0, 0, 128, 0.5);
 }
 
+.btn-nav:focus-visible {
+    border: none;
+    color: rgba(0, 0, 128, 0.5);
+}
+
+.nav-link:hover {
+    color: rgba(0, 0, 128, 0.5);
+}
+
+
 .btn-socialmedia {
     transition: 0.2s;
     min-width: 42px;
     min-height: 42px;
     margin-left: 2px;
     margin-right: 2px;
+}
+
+.btn-bookmark {
+    transition: 0.2s;
+}
+
+.btn.btn-bookmark:active,
+.btn.btn-bookmark:hover,
+.btn.btn-bookmark:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgba(0, 0, 128, 0.7) !important;
+    border-color: rgba(0,0,0,0);
 }
 
 .btn-facebook {
@@ -239,6 +332,32 @@
     border-color: rgba(0,0,0,0);
 }
 
+.btn-instagram {
+    transition: 0.2s;
+}
+
+.btn.btn-instagram:active,
+.btn.btn-instagram:hover,
+.btn.btn-instagram:focus {
+    transition: 0.2s;
+    color: white;
+    background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+
+.btn-pinterest {
+    transition: 0.2s;
+}
+
+.btn.btn-pinterest:active,
+.btn.btn-pinterest:hover,
+.btn.btn-pinterest:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(230, 0, 35);
+    border-color: rgba(0,0,0,0);
+}
+
 .btn-github {
     transition: 0.2s;
 }
@@ -251,6 +370,49 @@
     background-color: rgb(23, 21, 21);
     border-color: rgba(0,0,0,0);
 }
+
+.btn-arrow {
+    transition: 0.2s;
+    background-color: #f8f9fa;
+    color: navy;
+    border-color: navy;
+    min-height: 38px;
+    min-width: 38px;
+}
+
+.btn-arrow:active,
+.btn-arrow:hover,
+.btn-arrow:focus {
+    transition: 0.2s;
+    background-color: rgba(0, 0, 128, 0.1);
+    color: navy;
+    border-color: navy;
+}
+
+.btn-arrow-active {
+    transition: 0.2s;
+    background-color: #000066;
+    color: white;
+    border-color: #000066;
+    min-height: 38px;
+    min-width: 38px;
+}
+
+.btn-arrow-active:active,
+.btn-arrow-active:hover,
+.btn-arrow-active:focus {
+    transition: 0.2s;
+    background-color: #000059;
+    color: white;
+    border-color: #000059;
+    box-shadow: 0 4px 11px rgba(0, 0, 89, 0.3);
+}
+
+.btn-arrow-right {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
 
 .form {
     position: relative;
@@ -267,11 +429,11 @@
     display: none;
   }
 
-.form-control:focus {
-    border-color: dodgerblue;
-    outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(30, 144, 255, 0.4);
-}
+/*.form-control:focus {*/
+/*    border-color: dodgerblue;*/
+/*    outline: 0;*/
+/*    box-shadow: 0 0 0 .25rem rgba(30, 144, 255, 0.4);*/
+/*}*/
 
 .already_link {
     color: rgb(0, 0, 128);
@@ -321,6 +483,149 @@
 #btn-bars {
     transition: 0.2s;
 }
+
+.dropdown-large{ padding:1rem; }
+
+@media all and (min-width: 992px) {
+    .dropdown-large {
+        min-width:500px;
+    }
+}
+
+@media all and (min-width: 1200px) {
+	.navbar .dropdown-menu-end {
+        right:0; left: auto;
+    }
+
+	.navbar .nav-item .dropdown-menu {
+        display:block; opacity: 0;
+        visibility: hidden;
+        transition:.3s;
+        margin-top:0;
+    }
+
+	.navbar .dropdown-menu.fade-down {
+        top:80%;
+        transform: rotateX(-75deg);
+        transform-origin: 0% 0%;
+    }
+
+	.navbar .dropdown-menu.fade-up {
+        top:180%;
+    }
+
+	.navbar .nav-item:hover .dropdown-menu {
+        transition: .3s;
+        opacity:1;
+        visibility:visible;
+        top:100%;
+        transform: rotateX(0deg);
+    }
+
+    #dropdown-margin-minus {
+        margin-left: -365px;
+    }
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.show-all {
+    text-decoration: none !important;
+    padding-bottom: 2px;
+    color: navy;
+    transition: .2s;
+    border-color: navy !important;
+}
+
+.show-all:hover {
+    border: none !important;
+    transition: .2s;
+}
+
+.sub-item {
+    text-decoration: none;
+    color: rgba(0, 0, 128, 0.5);
+}
+
+.sub-item:hover {
+    text-decoration: none;
+    color: rgba(0, 0, 128, 1);
+}
+
+.btn-subscribe {
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+.btn.btn-subscribe:active,
+.btn.btn-subscribe:hover,
+.btn.btn-subscribe:focus {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    border-color: black;
+    box-shadow: white;
+}
+
+.form-subscribe {
+    color: navy; !important;
+}
+
+.form-subscribe:active,
+.form-subscribe:hover {
+    color: navy; !important;
+}
+
+.form-subscribe:focus {
+    color: navy; !important;
+    box-shadow: 0 0 0 .25rem rgba(0, 0, 0, 0) !important;
+}
+
+::placeholder {
+  color: navy !important;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: navy !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: navy !important;
+}
+
+.first-post {
+    color: navy;
+    transition: .2s;
+}
+
+.first-post:hover {
+    color: #fdc500;
+    transition: .2s;
+}
+
+.text-black {
+    transition: .2s;
+}
+
+.text-black:hover {
+    color: black !important;
+    transition: .2s;
+}
+
+.cateogry-list {
+    color: #fdc500 !important;
+    transition: .2s;
+}
+
+.cateogry-list:hover {
+    color: rgba(248, 249, 250, 1) !important;
+    transition: .2s;
+}
+
+
 
 
 

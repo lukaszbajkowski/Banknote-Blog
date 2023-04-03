@@ -4,16 +4,26 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.utils.translation import gettext as _
 
 
 def validate_bio(value):
-    if len(value) > 255:
-        raise ValidationError('O autorze może zawierać maksymalnie 256 znaków.')
+    if len(value) > 512:
+        raise ValidationError('O autorze może zawierać maksymalnie 512 znaków.')
 
 
 def validate_content(value):
-    if len(value) > 255:
+    if len(value) > 256:
         raise ValidationError('Komentarz może zawierać maksymalnie 256 znaków.')
+
+
+def validate_introduction(value):
+    max_words = 50
+    if len(value.split()) > max_words:
+        raise ValidationError(
+            _("Wstpę może zawierać maksymalnie %(max_words)s słów."),
+            params={'max_words': max_words},
+        )
 
 
 def validate_facebook(value):
@@ -36,10 +46,29 @@ def validate_pinterest(value):
         raise ValidationError('Adres nie jest od pinteresta.')
 
 
+def validate_category(value):
+    if len(value) > 256:
+        raise ValidationError('Kategoria może zawierać maksymalnie 256 znaków.')
+
+
+def validate_category_description(value):
+    if len(value) > 512:
+        raise ValidationError('Opis kategori może zawierać maksymalnie 512 znaków.')
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=256, blank=False, validators=[validate_category], verbose_name="Kategorie")
+    description = models.TextField(blank=False, validators=[validate_category_description], verbose_name='Opis')
+
+    def __str__(self):
+        return self.name
+
+
 # Model dla wpisu
 class Blog(models.Model):
     title = models.CharField(max_length=122, verbose_name="Tytuł")
     content = RichTextField(verbose_name="Treść")
+    introduction = models.TextField(validators=[validate_introduction], verbose_name="Wstęp", null=True)
     background = models.ImageField(
         null=False, blank=False,
         upload_to="images/post/",
@@ -48,6 +77,7 @@ class Blog(models.Model):
     date_edited = models.DateTimeField(auto_now=True, verbose_name="Data ostatniej edycji")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor")
     favorite = models.BooleanField(null=False, blank=False, default=False, verbose_name='Czy wyróżnić post?')
+    category = models.ManyToManyField(Category, max_length=256, blank=False, verbose_name="Kategorie", help_text="Wyświetlą się maksymalnie trzy kategorie.<br/> <br/>")
 
     def __str__(self):
         if str(self.author.first_name) and str(self.author.last_name):
@@ -85,7 +115,7 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Użytkownik")
     bio = models.TextField(
         validators=[validate_bio],
-        verbose_name="O autorze", help_text="Krótka informacja o autorze, maksymalnie 256 znaków.")
+        verbose_name="O autorze", help_text="Krótka informacja o autorze, maksymalnie 512 znaków.")
     profile_pic = models.ImageField(
         null=True, blank=True,
         upload_to="images/profile/",

@@ -14,3 +14,30 @@ function toggle(){
        document.getElementById("btn-bars").className = "fa-solid fa-bars fa-lg btn-nav";
 }
 
+document.addEventListener("DOMContentLoaded", function(){
+	        /////// Prevent closing from click inside dropdown
+	        document.querySelectorAll('.dropdown-menu').forEach(function(element){
+	        	element.addEventListener('click', function (e) {
+	        		e.stopPropagation();
+	        	});
+	        })
+	    });
+
+document.addEventListener('DOMContentLoaded', function () {
+    let footerheight = document.querySelector("footer").offsetHeight;
+    document.querySelector("body").style.paddingBottom = footerheight;
+});
+
+
+
+
+const swiper = new Swiper('.swiper', {
+  direction: 'horizontal',
+  loop: true,
+
+   navigation: {
+    nextEl: '.next',
+    prevEl: '.prev',
+  },
+
+})

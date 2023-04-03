@@ -2,13 +2,28 @@ from django.contrib import admin
 from .models import *
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    list_filter = ('name',)
+    search_fields = ('name',)
+    ordering = ('name',)
+    fieldsets = (
+        ('Kategoria', {
+            'fields': ['name']
+        }),
+        ('Opis', {
+            'fields': ['description']
+        })
+    )
+
+
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date_posted', 'is_backgroud', 'favorite')
     list_filter = ('author', 'date_posted')
+    filter_horizontal = ('category',)
     autocomplete_fields = ['author']
     search_fields = ('author__username',)
     ordering = ('title', 'author__username',)
-    filter_horizontal = ()
     readonly_fields = ('date_posted', 'date_edited')
     fieldsets = (
         ('Autor', {
@@ -18,8 +33,7 @@ class BlogAdmin(admin.ModelAdmin):
             'fields': ['title']
         }),
         ('Treść', {
-            'fields': ('content', 'background'),
-            'description': 'Pierwsze wśród pierwszych pięćdziesięciu słów nie może być ilustracja.',
+            'fields': ('content', 'background', 'introduction', 'category'),
         }),
         ('Dodanie do wyróżnionych', {
             'fields': ['favorite']
@@ -82,3 +96,4 @@ class AuthorAdmin(admin.ModelAdmin):
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Author, AuthorAdmin)
+admin.site.register(Category, CategoryAdmin)
