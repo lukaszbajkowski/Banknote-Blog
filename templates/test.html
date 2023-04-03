@@ -1,0 +1,63 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+
+
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+html, body {
+  width: 100%;
+  height: 100vh;
+}
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  height: inherit;
+  font-size: 40px;
+  color: white;
+}
+.blue {background-color: blue;}
+.red {background-color: red;}
+.green {background-color: limegreen;}
+.orange {background-color: orange;}
+</style>
+
+<script>
+console.clear();
+
+window.onload = () => {
+  const swiperConfig = {
+    direction: 'vertical',
+    mousewheel: true,
+    mousewheelControl: true,
+    loop: true,
+    parallax: true,
+    speed: 500
+  };
+  const divswipe = new Swiper('.swiper-container', swiperConfig);
+};
+</script>
+
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide blue">one</div>
+    <div class="swiper-slide red">two</div>
+    <div class="swiper-slide green">three</div>
+    <div class="swiper-slide orange">four</div>
+  </div>
+</div>
