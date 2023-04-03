@@ -87,3 +87,7 @@ def ProfileListView(request):
         'blog': blog
     }
     return render(request, 'author_list.html', context)
+
+
+def Slider(request):
+    return render(request, 'test.html')

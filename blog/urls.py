@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeView, ArticleDetailView, profile_view, CategoryView, CategoryListView, ProfileListView
+from .views import HomeView, ArticleDetailView, CategoryView, CategoryListView, ProfileListView, Slider
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -12,5 +12,6 @@ urlpatterns = [
     path('category/<str:cats>/', CategoryView, name='category-detail'),
     path('category/', CategoryListView, name='category-all'),
     path('author/all/', ProfileListView, name='author-all'),
+    path('slider/', Slider, name='slider'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
