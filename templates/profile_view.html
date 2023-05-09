@@ -100,7 +100,7 @@
                                     Artykuły
                                     <i class="fa-solid fa-angle-down fa-2xs "></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4" style="right: 0px">
+                                <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4" style="right: 0px" id="dropdown-margin-minus">
                                     <div class="row g-3">
                                         <div class="col-5 mb-3">
                                             <h5 class="title fw-bold" style="color:navy;">Kategorie</h5>
@@ -108,13 +108,13 @@
                                                 {% for ca in category|slice:":5"%}
                                                     {% if forloop.first %}
                                                         <li style="margin-top: 12px">
-                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
                                                                 {{ ca.name }}
                                                             </a>
                                                         </li>
                                                     {% else %}
                                                         <li style="margin-top: 6px">
-                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
                                                                 {{ ca.name }}
                                                             </a>
                                                         </li>
@@ -130,8 +130,8 @@
                                         <div class="col-7">
                                             <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
                                             <ul class="list-unstyled">
-                                                {% for post in posts reversed %}
-                                                    {% if forloop.counter == 2 or forloop.counter == 3 %}
+                                                {% for post in blog %}
+                                                    {% if forloop.counter == 1 or forloop.counter == 2 %}
                                                        <li>
                                                             <a href="{% url 'article-detail' post.pk %}" class="sub-item" style="text-decoration: none">
                                                                 <div class="container">
@@ -268,13 +268,13 @@
                                                 {% for ca in category|slice:":5"%}
                                                     {% if forloop.first %}
                                                         <li style="margin-top: 12px">
-                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
                                                                 {{ ca.name }}
                                                             </a>
                                                         </li>
                                                     {% else %}
                                                         <li style="margin-top: 6px">
-                                                            <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
                                                                 {{ ca.name }}
                                                             </a>
                                                         </li>
@@ -290,8 +290,8 @@
                                         <div class="col-7">
                                             <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
                                             <ul class="list-unstyled">
-                                                {% for post in posts reversed %}
-                                                    {% if forloop.counter == 2 or forloop.counter == 3 %}
+                                                {% for post in blog %}
+                                                    {% if forloop.counter == 1 or forloop.counter == 2 %}
                                                        <li>
                                                             <a href="{% url 'article-detail' post.pk %}" class="sub-item" style="text-decoration: none">
                                                                 <div class="container">
@@ -329,6 +329,7 @@
                             <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-register px-4" href="{% url 'register' %}">
                                 <h5 class="fw-light my-1">Dołącz teraz</h5>
                             </a>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -341,8 +342,8 @@
             <div class="container text-center">
                 <div class="row rounded align-middle d-flex align-items-center justify-content-center" style="min-height: 300px; background-image: url('{% static 'images/profile_background.jpg' %}');">
                     <div>
-                        <img class="p-0 rounded-circle shadow-lg" src="{{ user_account.profile_pic.url }}" style="height:144px; max-height: 144px; max-width: 144px; border: 1px solid rgba( 255, 255, 255, 0.18 );">
-                        <h3 class="pt-1 text-capitalize" style="color: navy">
+                        <img class="img rounded-circle shadow" style="aspect-ratio: 1/1 !important; object-fit: cover; object-position: center;" src="{{ user_account.profile_pic.url }}" >
+                        <h3 class="pt-2 text-capitalize" style="color: navy">
                             {% if user_account.user.first_name and user_account.user.last_name %}
                                 {{ user_account.user.first_name }} {{ user_account.user.last_name }}
                             {% elif user_account.user.first_name %}

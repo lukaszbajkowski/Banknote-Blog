@@ -28,16 +28,37 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector("body").style.paddingBottom = footerheight;
 });
 
+window.onload = () => {
+    const swiperConfig = {
+        direction: 'horizontal',
+        mousewheel: {
+            invert: true,
+            forceToAxis : true,
+        },
+        mousewheelControl: true,
+        releaseOnEdges: true,
+        slidesPerView: 2,
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop: true,
+        parallax: true,
+        speed: 1000,
+        keyboard: {
+            enabled: true,
+            onlyInViewport: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            dynamicBullets: true,
+        },
+        autoplay: {
+            delay: 2000,
+        },
+        fadeEffect: {
+            crossFade: true
+        },
+    };
 
-
-
-const swiper = new Swiper('.swiper', {
-  direction: 'horizontal',
-  loop: true,
-
-   navigation: {
-    nextEl: '.next',
-    prevEl: '.prev',
-  },
-
-})
+  const divswipe = new Swiper('.swiper-container', swiperConfig);
+};

@@ -5,6 +5,7 @@ from django.core.validators import URLValidator
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.translation import gettext as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 def validate_bio(value):
@@ -56,6 +57,16 @@ def validate_category_description(value):
         raise ValidationError('Opis kategori może zawierać maksymalnie 512 znaków.')
 
 
+def validate_author_quote(value):
+    if len(value) > 128:
+        raise ValidationError('Cytat autora może zawierać maksymalnie 128 znaków.')
+
+
+def validate_author_function(value):
+    if len(value.split()) > 5:
+        raise ValidationError('Nazwa stanowiska autora może zawierać maksymalnie 5 słów.')
+
+
 class Category(models.Model):
     name = models.CharField(max_length=256, blank=False, validators=[validate_category], verbose_name="Kategorie")
     description = models.TextField(blank=False, validators=[validate_category_description], verbose_name='Opis')
@@ -70,7 +81,8 @@ class Blog(models.Model):
     content = RichTextField(verbose_name="Treść")
     introduction = models.TextField(validators=[validate_introduction], verbose_name="Wstęp", null=True)
     background = models.ImageField(
-        null=False, blank=False,
+        null=False,
+        blank=False,
         upload_to="images/post/",
         verbose_name="Tło wpisu")
     date_posted = models.DateTimeField(auto_now_add=True, verbose_name="Data publikacji")
@@ -117,9 +129,19 @@ class Author(models.Model):
         validators=[validate_bio],
         verbose_name="O autorze", help_text="Krótka informacja o autorze, maksymalnie 512 znaków.")
     profile_pic = models.ImageField(
-        null=True, blank=True,
+        null=False, blank=False,
         upload_to="images/profile/",
         verbose_name="Zdjęcie profilowe")
+    author_quote = models.TextField(null=False,
+                                    blank=False,
+                                    validators=[validate_author_quote],
+                                    verbose_name='Cytat autora',
+                                    help_text="Krótkie motto autora, maksymalnie 128 znaków.")
+    author_function = models.TextField(null=False,
+                                       blank=False,
+                                       validators=[validate_author_function],
+                                       verbose_name='Stanowisko autora',
+                                       help_text="Nazwa funkcji jaką pełni autor.")
     author_url = models.URLField(null=True, blank=True, verbose_name="URL do strony użytkowanika")
     pinterest_url = models.URLField(
         validators=[validate_pinterest],
@@ -194,11 +216,76 @@ class Author(models.Model):
     is_instagram_url.boolean = True
     is_instagram_url.short_description = 'Instagram page'
 
-# 1. Model postu blogowego:
-# - Tytuł postu
-# - Autor
-# - Data publikacji
-# - Treść postu
-# - Kategoria
-# - Tagi
-# - Komentarze
+
+class User(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Mężczyzna'),
+        ('K', 'Kobieta'),
+        ('I', 'Inna'),
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Użytkownik")
+    bio = models.TextField(
+        null=False,
+        blank=True,
+        validators=[validate_bio],
+        verbose_name="Bio",
+        help_text="Krótka informacja o użytkowniku, maksymalnie 512 znaków.")
+    profile_pic = models.ImageField(
+        null=False,
+        blank=False,
+        default="images/profile/1.png",
+        upload_to="images/user/",
+        verbose_name="Zdjęcie profilowe")
+    phone_number = PhoneNumberField(
+        region='PL',
+        null=True,
+        blank=True,
+        unique=True,
+        verbose_name="Numer telefonu")
+    gender = models.CharField(
+        choices=GENDER_CHOICES,
+        null=False,
+        blank=False,
+        default='Mężczyzna',
+        verbose_name="Płeć",
+        max_length=6
+    )
+
+    def __init__(self, *args, temp=65, **kwargs):
+        self.temp = temp
+        return super().__init__(*args, **kwargs)
+
+    def __str__(self):
+        return "Użytkownik | " + str(self.user).capitalize()
+
+    def is_profile_pic(self):
+        if self.profile_pic == "images/profile/1.png":
+            return False
+        else:
+            return True
+
+    is_profile_pic.boolean = True
+    is_profile_pic.short_description = 'Zdjęcie profilowe'
+
+    def is_bio(self):
+        if self.bio:
+            return True
+        else:
+            return False
+
+    is_bio.boolean = True
+    is_bio.short_description = 'Bio'
+
+    def is_phone_number(self):
+        if self.phone_number:
+            return True
+        else:
+            return False
+
+    is_phone_number.boolean = True
+    is_phone_number.short_description = 'Phone number'
+
+

@@ -65,7 +65,7 @@ class CommentAdmin(admin.ModelAdmin):
             'fields': ['blog']
         }),
         ('Data utworzenia', {
-            'fields': ['date_posted',],
+            'fields': ['date_posted', ],
             'classes': ('collapse',)
         }),
     )
@@ -73,7 +73,8 @@ class CommentAdmin(admin.ModelAdmin):
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'is_profile_pic', 'is_author_url', 'is_facebook_url', 'is_twitter_url', 'is_instagram_url', 'is_pinterest_url')
+        'user', 'is_profile_pic', 'is_author_url', 'is_facebook_url', 'is_twitter_url', 'is_instagram_url',
+        'is_pinterest_url')
     list_filter = ['user']
     autocomplete_fields = ['user']
     search_fields = ['user__username']
@@ -84,7 +85,11 @@ class AuthorAdmin(admin.ModelAdmin):
         }),
         ('Informacje o autorze', {
             'fields': ('bio', 'profile_pic', 'author_url'),
-            'description': 'Informacje na temat autora potrzebne do stworzenia strony o nim.',
+            'description': 'Informacje na temat autora potrzebne do strony o nim.',
+        }),
+        ('Wizytówka autora', {
+            'fields': ('author_quote', 'author_function',),
+            'description': 'Informacje na temat autora potrzebne do jego wizytówki.',
         }),
         ('Linki do mediów społecznościowych autora', {
             'fields': ('facebook_url', 'twitter_url', 'instagram_url', 'pinterest_url'),
@@ -93,7 +98,26 @@ class AuthorAdmin(admin.ModelAdmin):
     )
 
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = (
+        'user', 'is_profile_pic', 'is_bio', 'is_phone_number')
+    # list_filter = ('User__is_profile_pic',)
+    autocomplete_fields = ['user']
+    search_fields = ['user__username']
+    ordering = ['user__username']
+    fieldsets = (
+        ('Autor', {
+            'fields': ['user']
+        }),
+        ('Informacje o użytkowniku', {
+            'fields': ('profile_pic', 'bio', 'phone_number', 'gender'),
+            'description': 'Informacje dodatkowe na temat użytkownika rozszerzające bazowy model User.',
+        }),
+    )
+
+
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(User, UserAdmin)

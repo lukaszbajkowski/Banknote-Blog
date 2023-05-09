@@ -64,7 +64,7 @@
                                             <i class="fa-solid fa-bookmark me-2"></i>
                                             Moje posty
                                         </button>
-                                        <button class="btn btn-list" href="#" style="text-align: left; ">
+                                        <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
                                             <i class="fa-solid fa-gear me-2"></i>
                                             Ustawienia
                                         </button>
@@ -121,8 +121,8 @@
                                         <div class="col-7">
                                             <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
                                             <ul class="list-unstyled">
-                                                {% for post in blog %}
-                                                    {% if forloop.counter == 1 or forloop.counter == 2 %}
+                                                {% for post in blog|slice:":2" %}
+{#                                                    {% if forloop.counter == 1 or forloop.counter == 2 %}#}
                                                        <li>
                                                             <a href="{% url 'article-detail' post.pk %}" class="sub-item" style="text-decoration: none">
                                                                 <div class="container">
@@ -138,7 +138,7 @@
                                                                 </div>
                                                             </a>
                                                         </li>
-                                                    {% endif %}
+{#                                                    {% endif %}#}
                                                 {% endfor %}
                                                 <li style="margin-top: 6px">
                                                     <a class="fw-bold border-bottom show-all" href="#" style="">
@@ -201,7 +201,7 @@
                                                 <i class="fa-solid fa-bookmark me-2"></i>
                                                 Moje posty
                                             </button>
-                                            <button class="btn btn-list" href="#" style="text-align: left; ">
+                                            <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
                                                 <i class="fa-solid fa-gear me-2"></i>
                                                 Ustawienia
                                             </button>
@@ -415,7 +415,7 @@
                 </h2>
             </div>
             <div class="row px-5 py-2">
-                {% for post in blog|slice:":4" %}
+                {% for post in favorite_blogs|slice:":4" %}
                     {% if post.favorite %}
                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 py-2 py-lg-0 text-white px-3">
                             <a href="{% url 'article-detail' post.pk %}">

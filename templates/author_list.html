@@ -328,5 +328,130 @@
 {% endblock %}
 
 {% block content %}
+    <h2 class="py-4 fst-italic text-center" style="font-family: 'Mr De Haviland', cursive; color: navy">Siła naszego zespołu</h2>
+    <div class="swiper swiper-container">
+        <div class="swiper-wrapper mb-5">
+            {% for author in author %}
+                <div class="swiper-slide">
+                <a class="card-link" href="{% url 'author-detail' author.id %}">
+                    <div class="d-flex justify-content-center pt-3 pb-1">
+                        <?xml version="1.0" ?><svg height="48px" version="1.1" viewBox="0 0 48 48" width="48px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g id="Artboard-Copy" transform="translate(-347.000000, -9.000000)"><path d="M352.377,27.8345 C352.631,28.6105 353.066,29.3245 353.676,29.9645 C354.313,30.6365 355.15,31.1585 356.19,31.5325 C357.225,31.9055 358.559,32.0975 360.205,32.0975 L362.438,32.0975 C362.17,34.8405 361.191,37.1775 359.502,39.1095 C357.813,41.0375 355.469,42.7305 352.475,44.1845 L354.289,46.9995 C358.234,45.3205 361.606,42.8655 364.406,39.6195 C367.209,36.3735 368.602,33.1555 368.602,29.9645 C368.602,26.5365 367.795,23.8485 366.164,21.9065 C364.533,19.9655 362.199,19.0015 359.158,19.0015 C357.234,19.0015 355.557,19.6415 354.135,20.9265 C352.711,22.2115 352,23.7145 352,25.4295 C352,26.2535 352.127,27.0585 352.377,27.8345 M372.775,27.8345 C373.027,28.6105 373.465,29.3245 374.072,29.9645 C374.711,30.6365 375.549,31.1585 376.584,31.5325 C377.623,31.9055 378.957,32.0975 380.602,32.0975 L382.832,32.0975 C382.566,34.8405 381.588,37.1775 379.898,39.1095 C378.207,41.0375 375.867,42.7305 372.871,44.1845 L374.688,46.9995 C378.631,45.3205 382.004,42.8655 384.805,39.6195 C387.606,36.3735 389,33.1555 389,29.9645 C389,26.5365 388.191,23.8485 386.561,21.9065 C384.932,19.9655 382.598,19.0015 379.557,19.0015 C377.629,19.0015 375.955,19.6415 374.533,20.9265 C373.109,22.2115 372.398,23.7145 372.398,25.4295 C372.398,26.2535 372.522,27.0585 372.775,27.8345" fill="#000080FF" id="quote1"/><g id="slices" transform="translate(47.000000, 9.000000)"/></g></g></svg>
+                    </div>
+                    <p class="fs-6 px-2 px-md-5 pb-3 text-center" style="color: black">
+                        "{{ author.author_quote }}"
+                    </p>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <img class="img rounded-circle shadow" style="aspect-ratio: 1/1 !important; object-fit: cover; object-position: center;" src="{{ author.profile_pic.url }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <h3 class="pt-2 text-capitalize" style="color: navy">
+                                {% if author.user.first_name and author.user.last_name %}
+                                    {{ author.user.first_name }} {{ author.user.last_name }}
+                                {% elif author.user.first_name %}
+                                    {{ author.user.first_name }}
+                                {% elif author.user.last_name %}
+                                    {{ author.user.last_name }}
+                                {% else %}
+                                    {{ author.user.username }}
+                                {% endif %}
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <h6 class="pt-0 fw-light text-muted">
+                                {{ author.author_function }}
+                            </h6>
+                        </div>
+                    </div>
+                </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+{% endblock %}
 
+{% block newsletter %}
+    <div class="bg-body-tertiary pt-4 px-4 pb-4">
+        <div class="container shadow rounded" style="background-color: rgb(25, 138, 80)">
+            <div class="container p-5">
+                <div class="row">
+                    <div class="col-12 col-lg-6 text-start text-white">
+                        <h5 class="fw-bold">Dołącz do naszego biuletynu</h5>
+                        <h6 class="fw-light">Raz w tygodniu wyślemy Ci przyjemną wiadomość. Bez zbędnego spamu.</h6>
+                    </div>
+                    <div class="col-12 col-lg-6 pt-3 pt-lg-0 d-flex align-items-center">
+                        <div class="input-group p-3 bg-body-tertiary rounded shadow">
+                            <input type="email" maxlength="256" class="form-control form-subscribe bg-body-tertiary border-0 me-4" placeholder="Wprowadź mail">
+                            <button class="btn btn-register rounded px-3">Subskrybuj</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foo %}
+    <div class="bg-body-tertiary">
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-3">
+                <div class="col-sm-12 col-md-12 col-lg-2 mx-auto justify-content-start d-flex align-items-center">
+                    <img class="img mx-sm-auto mx-auto mx-lg-0 img-fluid d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 48px">
+                </div>
+                <ul class="nav col-sm-12 col-md-12 col-lg-10 mx-auto justify-content-center justify-content-lg-end list-unstyled d-flex">
+                    <div class="text-end">
+                        <ul class="nav ">
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="#">
+                                    <h5 class="fw-light my-1">Artykuły</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="{% url 'author-all' %}">
+                                    <h5 class="fw-light my-1">O autorze</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="#">
+                                    <h5 class="fw-light my-1">Regulamin serwisu</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="#">
+                                    <h5 class="fw-light my-1">Polityka prywatności</h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+            </footer>
+            <hr class="mt-4 text-sm">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+                <div class="col-12 col-md-6 mx-auto d-flex align-items-center justify-content-center justify-content-md-start">
+                    <span class="mb-3 mb-md-0 fw-light" style="color: navy">© 2023 Banknoty. Wszelkie prawa zastrzeżone.</span>
+                </div>
+                <ul class="nav col-12 col-sm-12 col-md-6 px-sm-2 px-md-0 mx-auto justify-content-center justify-content-md-end list-unstyled d-flex">
+                    <div class=" text-end">
+                        <button class="btn btn-socialmedia btn-facebook rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-facebook"></i>
+                        </button>
+                        <button class="btn btn-socialmedia btn-twitter rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="btn btn-socialmedia btn-linkedin rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-linkedin"></i>
+                        </button>
+                        <button class="btn btn-socialmedia btn-github rounded-circle" href="/authentication/sign-in/">
+                            <i class="fab fa-github"></i>
+                        </button>
+                    </div>
+                </ul>
+            </footer>
+        </div>
+    </div>
 {% endblock %}

@@ -9,14 +9,16 @@ def HomeView(request):
     blog_first = Blog.objects.all().order_by('-date_posted')[:1]
     blog = Blog.objects.all().order_by('-date_posted')[1:]
     category = Category.objects.all()
-    paginator = Paginator(blog, 2)  # Show 25 contacts per page.
+    paginator = Paginator(blog, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    favorite_blogs = Blog.objects.filter(favorite=True).order_by('?')
     context = {
         'blog_first': blog_first,
         'blog': blog,
         'category': category,
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'favorite_blogs': favorite_blogs,
     }
     return render(request, 'home.html', context)
 
@@ -25,12 +27,14 @@ def ArticleDetailView(request, pk=None):
     blog_data = Blog.objects.all()
     blog_detail = None
     category = Category.objects.all()
+    random_posts = Blog.objects.order_by('?')[:4]
     if pk:
         blog_detail = get_object_or_404(Blog, id=pk)
     context = {
         'po': blog_data,
         'posts': blog_detail,
         'category': category,
+        'random_posts': random_posts,
     }
     return render(request, 'article_details.html', context)
 
@@ -43,11 +47,13 @@ def profile_view(request, pk):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     category = Category.objects.all()
+    blog = Blog.objects.all().order_by('-date_posted')[1:]
     return render(request, 'profile_view.html', {'posts': posts,
                                                  'posts_num': posts_num,
                                                  'user_account': user_account,
                                                  'page_obj': page_obj,
-                                                 'category': category})
+                                                 'category': category,
+                                                 'blog': blog})
 
 
 def CategoryView(request, cats):
@@ -87,7 +93,3 @@ def ProfileListView(request):
         'blog': blog
     }
     return render(request, 'author_list.html', context)
-
-
-def Slider(request):
-    return render(request, 'test.html')

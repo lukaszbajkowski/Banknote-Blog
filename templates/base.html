@@ -39,10 +39,6 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-/>
         <script src="{% static 'js/script.js' %}"></script>
 
 
@@ -82,6 +78,126 @@
         {% endblock %}
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
         <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+        <script>
+            const passwordInput = document.getElementById("id_new_password1");
+            const passwordInput2 = document.getElementById("id_new_password2");
+            const icon_isSimilar = document.getElementById("isSimilar");
+            const icon_isAtLeast8Chars = document.getElementById("isAtLeast8Chars");
+            const icon_isNotCommon = document.getElementById("isNotCommon");
+            const icon_isNotOnlyNumbers = document.getElementById("isNotOnlyNumbers");
+
+            document.addEventListener("input", function() {
+                const password = passwordInput.value;
+
+                // Check password conditions
+                const isSimilar = checkSimilarity(password);
+                const isAtLeast8Chars = checkLength(password);
+                const isNotCommon = checkCommon(password);
+                const isNotOnlyNumbers = checkOnlyNumbers(password);
+
+                // If password meets all conditions, change icon to checkmark
+                if (!isSimilar) {
+                    icon_isSimilar.classList.remove("fa-x");
+                    icon_isSimilar.classList.add("fa-check");
+                } else {
+                    icon_isSimilar.classList.remove("fa-check");
+                    icon_isSimilar.classList.add("fa-x");
+                }
+                if (isAtLeast8Chars) {
+                    icon_isAtLeast8Chars.classList.remove("fa-x");
+                    icon_isAtLeast8Chars.classList.add("fa-check");
+                } else {
+                    icon_isAtLeast8Chars.classList.remove("fa-check");
+                    icon_isAtLeast8Chars.classList.add("fa-x");
+                }
+                if (!isNotCommon) {
+                    icon_isNotCommon.classList.remove("fa-x");
+                    icon_isNotCommon.classList.add("fa-check");
+                } else {
+                    icon_isNotCommon.classList.remove("fa-check");
+                    icon_isNotCommon.classList.add("fa-x");
+                }
+                if (!isNotOnlyNumbers) {
+                    icon_isNotOnlyNumbers.classList.remove("fa-x");
+                    icon_isNotOnlyNumbers.classList.add("fa-check");
+                } else {
+                    icon_isNotOnlyNumbers.classList.remove("fa-check");
+                    icon_isNotOnlyNumbers.classList.add("fa-x");
+                }
+
+                const password2 = passwordInput2.value;
+                const submitButton = document.getElementById("submit-button");
+                if (isSimilar || !isAtLeast8Chars || isNotCommon || isNotOnlyNumbers) {
+                    submitButton.disabled = true;
+                    submitButton.style.opacity = 0.5;
+                } else {
+                    if (password2.length === password.length) {
+                        submitButton.disabled = false;
+                        submitButton.style.opacity = 1;
+                    } else {
+                        submitButton.disabled = true;
+                        submitButton.style.opacity = 0.5;
+                    }
+                }
+            });
+
+
+
+            function checkSimilarity(password) {
+                // Check if password is too similar to other personal information
+                // Return true if password is too similar, false otherwise
+                const username = "{{ user.username }}";
+                const email = "{{ user.email }}";
+                const first_name = "{{ user.first_name }}";
+                const last_name = "{{ user.last_name }}";
+
+                const similarityThreshold = 0.5; // Change this to adjust the similarity threshold
+
+                const calculateSimilarity = (str1, str2) => {
+                    const set1 = new Set(str1.toLowerCase().split(""));
+                    const set2 = new Set(str2.toLowerCase().split(""));
+                    const intersection = [...set1].filter(char => set2.has(char));
+                    const similarity = intersection.length / Math.max(set1.size, set2.size);
+                    return similarity;
+                };
+
+
+
+                const usernameSimilarity = calculateSimilarity(password, username);
+                const emailSimilarity = calculateSimilarity(password, email);
+                const first_nameSimilarity = calculateSimilarity(password, first_name);
+                const last_nameSimilarity = calculateSimilarity(password, last_name);
+
+                return usernameSimilarity >= similarityThreshold
+                    || password.length === 0
+                    || emailSimilarity >= similarityThreshold
+                    || first_nameSimilarity >= similarityThreshold
+                    || last_nameSimilarity >= similarityThreshold;
+            }
+
+            function checkLength(password) {
+              // Check if password is at least 8 characters long
+              // Return true if password is at least 8 characters long, false otherwise
+                return password.length >= 8;
+            }
+
+            function checkCommon(password) {
+              // Check if password is a commonly used password
+              // Return true if password is commonly used, false otherwise
+            }
+
+            function checkOnlyNumbers(password) {
+                // Check if password consists of only numbers
+                // Return true if password consists of only numbers, false otherwise
+                if (password.length === 0) {
+                    return true
+                }
+                const onlyNumbersRegex = /^[0-9]+$/;
+                return onlyNumbersRegex.test(password);
+            }
+        </script>
+
     </body>
 </html>
