@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from .forms import *
+from blog.models import *
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -57,6 +58,8 @@ def logout_page(request):
 
 @login_required
 def UserEditView(request):
+    category = Category.objects.all()
+    blog = Blog.objects.all().order_by('-date_posted')[1:]
     user = request.user
     user_custom, created = User_Custom.objects.get_or_create(user=user)
     delete_form = DeleteAccountForm(request.POST or None)
@@ -77,6 +80,8 @@ def UserEditView(request):
         return redirect('home')
 
     context = {
+        'category': category,
+        'blog': blog,
         'user_form': user_form,
         'edit_user_form': edit_user_form,
         'delete_form': delete_form,
@@ -86,20 +91,35 @@ def UserEditView(request):
 
 @login_required
 def UserChangePasswordView(request):
+    category = Category.objects.all()
+    blog = Blog.objects.all().order_by('-date_posted')[1:]
+
     if request.method == 'POST':
         edit_password_form = PasswordChangingForm(user=request.user, data=request.POST)
         if edit_password_form.is_valid():
             user = edit_password_form.save()
             update_session_auth_hash(request, user)  # Important! Refresh the session
-            return redirect('edit_security_page')
+        return redirect('edit_security_page')
     else:
         edit_password_form = PasswordChangingForm(user=request.user)
-    return render(request, 'registration/edit_security.html', {'edit_password_form': edit_password_form})
+
+    context = {
+        'category': category,
+        'blog': blog,
+        'edit_password_form': edit_password_form,
+    }
+    return render(request, 'registration/edit_security.html', context)
 
 
 @login_required
 def UserChangePageView(request):
-    return render(request, 'registration/edit_security_page.html')
+    category = Category.objects.all()
+    blog = Blog.objects.all().order_by('-date_posted')[1:]
+    context = {
+        'category': category,
+        'blog': blog,
+    }
+    return render(request, 'registration/edit_security_page.html', context)
 
 
 @login_required
@@ -111,4 +131,12 @@ def UserChangeEmailView(request):
             return redirect('edit_security_page')
     else:
         form = EmailChangeForm(user=request.user)
-    return render(request, "registration/edit_email.html", {'edit_email_form': form})
+
+    category = Category.objects.all()
+    blog = Blog.objects.all().order_by('-date_posted')[1:]
+    context = {
+        'category': category,
+        'blog': blog,
+        'edit_email_form': form,
+    }
+    return render(request, "registration/edit_email.html", context)
