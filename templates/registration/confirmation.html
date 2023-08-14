@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Dziękujemy za rejestrację - Banknoty
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="bg-body-tertiary">
+    <section class="container d-flex flex-column ">
+        <div class="align-items-center justify-content-center g-0 min-vh-100 row">
+            <div class="py-8 py-xl-0 col-lg-5 col-md-5">
+                <div class="card border border-0 shadow">
+                    <div class="p-5 card-body">
+                        <div class="mb-4">
+                            <a href="/">
+                                <img src="{% static 'images/logo-no-background.png' %}" alt="" class="mb-4" style="max-height: 72px;">
+                            </a>
+                            <h2 class="mb-2 fw-bold">Gratulacje!</h2>
+                            <h6 class="message mb-0 fw-light">
+                                <p>
+                                    Twoje konto zostało pomyślnie zarejestrowane. W celu ukończenia procesu rejestracji, proszę potwierdzić swój adres e-mail.
+                                </p>
+                                <p>
+                                    Sprawdź swoją skrzynkę odbiorczą. Wysłaliśmy do Ciebie wiadomość z linkiem aktywacyjnym. Kliknij ten link, aby aktywować swoje konto.
+                                </p>
+                                <p>
+                                    Jeśli nie otrzymałeś jeszcze wiadomości e-mail, proszę sprawdzić folder ze spamem lub innymi kategoriami wiadomości. Jeśli nie możesz znaleźć e-maila, skontaktuj się z naszym zespołem obsługi klienta, a pomożemy Ci rozwiązać ten problem.
+                                </p>
+                                <p>
+                                    Po potwierdzeniu adresu e-mail będziesz mógł/mogła korzystać ze wszystkich funkcji naszej platformy. Dziękujemy za rejestrację i witamy Cię w naszej społeczności!
+                                </p>
+                                <p>
+                                    Jeśli masz jakiekolwiek pytania lub potrzebujesz pomocy, nie wahaj się skontaktować z nami. Nasz zespół jest tutaj, aby Ci pomóc.
+                                </p>
+                                <p>
+                                    Dziękujemy jeszcze raz i życzymy udanego korzystania z naszego serwisu!
+                                </p>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+{% endblock %}

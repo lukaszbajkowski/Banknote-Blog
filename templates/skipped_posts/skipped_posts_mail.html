@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+<script src="https://kit.fontawesome.com/006c2e7373.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    .nav-link:hover {
+        color: rgba(0, 0, 128, 0.5);
+    }
+    .btn-nav {
+        color: navy;
+    }
+    .btn-nav:hover {
+        color: rgba(0, 0, 128, 0.5);
+    }
+    .btn-nav:focus-visible {
+        border: none;
+        color: rgba(0, 0, 128, 0.5);
+    }
+    .btn-socialmedia {
+        color: white;
+        background-color: #000066;
+        transition: 0.2s;
+        min-width: 42px;
+        min-height: 42px;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    .first-post {
+        color: navy;
+        transition: .2s;
+    }
+
+    .first-post:hover {
+        color: #fdc500;
+        transition: .2s;
+    }
+    .first-post-author {
+        color: white;
+        transition: .2s;
+    }
+    .first-post-author:hover {
+        color: #FDC500FF;
+        transition: .2s;
+    }
+    .card-link{
+        text-decoration: none !important;
+        color: #000080 !important;
+    }
+
+    .card-link:hover {
+        color: rgba(0, 0, 128, 0.7) !important;
+    }
+</style>
+
+{% block content %}
+    {% load static %}
+        <div class="bg-body-tertiary">
+            <div class="container-fluid mt-3">
+                <img class="my-5 mx-auto img-fluid d-block" src="{{ image_url }}" alt="Logo" style="max-height: 120px">
+            </div>
+            <div class="container-fluid">
+                <h4 class="fw-bold text-center p-0 m-0" style="color: navy">Odkryj pominięte artykuły</h4>
+            </div>
+            <div class="container mt-5">
+                <div class="container px-5">
+                    <h6 class="fw-bold text-start" style="color: navy">
+                        Hej
+                        {% if mail.first_name and mail.last_name %}
+                            {{ mail.first_name }} {{ mail.last_name }}
+                        {% elif mail.first_name %}
+                            {{ mail.first_name }}
+                        {% elif mail.last_name %}
+                            {{ mail.last_name }}
+                        {% else %}
+                            {{ mail.email }}
+                        {% endif %},
+                    </h6>
+                    <p>
+                        Jak się masz? Mam dla Ciebie ekscytujące wiadomości! Chciałbym Cię poinformować o pewnych artykułach na naszym blogu, które mogłeś/aś przypadkiem przegapić. Wiem, że czasem zalega się z lekturą, więc postanowiłem dać Ci znać o tych naprawdę wartościowych treściach!
+                    </p>
+                    <p>
+                        Chociaż wiesz, że stale staramy się dostarczać Ci ciekawe i angażujące materiały, muszę przyznać, że kilka artykułów zeszło na dalszy plan i zostały pominięte. Ale nie martw się! Mam dla Ciebie wspaniałą wiadomość - nadal masz szansę nadrobić te perełki!
+                    </p>
+                    <p>
+                        Poniżej znajdują się tytuły artykułów, które mogą Cię zainteresować:
+                    </p>
+                    <div class="container mb-3">
+                        <div class="row px-0">
+                            {% for post in post_list %}
+                                <div class="col-12 pb-4 px-0">
+                                    <div class="shadow rounded-3 rounded-bottom-0 p-3">
+                                        <a style="text-decoration: none !important;" href="http://127.0.0.1:8000/article/{{ post.pk }}">
+                                            <h3 class="px-3 pt-3 mb-0 first-post text-start">
+                                                {{ post.title }}
+                                            </h3>
+                                        </a>
+                                        <div class="px-3 pt-3 pb-2">
+                                            <a class="card-link" style="text-decoration: none !important;" href="http://127.0.0.1:8000/article/{{ post.pk }}">
+                                                <h6 class="text-start fw-light mb-0" style="text-indent: 5%; color: black">
+                                                    {{ post.introduction | safe | truncatewords:25 }}
+                                                </h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="shadow p-3" style="background-color: navy">
+                                        <a style="text-decoration: none" href="http://127.0.0.1:8000/author/{{ post.author.pk }}">
+                                            <h6 class="px-3 first-post-author text-start fw-light mb-0">
+                                                {% if post.author.user.first_name and post.author.user.last_name %}
+                                                    {{ post.author.user.first_name }} {{ post.author.user.last_name }}
+                                                {% elif post.author.user.first_name %}
+                                                    {{ post.author.user.first_name }}
+                                                {% elif post.author.user.last_name %}
+                                                    {{ post.author.user.last_name }}
+                                                {% else %}
+                                                    {{ post.author.user.username }}
+                                                {% endif %}
+                                            </h6>
+                                        </a>
+                                        <small class="px-3 fw-light text-capitalize" style="color: rgba(253,197,0,0.6)">{{ post.date_posted | date:"j E Y" }}</small>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p>
+                        Wystarczy kliknąć każdy tytuł, aby przenieść się na odpowiednią stronę i cieszyć się lekturą. Wierzę, że te artykuły dostarczą Ci wartościowych informacji oraz przyjemnego relaksu.
+                    </p>
+                    <p>
+                        Dziękuję za Twoje wsparcie i zaangażowanie jako czytelnik naszego bloga. Mamy nadzieję, że te artykuły okażą się dla Ciebie inspirujące i warte poświęconego czasu.
+                    </p>
+                    <h6 class="fw-bold text-end" style="color: navy">
+                        Z serdecznymi pozdrowieniami,
+                    </h6>
+                    <h6 class="fw-bold text-end" style="color: navy">
+                        Banknoty
+                    </h6>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block foo %}
+    <div class="bg-body-tertiary">
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-3">
+                <div class="col-sm-12 col-md-12 col-lg-2 mx-auto justify-content-start d-flex align-items-center">
+                    <img class="mx-sm-auto mx-auto mx-lg-0 img-fluid d-block" src="{{ image_url }}" alt="Logo" style="max-height: 48px">
+                </div>
+                <ul class="nav col-sm-12 col-md-12 col-lg-10 mx-auto justify-content-center justify-content-lg-end list-unstyled d-flex">
+                    <div class="text-end">
+                        <ul class="nav">
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/members/myprofile/notifications/">
+                                    <h5 class="fw-light my-1">Zrezygnuj z biuletynu</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/author/all/">
+                                    <h5 class="fw-light my-1">Artykuły</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/terms_and_conditions/">
+                                    <h5 class="fw-light my-1">Regulamin serwisu</h5>
+                                </a>
+                            </li>
+                            <li class="nav-item mx-auto">
+                                <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/privacy_policy/">
+                                    <h5 class="fw-light my-1">Polityka prywatności</h5>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+            </footer>
+            <hr class="mt-4 text-sm">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+                <div class="col-12 col-md-6 mx-auto d-flex align-items-center justify-content-center justify-content-md-start">
+                    <span class="mb-3 mb-md-0 fw-light" style="color: navy">© 2023 Banknoty. Wszelkie prawa zastrzeżone.</span>
+                </div>
+                <ul class="nav col-12 col-sm-12 col-md-6 px-sm-2 px-md-0 mx-auto justify-content-center justify-content-md-end list-unstyled d-flex">
+                    <div class=" text-end">
+                        <a href="https://www.facebook.com" target="_blank" class="btn btn-socialmedia btn-facebook rounded-circle">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.twitter.com" target="_blank" class="btn btn-socialmedia btn-twitter rounded-circle">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.linkedin.com" target="_blank" class="btn btn-socialmedia btn-linkedin rounded-circle">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://www.github.com" target="_blank" class="btn btn-socialmedia btn-github rounded-circle">
+                             <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </ul>
+            </footer>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Zarządzanie aplikacjami na autora
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'decision_maker_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-list-check me-2"></i>
+                        Zarządzanie aplikacjami na autora
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Zarządzanie aplikacjami na autora
+                </h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Imię</th>
+                        <th scope="col">Nazwisko</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Data utworzenia</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                        <th scope="col">Podgląd</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for form in page_obj %}
+                            <tr>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'decision_maker_detail_admin_panel_view' form.pk %}">
+                                        {{ form.first_name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'decision_maker_detail_admin_panel_view' form.pk %}">
+                                        {{ form.last_name  }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'decision_maker_detail_admin_panel_view' form.pk %}">
+                                        {{ form.email  }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'decision_maker_detail_admin_panel_view' form.pk %}">
+                                        {{ form.date_added }}
+                                    </a>
+                                </td>
+
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="form_id" value="{{ form.id }}">
+                                    {% if form.approved and not form.rejected %}
+                                        <td>
+                                            Zatwierdzono
+                                        </td>
+                                        <td>
+                                        </td>
+                                    {% elif form.rejected and not form.approved %}
+                                        <td>
+                                            Odrzucono
+                                        </td>
+                                        <td>
+                                        </td>
+                                    {% else %}
+                                        {% if not form.approved and not form.rejected %}
+                                            <td>
+                                                <div class="form-check form-border" style="padding-top: 1px; padding-bottom: 1px; padding-left: 29px;">
+                                                    <input type="radio" name="decision" value="approve" class="form-check-input">
+                                                    <label>
+                                                        Zatwierdź
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-border" style="padding-bottom: 1px; padding-top: 1px; padding-left: 29px;">
+                                                    <input type="radio" name="decision" value="reject" class="form-check-input" checked>
+                                                    <label>
+                                                        Odrzuć
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <button type="submit" class="btn btn-register rounded px-3">Podejmij decyzję</button>
+                                            </td>
+                                        {% endif %}
+                                    {% endif %}
+                                </form>
+                                <td>
+                                    <a class="admin_panel_edit_link" href="{% url 'decision_maker_detail_admin_panel_view' form.pk %}">
+                                        Podgląd
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% include 'paginator.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

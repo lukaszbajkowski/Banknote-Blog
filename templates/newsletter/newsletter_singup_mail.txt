@@ -1,0 +1,17 @@
+Dziękujemy za rejestrację do biuletynu.
+
+Szanowna/y {{ mail }}
+Serdecznie witamy w naszej społeczności biuletynu! Dziękujemy za zapisanie się do naszego newslettera. Jesteśmy bardzo zadowoleni, że dołączyłeś/aś do naszej listy subskrybentów i jesteśmy pewni , że będziesz zainteresowany/a najnowszymi wiadomościami, aktualnościami i ofertami, które będziemy przesyłać na Twój adres e-mail.
+
+Potwierdzamy zapisanie Twojego adresu {{ mail }} do naszej listy dystrybucyjnej biuletynu. Od tej chwili będziesz otrzymywać regularne wiadomości e-mail od naszej strony.
+
+Nasz biuletyn dostarcza najświeższe informacje związane z naszą stroną, nowe produkty, promocje, ważne wydarzenia i wiele innych interesujących treści. Jesteśmy przekonani, że znajdziesz wiele wartościowych informacji, które pomogą Ci być na bieżąco z naszą firmą.
+
+Jeśli w przyszłości zdecydujesz się zrezygnować z subskrypcji, możesz to zrobić w każdej chwili, klikając w link "Zrezygnuj z biuletynu" na dole każdego e-maila, który do Ciebie wysyłamy. Zapewniamy Cię, że Twoje dane osobowe będą traktowane z najwyższą dbałością i nie będą udostępniane osobom trzecim.
+
+Jeśli masz jakiekolwiek pytania, sugestie lub uwagi dotyczące naszego biuletynu, prosimy o kontakt. Nasz zespół jest gotowy, aby Ci pomóc i odpowiedzieć na wszystkie Twoje zapytania.
+
+Raz jeszcze dziękujemy za zapisanie się do naszego biuletynu. Cieszymy się na to, że będziemy mogli dostarczać Ci interesujące i wartościowe treści.
+
+Z wyrazami szacunku
+Banknoty

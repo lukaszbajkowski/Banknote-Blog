@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Zarządzanie biuletynem
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'newsletter_creation' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-newspaper me-2"></i>
+                        Stworzenie biuletynu
+                    </button>
+                    <button class="btn btn-list-active btn-list my-1" onclick="location.href='{% url 'newsletter_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-pen me-2"></i>
+                        Zarządzanie biuletynem
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_add_user' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-user-plus me-2"></i>
+                        Dodanie do biuletynu
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_remove_user' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-user-slash me-2"></i>
+                        Usunięcie z biuletynu
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_user_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-clipboard-user me-2"></i>
+                        Zarządzanie subskrypcjami biuletynu
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Zarządzanie biuletynem
+                </h4>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div
+                            {% if message.tags %}
+                                class="{{ message.tags }}"
+                            {% endif %}
+                            role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="window.location.reload()" ></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Temat</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Data utworzenia</th>
+                            <th scope="col">Data edycji</th>
+                            <th scope="col">Edytuj</th>
+                            <th scope="col">Usuń</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            {% for newsletter in page_obj %}
+                                <tr>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'newsletter_detail_admin_panel' newsletter.pk %}">
+                                            {{ newsletter.title }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'newsletter_detail_admin_panel' newsletter.pk %}">
+                                            {% if newsletter.status_field == 'Draft' %}
+                                                Projekt
+                                            {% else %}
+                                                Opublikowany
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'newsletter_detail_admin_panel' newsletter.pk %}">
+                                           {{ newsletter.date_added |date:'Y-m-d H:i' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'newsletter_detail_admin_panel' newsletter.pk %}">
+                                           {{ newsletter.date_modified |date:'Y-m-d H:i' }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_edit_link" href="{% url 'newsletter_edit_admin_panel' newsletter.pk %}">
+                                            Edytuj
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_edit_link" href="{% url 'newsletter_delete_admin_panel' newsletter.pk %}">
+                                            Usuń
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'paginator.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

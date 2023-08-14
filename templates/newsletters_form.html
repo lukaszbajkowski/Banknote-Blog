@@ -1,0 +1,41 @@
+<style>
+    .django-ckeditor-widget{
+        display: unset!important;
+    }
+</style>
+
+{% load static %}
+    {% if messages %}
+        {% for message in messages %}
+            <div
+                {% if message.tags %}
+                    class="{{ message.tags }}"
+                {% endif %}
+                role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="window.location.reload()" ></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% for field, error in form.errors.items %}
+        <div class="alert alert-danger fw-light px-2 py-2 my-3" role="alert">
+            {{ error|striptags }}
+        </div>
+    {% endfor %}
+    <form method="POST">
+        {% csrf_token %}
+        <h6 class="form-label pt-3 text-start fw-bold">
+            {{ form.title.label }}
+        </h6>
+        {{ form.title }}
+        <h6 class="form-label pt-3 text-start fw-bold">
+            {{ form.text.label }}
+        </h6>
+        {{ form.media }}
+        {{ form.text }}
+        <h6 class="form-label pt-3 text-start fw-bold">
+            {{ form.status_field.label }}
+        </h6>
+        {{ form.status_field }}
+        <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">Stwórz</button>
+    </form>

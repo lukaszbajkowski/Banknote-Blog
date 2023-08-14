@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Usunięcie {{ form.content | truncatewords:8 }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'comment_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-comment me-2"></i>
+                        Stworzenie komentarza
+                    </button>
+                    <button class="btn btn-list-active btn-list my-1" onclick="location.href='{% url 'comment_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-comments me-2"></i>
+                        Zarządzanie komentarzami
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'comment_in_post_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                       <i class="fa-solid fa-rectangle-list me-2"></i>
+                        Komentarze w danych postach
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'comment_users_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-newspaper me-2"></i>
+                        Komentarze danych użytkowników
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Usunięcie komentarza | {{ news.content | truncatewords:8 }}
+                </h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-check fs-5">
+                        <input type="checkbox" id="check-api-checkbox" class="form-check-input">
+                        <label for="check-api-checkbox" class="form-check-label fw-light message mb-0">
+                            Chcę usunąc komentarz <div class="my-2">"{{ news.content }}"</div> powiązany z postem
+                            <span style="color: navy">{{ news.blog }}</span>
+                        </label>
+                        {{form.is_active}}
+                    </div>
+                    <div class="btn-toolbar d-flex justify-content-center my-4" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group me-2" role="group" aria-label="First group">
+                            <button class="btn btn-register px-4" type="submit">Usuń</button>
+                        </div>
+                        <div class="btn-group ms-2" role="group" aria-label="First group">
+                            <button class="btn btn-log px-4" type="button" onclick="location.href='{% url 'comment_admin_panel' %}'">Anuluj</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

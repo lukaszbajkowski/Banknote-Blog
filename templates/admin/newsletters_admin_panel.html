@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<head>
+     {{ form.media }}
+</head>
+
+{% block title %}
+    Banknoty - Panel administracyjny Biuletyn
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="px-3 px-sm-0 px-md-3 mb-3" style="display: flex; align-items: center;">
+                <button type=submit class="btn btn-register" onclick="location.href='{% url 'admin' %}'">
+                    <i class="fa-solid fa-right-to-bracket fa-rotate-180"></i>
+                </button>
+                <h3 class="ms-3 mb-0 align-middle">
+                    <a class="admin_category" style="color: navy" href='{% url 'newsletters_admin' %}'>Biuletyny</a>
+                </h3>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Biuletyn
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'newsletter_creation' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-newspaper me-2"></i>
+                        Stworzenie biuletynu
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-pen me-2"></i>
+                        Zarządzanie biuletynem
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_add_user' %}'" style="text-align: left; ">
+                       <i class="fa-solid fa-user-plus me-2"></i>
+                        Dodanie do biuletynu
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_remove_user' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-user-slash me-2"></i>
+                        Usunięcie z biuletynu
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_user_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-clipboard-user me-2"></i>
+                        Zarządzanie subskrybcjami biuletynu
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Pominięte artykuły
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'send_emails' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-paper-plane me-2"></i>
+                        Wysłanie e-maila do użytkowników
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'skipped_posts_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Pominięte artykuły przez użytkowników
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'skipped_posts_user_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list-ol me-2"></i>
+                        Zarządzanie subskrybcjami pominiętych artykułów
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Spotkania i wydarzenia
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'meetups_news_add' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-envelope-open-text me-2"></i>
+                        Stworzenie wiadomości o spotkaniach i wydarzeniach
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'meetups_news_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Zarządzanie wiadmościami o spotkaniach i wydarzeniach
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'meetups_news_user_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list-check me-2"></i>
+                        Zarządzanie subskrybcjami wiadomości o spotkaniach i wydarzeniach
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Okazje z rynku aukcyjnego
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'auction_opportunities_add' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Stworzenie wiadomości o okazjach z rynku aukcyjnego
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'auction_opportunities_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Zarządzanie wiadmościami o okazjach z rynku aukcyjnego
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'auction_opportunities_user_manage_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list-check me-2"></i>
+                        Zarządzanie subskrybcjami wiadomości o okazjach z rynku aukcyjnego
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Wiadomości od Banknoty
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'company_news_add' %}'" style="text-align: left; ">
+                        <i class="fa-regular fa-paper-plane me-2"></i>
+                        Stworzenie wiadomości od Banknoty
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'company_news_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-inbox me-2"></i>
+                        Zarządzanie wiadomościami od Banknoty
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'company_news_user_manage_admin_panel' %}'" style="text-align: left; ">
+                       <i class="fa-solid fa-circle-user me-2"></i>
+                        Zarządzanie subskrybcjami wiadomości od Banknoty
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Shot wydarzeń od Banknoty
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'replay_news_add' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-newspaper me-2"></i>
+                        Stworzenie shota wydarzeń
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'replay_news_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-pen me-2"></i>
+                        Zarządzanie shotem wydarzeń
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'replay_news_user_manage_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-user-plus me-2"></i>
+                        Zarządzanie subskrybcjami shota wydarzeń
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Informacje o rozwoju i zmianach na Banknoty
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'development_news_add' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-newspaper me-2"></i>
+                        Stworzenie wiadomości o rozwoju i zmianach na Banknoty
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'development_news_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-pen me-2"></i>
+                        Zarządzanie wiadomości o rozwoju i zmianach na Banknoty
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'development_news_user_manage_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-user-plus me-2"></i>
+                        Zarządzanie subskrybcjami wiadomości o rozwoju i zmianach na Banknoty
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

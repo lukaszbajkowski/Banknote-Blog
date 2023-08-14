@@ -1,0 +1,23 @@
+Informacje o rozwoju i zmianach na Banknoty
+
+Szanowna/y {% if mail.first_name and mail.last_name %}
+                {{ mail.first_name }} {{ mail.last_name }}
+            {% elif mail.first_name %}
+                {{ mail.first_name }}
+            {% elif mail.last_name %}
+                {{ mail.last_name }}
+            {% else %}
+                {{ mail.username }}
+            {% endif %}
+
+Dziękujemy, że możemy przekazać Ci najnowsze informacje dotyczące rozwoju i zmian na Banknoty. Naszym celem jest zapewnienie Ci aktualnych informacji na temat wprowadzanych innowacji oraz zmian, które wpływają na nasz świat. Poniżej znajdują się szczegóły dotyczące ostatnich zmian:
+
+{{ text | safe }}
+
+Jeśli chcesz się wypisać z subskrybcji tej kategorii wiadomości lub innych, jakie dostajesz od Banknoty to możesz to zrobić w zakładce "Powiadomienia" na stronie "Moje konto" na naszej stronie.
+
+Dziękujemy za zaufanie i za to, że jesteście z nami!
+
+Z numizmatycznymi pozdrowieniami,
+Banknoty
+

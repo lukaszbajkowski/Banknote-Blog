@@ -1,0 +1,9 @@
+Wiadomość z formularza kontaktowego
+
+Wiadomość od {{ name }} | {{ mail }}
+Treść wiadomości:
+
+{{ message }}
+
+Z wyrazami szacunku
+Banknoty

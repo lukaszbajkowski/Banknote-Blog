@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<head>
+     {{ form.media }}
+</head>
+
+
+{% block title %}
+    Banknoty - Stworzenie użytkownika
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'create_user' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-person-circle-plus me-2"></i>
+                        Stworzenie użytkownika
+                    </button>
+{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">#}
+{#                        <i class="fa-solid fa-pen me-2"></i>#}
+{#                        Zarządzanie biuletynem#}
+{#                    </button>#}
+{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_add_user' %}'" style="text-align: left; width: 100%; display: block;">#}
+{#                        <i class="fa-solid fa-user-plus me-2"></i>#}
+{#                        Dodanie do biuletynu#}
+{#                    </button>#}
+{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_remove_user' %}'" style="text-align: left; width: 100%; display: block;">#}
+{#                        <i class="fa-solid fa-user-slash me-2"></i>#}
+{#                        Usunięcie z biuletynu#}
+{#                    </button>#}
+{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_user_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">#}
+{#                        <i class="fa-solid fa-clipboard-user me-2"></i>#}
+{#                        Zarządzanie subskrypcjami biuletynu#}
+{#                    </button>#}
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Stworzenie użytkownika
+                </h4>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div
+                            {% if message.tags %}
+                                class="{{ message.tags }}"
+                            {% endif %}
+                            role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="window.location.reload()" ></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% for field, error in form.errors.items %}
+                    <div class="alert alert-danger fw-light px-2 py-2 my-3" role="alert">
+                        {{ error|striptags }}
+                    </div>
+                {% endfor %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+                        {{ user_form.username.label }}
+                    </h6>
+                    <p class="text-start message m-0 mb-2 text-muted fw-light">
+                        {{ user_form.username.help_text }}
+                    </p>
+                    {{ user_form.username }}
+                    <h6 class="form-label pt-3 text-start fw-bold">
+                        {{ user_form.email.label }}
+                    </h6>
+                    {{ user_form.email }}
+                    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+                        {{ user_form.first_name.label }}
+                    </h6>
+                    <p class="text-start message m-0 mb-2 text-muted fw-light">
+                        {{ user_form.first_name.help_text }}
+                    </p>
+                    {{ user_form.first_name }}
+                    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+                        {{ user_form.last_name.label }}
+                    </h6>
+                    <p class="text-start message m-0 mb-2 text-muted fw-light">
+                        {{ user_form.last_name.help_text }}
+                    </p>
+                    {{ user_form.last_name }}
+                    <h6 class="form-label pt-3 text-start fw-bold">
+                        {{ user_form.password.label }}
+                    </h6>
+                    {{ user_form.password }}
+                    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+                        {{ profile_form.bio.label }}
+                    </h6>
+                    <p class="text-start message m-0 mb-2 text-muted fw-light">
+                        {{ profile_form.bio.help_text }}
+                    </p>
+                    {{ profile_form.bio }}
+                    <h6 class="form-label pt-3 text-start fw-bold">
+                        {{ profile_form.profile_pic.label }}
+                    </h6>
+                    {{ profile_form.profile_pic }}
+                    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+                        {{ profile_form.phone_number.label }}
+                    </h6>
+                    <p class="text-start message m-0 mb-2 text-muted fw-light">
+                        {{ profile_form.phone_number.help_text }}
+                    </p>
+                    {{ profile_form.phone_number }}
+                    <h6 class="form-label pt-3 text-start fw-bold">
+                        {{ profile_form.gender.label }}
+                    </h6>
+                    {{ profile_form.gender }}
+                    <h6 class="form-label pt-3 text-start fw-bold">
+                        Biuletyn
+                    </h6>
+                    <div class="form-check form-switch">
+                        {{ profile_form.newsletter }}
+                        <label class="form-check-label">
+                            {{ profile_form.newsletter.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.newsletter.help_text}}
+                        </p>
+                    </div>
+                    <div class="form-check form-switch pt-2">
+                        {{ profile_form.miss_news }}
+                        <label class="form-check-label">
+                            {{ profile_form.miss_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.miss_news.help_text}}
+                        </p>
+                    </div>
+                    <div class="form-check form-switch pt-2">
+                        {{ profile_form.meetups_news }}
+                        <label class="form-check-label">
+                            {{ profile_form.meetups_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.meetups_news.help_text}}
+                        </p>
+                    </div>
+                    <div class="form-check form-switch pt-2">
+                        {{ profile_form.opportunities_news }}
+                        <label class="form-check-label">
+                            {{ profile_form.opportunities_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.opportunities_news.help_text}}
+                        </p>
+                    </div>
+                    <h6 class="form-label pt-3 text-start fw-bold">
+                        Komunikacja z Banknoty
+                    </h6>
+                    <div class="form-check form-switch">
+                        {{ profile_form.company_news }}
+                        <label class="form-check-label">
+                            {{ profile_form.company_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.company_news.help_text}}
+                        </p>
+                    </div>
+                    <div class="form-check form-switch pt-2">
+                        {{ profile_form.replay_news }}
+                        <label class="form-check-label">
+                            {{ profile_form.replay_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.replay_news.help_text}}
+                        </p>
+                    </div>
+                    <div class="form-check form-switch pt-2">
+                        {{ profile_form.development_news }}
+                        <label class="form-check-label">
+                            {{ profile_form.development_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.development_news.help_text}}
+                        </p>
+                    </div>
+                    <h6 class="form-label pt-3 text-start fw-bold">
+                        Aplikacja na autora
+                    </h6>
+                    <div class="form-check form-switch">
+                        {{ profile_form.can_be_author }}
+                        <label class="form-check-label">
+                            {{ profile_form.can_be_author.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ profile_form.can_be_author.help_text}}
+                        </p>
+                    </div>
+                    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">Stwórz</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

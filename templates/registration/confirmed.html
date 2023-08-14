@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Potwierdzenie adresu e-mail - Banknoty
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="bg-body-tertiary">
+        <section class="container d-flex flex-column">
+            <div class="align-items-center justify-content-center g-0 min-vh-100 row">
+                <div class="py-8 py-xl-0 col-lg-5 col-md-5">
+                    <div class="card border border-0 shadow">
+                        <div class="p-5 card-body">
+                            <div class="mb-4">
+                                <a href="/">
+                                    <img src="{% static 'images/logo-no-background.png' %}" alt="" class="mb-4" style="max-height: 72px;">
+                                </a>
+                                <h2 class="mb-2 fw-bold">Dziękujemy!</h2>
+                                <h6 class="message mb-0 fw-light">
+                                    <p>
+                                        Twój adres e-mail został pomyślnie potwierdzony.
+                                    </p>
+                                    <p>
+                                        Możesz teraz korzystać ze wszystkich funkcji naszego serwisu.
+                                    </p>
+                                    <p>
+                                        Dziękujemy jeszcze raz i życzymy udanego korzystania z naszego serwisu!
+                                    </p>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'home' %}";
+        }, 10000);
+    </script>
+{% endblock %}

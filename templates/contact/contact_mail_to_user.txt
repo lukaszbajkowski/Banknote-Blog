@@ -1,0 +1,13 @@
+Potiwerdzenie wiadomości
+
+Cześć {{ name }}. Dostaliśmy od Ciebie wiadomość. Oto jej kopia.
+
+Przesyłamy Ci to potwierdzenie wysłanaia wiadomości w naszym forularzu kontaktowym.
+Przyślemy Ci odpowiedź na nią w przeciągu jednego dnia.
+
+Treść wiadomości:
+
+{{ message }}
+
+Z wyrazami szacunku
+Banknoty

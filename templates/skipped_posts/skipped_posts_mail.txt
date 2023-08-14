@@ -1,0 +1,37 @@
+Odkryj pominięte artykuły
+
+Hej {% if mail.first_name and mail.last_name %}
+        {{ mail.first_name }} {{ mail.last_name }}
+    {% elif mail.first_name %}
+        {{ mail.first_name }}
+    {% elif mail.last_name %}
+        {{ mail.last_name }}
+    {% else %}
+        {{ mail.email }}
+    {% endif %},
+
+Jak się masz? Mam dla Ciebie ekscytujące wiadomości! Chciałbym Cię poinformować o pewnych artykułach na naszym blogu, które mogłeś/aś przypadkiem przegapić. Wiem, że czasem zalega się z lekturą, więc postanowiłem dać Ci znać o tych naprawdę wartościowych treściach!
+
+Chociaż wiesz, że stale staramy się dostarczać Ci ciekawe i angażujące materiały, muszę przyznać, że kilka artykułów zeszło na dalszy plan i zostały pominięte. Ale nie martw się! Mam dla Ciebie wspaniałą wiadomość - nadal masz szansę nadrobić te perełki!
+
+Poniżej znajdują się tytuły artykułów, które mogą Cię zainteresować:
+
+{{ post.title }}
+{{ post.introduction | safe | truncatewords:25 }}
+{% if post.author.user.first_name and post.author.user.last_name %}
+    {{ post.author.user.first_name }} {{ post.author.user.last_name }}
+{% elif post.author.user.first_name %}
+    {{ post.author.user.first_name }}
+{% elif post.author.user.last_name %}
+    {{ post.author.user.last_name }}
+{% else %}
+    {{ post.author.user.username }}
+{% endif %}
+{{ post.date_posted | date:"j E Y" }}
+
+Wystarczy kliknąć każdy tytuł, aby przenieść się na odpowiednią stronę i cieszyć się lekturą. Wierzę, że te artykuły dostarczą Ci wartościowych informacji oraz przyjemnego relaksu.
+
+Dziękuję za Twoje wsparcie i zaangażowanie jako czytelnik naszego bloga. Mamy nadzieję, że te artykuły okażą się dla Ciebie inspirujące i warte poświęconego czasu.
+
+Z serdecznymi pozdrowieniami,
+Banknoty

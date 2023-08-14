@@ -9,7 +9,7 @@
     <div class="bg-body-tertiary">
     <section class="container d-flex flex-column ">
         <div class="align-items-center justify-content-center g-0 min-vh-100 row">
-            <div class="py-8 py-xl-0 col-lg-5 col-md-5">
+            <div class="py-8 py-xl-0 col-lg-5 col-md-7">
                 <div class="card border border-0 shadow">
                     <div class="p-5 card-body">
                         <div class="mb-4">
@@ -24,9 +24,31 @@
                         <form method="POST" action="">
                             {% csrf_token %}
                             <h6 class="form-label mt-4 text-start fw-bold">{{form.username.label}}</h6>
-                            <input type="text" name="username" class="form-control" autofocus>
+                            <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" value="{{ form.username.value|default:'' }}">
+                                {% if form.username.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                            <p class="mb-1">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                             <h6 class="form-label mt-3 text-start fw-bold">{{form.password.label}}</h6>
-                            <input type="password" name="password" class="form-control" >
+                            <input type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}">
+                            {% if form.password.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                        <p class="mb-1">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {{ form.captcha }}
+                            {% if form.captcha.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.captcha.errors %}
+                                        <p class="mb-1">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             <div class="my-3 col-lg-12 col-md-12">
                                 <div class="d-md-flex justify-content-between align-items-center">
                                     <div class="mb-3 mb-md-0">
@@ -37,7 +59,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <a class="already_link fw-light" href="/authentication/forget-password">
+                                    <a class="already_link fw-light" href="{% url 'reset_password' %}">
                                         Nie pamiętasz hasła?
                                     </a>
                                 </div>

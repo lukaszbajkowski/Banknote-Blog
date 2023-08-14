@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Zarządzanie subskrybcjami shota wydarzeń
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'replay_news_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-newspaper me-2"></i>
+                        Stworzenie shota wydarzeń
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'replay_news_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-pen me-2"></i>
+                        Zarządzanie shotem wydarzeń
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'replay_news_user_manage_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-user-plus me-2"></i>
+                        Zarządzanie subskrybcjami shota wydarzeń
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Zarządzanie subskrybcjami shota wydarzeń | {{ users.user }}
+                </h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-check form-switch pt-1">
+                        {{ form.replay_news }}
+                        <label class="form-check-label">
+                            {{ form.replay_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ form.replay_news.help_text}}
+                        </p>
+                    </div>
+                    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">Zapisz zmiany</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

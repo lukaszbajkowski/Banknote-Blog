@@ -1,0 +1,59 @@
+{% load static %}
+
+<div class="bg-body-tertiary">
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center pt-3">
+            <div class="col-sm-12 col-md-12 col-lg-2 mx-auto justify-content-start d-flex align-items-center">
+                <img class="img mx-sm-auto mx-auto mx-lg-0 img-fluid d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 48px">
+            </div>
+            <ul class="nav col-sm-12 col-md-12 col-lg-10 mx-auto justify-content-center justify-content-lg-end list-unstyled d-flex">
+                <div class="text-end">
+                    <ul class="nav ">
+                        <li class="nav-item mx-auto">
+                            <a class="nav-link btn-nav px-3" href="{% url 'article-all' %}">
+                                <h5 class="fw-light my-1">Artykuły</h5>
+                            </a>
+                        </li>
+                        <li class="nav-item mx-auto">
+                            <a class="nav-link btn-nav px-3" href="{% url 'contact' %}">
+                                <h5 class="fw-light my-1">Kontakt</h5>
+                            </a>
+                        </li>
+                        <li class="nav-item mx-auto">
+                            <a class="nav-link btn-nav px-3" href="{% url 'terms_and_conditions' %}">
+                                <h5 class="fw-light my-1">Regulamin serwisu</h5>
+                            </a>
+                        </li>
+                        <li class="nav-item mx-auto">
+                            <a class="nav-link btn-nav px-3" href="{% url 'privacy_policy' %}">
+                                <h5 class="fw-light my-1">Polityka prywatności</h5>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+        </footer>
+        <hr class="mt-4 text-sm">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+            <div class="col-12 col-md-6 mx-auto d-flex align-items-center justify-content-center justify-content-md-start">
+                <span class="mb-3 mb-md-0 fw-light" style="color: navy">© 2023 Banknoty. Wszelkie prawa zastrzeżone.</span>
+            </div>
+            <ul class="nav col-12 col-sm-12 col-md-6 px-sm-2 px-md-0 mx-auto justify-content-center justify-content-md-end list-unstyled d-flex">
+                <div class=" text-end">
+                    <button class="btn btn-socialmedia btn-facebook rounded-circle" onclick="window.location='https://www.facebook.com';">
+                        <i class="fab fa-facebook"></i>
+                    </button>
+                    <button class="btn btn-socialmedia btn-twitter rounded-circle" onclick="window.location='https://www.twitter.com';">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                    <button class="btn btn-socialmedia btn-linkedin rounded-circle" onclick="window.location='https://www.linkedin.com';"">
+                        <i class="fab fa-linkedin"></i>
+                    </button>
+                    <button class="btn btn-socialmedia btn-pinterest rounded-circle" onclick="window.location='https://www.pinterest.com';">
+                        <i class="fab fa-pinterest"></i>
+                    </button>
+                </div>
+            </ul>
+        </footer>
+    </div>
+</div>

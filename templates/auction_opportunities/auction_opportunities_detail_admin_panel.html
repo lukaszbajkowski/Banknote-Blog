@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Podgląd {{ auction_opportunities.title }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <nav class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'auction_opportunities_add' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Stworzenie wiadomości o okazjach z rynku aukcyjnego
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'auction_opportunities_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Zarządzanie wiadmościami o okazjach z rynku aukcyjnego
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'auction_opportunities_user_manage_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Zarządzanie subskrybcjami wiadomości o okazjach z rynku aukcyjnego
+                    </button>
+                </nav>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <div style="display: flex; align-items: center;">
+                    <h4 class="mb-0 pb-2  fw-bold" style="color: navy">
+                        {{ auction_opportunities }}
+                    </h4>
+                    <input type=button  class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+                </div>
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Tytuł
+                </h6>
+                {{ auction_opportunities.title }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Treść
+                </h6>
+                {{ auction_opportunities.text | safe }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Status
+                </h6>
+                {% if auction_opportunities.status_field == 'Draft' %}
+                    Projekt
+                {% else %}
+                    Opublikowany
+                {% endif %}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Data utworzenia
+                </h6>
+                {{ auction_opportunities.date_added }}
+                <div class="mb-4"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

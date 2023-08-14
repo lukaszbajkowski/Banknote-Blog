@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Zarządzanie autorami
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'author_add' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-id-card-clip me-2"></i>
+                        Stworzenie autora
+                    </button>
+                    <button class="btn btn-list-active btn-list my-1" onclick="location.href='{% url 'author_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-regular fa-address-book me-2"></i>
+                        Zarządzanie autorami
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Zarządzanie autorami
+                </h4>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div
+                            {% if message.tags %}
+                                class="{{ message.tags }}"
+                            {% endif %}
+                            role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="window.location.reload()" ></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="min-width: 80px"></th>
+                                <th scope="col">Użytkownik</th>
+                                <th scope="col">Stanowisko</th>
+                                <th scope="col">Strona autora</th>
+                                <th scope="col">Facebook</th>
+                                <th scope="col">Twitter</th>
+                                <th scope="col">Instagram</th>
+                                <th scope="col">Pinterest</th>
+                                <th scope="col">Edytuj</th>
+                                <th scope="col">Usuń</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            {% for author in page_obj %}
+                                <tr>
+                                    <td class="text-center">
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                            <img src="/images/{{ author.profile_pic }}" class="img-author-admin rounded shadow my-2">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                            {{ author.user }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                           {{ author.author_function }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                           {% if author.author_url %}
+                                              <i class="fa-solid fa-check"></i>
+                                            {% else %}
+                                              <i class="fa-solid fa-x"></i>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                           {% if author.facebook_url %}
+                                              <i class="fa-solid fa-check"></i>
+                                            {% else %}
+                                              <i class="fa-solid fa-x"></i>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                           {% if author.twitter_url %}
+                                              <i class="fa-solid fa-check"></i>
+                                            {% else %}
+                                              <i class="fa-solid fa-x"></i>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                           {% if author.instagram_url %}
+                                              <i class="fa-solid fa-check"></i>
+                                            {% else %}
+                                              <i class="fa-solid fa-x"></i>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                                           {% if author.pinterest_url %}
+                                              <i class="fa-solid fa-check"></i>
+                                            {% else %}
+                                              <i class="fa-solid fa-x"></i>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_edit_link" href="{% url 'author_edit_admin_panel' author.pk %}">
+                                            Edytuj
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_edit_link" href="{% url 'author_delete_admin_panel' author.pk %}">
+                                            Usuń
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'paginator.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

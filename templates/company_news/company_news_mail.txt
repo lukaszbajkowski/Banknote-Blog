@@ -1,0 +1,22 @@
+Wiadomość od Banknoty
+
+Szanowna/y {% if mail.first_name and mail.last_name %}
+                {{ mail.first_name }} {{ mail.last_name }}
+            {% elif mail.first_name %}
+                {{ mail.first_name }}
+            {% elif mail.last_name %}
+                {{ mail.last_name }}
+            {% else %}
+                {{ mail.username }}
+            {% endif %}
+
+Cieszymy się, że jesteście częścią naszej społeczności. Pragniemy Cię poinformować o naszej nowej usłudze.
+
+{{ text | safe }}
+
+Jeśli chcesz się wypisać z subskrybcji wiadomości od Banknoty to możesz to zrobić w zakładce "Powiadomienia" na stronie "Moje konto" na naszej stronie. Pamiętaj, że możesz, tak zrobi ze wszystkimi wiadomościami, na jakie się u nas zapisałeś.
+
+Dziękujemy za zaufanie i za to, że jesteście z nami!
+
+Z numizmatycznymi pozdrowieniami,
+Banknoty

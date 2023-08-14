@@ -13,330 +13,14 @@
     {% endif %}
 {% endblock %}
 
+{% load static %}
+
 {% block navbar %}
-    {% load static %}
-        {% if user.is_authenticated %}
-            <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
-                <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
-                    <a class="navbar-brand py-2 me-5" href="/">
-                        <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 72px">
-                    </a>
-                    <div class="d-flex justify-content-between">
-                        <button class="navbar-toggler border border-0 ps-0 pe-0" onclick="toggle()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
-                            <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
-                        </button>
-                        <li class="d-block d-xl-none" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                        <div class="dropdown d-block d-xl-none">
-                            <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
-                                <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px">
-                                <li>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
-                                                <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
-                                            </div>
-                                            <div class="col-8 ps-0 pe-3">
-                                                <div class="row ps-0" style="padding-right: 12px">
-                                                    <div class="col ps-0 pe-0 ms-1">
-                                                        <h6 class="my-1" style="color: navy">
-                                                            {% if user.first_name and user.last_name %}
-                                                                {{ user.first_name }} {{ user.last_name }}
-                                                            {% elif user.first_name %}
-                                                                {{ user.first_name }}
-                                                            {% elif user.last_name %}
-                                                                {{ user.last_name }}
-                                                            {% else %}
-                                                                {{ user.username }}
-                                                            {% endif %}
-                                                        </h6>
-                                                    </div>
-                                                </div>
-                                                <div class="row ps-0" style="padding-right: 12px">
-                                                    <div class="col ps-0 pe-0 ms-1 lh-1">
-                                                        <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
-                                                            {% if user.email %}
-                                                                {{ user.email }}
-                                                            {% endif %}
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li><hr class="dropdown-divider mx-2 my-3"></li>
-                                <li class="mx-3">
-                                    <div class="d-grid gap-0">
-                                        <button class="btn btn-list" href="#" style="text-align: left; ">
-                                            <i class="fa-solid fa-bookmark me-2"></i>
-                                            Moje posty
-                                        </button>
-                                        <button class="btn btn-list" href="#" style="text-align: left; ">
-                                            <i class="fa-solid fa-gear me-2"></i>
-                                            Ustawienia
-                                        </button>
-                                        <button class="btn btn-list" href="#" style="text-align: left; ">
-                                             <i class="fa-regular fa-circle-question me-2"></i>
-                                            Informacje
-                                        </button>
-                                        <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
-                                                <i class="fa-solid fa-power-off me-2"></i>
-                                            Wyloguj się
-                                        </button>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <div class="navbar-nav ms-auto">
-                            <a class="nav-link btn-nav px-4" href="/">
-                                <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
-                            </a>
-                            <li class="nav-item px-0 dropdown">
-                                <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle" href="#" data-bs-toggle="dropdown" style="padding-top: 12px; padding-bottom: 12px; font-size: 20px; line-height: 24px">
-                                    Artykuły
-                                    <i class="fa-solid fa-angle-down fa-2xs "></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4" style="right: 0px" id="dropdown-margin-minus">
-                                    <div class="row g-3">
-                                        <div class="col-5 mb-3">
-                                            <h5 class="title fw-bold" style="color:navy;">Kategorie</h5>
-                                            <ul class="list-unstyled">
-                                                {% for ca in category|slice:":5"%}
-                                                    {% if forloop.first %}
-                                                        <li style="margin-top: 12px">
-                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
-                                                                {{ ca.name }}
-                                                            </a>
-                                                        </li>
-                                                    {% else %}
-                                                        <li style="margin-top: 6px">
-                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
-                                                                {{ ca.name }}
-                                                            </a>
-                                                        </li>
-                                                    {% endif %}
-                                                {% endfor %}
-                                                <li style="margin-top: 6px; position: absolute; bottom: 40px">
-                                                    <a class="fw-bold border-bottom show-all" href="{% url 'category-all' %}">
-                                                        Pokaż wszystkie
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-7">
-                                            <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
-                                            <ul class="list-unstyled">
-                                                {% for post in blog %}
-                                                    {% if forloop.counter == 1 or forloop.counter == 2 %}
-                                                       <li>
-                                                            <a href="{% url 'article-detail' post.pk %}" class="sub-item" style="text-decoration: none">
-                                                                <div class="container">
-                                                                    <div class="row pb-2">
-                                                                        <div class="col-4 ps-0" style="max-height: 100px; max-width: 100px">
-                                                                            <img class="card-photo text-left" src="{{ post.background.url }}" alt="..." style="max-height: 100px; max-width: 100px">
-                                                                        </div>
-                                                                        <div class="col-8 p-0">
-                                                                            <div>{{ post.title|truncatechars:35 }}</div>
-                                                                            <div style="color: rgba(0,0,0,0.5)">{{ post.date_posted | date:"j E Y" }}</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    {% endif %}
-                                                {% endfor %}
-                                                <li style="margin-top: 6px">
-                                                    <a class="fw-bold border-bottom show-all" href="#" style="">
-                                                        Pokaż wszystkie
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-						    </li>
-                            <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
-                                <h5 class="text-center text-md-start fw-light my-1">O autorze</h5>
-                            </a>
-                            <li class="d-none d-xl-block" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                            <div class="dropdown d-none d-xl-block">
-                                <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
-                                    <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px;">
-                                    <li>
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
-                                                    <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
-                                                </div>
-                                                <div class="col-8 ps-0 pe-3">
-                                                    <div class="row ps-0" style="padding-right: 12px">
-                                                        <div class="col ps-0 pe-0 ms-1">
-                                                            <h6 class="my-1" style="color: navy">
-                                                                {% if user.first_name and user.last_name %}
-                                                                    {{ user.first_name }} {{ user.last_name }}
-                                                                {% elif user.first_name %}
-                                                                    {{ user.first_name }}
-                                                                {% elif user.last_name %}
-                                                                    {{ user.last_name }}
-                                                                {% else %}
-                                                                    {{ user.username }}
-                                                                {% endif %}
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row ps-0" style="padding-right: 12px">
-                                                        <div class="col ps-0 pe-0 ms-1 lh-1">
-                                                            <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
-                                                                {% if user.email %}
-                                                                    {{ user.email }}
-                                                                {% endif %}
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li><hr class="dropdown-divider mx-2 my-3"></li>
-                                    <li class="mx-3">
-                                        <div class="d-grid gap-0">
-                                            <button class="btn btn-list" href="#" style="text-align: left; ">
-                                                <i class="fa-solid fa-bookmark me-2"></i>
-                                                Moje posty
-                                            </button>
-                                            <button class="btn btn-list" href="#" style="text-align: left; ">
-                                                <i class="fa-solid fa-gear me-2"></i>
-                                                Ustawienia
-                                            </button>
-                                            <button class="btn btn-list" href="#" style="text-align: left; ">
-                                                 <i class="fa-regular fa-circle-question me-2"></i>
-                                                Informacje
-                                            </button>
-                                            <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
-                                                    <i class="fa-solid fa-power-off me-2"></i>
-                                                Wyloguj się
-                                            </button>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        {% else %}
-            <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
-                <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
-                    <a class="navbar-brand py-2 me-5" href="/">
-                        <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 72px">
-                    </a>
-                    <div class="d-flex justify-content-between">
-                        <button class="navbar-toggler collapsed border border-0 ps-0 pe-0" onclick="toggle()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
-                            <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
-                        </button>
-                        <li class="d-none d-sm-none d-md-block d-lg-block d-xl-none" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-none">
-                            <a class="btn btn-log ms-3 px-4" href="{% url 'login' %}">
-                                <h5 class="fw-light my-1">Zaloguj się</h5>
-                            </a>
-                            <a class="btn btn-register ms-3 px-4" href="{% url 'register' %}">
-                                <h5 class="fw-light my-1">Dołącz teraz</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <div class="navbar-nav ms-auto">
-                            <a class="nav-link btn-nav px-4" href="/">
-                                <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
-                            </a>
-                            <li class="nav-item px-0 dropdown">
-                                <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle" href="#" data-bs-toggle="dropdown" style="padding-top: 12px; padding-bottom: 12px; font-size: 20px; line-height: 24px">
-                                    Artykuły
-                                    <i class="fa-solid fa-angle-down fa-2xs "></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4">
-                                    <div class="row g-3">
-                                        <div class="col-5 mb-3">
-                                            <h5 class="title fw-bold" style="color:navy;">Kategorie</h5>
-                                            <ul class="list-unstyled">
-                                                {% for ca in category|slice:":5"%}
-                                                    {% if forloop.first %}
-                                                        <li style="margin-top: 12px">
-                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
-                                                                {{ ca.name }}
-                                                            </a>
-                                                        </li>
-                                                    {% else %}
-                                                        <li style="margin-top: 6px">
-                                                            <a href="{% url 'category-detail' ca.name %}" class="sub-item">
-                                                                {{ ca.name }}
-                                                            </a>
-                                                        </li>
-                                                    {% endif %}
-                                                {% endfor %}
-                                                <li style="margin-top: 6px; position: absolute; bottom: 40px">
-                                                    <a class="fw-bold border-bottom show-all" href="{% url 'category-all' %}">
-                                                        Pokaż wszystkie
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-7">
-                                            <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
-                                            <ul class="list-unstyled">
-                                                {% for post in blog %}
-                                                    {% if forloop.counter == 1 or forloop.counter == 2 %}
-                                                       <li>
-                                                            <a href="{% url 'article-detail' post.pk %}" class="sub-item" style="text-decoration: none">
-                                                                <div class="container">
-                                                                    <div class="row pb-2">
-                                                                        <div class="col-4 ps-0" style="max-height: 100px; max-width: 100px">
-                                                                            <img class="card-photo text-left" src="{{ post.background.url }}" alt="..." style="max-height: 100px; max-width: 100px">
-                                                                        </div>
-                                                                        <div class="col-8 p-0">
-                                                                            <div>{{ post.title|truncatechars:35 }}</div>
-                                                                            <div style="color: rgba(0,0,0,0.5)">{{ post.date_posted | date:"j E Y" }}</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                    {% endif %}
-                                                {% endfor %}
-                                                <li style="margin-top: 6px">
-                                                    <a class="fw-bold border-bottom show-all" href="#" style="">
-                                                        Pokaż wszystkie
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-						    </li>
-                            <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
-                                <h5 class="text-center text-md-start fw-light my-1">O autorze</h5>
-                            </a>
-                            <li class="d-none d-xl-block" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                            <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-log px-4 border" href="{% url 'login' %}">
-                                <h5 class="fw-light my-1">Zaloguj się</h5>
-                            </a>
-                            <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-register px-4" href="{% url 'register' %}">
-                                <h5 class="fw-light my-1">Dołącz teraz</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        {% endif %}
+    {% include 'navbar.html' %}
 {% endblock %}
 
 {% block content %}
+    <div id="alert-container"></div>
     <div class="bg-body-tertiary">
         <div class="container text-cetner pt-4 pb-4 px-4 px-sm-0">
             <div class="container text-center">
@@ -360,7 +44,7 @@
                             </button>
                         {% endif %}
                         {% if user_account.twitter_url %}
-                            <button class="btn btn-socialmedia btn-twitter rounded-circle" onclick="window.open('{{ user_account.facebook_url }}')">
+                            <button class="btn btn-socialmedia btn-twitter rounded-circle" onclick="window.open('{{ user_account.twitter_url }}')">
                                 <i class="fab fa-twitter"></i>
                             </button>
                         {% endif %}
@@ -370,9 +54,14 @@
                             </button>
                         {% endif %}
                         {% if user_account.pinterest_url %}
-                        <button class="btn btn-socialmedia btn-pinterest rounded-circle" onclick="window.open('{{ user_account.pinterest_url }}')">
-                            <i class="fa-brands fa-pinterest-p"></i>
-                        </button>
+                            <button class="btn btn-socialmedia btn-pinterest rounded-circle" onclick="window.open('{{ user_account.pinterest_url }}')">
+                                <i class="fa-brands fa-pinterest-p"></i>
+                            </button>
+                        {% endif %}
+                        {% if user_account.author_url %}
+                            <button class="btn btn-socialmedia btn-website rounded-circle" onclick="window.open('{{ user_account.author_url }}')">
+                                <i class="fa-solid fa-file"></i>
+                            </button>
                         {% endif %}
                     </div>
                 </div>
@@ -407,8 +96,7 @@
                                             <h6 class="text-start text-muted fw-light text-capitalize">
                                                 {{ post.date_posted | date:"j E Y" }}
                                                 <i class="border-start ms-3 ps-3 pe-1 fa-regular fa-comment"></i>
-                                                123
-{#                                                Zrobić sumę komentarzy na bazie bloga agaty i adriana oraz "moje posty", "ustawienia" według bootstrapa i dribble. Strony z listą wszystkich postów i wsystkich kategori#}
+                                                {{ post.comment_set.count }}
                                             </h6>
                                             <h6 class="text-start fw-light" style="text-indent: 5%; color: black">{{ post.introduction | safe | truncatewords:50 }} ...</h6>
                                             <div class="pb-3 text-start">
@@ -432,25 +120,26 @@
                                                     <li class="mx-3">
                                                         <div class="d-grid gap-1">
                                                             <span class="fw-light">Udostępnij</span>
-                                                            <button class="btn btn-facebook-opacity" href="#" style="text-align: left; ">
+                                                            <button onclick="shareOnFacebook({{post.id}})" class="btn btn-facebook-opacity" href="#" style="text-align: left; ">
                                                                 <i class="fa-brands fa-facebook me-2" style=" width: 16px; height: 16px"></i>
                                                                 Facebook
                                                             </button>
-                                                            <button class="btn btn-twitter-opacity" href="#" style="text-align: left; ">
+                                                            <button onclick="shareOnTwitter({{posts.id}})" class="btn btn-twitter-opacity" href="#" style="text-align: left; ">
                                                                 <i class="fa-brands fa-twitter me-2" style=" width: 16px; height: 16px"></i>
                                                                 Twitter
                                                             </button>
-                                                            <button class="btn btn-instagram-opacity border-0" href="#" style="text-align: left; ">
-                                                                 <i class="fa-brands fa-instagram me-2" style=" width: 16px; height: 16px"></i>
-                                                                Instagram
+                                                            <button onclick="shareOnLinkedIn({{posts.id}})" class="btn btn-linkedin-opacity border-0" href="#" style="text-align: left; ">
+                                                                 <i class="fa-brands fa-linkedin me-2" style=" width: 16px; height: 16px"></i>
+                                                                LindkedIn
                                                             </button>
-                                                            <button class="btn btn-pinterest-opacity" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
+                                                            <button onclick="shareOnPinterest({{posts.id}})" class="btn btn-pinterest-opacity" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
                                                                     <i class="fa-brands fa-pinterest-p me-2" style=" width: 16px; height: 16px"></i>
                                                                 Pinterest
                                                             </button>
-                                                            <button class="btn btn-register container-fluid" style="text-align: left">
-                                                                <i class="fa-regular fa-copy me-2" style=" width: 16px; height: 16px"></i>Kopiuj link
-                                                            </button>
+                                                            <button class="btn btn-register container-fluid copy-link-btn" data-post-id="{{ post.id }}" style="text-align: left">
+    <i class="fa-regular fa-copy me-2" style=" width: 16px; height: 16px"></i>Kopiuj link
+</button>
+
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -540,64 +229,101 @@
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const copyLinkBtns = document.querySelectorAll('.copy-link-btn');
+        const alertContainer = document.querySelector('#alert-container');
+
+        copyLinkBtns.forEach(copyLinkBtn => {
+            copyLinkBtn.addEventListener('click', () => {
+                const postId = copyLinkBtn.getAttribute('data-post-id');
+                const link = `http://127.0.0.1:8000/article/${postId}`;
+
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = link;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextarea);
+
+                displayAlert('success', 'Sukces', 'Link skopiowany do schowka.', 'fa-regular fa-circle-check');
+            });
+        });
+
+        function displayAlert(type, title, message, icon) {
+                    const alertElement = document.createElement('div');
+                    alertElement.className = `alert alert-${type} d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show`;
+                    alertElement.style.maxWidth = '400px';
+                    alertElement.style.zIndex = '9999';
+                    alertElement.style.transform = 'translateX(0)';
+                    alertElement.style.opacity = '1';
+
+                    const alertContent = document.createElement('div');
+                    alertContent.className = 'd-flex align-items-start';
+
+                    const successIcon = document.createElement('i');
+                    successIcon.className = icon;
+                    successIcon.style.fontSize = '1.5rem';
+
+                    const textContainer = document.createElement('div');
+                    textContainer.className = 'flex-grow-1';
+                    textContainer.style.marginLeft = '1rem';
+
+                    const titleElement = document.createElement('h6');
+                    titleElement.textContent = title;
+                    titleElement.className = 'alert-heading';
+
+                    const descriptionElement = document.createElement('p');
+                    descriptionElement.textContent = message;
+                    descriptionElement.className = 'mb-0';
+
+                    const closeButton = document.createElement('button');
+                    closeButton.type = 'button';
+                    closeButton.className = 'btn-close';
+                    closeButton.setAttribute('aria-label', 'Close');
+                    closeButton.addEventListener('click', () => {
+                        alertElement.style.opacity = '0';
+                        alertElement.style.transform = 'scale(0.8)';
+                        alertElement.addEventListener('transitionend', () => {
+                            alertElement.remove();
+                        });
+                    });
+
+                    textContainer.appendChild(titleElement);
+                    textContainer.appendChild(descriptionElement);
+                    alertContent.appendChild(successIcon);
+                    alertContent.appendChild(textContainer);
+                    alertElement.appendChild(alertContent);
+                    alertElement.appendChild(closeButton);
+
+                    alertContainer.appendChild(alertElement);
+
+                    void alertElement.offsetWidth;
+
+                    const spacing = 10;
+                    let currentOffset = 0;
+                    const alerts = alertContainer.getElementsByClassName('alert');
+                    for (let i = alerts.length - 1; i >= 0; i--) {
+                        const alert = alerts[i];
+                        const alertHeight = alert.offsetHeight;
+                        const alertHeightWithSpacing = alertHeight + spacing;
+                        alert.style.top = `${currentOffset}px`;
+                        currentOffset += alertHeightWithSpacing;
+                    }
+
+                    const displayTime = 5000;
+                    setTimeout(() => {
+                        alertElement.classList.remove('show');
+                        setTimeout(() => {
+                            alertElement.remove();
+                        }, 500);
+                    }, displayTime);
+                }
+    });
+</script>
+
 {% endblock %}
 
 {% block foo %}
-    <div class="bg-body-tertiary">
-        <div class="container">
-            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-3">
-                <div class="col-sm-12 col-md-12 col-lg-2 mx-auto justify-content-start d-flex align-items-center">
-                    <img class="img mx-sm-auto mx-auto mx-lg-0 img-fluid d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 48px">
-                </div>
-                <ul class="nav col-sm-12 col-md-12 col-lg-10 mx-auto justify-content-center justify-content-lg-end list-unstyled d-flex">
-                    <div class="text-end">
-                        <ul class="nav ">
-                            <li class="nav-item mx-auto">
-                                <a class="nav-link btn-nav px-3" href="#">
-                                    <h5 class="fw-light my-1">Artykuły</h5>
-                                </a>
-                            </li>
-                            <li class="nav-item mx-auto">
-                                <a class="nav-link btn-nav px-3" href="{% url 'author-all' %}">
-                                    <h5 class="fw-light my-1">O autorze</h5>
-                                </a>
-                            </li>
-                            <li class="nav-item mx-auto">
-                                <a class="nav-link btn-nav px-3" href="#">
-                                    <h5 class="fw-light my-1">Regulamin serwisu</h5>
-                                </a>
-                            </li>
-                            <li class="nav-item mx-auto">
-                                <a class="nav-link btn-nav px-3" href="#">
-                                    <h5 class="fw-light my-1">Polityka prywatności</h5>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </ul>
-            </footer>
-            <hr class="mt-4 text-sm">
-            <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
-                <div class="col-12 col-md-6 mx-auto d-flex align-items-center justify-content-center justify-content-md-start">
-                    <span class="mb-3 mb-md-0 fw-light" style="color: navy">© 2023 Banknoty. Wszelkie prawa zastrzeżone.</span>
-                </div>
-                <ul class="nav col-12 col-sm-12 col-md-6 px-sm-2 px-md-0 mx-auto justify-content-center justify-content-md-end list-unstyled d-flex">
-                    <div class=" text-end">
-                        <button class="btn btn-socialmedia btn-facebook rounded-circle" href="/authentication/sign-in/">
-                            <i class="fab fa-facebook"></i>
-                        </button>
-                        <button class="btn btn-socialmedia btn-twitter rounded-circle" href="/authentication/sign-in/">
-                            <i class="fab fa-twitter"></i>
-                        </button>
-                        <button class="btn btn-socialmedia btn-linkedin rounded-circle" href="/authentication/sign-in/">
-                            <i class="fab fa-linkedin"></i>
-                        </button>
-                        <button class="btn btn-socialmedia btn-github rounded-circle" href="/authentication/sign-in/">
-                            <i class="fab fa-github"></i>
-                        </button>
-                    </div>
-                </ul>
-            </footer>
-        </div>
-    </div>
+    {% include 'footer.html' %}
 {% endblock %}

@@ -1,0 +1,26 @@
+Nadchodzące spotkania i wydarzenia
+
+Szanowna/y {% if mail.first_name and mail.last_name %}
+                {{ mail.first_name }} {{ mail.last_name }}
+            {% elif mail.first_name %}
+                {{ mail.first_name }}
+            {% elif mail.last_name %}
+                {{ mail.last_name }}
+            {% else %}
+                {{ mail.username }}
+            {% endif %}
+
+Jesteśmy świadomi Twojego zainteresowania banknotami i chcielibyśmy podzielić się z Tobą zestawieniem nadchodzących wydarzeń i spotkań, które mogą Cię zainteresować. To doskonała okazja do zdobywania wiedzy, rozwijania umiejętności oraz nawiązywania cennych kontaktów z innymi kolekcjonerami.
+
+Poniżej przedstawiamy kilka najbliższych wydarzeń w naszej branży, które odbywają się w Twojej okolicy:
+
+{{ text | safe }}
+
+Pragniemy zaznaczyć, że te wydarzenia nie są organizowane przez nas, ale są świetną okazją do poszerzenia Twojej wiedzy i uczestnictwa w pasjonujących dyskusjach z ekspertami z branży.
+
+Jeśli jesteś zainteresowany uczestnictwem w którymkolwiek z tych wydarzeń, zachęcamy do zapoznania się z dodatkowymi informacjami na oficjalnych stronach internetowych organizatorów. Tam znajdziesz pełne szczegóły dotyczące programu, rejestracji i innych istotnych informacji.
+
+Jeśli masz jakiekolwiek pytania lub potrzebujesz dodatkowych informacji na temat któregoś z tych wydarzeń, chętnie Ci pomożemy. Odpisz na tę wiadomość, a z przyjemnością udzielimy Ci niezbędnych informacji.
+
+Z wyrazami szacunku
+Banknoty

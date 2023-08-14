@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Zarządzanie wiadmościami o rozwoju i zmianach na Banknoty
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <nav class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'development_news_add' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-comment me-2"></i>
+                        Stworzenie wiadomości o rozwoju i zmianach na Banknoty
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'development_news_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Zarządzanie wiadmościami o rozwoju i zmianach na Banknoty
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'development_news_user_manage_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Zarządzanie subskrybcjami wiadomości o rozwoju i zmianach na Banknoty
+                    </button>
+                </nav>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Zarządzanie wiadmościami o rozwoju i zmianach na Banknoty
+                </h4>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div
+                            {% if message.tags %}
+                                class="{{ message.tags }}"
+                            {% endif %}
+                            role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="window.location.reload()" ></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Temat</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Data utworzenia</th>
+                        <th scope="col">Data edycji</th>
+                        <th scope="col">Edytuj</th>
+                        <th scope="col">Usuń</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for development_news in page_obj %}
+                            <tr>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'development_news_detail_admin_panel' development_news.pk %}">
+                                        {{ development_news.title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'development_news_detail_admin_panel' development_news.pk %}">
+                                        {% if development_news.status_field == 'Draft' %}
+                                            Projekt
+                                        {% else %}
+                                            Opublikowany
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'development_news_detail_admin_panel' development_news.pk %}">
+                                       {{ development_news.date_added |date:'Y-m-d H:i' }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'development_news_detail_admin_panel' development_news.pk %}">
+                                       {{ development_news.date_modified |date:'Y-m-d H:i' }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_edit_link" href="{% url 'development_news_edit_admin_panel' development_news.pk %}">
+                                        Edytuj
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_edit_link" href="{% url 'development_news_delete_admin_panel' development_news.pk %}">
+                                        Usuń
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% include 'paginator.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

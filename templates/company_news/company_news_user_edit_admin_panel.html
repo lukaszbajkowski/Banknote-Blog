@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Zarządzanie subskrybcjami wiadomości od Banknoty
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <nav class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'company_news_add' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-regular fa-paper-plane me-2"></i>
+                        Stworzenie wiadomości od Banknoty
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'company_news_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-inbox me-2"></i>
+                        Zarządzanie wiadomościami od Banknoty
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'company_news_user_manage_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-circle-user me-2"></i>
+                        Zarządzanie subskrybcjami wiadomości do Banknoty
+                    </button>
+                </nav>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                    Zarządzanie subskrybcjami wiadomości od Banknoty | {{ users.user }}
+                </h4>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-check form-switch pt-1">
+                        {{ form.company_news }}
+                        <label class="form-check-label">
+                            {{ form.company_news.label}}
+                        </label>
+                        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+                            {{ form.company_news.help_text}}
+                        </p>
+                    </div>
+                    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">Zapisz zmiany</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

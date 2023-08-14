@@ -1,0 +1,22 @@
+Okazje z rynku aukcyjnego
+
+Szanowna/y {% if mail.first_name and mail.last_name %}
+                {{ mail.first_name }} {{ mail.last_name }}
+            {% elif mail.first_name %}
+                {{ mail.first_name }}
+            {% elif mail.last_name %}
+                {{ mail.last_name }}
+            {% else %}
+                {{ mail.username }}
+            {% endif %}
+
+Jako miłośnik kolekcjonowania zapewne zdajesz sobie sprawę, że świat numizmatyki pełen jest fascynujących okazji, które mogą wzbogacić Twoją kolekcję i przynieść wiele radości z odkrywania unikalnych skarbów z historii.
+
+Nasz zespół ekspertów numizmatycznych stale przeszukuje rynek w poszukiwaniu wyjątkowych banknotów, które mogą zainteresować kolekcjonerów o różnych preferencjach. Chcemy podzielić się z Tobą kilkoma ekscytującymi ofertami, które są dostępne w naszym sklepie numizmatycznym:
+
+{{ text | safe }}
+
+Jeśli masz jakiekolwiek pytania lub potrzebujesz pomocy, nie wahaj się skontaktować z naszym zespołem. Jesteśmy tutaj, aby Cię wesprzeć i dzielić się naszą wiedzą na temat numizmatyki.
+
+Z numizmatycznymi pozdrowieniami,
+Banknoty

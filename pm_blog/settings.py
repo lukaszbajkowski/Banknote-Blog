@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'captcha',
     'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'members',
     "phonenumber_field",
     'ckeditor',
+    'remember_me',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'bajkowski1e@gmail.com'
+EMAIL_HOST_PASSWORD = 'wnyqycrhkcckuctn'
+
+RECAPTCHA_PUBLIC_KEY = '6LdGMyInAAAAABb4jYNA4jv4n3G3l6xpV8NjUY6L'
+RECAPTCHA_PRIVATE_KEY = '6LdGMyInAAAAAKB75xrhE_IeSKzsDA8qNr6L0RDM'
+# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None, #You can change this based on your requirements.
+        'width': 'auto',
+
+          },
+    }

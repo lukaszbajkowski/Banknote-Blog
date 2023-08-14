@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Pominięte artykuły {{ user.user }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'send_emails' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-paper-plane me-2"></i>
+                        Wysłanie e-maila do użytkowników
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'skipped_posts_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-list me-2"></i>
+                        Pominięte artykuły przez użytkowników
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'skipped_posts_user_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-list-ol me-2"></i>
+                        Zarządzanie subskrybcjami pominiętych artykułów
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <div style="display: flex; align-items: center;">
+                    <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                        Użytkownik | {{ users.user }}
+                    </h4>
+                    <input type=button  class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+                </div>
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Użytkownik
+                </h6>
+                {{ users.user }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Zgoda na e-maile z pominiętymi postami
+                </h6>
+                {% if user.user.miss_news %}
+                    Tak
+                {% else %}
+                    Nie
+                {% endif %}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Pominięte artykuły
+                </h6>
+                {% if posts %}
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Tytuł</th>
+                            <th scope="col">Data publikacji</th>
+                            <th scope="col">Autor</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            {% for post in posts %}
+                                <tr>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' post.pk %}">
+                                            {{ post.title }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' post.pk %}">
+                                            {{ post.date_posted }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="admin_panel_edit_link" href="{% url 'author_detail_admin_panel' post.author.pk %}">
+                                            {{ post.author.user.username }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    Brak pominiętych artykółów
+                {% endif %}
+                <div class="mb-4"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

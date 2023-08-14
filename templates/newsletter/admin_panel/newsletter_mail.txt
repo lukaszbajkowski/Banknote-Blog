@@ -1,0 +1,22 @@
+Biuletyn
+
+Szanowna/y {{ mail }}
+
+Oto najnowszy biuletyn bloga Banknoty, w którym przekazujemy Ci najświeższe wiadomości ze świata banknotów.
+Przygotowaliśmy dla Ciebie najciekawsze artykuły, nowości oraz ciekawostki związane z kolekcjonowaniem i badaniem banknotów.
+Zapraszamy do lektury!
+
+{{ text | safe }}
+
+Zachęcamy Cię również do odwiedzenia naszego bloga, gdzie znajdziesz jeszcze więcej fascynujących treści na temat banknotów.
+Bądź na bieżąco z naszymi publikacjami i ekskluzywnymi materiałami.
+
+Do zobaczenia na stronie Banknoty.
+
+Pozdrawiamy
+Banknoty
+
+
+Ten biuletyn jest dostarczany wyłącznie w celach informacyjnych.
+Jeśli nie chcesz otrzymywać naszych aktualizacji, możesz wypisać się z listy subskrybentów, klikając w link w stopce.
+
