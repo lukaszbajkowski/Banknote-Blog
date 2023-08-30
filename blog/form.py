@@ -10,200 +10,17 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 from django.contrib.auth import get_user_model
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from allauth.socialaccount.models import *
+from allauth.account.models import *
 
 
+# Funkcja do walidacji adresu e-mail, sprawdzająca czy adres już istnieje
 def validate_email(value):
     if User.objects.filter(email=value).exists():
         raise ValidationError(f" Adres {value} jest zajęty.", params={'value': value})
 
 
-class UserProfileForm(forms.ModelForm):
-    GENDER_CHOICES = (
-        ('M', 'Mężczyzna'),
-        ('K', 'Kobieta'),
-        ('I', 'Inna'),
-    )
-    bio = forms.CharField(
-        label='Biogram',
-        widget=forms.Textarea(attrs={'rows': 5, 'class': 'form-control', 'style': 'resize:none'}),
-        help_text="Krótki opis o Tobie - przynajmniej 10 znaków lecz nie więcej niż 512.",
-        max_length=512,
-        validators=[MinLengthValidator(10), MaxLengthValidator(512)],)
-    profile_pic = forms.ImageField(
-        required=False,
-        widget=forms.FileInput(attrs={'class': 'form-control align-middle'}),
-        label='Zdjęcie profilowe')
-    phone_number = PhoneNumberField(
-        label='Numer telefonu',
-        region='PL',
-        required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        help_text="Numer telefonu w formacie +48")
-    gender = forms.ChoiceField(
-        label='Płeć',
-        choices=GENDER_CHOICES,
-        required=True,
-        widget=forms.Select(attrs={'class': 'form-select'}))
-    newsletter = forms.BooleanField(
-        label='Biuletyn',
-        help_text='Raz w tygodniu wyślemy Ci przyjemną wiadomość. Bez zbędnego spamu.',
-        required=False,
-        initial=False,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-    miss_news = forms.BooleanField(
-        label='Pominięte artykuły',
-        help_text='Otrzymuj ważne powiadomienia o aktywnościach, które Cię ominęły.',
-        required=False,
-        initial=False,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-    meetups_news = forms.BooleanField(
-        label='Spotkania i wydarzenia',
-        help_text='Otrzymuj e-mail, gdy w pobliżu Twojej lokalizacji pojawi się spotkanie bądź aukcja.',
-        required=False,
-        initial=True,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-    opportunities_news = forms.BooleanField(
-        label='Okazje z rynku aukcyjnego',
-        help_text='Otrzymuj e-mail z niepowtarzalnymi okazjami na zakupy z rynku aukcyjnego.',
-        required=False,
-        initial=False,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-    company_news = forms.BooleanField(
-        label='Wiadomości od Banknoty',
-        help_text='Otrzymuj nowości od nas, komunikaty i informacje na temat nowości dotyczących produktów.',
-        required=False,
-        initial=True,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-    replay_news = forms.BooleanField(
-        label='Shot wydzarzeń od Banknoty',
-        help_text='Wysyłana od czasu do czasu wiadomość zawierająca najpopularniejsze shoty.',
-        required=False,
-        initial=False,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-    development_news = forms.BooleanField(
-        label='Informacje o rozwoju i zmianach na Banknoty',
-        help_text='Wiadomoś od nas zawierająca informacje o rozwoju i zmianach na Banknoty.',
-        required=False,
-        initial=False,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-    can_be_author = forms.BooleanField(
-        label='Czy może być autorem?',
-        help_text='Czy wniosek na autora został rozpatrzony pozytywnie.',
-        required=False,
-        initial=False,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-    )
-
-    class Meta:
-        model = User
-        fields = (
-            'bio',  'profile_pic', 'phone_number', 'gender', 'newsletter', 'miss_news', 'meetups_news', 'opportunities_news',
-            'company_news', 'replay_news', 'development_news', 'can_be_author')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['bio'].validators.extend([
-            MinLengthValidator(10),
-            MaxLengthValidator(512),
-        ])
-        self.fields['bio'].error_messages['min_length'] = _(
-            'Biogram musi zawierać przynajminej 10 znaków (obecnie ma %(show_value)s).')
-        self.fields['bio'].error_messages['max_length'] = _(
-            'Biogram nie może przekracza 512 znaków (obecnie ma %(show_value)s).')
-
-
-User = get_user_model()
-
-
-class UserCreationForm(forms.ModelForm):
-    username = forms.CharField(
-        label=_('Nazwa użytkownika'),
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        validators=[
-            UnicodeUsernameValidator(),
-            MinLengthValidator(2),
-            MaxLengthValidator(64)
-        ],
-        help_text="Wprowadź prawidłową nazwę użytkownika. Nazwa użytkownika może zawierać tylko litery, cyfry i znaki @/./+/-/_ oraz musi zawiera przynajmniej dwa znaki",
-        required=True
-    )
-    email = forms.EmailField(
-        label=_('Adres e-mail'),
-        widget=forms.EmailInput(attrs={'class': 'form-control'}),
-        validators=[validate_email]
-    )
-    first_name = forms.CharField(
-        label='Imię',
-        max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        help_text="Imię nie może skałada się z cyfr i musi zawira przynajmniej dwa znaki.",
-        required=True,
-    )
-    last_name = forms.CharField(
-        label='Nazwisko',
-        max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        help_text="Nazwisko nie może skałada się z cyfr i musi zawira przynajmniej dwa znaki.",
-        required=True,
-    )
-    password = forms.CharField(
-        label=_('Hasło'),
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
-    )
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].error_messages['required'] = _(
-            'Nazwa użytkownika jest wymagana.')
-        self.fields['email'].error_messages['required'] = _(
-            'Adres e-mail jest wymagana.')
-        self.fields['password'].error_messages['required'] = _(
-            'Hasło jest wymagane.')
-
-        self.fields['first_name'].validators.extend([
-            MinLengthValidator(2),
-            RegexValidator(
-                regex=r'^\D*$',
-                message=_('Imię nie może zawierać cyfr.'),
-                code='invalid_first_name'
-            )
-        ])
-        self.fields['first_name'].error_messages['min_length'] = _(
-            'Imię musi zawierać przynajminej 2 znaki (obecnie ma %(show_value)s).')
-        self.fields['first_name'].error_messages['required'] = _(
-            'Imię jest wymagane.')
-
-        self.fields['last_name'].validators.extend([
-            MinLengthValidator(2),
-            RegexValidator(
-                regex=r"^\D*$",
-                message=_('Nazwisko nie może zawiera cyfr.'),
-                code='invalid_last_name'
-            )
-        ])
-        self.fields['last_name'].error_messages['min_length'] = _(
-            'Nazwisko musi zawierać przynajminej 2 znaki (obecnie ma %(show_value)s).')
-        self.fields['last_name'].error_messages['required'] = _(
-            'Nazwisko jest wymagane.')
-
-    def clean_is_active(self):
-        is_active = self.cleaned_data.get('is_active')
-        if not is_active:
-            raise forms.ValidationError(_('Akceptacja regulaminu serwisu i polityki prywatności jest wymagana.'))
-        return is_active
-
-
+# Bazowa klasa formularza do dodawania biuletynów
 class AddEmailForm(forms.ModelForm):
     title = forms.CharField(
         label='Tytuł',
@@ -230,6 +47,7 @@ class AddEmailForm(forms.ModelForm):
         return content
 
 
+# Bazowa klasa formularza do usuwania
 class DeleteEmailForm(forms.ModelForm):
     is_active = forms.BooleanField(
         label='Regulamin serwisu i polityka prywatności',
@@ -247,6 +65,7 @@ class DeleteEmailForm(forms.ModelForm):
         return is_active
 
 
+# Formularz do kontaktu
 class ContactForm(forms.Form):
     name = forms.CharField(label='Imię', max_length=128)
     email = forms.EmailField(label='E-mail', max_length=128)
@@ -266,6 +85,7 @@ class ContactForm(forms.Form):
         self.fields['message'].widget.attrs.update({'class': 'form-control', 'rows': 5, 'style': 'resize:none'})
 
 
+# Formularz do rejestracji użytkowników do subskrypcji newslettera
 class NewsletterUserSignUpForm(forms.ModelForm):
     email = forms.EmailField(
         label='Wprowadź e-mail',
@@ -282,6 +102,7 @@ class NewsletterUserSignUpForm(forms.ModelForm):
         return email
 
 
+# Formularz do tworzenia nowego newslettera
 class NewsletterCreationForm(forms.ModelForm):
     title = forms.CharField(
         label='Tytuł',
@@ -309,6 +130,7 @@ class NewsletterCreationForm(forms.ModelForm):
         return content
 
 
+# Formularz do dodawania użytkowników do subskrypcji newslettera
 class NewsletterAddUserForm(forms.ModelForm):
     email = forms.EmailField(
         label='E-mail',
@@ -324,16 +146,19 @@ class NewsletterAddUserForm(forms.ModelForm):
         return email
 
 
+# Formularz do usuwania newslettera
 class NewsletterDeleteForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = Newsletter
 
 
+# Formularz do usuwania subskrybenta z listy newslettera
 class NewsletterUserDeleteForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = NewsletterUser
 
 
+# Formularz do tworzenia profilu autora
 class AuthorCreateForm(forms.ModelForm):
     bio = forms.CharField(
         label='O autorze',
@@ -399,6 +224,7 @@ class AuthorCreateForm(forms.ModelForm):
         }
 
 
+# Formularz do edycji profilu autora
 class AuthorEditForm(forms.ModelForm):
     bio = forms.CharField(
         label='O autorze',
@@ -458,11 +284,13 @@ class AuthorEditForm(forms.ModelForm):
                   'instagram_url', 'pinterest_url']
 
 
+# Formularz do usuwania profilu autora
 class AuthorDeleteForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = Author
 
 
+# Formularz do tworzenia kategorii
 class CategoryCreateForm(forms.ModelForm):
     name = forms.CharField(
         label='Kategoria',
@@ -482,11 +310,13 @@ class CategoryCreateForm(forms.ModelForm):
         fields = "__all__"
 
 
+# Formularz do usuwania kategorii
 class CategoryDeleteForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = Category
 
 
+# Formularz do tworzenia wpisu na blogu
 class PostCreateForm(forms.ModelForm):
     title = forms.CharField(
         label='Tytuł',
@@ -538,11 +368,13 @@ class PostCreateForm(forms.ModelForm):
         }
 
 
+# Formularz do usuwania wpisu na blogu
 class PostDeleteForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = Blog
 
 
+# Formularz do tworzenia komentarza z panelu adminstracyjnego
 class CommentCreateForm(forms.ModelForm):
     content = forms.CharField(
         label='Treść',
@@ -561,11 +393,13 @@ class CommentCreateForm(forms.ModelForm):
         }
 
 
+# Formularz do usuwania komentarza
 class CommentDeleteForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = Blog
 
 
+# Formularz do tworzenia komentarza do postu
 class CommentForm(forms.ModelForm):
     content = forms.CharField(
         max_length=256,
@@ -581,56 +415,97 @@ class CommentForm(forms.ModelForm):
         fields = ['content']
 
 
+# Formularz do tworzenia wiadomości o spotkaniach
 class Meetups_newsCreationForm(AddEmailForm):
     class Meta(AddEmailForm.Meta):
         model = Meetups_news
 
 
+# Formularz do usuwania wiadomości o spotkaniach
 class Meetups_newsDeleteForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = Meetups_news
 
 
+# Formularz do tworzenia okazji aukcyjnych
 class AuctionOpportunitiesCreationForm(AddEmailForm):
     class Meta(AddEmailForm.Meta):
         model = AuctionOpportunities
 
 
+# Formularz do usuwania okazji aukcyjnych
 class AuctionOpportunitiesDeleteEmailForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = AuctionOpportunities
 
 
+# Formularz do tworzenia wiadomości firmowych
 class CompanyNewsCreationForm(AddEmailForm):
     class Meta(AddEmailForm.Meta):
         model = CompanyNews
 
 
+# Formularz do usuwania wiadomości firmowych
 class CompanyNewsDeleteEmailForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = CompanyNews
 
 
+# Formularz do tworzenia wiadomości "Shot wydarzeń"
 class ReplayNewsCreationForm(AddEmailForm):
     class Meta(AddEmailForm.Meta):
         model = ReplayNews
 
 
+# Formularz do usuwania wiadomości "Shot wydarzeń"
 class ReplayNewsDeleteEmailForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = ReplayNews
 
 
+# Formularz do tworzenia wiadomości o rozwoju
 class DevelopmentNewsCreationForm(AddEmailForm):
     class Meta(AddEmailForm.Meta):
         model = DevelopmentNews
 
 
+# Formularz do usuwania wiadomości o rozwoju
 class DevelopmentNewsDeleteEmailForm(DeleteEmailForm):
     class Meta(DeleteEmailForm.Meta):
         model = DevelopmentNews
 
 
+# Formularz do usuwania użytkowników
+class UsersDeleteEmailForm(DeleteEmailForm):
+    class Meta(DeleteEmailForm.Meta):
+        model = User
+
+
+# Formularz do usuwania aplikacji społecznościowych
+class SocialAppDeleteEmailForm(DeleteEmailForm):
+    class Meta(DeleteEmailForm.Meta):
+        model = SocialApp
+
+
+# Formularz do usuwania tokenów społecznościowych
+class SocialTokenDeleteEmailForm(DeleteEmailForm):
+    class Meta(DeleteEmailForm.Meta):
+        model = SocialToken
+
+
+# Formularz do usuwania kont społecznościowych
+class SocialAccountDeleteEmailForm(DeleteEmailForm):
+    class Meta(DeleteEmailForm.Meta):
+        model = SocialAccount
+
+
+# Formularz do usuwania adresów e-mail dla użytkowników logujących się przez aplikacje
+class EmailAddressDeleteForm(DeleteEmailForm):
+    class Meta(DeleteEmailForm.Meta):
+        model = EmailAddress
+
+
+# Formularz do zarządzania wiadomościami o spotkaniah i wydarzeniach dla użytkowników
 class UserMeetups_newsForm(forms.ModelForm):
     meetups_news = forms.BooleanField(
         label='Spotkania i wydarzenia',
@@ -644,6 +519,7 @@ class UserMeetups_newsForm(forms.ModelForm):
         fields = ['meetups_news']
 
 
+# Formularz do zarządzania powiadomieniami o pominiętych artykułąch dla użytkowników
 class UserMissNewsForm(forms.ModelForm):
     miss_news = forms.BooleanField(
         label='Pominięte artykuły',
@@ -657,6 +533,7 @@ class UserMissNewsForm(forms.ModelForm):
         fields = ['miss_news']
 
 
+# Formularz do zarządzania okazjami aukcyjnymi dla użytkowników
 class UserAuctionOpportunitiesForm(forms.ModelForm):
     opportunities_news = forms.BooleanField(
         label='Okazje z rynku aukcyjnego',
@@ -670,6 +547,7 @@ class UserAuctionOpportunitiesForm(forms.ModelForm):
         fields = ['opportunities_news']
 
 
+# Formularz do zarządzania wiadomościami firmowymi dla użytkowników
 class UserCompanyNewsForm(forms.ModelForm):
     company_news = forms.BooleanField(
         label='Wiadomości od Banknoty',
@@ -683,6 +561,7 @@ class UserCompanyNewsForm(forms.ModelForm):
         fields = ['company_news']
 
 
+# Formularz do zarządzania wiadomościami "Shot wydarzeń" przez użytkownika
 class UserReplayNewsForm(forms.ModelForm):
     replay_news = forms.BooleanField(
         label='Shot wydzarzeń od Banknoty',
@@ -696,6 +575,7 @@ class UserReplayNewsForm(forms.ModelForm):
         fields = ['replay_news']
 
 
+# Formularz do zarządzania wiadomościami o rozwoju przez użytkownika
 class UserDevelopmentNewsForm(forms.ModelForm):
     development_news = forms.BooleanField(
         label='Informacje o rozwoju i zmianach na Banknoty',
@@ -707,3 +587,107 @@ class UserDevelopmentNewsForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['development_news']
+
+
+# Formularz do edycji aplikacji społecznościowych
+class SocialAppForm(forms.ModelForm):
+    class Meta:
+        model = SocialApp
+        fields = ['provider', 'provider_id', 'name',  'client_id', 'secret', 'key', 'settings', 'sites']
+
+        widgets = {
+            'provider': forms.Select(attrs={'class': 'form-select'}),
+            'provider_id': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'client_id': forms.TextInput(attrs={'class': 'form-control'}),
+            'secret': forms.TextInput(attrs={'class': 'form-control'}),
+            'key': forms.TextInput(attrs={'class': 'form-control'}),
+            'settings': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'style': 'resize:none'}),
+            'sites': forms.SelectMultiple(attrs={'class': 'form-control'}),
+        }
+
+        help_texts = {
+            'client_id': 'ID aplikacji lub klucz odbiorcy',
+            'secret': 'Klucz prywatny API, klienta lub odbiorcy',
+        }
+
+        labels = {
+            'provider': 'Dostawca usługi',
+            'provider_id': 'ID dostawcy',
+            'name': 'Nazwa dostawcy',
+            'client_id': 'ID klienta',
+            'secret': 'Klucz prywatny',
+            'key': 'Klucz publiczny',
+            'settings': 'Ustawienia',
+            'sites': 'Strony',
+        }
+
+
+# Formularz do edycji tokenów społecznościowych
+class SocialTokenForm(forms.ModelForm):
+    class Meta:
+        model = SocialToken
+        fields = ['app', 'account', 'token', 'token_secret', 'expires_at']
+
+        widgets = {
+            'app': forms.Select(attrs={'class': 'form-select'}),
+            'account': forms.Select(attrs={'class': 'form-select'}),
+            'token': forms.TextInput(attrs={'class': 'form-control'}),
+            'token_secret': forms.TextInput(attrs={'class': 'form-control'}),
+            'expires_at': forms.DateTimeInput(attrs={'class': 'form-control'}),
+        }
+
+        help_texts = {
+            'token': '"oauth_token" (OAuth1) lub access token (OAuth2)',
+            'token_secret': '"oauth_token_secret" (OAuth1) lub refresh token (OAuth2)',
+        }
+
+        labels = {
+            'app': 'Aplikacja',
+            'account': 'Konto',
+            'token': 'Token',
+            'token_secret': 'Token prywatny',
+            'expires_at': 'Data wygaśnięcia',
+        }
+
+
+# Formularz do edycji kont społecznościowych
+class SocialAccountForm(forms.ModelForm):
+    class Meta:
+        model = SocialAccount
+        fields = ['user', 'provider', 'uid', 'extra_data']
+
+        widgets = {
+            'user': forms.Select(attrs={'class': 'form-select'}),
+            'provider': forms.TextInput(attrs={'class': 'form-control'}),
+            'uid': forms.TextInput(attrs={'class': 'form-control'}),
+            'extra_data': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'style': 'resize:none'}),
+        }
+
+        labels = {
+            'user': 'Użytkownik',
+            'provider': 'Dostawca usługi',
+            'uid': 'ID',
+            'extra_data': 'Dodatkowe dane',
+        }
+
+
+# Formularz do edycji adresów e-mail dla użytkowników logujących się przez aplikacje
+class EmailAddressForm(forms.ModelForm):
+    class Meta:
+        model = EmailAddress
+        fields = ['user', 'email', 'verified', 'primary']
+
+        widgets = {
+            'user': forms.Select(attrs={'class': 'form-select'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'verified': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'primary': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+        labels = {
+            'user': 'Użytkownik',
+            'email': 'Adres e-mail',
+            'verified': 'Potwierdzony',
+            'primary': 'Pierwszy',
+        }

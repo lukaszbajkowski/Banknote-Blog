@@ -1,35 +1,45 @@
-from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from .forms import *
-from blog.form import PostCreateForm, PostDeleteForm, NewsletterUserSignUpForm
-from blog.models import *
-from django.views import generic
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-from django.core.validators import EmailValidator
-from django.db import IntegrityError
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
 from django.template.loader import get_template, render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.html import strip_tags
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.views import PasswordResetConfirmView
-from django.contrib.auth.forms import SetPasswordForm
-import time
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
+from django.db import IntegrityError
+from django.core.paginator import Paginator
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_protect
+from django.conf import settings
+from django.contrib.auth import (
+    login, authenticate, logout, update_session_auth_hash, get_user_model
+)
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import (
+    UserCreationForm, UserChangeForm, PasswordChangeForm,
+    PasswordResetForm, SetPasswordForm
+)
+from django.contrib.auth.views import (
+    PasswordResetView, PasswordResetConfirmView
+)
+from django.contrib import messages
+from .forms import *
+from blog.form import (
+    PostCreateForm, PostDeleteForm, NewsletterUserSignUpForm
+)
+from blog.models import *
 import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
+
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
 
 
 def register_page(request):
@@ -78,9 +88,9 @@ def confirm_email(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return redirect('registration_confirmed')  # Przekierowanie na stronę potwierdzenia rejestracji
+        return redirect('registration_confirmed')
     else:
-        return redirect('confirmation_error')  # Przekierowanie na stronę błędu potwierdzenia rejestracji
+        return redirect('confirmation_error')
 
 
 def registration_confirmed(request):
@@ -93,29 +103,6 @@ def confirmation_error(request):
 
 def confirmation_page(request):
     return render(request, 'registration/confirmation.html')
-
-
-# def login_page(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(request, username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('home')
-#             else:
-#                 messages.error(request, 'Nieprawidłowa nazwa użytkownika lub hasło.')
-#     else:
-#         form = LoginForm()
-#
-#     context = {
-#         'form': form,
-#     }
-#
-#     return render(request, 'registration/login.html', context)
 
 
 def login_page(request):
@@ -143,7 +130,6 @@ def login_page(request):
     }
 
     return render(request, 'registration/login.html', context)
-
 
 
 def logout_page(request):
@@ -327,7 +313,7 @@ def my_posts_create(request):
             blog = form.save(commit=False)
             blog.author = request.user.author
             blog.save()
-            form.save_m2m()  # Zapisuje powiązane kategorie
+            form.save_m2m()
             return redirect('my_posts')
     else:
         form = PostAddForm()

@@ -172,30 +172,18 @@
                 >Użytkownicy</a>
             </h3>
             <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
-                <nav class="nav flex-column text-start px-3">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
                     <h5 class=" fw-bold" style="color: navy">
                         Użytkownicy
                     </h5>
-{#                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'newsletter_creation' %}'" style="text-align: left; ">#}
-{#                        <i class="fa-solid fa-newspaper me-2"></i>#}
-{#                        Stworzenie biuletynu#}
-{#                    </button>#}
-{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_admin_panel' %}'" style="text-align: left; ">#}
-{#                        <i class="fa-solid fa-pen me-2"></i>#}
-{#                        Zarządzanie biuletynem#}
-{#                    </button>#}
-{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_add_user' %}'" style="text-align: left; ">#}
-{#                       <i class="fa-solid fa-user-plus me-2"></i>#}
-{#                        Dodanie do biuletynu#}
-{#                    </button>#}
-{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_remove_user' %}'" style="text-align: left; ">#}
-{#                        <i class="fa-solid fa-user-slash me-2"></i>#}
-{#                        Usunięcie z biuletynu#}
-{#                    </button>#}
-{#                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'newsletter_user_admin_panel' %}'" style="text-align: left; ">#}
-{#                        <i class="fa-solid fa-clipboard-user me-2"></i>#}
-{#                        Zarządzanie subskrybcjami biuletynu#}
-{#                    </button>#}
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'users_add' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-person-circle-plus me-2"></i>
+                        Stworzenie użytkownika
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'users_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-users me-2"></i>
+                        Zarządzanie użytkownikami
+                    </button>
                 </nav>
             </div>
             <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
@@ -221,6 +209,74 @@
                     <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'decision_maker_admin_panel' %}'" style="text-align: left; ">
                         <i class="fa-solid fa-list-check me-2"></i>
                         Zarządzanie aplikacjami na autora
+                    </button>
+                </nav>
+            </div>
+        </div>
+        <hr class="mt-2 mb-4" style="color: navy">
+        <div class="row">
+            <h3 class="ps-3 ps-sm-0 ps-md-3 mb-3">
+                <a class="admin_category" style="color: navy"
+                   href='{% url 'social_admin' %}'
+                >Konta społecznościowe i strony</a>
+            </h3>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Aplikacja społeczna
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'social_app_add' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-universal-access me-2"></i>
+                        Stworzenie aplikacji społecznościowej
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'social_app_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+                        <i class="fa-solid fa-users-gear me-2"></i>
+                        Zarządzanie aplikacjami społecznościowymi
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Token aplikacji społecznościowej
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'social_token_add' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-key me-2"></i>
+                        Stworzenie tokenu aplikacji społecznościowej
+                    </button>
+                    <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'social_token_admin_panel' %}'" style="text-align: left; ">
+                        <i class="fa-solid fa-user-lock me-2"></i>
+                        Zarządzanie tokenami aplikacji społecznościowych
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Konta społecznościowe
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'social_account_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-regular fa-user me-2"></i>
+                        Stworzenie konta społecznościowego
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'social_account_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-clipboard-list me-2"></i>
+                        Zarządzanie kontami społecznościowymi
+                    </button>
+                </nav>
+            </div>
+            <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+                <nav class="nav flex-column text-start px-3">
+                    <h5 class=" fw-bold" style="color: navy">
+                        Adresy e-mail
+                    </h5>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'email_address_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-at me-2"></i>
+                        Stworzenie adresu email dla konta społecznościowego
+                    </button>
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'email_address_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-envelopes-bulk me-2"></i>
+                        Zarządzanie adresami email dla konta społecznościowych
                     </button>
                 </nav>
             </div>

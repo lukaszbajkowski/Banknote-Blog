@@ -156,110 +156,110 @@
                         </div>
                     </div>
                 </div>
-            <script>
-    const passwordInput = document.getElementById("id_new_password1");
-            const passwordInput2 = document.getElementById("id_new_password2");
-            const icon_isSimilar = document.getElementById("isSimilar");
-            const icon_isAtLeast8Chars = document.getElementById("isAtLeast8Chars");
-            const icon_isNotCommon = document.getElementById("isNotCommon");
-            const icon_isNotOnlyNumbers = document.getElementById("isNotOnlyNumbers");
+                <script>
+                    const passwordInput = document.getElementById("id_new_password1");
+                    const passwordInput2 = document.getElementById("id_new_password2");
+                    const icon_isSimilar = document.getElementById("isSimilar");
+                    const icon_isAtLeast8Chars = document.getElementById("isAtLeast8Chars");
+                    const icon_isNotCommon = document.getElementById("isNotCommon");
+                    const icon_isNotOnlyNumbers = document.getElementById("isNotOnlyNumbers");
 
-            document.addEventListener("input", function() {
-                const password = passwordInput.value;
+                    document.addEventListener("input", function() {
+                        const password = passwordInput.value;
 
-                const isSimilar = checkSimilarity(password);
-                const isAtLeast8Chars = checkLength(password);
-                const isNotCommon = checkCommon(password);
-                const isNotOnlyNumbers = checkOnlyNumbers(password);
+                        const isSimilar = checkSimilarity(password);
+                        const isAtLeast8Chars = checkLength(password);
+                        const isNotCommon = checkCommon(password);
+                        const isNotOnlyNumbers = checkOnlyNumbers(password);
 
-                if (!isSimilar) {
-                    icon_isSimilar.classList.remove("fa-x");
-                    icon_isSimilar.classList.add("fa-check");
-                } else {
-                    icon_isSimilar.classList.remove("fa-check");
-                    icon_isSimilar.classList.add("fa-x");
-                }
-                if (isAtLeast8Chars) {
-                    icon_isAtLeast8Chars.classList.remove("fa-x");
-                    icon_isAtLeast8Chars.classList.add("fa-check");
-                } else {
-                    icon_isAtLeast8Chars.classList.remove("fa-check");
-                    icon_isAtLeast8Chars.classList.add("fa-x");
-                }
-                if (!isNotCommon) {
-                    icon_isNotCommon.classList.remove("fa-x");
-                    icon_isNotCommon.classList.add("fa-check");
-                } else {
-                    icon_isNotCommon.classList.remove("fa-check");
-                    icon_isNotCommon.classList.add("fa-x");
-                }
-                if (!isNotOnlyNumbers) {
-                    icon_isNotOnlyNumbers.classList.remove("fa-x");
-                    icon_isNotOnlyNumbers.classList.add("fa-check");
-                } else {
-                    icon_isNotOnlyNumbers.classList.remove("fa-check");
-                    icon_isNotOnlyNumbers.classList.add("fa-x");
-                }
+                        if (!isSimilar) {
+                            icon_isSimilar.classList.remove("fa-x");
+                            icon_isSimilar.classList.add("fa-check");
+                        } else {
+                            icon_isSimilar.classList.remove("fa-check");
+                            icon_isSimilar.classList.add("fa-x");
+                        }
+                        if (isAtLeast8Chars) {
+                            icon_isAtLeast8Chars.classList.remove("fa-x");
+                            icon_isAtLeast8Chars.classList.add("fa-check");
+                        } else {
+                            icon_isAtLeast8Chars.classList.remove("fa-check");
+                            icon_isAtLeast8Chars.classList.add("fa-x");
+                        }
+                        if (!isNotCommon) {
+                            icon_isNotCommon.classList.remove("fa-x");
+                            icon_isNotCommon.classList.add("fa-check");
+                        } else {
+                            icon_isNotCommon.classList.remove("fa-check");
+                            icon_isNotCommon.classList.add("fa-x");
+                        }
+                        if (!isNotOnlyNumbers) {
+                            icon_isNotOnlyNumbers.classList.remove("fa-x");
+                            icon_isNotOnlyNumbers.classList.add("fa-check");
+                        } else {
+                            icon_isNotOnlyNumbers.classList.remove("fa-check");
+                            icon_isNotOnlyNumbers.classList.add("fa-x");
+                        }
 
-                const password2 = passwordInput2.value;
-                const submitButton = document.getElementById("submit-button");
-                if (isSimilar || !isAtLeast8Chars || isNotCommon || isNotOnlyNumbers) {
-                    submitButton.disabled = true;
-                    submitButton.style.opacity = 0.5;
-                } else if (password2.length === password.length) {
-                    submitButton.disabled = false;
-                    submitButton.style.opacity = 1;
-                } else {
-                    submitButton.disabled = true;
-                    submitButton.style.opacity = 0.5;
-                }
-            });
+                        const password2 = passwordInput2.value;
+                        const submitButton = document.getElementById("submit-button");
+                        if (isSimilar || !isAtLeast8Chars || isNotCommon || isNotOnlyNumbers) {
+                            submitButton.disabled = true;
+                            submitButton.style.opacity = 0.5;
+                        } else if (password2.length === password.length) {
+                            submitButton.disabled = false;
+                            submitButton.style.opacity = 1;
+                        } else {
+                            submitButton.disabled = true;
+                            submitButton.style.opacity = 0.5;
+                        }
+                    });
 
-            function checkSimilarity(password) {
-                const username = "{{ user.username }}";
-                const email = "{{ user.email }}";
-                const first_name = "{{ user.first_name }}";
-                const last_name = "{{ user.last_name }}";
+                    function checkSimilarity(password) {
+                        const username = "{{ user.username }}";
+                        const email = "{{ user.email }}";
+                        const first_name = "{{ user.first_name }}";
+                        const last_name = "{{ user.last_name }}";
 
-                const similarityThreshold = 0.5;
+                        const similarityThreshold = 0.5;
 
-                const calculateSimilarity = (str1, str2) => {
-                    const set1 = new Set(str1.toLowerCase().split(""));
-                    const set2 = new Set(str2.toLowerCase().split(""));
-                    const intersection = [...set1].filter(char => set2.has(char));
-                    const similarity = intersection.length / Math.max(set1.size, set2.size);
-                    return similarity;
-                };
+                        const calculateSimilarity = (str1, str2) => {
+                            const set1 = new Set(str1.toLowerCase().split(""));
+                            const set2 = new Set(str2.toLowerCase().split(""));
+                            const intersection = [...set1].filter(char => set2.has(char));
+                            const similarity = intersection.length / Math.max(set1.size, set2.size);
+                            return similarity;
+                        };
 
-                const usernameSimilarity = calculateSimilarity(password, username);
-                const emailSimilarity = calculateSimilarity(password, email);
-                const first_nameSimilarity = calculateSimilarity(password, first_name);
-                const last_nameSimilarity = calculateSimilarity(password, last_name);
+                        const usernameSimilarity = calculateSimilarity(password, username);
+                        const emailSimilarity = calculateSimilarity(password, email);
+                        const first_nameSimilarity = calculateSimilarity(password, first_name);
+                        const last_nameSimilarity = calculateSimilarity(password, last_name);
 
-                return usernameSimilarity >= similarityThreshold
-                    || password.length === 0
-                    || emailSimilarity >= similarityThreshold
-                    || first_nameSimilarity >= similarityThreshold
-                    || last_nameSimilarity >= similarityThreshold;
-            }
+                        return usernameSimilarity >= similarityThreshold
+                            || password.length === 0
+                            || emailSimilarity >= similarityThreshold
+                            || first_nameSimilarity >= similarityThreshold
+                            || last_nameSimilarity >= similarityThreshold;
+                    }
 
-            function checkLength(password) {
-                return password.length >= 8;
-            }
+                    function checkLength(password) {
+                        return password.length >= 8;
+                    }
 
-            function checkCommon(password) {
-              // Check if password is a commonly used password
-              // Return true if password is commonly used, false otherwise
-            }
+                    function checkCommon(password) {
+                      // Check if password is a commonly used password
+                      // Return true if password is commonly used, false otherwise
+                    }
 
-            function checkOnlyNumbers(password) {
-                if (password.length === 0) {
-                    return true
-                }
-                const onlyNumbersRegex = /^[0-9]+$/;
-                return onlyNumbersRegex.test(password);
-            }
-</script>
+                    function checkOnlyNumbers(password) {
+                        if (password.length === 0) {
+                            return true
+                        }
+                        const onlyNumbersRegex = /^[0-9]+$/;
+                        return onlyNumbersRegex.test(password);
+                    }
+                </script>
                 {% include 'footer_members.html' %}
             </div>
         </div>

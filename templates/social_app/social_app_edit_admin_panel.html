@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<head>
+     {{ form.media }}
+</head>
+
+{% block title %}
+    Banknoty - Edycja | {{ form.name.value }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'social_app_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-universal-access me-2"></i>
+                        Stworzenie aplikacji społecznościowej
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'social_app_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-users-gear me-2"></i>
+                        Zarządzanie aplikacjami społecznościowymi
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2  fw-bold" style="color: navy">
+                    Edycja | {{ form.name.value | capfirst }}
+                </h4>
+                {% load static %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div
+                                {% if message.tags %}
+                                    class="{{ message.tags }}"
+                                {% endif %}
+                                role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="window.location.reload()" ></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% for field, error in form.errors.items %}
+                        <div class="alert alert-danger fw-light px-2 py-2 my-3" role="alert">
+                            {{ error|striptags }}
+                        </div>
+                    {% endfor %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <h6 class="form-label pt-3 text-start fw-bold">
+                            {{ form.provider.label }}
+                        </h6>
+                        {{ form.provider }}
+                        <h6 class="form-label pt-3 text-start fw-bold">
+                            {{ form.provider_id.label }}
+                        </h6>
+                        {{ form.provider_id }}
+                        <h6 class="form-label pt-3 text-start fw-bold">
+                            {{ form.name.label }}
+                        </h6>
+                        {{ form.name }}
+                        <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+                            {{ form.client_id.label }}
+                        </h6>
+                        <p class="text-start message m-0 mb-2 text-muted fw-light">
+                            {{ form.client_id.help_text }}
+                        </p>
+                        {{ form.client_id }}
+                        <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+                            {{ form.secret.label }}
+                        </h6>
+                        <p class="text-start message m-0 mb-2 text-muted fw-light">
+                            {{ form.secret.help_text }}
+                        </p>
+                        {{ form.secret }}
+                        <h6 class="form-label pt-3 text-start fw-bold">
+                            {{ form.key.label }}
+                        </h6>
+                        {{ form.key }}
+                        <h6 class="form-label pt-3 text-start fw-bold">
+                            {{ form.settings.label }}
+                        </h6>
+                        {{ form.settings }}
+                        <h6 class="form-label pt-3 text-start fw-bold">
+                            {{ form.sites.label }}
+                        </h6>
+                        {{ form.sites }}
+                        <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">Zapisz</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

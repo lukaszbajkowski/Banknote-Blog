@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Banknoty - Zarządzanie shotem wydarzeń
+    Banknoty - Zarządzanie adresami email dla konta społecznościowych
 {% endblock %}
 
 {% block navbar %}
@@ -13,23 +13,19 @@
         <div class="row">
             <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
                 <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
-                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'replay_news_add' %}'" style="text-align: left; display: block;">
-                        <i class="fa-solid fa-newspaper me-2"></i>
-                        Stworzenie shota wydarzeń
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'email_address_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-at me-2"></i>
+                        Stworzenie adresu email dla konta społecznościowego
                     </button>
-                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'replay_news_admin_panel' %}'" style="text-align: left; display: block;">
-                        <i class="fa-solid fa-pen me-2"></i>
-                        Zarządzanie shotem wydarzeń
-                    </button>
-                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'replay_news_user_manage_admin_panel' %}'" style="text-align: left; display: block;">
-                        <i class="fa-solid fa-user-plus me-2"></i>
-                        Zarządzanie subskrybcjami shota wydarzeń
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'email_address_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-envelopes-bulk me-2"></i>
+                        Zarządzanie adresami email dla konta społecznościowych
                     </button>
                 </div>
             </div>
             <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
                 <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
-                    Zarządzanie shotem wydarzeń
+                    Zarządzanie adresami email dla konta społecznościowych
                 </h4>
                 {% if messages %}
                     {% for message in messages %}
@@ -46,48 +42,52 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                        <th scope="col">Temat</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Data utworzenia</th>
-                        <th scope="col">Data edycji</th>
+                        <th scope="col">Adres e-mail</th>
+                        <th scope="col">Użytkownik</th>
+                        <th scope="col">Zweryfikowany</th>
+                        <th scope="col">Podstawowy</th>
                         <th scope="col">Edytuj</th>
                         <th scope="col">Usuń</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        {% for replay_news in page_obj %}
+                        {% for email_address in page_obj %}
                             <tr>
                                 <td>
-                                    <a class="admin_panel_link" href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
-                                        {{ replay_news.title }}
+                                    <a class="admin_panel_link" href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                                        {{ email_address.email }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="admin_panel_link" href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
-                                        {% if replay_news.status_field == 'Draft' %}
-                                            Projekt
+                                    <a class="admin_panel_link" href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                                        {{ email_address.user }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="admin_panel_link" href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                                        {% if email_address.verified is True%}
+                                            Tak
                                         {% else %}
-                                            Opublikowany
+                                            Nie
                                         {% endif %}
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="admin_panel_link" href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
-                                       {{ replay_news.date_added |date:'Y-m-d H:i' }}
+                                    <a class="admin_panel_link" href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                                       {% if email_address.primary is True%}
+                                            Tak
+                                        {% else %}
+                                            Nie
+                                        {% endif %}
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="admin_panel_link" href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
-                                       {{ replay_news.date_modified |date:'Y-m-d H:i' }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="admin_panel_edit_link" href="{% url 'repaly_news_edit_admin_panel' replay_news.pk %}">
+                                    <a class="admin_panel_edit_link" href="{% url 'email_address_edit_admin_panel' email_address.pk %}">
                                         Edytuj
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="admin_panel_edit_link" href="{% url 'replay_news_delete_admin_panel' replay_news.pk %}">
+                                    <a class="admin_panel_edit_link" href="{% url 'email_address_delete_admin_panel' email_address.pk %}">
                                         Usuń
                                     </a>
                                 </td>

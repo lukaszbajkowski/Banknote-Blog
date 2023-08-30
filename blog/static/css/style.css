@@ -803,7 +803,9 @@ border: 2px solid #dce4ec;
 #id_company_news,
 #id_replay_news,
 #id_development_news,
-#id_can_be_author {
+#id_can_be_author,
+#id_verified,
+#id_primary {
     height: 1.5rem!important;
     width: 2.5rem !important;
     margin-right: .75rem !important;

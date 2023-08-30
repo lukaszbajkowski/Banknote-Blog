@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Podgląd {{ email_address.user }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'email_address_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-at me-2"></i>
+                        Stworzenie adresu email dla konta społecznościowego
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'email_address_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-envelopes-bulk me-2"></i>
+                        Zarządzanie adresami email dla konta społecznościowych
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <div style="display: flex; align-items: center;">
+                    <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                        {{ email_address.user | capfirst }}
+                    </h4>
+                    <input type=button  class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+                </div>
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Email
+                </h6>
+                {{ email_address.email }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Użytkownik
+                </h6>
+                {{ email_address.user }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Zweryfikowany
+                </h6>
+                {% if email_address.verified is True%}
+                    Tak
+                {% else %}
+                    Nie
+                {% endif %}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Podstawowy
+                </h6>
+                {% if email_address.primary is True%}
+                    Tak
+                {% else %}
+                    Nie
+                {% endif %}
+                <div class="mb-4"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

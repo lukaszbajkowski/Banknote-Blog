@@ -6,6 +6,7 @@
 
 {% block content %}
     {% load static %}
+    {% load socialaccount %}
     <div class="bg-body-tertiary">
     <section class="container d-flex flex-column ">
         <div class="align-items-center justify-content-center g-0 min-vh-100 row">
@@ -77,9 +78,9 @@
                         {% endif %}
                         <hr class="my-4">
                         <div class="mt-4 text-center">
-                            <button class="btn btn-socialmedia btn-facebook rounded-3" href="/authentication/sign-in/">
-                                <i class="fab fa-facebook"></i>
-                            </button>
+                            <a class="btn btn-socialmedia btn-google rounded-3" onclick="location.href='{% provider_login_url  'google' %}?next=/'" >
+                                <i class="fab fa-google"></i>
+                            </a>
                             <button class="btn btn-socialmedia btn-twitter rounded-3" href="/authentication/sign-in/">
                                 <i class="fab fa-twitter"></i>
                             </button>

@@ -34,7 +34,7 @@ urlpatterns = [
     path('confirmed/', views.registration_confirmed, name='registration_confirmed'),
     path('confirmation-error/', views.confirmation_error, name='confirmation_error'),
 
-    path('reset_password/', auth_views.PasswordResetView.as_view(
+    path('reset_password/', views.CustomPasswordResetView.as_view(
         template_name='registration/reset_password/password_reset_form.html',
         html_email_template_name='registration/reset_password/password_reset_email.html',
         subject_template_name='registration/reset_password/password_reset_subject.txt',

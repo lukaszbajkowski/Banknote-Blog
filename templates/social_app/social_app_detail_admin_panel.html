@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Podgląd {{ social_app.title }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                <div class="nav rounded-3 shadow-sm text-start p-3" style="background-color: rgba(0,0,128,0.05)">
+                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'social_app_add' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-universal-access me-2"></i>
+                        Stworzenie aplikacji społecznościowej
+                    </button>
+                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'social_app_admin_panel' %}'" style="text-align: left; display: block;">
+                        <i class="fa-solid fa-users-gear me-2"></i>
+                        Zarządzanie aplikacjami społecznościowej
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <div style="display: flex; align-items: center;">
+                    <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+                        {{ social_app | capfirst }}
+                    </h4>
+                    <input type=button  class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+                </div>
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Dostawca usługi
+                </h6>
+                {{ social_app.provider }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    ID dostawcy
+                </h6>
+                {{ social_app.provider_id }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Nazwa dostawcy
+                </h6>
+                {{ social_app.name }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    ID klienta
+                </h6>
+                {{ social_app.client_id }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Klucz prywatny
+                </h6>
+                {{ social_app.secret }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Klucz publiczny
+                </h6>
+                {{ social_app.key }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Ustawienia
+                </h6>
+                {{ social_app.settings }}
+                <h6 class="form-label pt-3 text-start fw-bold">
+                    Strony
+                </h6>
+                {{ social_app.sites }}
+                <div class="mb-4"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

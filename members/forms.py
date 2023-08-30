@@ -1,21 +1,47 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import (
+    UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
+)
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from blog.models import User as User_Custom
 from blog.models import *
 from phonenumber_field.formfields import PhoneNumberField
-from django.core.validators import EmailValidator
+from django.core.validators import (
+    EmailValidator, MinLengthValidator, MaxLengthValidator, RegexValidator
+)
 from django.utils.translation import gettext as _
 from ckeditor.widgets import CKEditorWidget
 from urllib.parse import urlparse
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
-from django.contrib.auth import get_user_model, authenticate, login, logout
+from django.contrib.auth import (
+    get_user_model, authenticate, login, logout
+)
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMultiAlternatives
+from django.template import loader
 
-User = get_user_model()
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        label=_("Eeeeeeeemail"),
+        max_length=254,
+        widget=forms.EmailInput(attrs={"autocomplete": "email"}),
+    )
+
+    def send_mail(self, subject_template_name, email_template_name, context, from_email, to_email, html_email_template_name=None):
+        subject = loader.render_to_string(subject_template_name, context)
+        subject = ''.join(subject.splitlines())
+        body = loader.render_to_string(email_template_name, context)
+
+        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        if html_email_template_name is not None:
+            html_email = loader.render_to_string(html_email_template_name, context)
+            email_message.attach_alternative(html_email, "text/html")
+
+        email_message.send()
 
 
 def unique_email_validator(value):
@@ -40,16 +66,10 @@ class CustomUserForm(UserCreationForm):
     email = forms.EmailField(
         label=_('Adres e-mail'),
         widget=forms.EmailInput(attrs={'class': 'form-control'}),
-        validators=[validate_email]
     )
     username = forms.CharField(
         label=_('Nazwa użytkownika'),
         widget=forms.TextInput(attrs={'class': 'form-control'}),
-        validators=[
-            UnicodeUsernameValidator(),
-            MinLengthValidator(2),
-            MaxLengthValidator(64)
-        ],
         required=True
     )
     password1 = forms.CharField(
@@ -69,12 +89,34 @@ class CustomUserForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['username'].validators.extend([
+            MinLengthValidator(1),
+            MaxLengthValidator(64),
+            UnicodeUsernameValidator(
+                message=_('Wprowadź prawidłową nazwę użytkownika. Nazwa użytkownika może składać się tylko liter, '
+                          'cyfr i znaków @/./+/-/_.')
+            )
+        ])
+        self.fields['username'].error_messages['min_length'] = _(
+            'Nazwa użytkownika musi zawierać przynajminej 1 znaki (obecnie ma %(show_value)s).')
+        self.fields['username'].error_messages['max_length'] = _(
+            'Nazwa użytkownika może zawierać maksymalnie 64 znaki (obecnie ma %(show_value)s).')
         self.fields['username'].error_messages['required'] = _(
             'Nazwa użytkownika jest wymagana.')
+        self.fields['username'].error_messages['unique'] = _(
+            'Użytkownik o tej nazwie użytkownika już istnieje.')
+
+        self.fields['email'].validators.extend([
+            validate_email
+        ])
         self.fields['email'].error_messages['required'] = _(
-            'Adres e-mail jest wymagana.')
+            'Adres e-mail jest wymagany.')
+        self.fields['email'].error_messages['invalid'] = _(
+            'Wprowadź prawidłowy adres e-mail.')
+
         self.fields['password1'].error_messages['required'] = _(
             'Hasło jest wymagane.')
+
         self.fields['password2'].error_messages['required'] = _(
             'Potwierdzenie hasła jest wymagane.')
 
@@ -93,37 +135,42 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         label=_('Nazwa użytkownika'),
         widget=forms.TextInput(attrs={'class': 'form-control'}),
-        validators=[
-            UnicodeUsernameValidator(),
-            MinLengthValidator(1),
-            MaxLengthValidator(64)
-        ],
-        required=True
+        required=True,
     )
     password = forms.CharField(
         label='Hasło',
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        error_messages={
-            'required': _('Hasło jest wymagane.'),
-            'invalid': _('Niepoprawne hasło.')
-        },
     )
     captcha = ReCaptchaField(
         widget=ReCaptchaV2Checkbox(),
-        error_messages={
-            'required': _('reCaptacha jest wymagana.'),
-            'invalid': _('Niepoprawne reCaptacha.')
-        },
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['username'].validators.extend([
+            MinLengthValidator(1),
+            MaxLengthValidator(64),
+            UnicodeUsernameValidator(
+                message=_('Wprowadź prawidłową nazwę użytkownika. Nazwa użytkownika może składaś się tylko liter, '
+                          'cyfr i znaków @/./+/-/_.')
+            )
+        ])
+        self.fields['username'].error_messages['min_length'] = _(
+            'Nazwa użytkownika musi zawierać przynajminej 1 znaki (obecnie ma %(show_value)s).')
+        self.fields['username'].error_messages['max_length'] = _(
+            'Nazwa użytkownika może zawierać maksymalnie 64 znaki (obecnie ma %(show_value)s).')
         self.fields['username'].error_messages['required'] = _(
             'Nazwa użytkownika jest wymagana.')
+
         self.fields['password'].error_messages['required'] = _(
             'Hasło jest wymagane.')
+        self.fields['password'].error_messages['invalid'] = _(
+            'Niepoprawne hasło.')
+
         self.fields['captcha'].error_messages['required'] = _(
             'reCaptacha jest wymagana.')
+        self.fields['captcha'].error_messages['invalid'] = _(
+            'Niepoprawna reCaptacha.')
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
