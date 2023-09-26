@@ -38,10 +38,12 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
+# Widok do obsługi resetowania hasła z dostosowanym formularzem
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
 
 
+# Widok rejestracji użytkownika
 def register_page(request):
     if request.method != 'POST':
         form = CustomUserForm()
@@ -78,6 +80,7 @@ def register_page(request):
     return render(request, 'registration/registration.html', context)
 
 
+# Widoki potwierdzenia e-maila po rejestracji
 def confirm_email(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -93,18 +96,22 @@ def confirm_email(request, uidb64, token):
         return redirect('confirmation_error')
 
 
+# Widok potwierdzenia rejestracji
 def registration_confirmed(request):
     return render(request, 'registration/confirmed.html')
 
 
+# Widok błędu potwierdzenia e-maila po rejestracji
 def confirmation_error(request):
     return render(request, 'registration/confirmation_error.html')
 
 
+# Widok strony z informacją o potwierdzeniu rejestracji
 def confirmation_page(request):
     return render(request, 'registration/confirmation.html')
 
 
+# Widok logowania użytkownika
 def login_page(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -132,11 +139,13 @@ def login_page(request):
     return render(request, 'registration/login.html', context)
 
 
+# Widok wylogowania użytkownika
 def logout_page(request):
     logout(request)
     return redirect('/')
 
 
+# Widok edycji profilu użytkownika
 @login_required(login_url='home')
 def UserEditView(request):
     category = Category.objects.all()
@@ -170,6 +179,7 @@ def UserEditView(request):
     return render(request, 'my_account/edit_profile.html', context)
 
 
+# Widok zmiany hasła użytkownika
 @login_required(login_url='home')
 def UserChangePasswordView(request):
     category = Category.objects.all()
@@ -192,6 +202,7 @@ def UserChangePasswordView(request):
     return render(request, 'my_account/edit_security.html', context)
 
 
+# Widok do przekierowania do zmiany e-mail lub hasła
 @login_required(login_url='home')
 def UserChangePageView(request):
     category = Category.objects.all()
@@ -203,6 +214,7 @@ def UserChangePageView(request):
     return render(request, 'my_account/edit_security_page.html', context)
 
 
+# Widok zmiany e-maila użytkownika
 @login_required(login_url='home')
 def UserChangeEmailView(request):
     if request.method == 'POST':
@@ -251,6 +263,7 @@ def is_author(user):
         return False
 
 
+# Widok zarządzania ustawieniami powiadomień użytkownika
 @login_required(login_url='home')
 def UserNotificationView(request):
     try:
@@ -280,6 +293,7 @@ def UserNotificationView(request):
     return render(request, 'my_account/notification.html', context)
 
 
+# Widok tworzenia profilu autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
 def UserAuthorView(request):
@@ -304,6 +318,7 @@ def UserAuthorView(request):
     return render(request, 'my_account/author/edit_author_page.html', context)
 
 
+# Widok tworzenia nowego postu przez autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
 def my_posts_create(request):
@@ -327,6 +342,7 @@ def my_posts_create(request):
     return render(request, 'my_account/author/my_posts_add.html', context)
 
 
+# Widok wyświetlania postów przez autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
 def my_posts(request):
@@ -362,6 +378,7 @@ def my_posts(request):
     return render(request, 'my_account/author/my_posts.html', context)
 
 
+# Widok szczegółów postu przez autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
 def my_posts_detail(request, pk):
@@ -378,6 +395,7 @@ def my_posts_detail(request, pk):
     return render(request, 'my_account/author/my_posts_detail.html', context)
 
 
+# Widok edycji postu przez autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
 def my_posts_edit(request, pk):
@@ -404,6 +422,7 @@ def my_posts_edit(request, pk):
     return render(request, 'my_account/author/my_posts_edit.html', context)
 
 
+# Widok usuwania postu przez autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
 def my_posts_delete(request, pk):
@@ -431,6 +450,7 @@ def my_posts_delete(request, pk):
     return render(request, 'my_account/author/my_posts_delete.html', context)
 
 
+# Widok formularza do zgłoszenia się jako autor
 @login_required(login_url='home')
 def article_author_form(request):
     category = Category.objects.all()
@@ -480,6 +500,7 @@ def article_author_form(request):
     return render(request, 'my_account/author_application/author_application.html', context)
 
 
+# Widok panelu administracyjnego do decydowania o aplikacjach na autora
 @user_passes_test(
     lambda u: u.is_authenticated and u.is_superuser,
     login_url='home'
@@ -517,6 +538,7 @@ def decision_maker_admin_panel(request):
         return render(request, 'author_application/decision_maker_admin_panel.html', context)
 
 
+# Widok panelu administracyjnego ze szczegółami do decydowania o aplikacjach na autora
 @user_passes_test(
     lambda u: u.is_authenticated and u.is_superuser,
     login_url='home'
@@ -529,6 +551,7 @@ def decision_maker_detail_admin_panel_view(request, pk):
     return render(request, 'author_application/decision_maker_detail_admin_panel.html', context)
 
 
+# Widok historii zgłoszeń na autora
 @login_required(login_url='home')
 def article_author_history(request):
     category = Category.objects.all()
@@ -550,6 +573,7 @@ def article_author_history(request):
     return render(request, 'my_account/author_application/author_application_history.html', context)
 
 
+# Widok szczegółów zgłoszeń na autora
 @login_required(login_url='home')
 def article_author_detail(request, pk):
     if Author.objects.filter(user=request.user).exists():
@@ -570,6 +594,7 @@ def article_author_detail(request, pk):
     return render(request, 'my_account/author_application/author_application_detail.html', context)
 
 
+# Widok tworzenia autora przez użytkonika, który ma do tego uprawnienia
 @login_required(login_url='home')
 def create_author(request):
     user = request.user.user
@@ -605,6 +630,7 @@ def create_author(request):
         return redirect('article_author_form')
 
 
+# Widok listy komentarzy użytkownika
 @login_required(login_url='home')
 def CommentListView(request):
     user = request.user

@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import *
 
 
+# Konfiguracja wyświetlania listy kategorii w panelu administracyjnym
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
     list_filter = ('name',)
@@ -17,6 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania listy postów bloga w panelu administracyjnym
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'date_posted', 'favorite', 'is_publiction_status')
     list_filter = ('author', 'date_posted')
@@ -49,6 +51,7 @@ class BlogAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania listy komentarzy w panelu administracyjnym
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('blog', 'date_posted', 'author')
     list_filter = ('author',)
@@ -74,6 +77,7 @@ class CommentAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania listy autorów w panelu administracyjnym
 class AuthorAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'is_profile_pic', 'is_author_url', 'is_facebook_url', 'is_twitter_url', 'is_instagram_url',
@@ -101,6 +105,7 @@ class AuthorAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania listy autorów w panelu administracyjnym
 class UserAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'is_profile_pic', 'is_bio', 'is_phone_number', 'is_newsletter',)
@@ -128,6 +133,7 @@ class UserAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania listy subskrybentów newslettera w panelu administracyjnym
 class NewsletterUserAdmin(admin.ModelAdmin):
     list_display = ('email', 'date_added')
     list_filter = ['email']
@@ -144,6 +150,7 @@ class NewsletterUserAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania listy newsletterów w panelu administracyjnym
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'status')
     list_filter = ('title', 'date_added')
@@ -171,6 +178,7 @@ class NewsletterAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania newslettera o spotkaniach i wydarzeniach w panelu administracyjnym
 class Meetups_newsAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'status')
     list_filter = ('title', 'date_added')
@@ -194,6 +202,7 @@ class Meetups_newsAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania newslettera o ofertach aukcyjnych w panelu administracyjnym
 class AuctionOpportunitiesAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'status')
     list_filter = ('title', 'date_added')
@@ -217,6 +226,7 @@ class AuctionOpportunitiesAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania newslettera o informacjach o wydarzeniach w panelu administracyjnym
 class CompanyNewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'status')
     list_filter = ('title', 'date_added')
@@ -240,6 +250,7 @@ class CompanyNewsAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania newslettera "Shot wydarzeń" w panelu administracyjnym
 class ReplayNewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'status')
     list_filter = ('title', 'date_added')
@@ -263,6 +274,7 @@ class ReplayNewsAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania newslettera nowości na Banknoty w panelu administracyjnym
 class DevelopmentNewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'status')
     list_filter = ('title', 'date_added')
@@ -286,6 +298,7 @@ class DevelopmentNewsAdmin(admin.ModelAdmin):
     )
 
 
+# Konfiguracja wyświetlania autorów artykułów
 class ArticleAuthorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone_number', 'approved', 'rejected',)
     list_filter = ('email', 'date_added',)
@@ -312,6 +325,7 @@ class ArticleAuthorAdmin(admin.ModelAdmin):
     )
 
 
+# Rejestrowanie klas admina dla odpowiednich modeli
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Author, AuthorAdmin)
@@ -326,5 +340,6 @@ admin.site.register(ReplayNews, ReplayNewsAdmin)
 admin.site.register(DevelopmentNews, DevelopmentNewsAdmin)
 admin.site.register(ArticleAuthor, ArticleAuthorAdmin)
 
+# Konfiguracja ogólna panelu administracyjnego
 admin.site.site_header = 'Administracja Blogu'
 admin.site.site_title = 'Administracja Blogu'

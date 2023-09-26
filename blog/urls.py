@@ -10,7 +10,7 @@ urlpatterns = [
     path('article/<int:pk>', ArticleDetailView, name="article-detail"),  # Szczegóły artykułu
     path('article/all/', ArticleListView, name="article-all"),  # Lista wszystkich artykułów
     path('author/<int:pk>', views.profile_view, name="author-detail"),  # Szczegóły autora
-    path('category/<str:cats>/', CategoryView, name='category-detail'),  # Widok kategorii
+    path('category/<str:pk>/', CategoryView, name='category-detail'),  # Widok kategorii
     path('category/', CategoryListView, name='category-all'),  # Lista wszystkich kategorii
     path('author/all/', ProfileListView, name='author-all'),  # Lista wszystkich autorów
 

@@ -2,10 +2,10 @@ from django.contrib.auth.forms import (
     UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
 )
 from django import forms
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from blog.models import User as User_Custom
 from blog.models import *
+from blog.models import User as User_Custom
+from django.contrib.auth.models import User as User
 from phonenumber_field.formfields import PhoneNumberField
 from django.core.validators import (
     EmailValidator, MinLengthValidator, MaxLengthValidator, RegexValidator
@@ -24,6 +24,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import loader
 
 
+# Rozszerzenie formularza resetowania hasła
 class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
         label=_("Eeeeeeeemail"),
@@ -44,6 +45,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         email_message.send()
 
 
+# Funkcja walidująca unikalność adresu e-mail
 def unique_email_validator(value):
     if User.objects.filter(email=value).exists():
         raise ValidationError(
@@ -52,16 +54,19 @@ def unique_email_validator(value):
         )
 
 
+# Funkcja walidująca czy adres  e-mail jest zajety
 def validate_email(value):
     if User.objects.filter(email=value).exists():
         raise ValidationError(f" Adres {value} jest zajęty.", params={'value': value})
 
 
+# Funkcja walidująca nazwę użytkownika
 def validate_username(value):
     if User.objects.filter(username=value).exists():
         raise forms.ValidationError(_('Nazwa użytkownika jest już zajęta.'))
 
 
+# Formularz rejestracji użytkownika
 class CustomUserForm(UserCreationForm):
     email = forms.EmailField(
         label=_('Adres e-mail'),
@@ -131,6 +136,7 @@ class CustomUserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2', 'is_active']
 
 
+# Formularz logowania użytkownika
 class LoginForm(forms.Form):
     username = forms.CharField(
         label=_('Nazwa użytkownika'),
@@ -182,6 +188,7 @@ class LoginForm(forms.Form):
         return super().clean(*args, **kwargs)
 
 
+# Formularz edycji profilu użytkownika
 class EditUserForm(forms.ModelForm):
     first_name = forms.CharField(
         label='Imię',
@@ -228,6 +235,7 @@ class EditUserForm(forms.ModelForm):
             'Nazwisko jest wymagane.')
 
 
+# Formularz edycji profilu użytkownika
 class UserForm(forms.ModelForm):
     GENDER_CHOICES = (
         ('M', 'Mężczyzna'),
@@ -309,6 +317,7 @@ class UserForm(forms.ModelForm):
             'Biogram nie może przekracza 512 znaków (obecnie ma %(show_value)s).')
 
 
+# Formularz zmiany hasła użytkownika
 class PasswordChangingForm(PasswordChangeForm):
     error_messages = {
         'password_incorrect': "Obecne hasło jest niepoprawne. Proszę podać je jeszcze raz.",
@@ -352,6 +361,7 @@ class PasswordChangingForm(PasswordChangeForm):
         fields = ['old_password', 'new_password1', 'new_password2']
 
 
+# Formularz zmiany adresu e-mail użytkownika
 class EmailChangeForm(forms.Form):
     error_messages = {
         'email_mismatch': "Podane adresy e-mail nie pasują do siebie.",
@@ -429,6 +439,7 @@ class EmailChangeForm(forms.Form):
         return self.user
 
 
+# Formularz do usuwania konta
 class DeleteAccountForm(forms.Form):
     confirm_deletion = forms.BooleanField(
         label='Zdaję sobie sprawę, że to działanie jest permanentne i nie może być cofnięte.',
@@ -444,6 +455,7 @@ class DeleteAccountForm(forms.Form):
             raise forms.ValidationError('You must confirm that you want to delete your account.')
 
 
+# Formularz ustawień subskrybcji newsletterów
 class NotificationSettingsForm(forms.ModelForm):
     newsletter = forms.BooleanField(
         label='Biuletyn',
@@ -479,6 +491,7 @@ class NotificationSettingsForm(forms.ModelForm):
         fields = ['newsletter', 'miss_news', 'meetups_news', 'opportunities_news']
 
 
+# Formularz ustawień komunikacji od Banknoty
 class CommunicationSettingForm(forms.ModelForm):
     company_news = forms.BooleanField(
         label='Wiadomości od Banknoty',
@@ -507,6 +520,7 @@ class CommunicationSettingForm(forms.ModelForm):
         fields = ['company_news', 'replay_news', 'development_news']
 
 
+# Formularz zgłoszeniowy na autora
 class ArticleAuthorForm(forms.ModelForm):
     phone_number = PhoneNumberField(
         label='Numer telefonu',
@@ -585,6 +599,8 @@ class ArticleAuthorForm(forms.ModelForm):
         }
 
 
+# Klasy walidatorów
+# Walidator na maksymalną liczbę słów
 class MaxWordsValidator:
     def __init__(self, max_words):
         self.max_words = max_words
@@ -599,6 +615,7 @@ class MaxWordsValidator:
             )
 
 
+# Walidator na maksymalną liczbę kategorii
 class MaxSelectedCategoriesValidator:
     def __init__(self, max_selected):
         self.max_selected = max_selected
@@ -612,6 +629,7 @@ class MaxSelectedCategoriesValidator:
             )
 
 
+# Formularz edycji postów
 class PostEditForm(forms.ModelForm):
     title = forms.CharField(
         label='Tytuł',
@@ -708,6 +726,7 @@ class PostEditForm(forms.ModelForm):
         )
 
 
+# Formularz dodawania postÓw
 class PostAddForm(forms.ModelForm):
     title = forms.CharField(
         label='Tytuł',
@@ -802,6 +821,7 @@ class PostAddForm(forms.ModelForm):
         )
 
 
+# Formularz edycji autora
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
@@ -835,9 +855,6 @@ class AuthorForm(forms.ModelForm):
             'Biogram nie może przekracza 512 znaków (obecnie ma %(show_value)s).')
         self.fields['bio'].error_messages['required'] = _(
             'Biogram jest wymagany.')
-
-        # self.fields['profile_pic'].error_messages['required'] = _(
-        #     'Zdjęcie profilowe jest wymagane.')
 
         self.fields['author_quote'].validators.extend([
             MinLengthValidator(2),
@@ -901,6 +918,7 @@ class AuthorForm(forms.ModelForm):
         return author_function
 
 
+# Formularz tworzenia autora
 class CreateAuthorForm(forms.Form):
     bio = forms.CharField(
         widget=forms.Textarea(
@@ -996,7 +1014,7 @@ class CreateAuthorForm(forms.Form):
 
         self.fields['instagram_url'].validators.append(RegexValidator(
             regex=r'^https?://(www\.)?instagram\.com/.+$',
-            message='Wprowadť prawidłowy adres URL Instagram.',
+            message='Wprowadź prawidłowy adres URL Instagram.',
             code='invalid_instagram_url'
         ))
 

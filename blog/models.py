@@ -11,6 +11,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 
+# Funkcje walidujące różne pola modeli
 def validate_bio(value):
     if len(value) > 512:
         raise ValidationError('O autorze może zawierać maksymalnie 512 znaków.')
@@ -75,6 +76,7 @@ def validate_author_function(value):
         raise ValidationError('Nazwa stanowiska autora może zawierać maksymalnie 5 słów.')
 
 
+# Model kategorii
 class Category(models.Model):
     name = models.CharField(
         max_length=128,
@@ -97,6 +99,7 @@ class Category(models.Model):
         return "Kategoria | " + str(self.name)
 
 
+# Model autora
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Użytkownik")
     bio = models.TextField(
@@ -191,7 +194,7 @@ class Author(models.Model):
     is_instagram_url.short_description = 'Instagram page'
 
 
-# Model dla wpisu
+# Model wpisu na blogu
 class Blog(models.Model):
     title = models.TextField(validators=[validate_title], verbose_name="Tytuł")
     content = RichTextField(verbose_name="Treść")
@@ -234,7 +237,7 @@ class Blog(models.Model):
     is_publiction_status.short_description = 'Publication status'
 
 
-# Model dla komentarzy
+# Model dla komentarza
 class Comment(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name='Wpis')
     content = models.TextField(validators=[validate_content], verbose_name="Komentarz")
@@ -249,9 +252,7 @@ class Comment(models.Model):
             return str(self.content)[:15].capitalize() + "... | " + str(self.author).capitalize()
 
 
-# Model dla autora
-
-
+# Model użytkownika z dodatkowymi polami roszerzający wbudowany model User
 class User(models.Model):
     GENDER_CHOICES = (
         ('M', 'Mężczyzna'),
@@ -362,6 +363,7 @@ class User(models.Model):
     is_newsletter.boolean = True
     is_newsletter.short_description = 'Newsletter'
 
+    # Metoda zapisująca użytkownika, zarządzająca subskrypcją biuletynu
     def save(self, *args, **kwargs):
         email_exists = NewsletterUser.objects.filter(email=self.user.email).exists()
 
@@ -375,6 +377,7 @@ class User(models.Model):
         super().save(*args, **kwargs)
 
 
+# Model dla subskrybentów biuletynu
 class NewsletterUser(models.Model):
     email = models.EmailField(
         null=False,
@@ -385,15 +388,12 @@ class NewsletterUser(models.Model):
     def __str__(self):
         return str(self.email)
 
+    # Metoda zapisująca subskrybenta, zarządzająca użytkownikiem w biuletynie
     def save(self, *args, **kwargs):
         user_exists = User.objects.filter(user__email=self.email).exists()
-
-        # if not user_exists:
-        #     user = User.objects.create(user=AuthUser.objects.create(email=self.email), newsletter=True)
-        #     user.save()
-
         super().save(*args, **kwargs)
 
+    # Metoda usuwająca subskrybenta, zarządzająca użytkownikiem w biuletynie
     def delete(self, *args, **kwargs):
         user = User.objects.filter(user__email=self.email).first()
 
@@ -404,6 +404,7 @@ class NewsletterUser(models.Model):
         super().delete(*args, **kwargs)
 
 
+# Sygnały reagujące na zdarzenia dodawania i usuwania subskrybentów biuletynu
 @receiver(post_save, sender=NewsletterUser)
 @receiver(post_delete, sender=NewsletterUser)
 def update_user_newsletter(sender, instance, **kwargs):
@@ -413,6 +414,7 @@ def update_user_newsletter(sender, instance, **kwargs):
         user.save()
 
 
+# Modele dla różnych typów wiadomości
 class Newsletter(models.Model):
     EMAIL_STATUS_CHOICES = (
         ('Draft', 'Projekt'),
@@ -645,6 +647,7 @@ class DevelopmentNews(models.Model):
             return True
 
 
+# Model dla wniosków na autora artykułów
 class ArticleAuthor(models.Model):
     first_name = models.CharField(
         null=False,

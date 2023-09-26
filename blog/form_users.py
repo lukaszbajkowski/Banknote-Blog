@@ -11,11 +11,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.validators import UnicodeUsernameValidator
 
 
+# Funkcja do walidacji unikalności adresu email.
 def validate_email(value):
     if User.objects.filter(email=value).exists():
         raise ValidationError(f" Adres {value} jest zajęty.", params={'value': value})
 
 
+# Formularz dla informacji o profilu użytkownika z modelu User, który rozszerza wbudowany model User.
 class UserProfileForm(forms.ModelForm):
     GENDER_CHOICES = (
         ('M', 'Mężczyzna'),
@@ -112,6 +114,7 @@ class UserProfileForm(forms.ModelForm):
             'Biogram nie może przekracza 512 znaków (obecnie ma %(show_value)s).')
 
 
+# Formularz do edycji informacji o użytkowniku z modelu wbudowanego User.
 class UserEditForm(forms.ModelForm):
     email = forms.EmailField(
         label=_('Adres e-mail'),
@@ -178,6 +181,7 @@ class UserEditForm(forms.ModelForm):
         return new_email
 
 
+# Formularz do tworzenia nowego użytkownika.
 class UserCreationForm(forms.ModelForm):
     username = forms.CharField(
         label=_('Nazwa użytkownika'),
@@ -262,6 +266,7 @@ class UserCreationForm(forms.ModelForm):
         return new_email
 
 
+# Formularz do zmiany hasła na panelu administracyjnym.
 class CustomPasswordChangingForm(forms.Form):
     error_messages = {
         'password_mismatch': "Podane hasła nie są identyczne.",
