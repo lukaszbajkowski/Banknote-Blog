@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
     Banknoty - Regulamin
@@ -15,7 +16,32 @@
         <div class="container px-0 px-xl-5">
             <div class="container pb-5 pt-3">
                 <h1 class="text-center pt-2" style="color: navy">Regulamin</h1>
-                <p class="text-muted text-center pb-4">Data wejścia w życie: 1 lipca 2023</p>
+                {% load i18n %}
+
+<form class="position-absolute top-0 end-0 pe-5 pt-4" action="{% url 'set_language' %}" method="post">
+  {% csrf_token %}
+  {% get_current_language as LANGUAGE_CODE %}
+  {% if LANGUAGE_CODE == 'en' %}
+    {% language 'pl' %}
+      <button type="submit"
+              name="language"
+              value="pl"
+              class="btn btn-info">
+        PL
+      </button>
+    {% endlanguage %}
+  {% elif LANGUAGE_CODE == 'pl' %}
+    {% language 'en' %}
+      <button type="submit"
+              name="language"
+              value="en"
+              class="btn btn-info">
+        EN
+      </button>
+    {% endlanguage %}
+  {% endif %}
+</form>
+                <p class="text-muted text-center pb-4">{% trans 'Data wejścia w życie: 1 lipca 2023' %}</p>
                 <div class="row">
                     <div class="col-3">
                         <div id="list" class="list-group">

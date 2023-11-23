@@ -3,9 +3,12 @@ from .views import *
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.urls import include
 
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
+
     path('', HomeView, name='home'),  # Strona główna
     path('article/<int:pk>', ArticleDetailView, name="article-detail"),  # Szczegóły artykułu
     path('article/all/', ArticleListView, name="article-all"),  # Lista wszystkich artykułów
