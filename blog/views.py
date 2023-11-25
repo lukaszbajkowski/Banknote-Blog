@@ -1,5 +1,6 @@
+from functools import wraps
+
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import update_session_auth_hash
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
@@ -7,12 +8,10 @@ from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
-from django.utils import timezone
+
 from .form import *
 from .form_users import *
 from .models import User as DjangoUser
-from django.core.exceptions import ValidationError
-from functools import wraps
 
 # Stałe komunikaty
 SUCCESS_MESSAGE = 'Dziękujemy za rejestrację do biuletynu.'
@@ -121,7 +120,8 @@ def process_form_submission(request, form_class, template, redirect_view_name, m
 
 
 # Widok edycji encji w panelu administratora
-def edit_entity_admin_panel_view(request, pk, model_class, form_class, template_name, success_message, redirect_name, extra_context=None):
+def edit_entity_admin_panel_view(request, pk, model_class, form_class, template_name, success_message, redirect_name,
+                                 extra_context=None):
     instance = get_object_or_404(model_class, pk=pk)
 
     if request.method == "POST":
@@ -322,7 +322,7 @@ def HomeView(request):
                 return JsonResponse({'success': False})
             else:
                 instance.save()
-                send_newsletter_signup_email(instance.email)
+                send_signup_mail(instance.email)
                 return JsonResponse({'success': True})
         else:
             return JsonResponse({'success': False})
@@ -376,7 +376,7 @@ def ArticleDetailView(request, pk=None):
                 return JsonResponse({'success': False})
             else:
                 instance.save()
-                send_newsletter_signup_email(instance.email)
+                send_signup_mail(instance.email)
                 return JsonResponse({'success': True})
 
     else:
@@ -414,7 +414,7 @@ def ArticleListView(request):
                 return JsonResponse({'success': False})
             else:
                 instance.save()
-                send_newsletter_signup_email(instance.email)
+                send_signup_mail(instance.email)
                 return JsonResponse({'success': True})
         else:
             return JsonResponse({'success': False})
@@ -524,7 +524,19 @@ def CategoryView(request, pk):
 def CategoryListView(request):
     categories = Category.objects.all()
     blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
-    newsletter_form = process_newsletter_in_blog_signup(request, NewsletterUserSignUpForm)
+    newsletter_form = NewsletterUserSignUpForm(request.POST or None)
+
+    if request.method == 'POST':
+        if newsletter_form.is_valid():
+            instance = newsletter_form.save(commit=False)
+            if NewsletterUser.objects.filter(email=instance.email).exists():
+                return JsonResponse({'success': False})
+            else:
+                instance.save()
+                send_signup_mail(instance.email)
+                return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False})
 
     context = {
         'categories': categories,
@@ -541,7 +553,19 @@ def ProfileListView(request):
     author = Author.objects.all()
     category = Category.objects.all()
     blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
-    newsletter_form = process_newsletter_in_blog_signup(request, NewsletterUserSignUpForm)
+    newsletter_form = NewsletterUserSignUpForm(request.POST or None)
+
+    if request.method == 'POST':
+        if newsletter_form.is_valid():
+            instance = newsletter_form.save(commit=False)
+            if NewsletterUser.objects.filter(email=instance.email).exists():
+                return JsonResponse({'success': False})
+            else:
+                instance.save()
+                send_signup_mail(instance.email)
+                return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False})
 
     context = {
         'author': author,
@@ -700,8 +724,10 @@ def newsletter_edit_admin_panel_view(request, pk):
             newsletter = form.save()
             if newsletter.status_field == "Published":
                 send_newsletter_emails(newsletter)
-                messages.success(request, PUBLISHED_SUCCESS_MESSAGE, "alert alert-success alert-dismissible fade show mt-3")
-            messages.success(request, 'Biuletyn został edytowany', "alert alert-success alert-dismissible fade show mt-3")
+                messages.success(request, PUBLISHED_SUCCESS_MESSAGE,
+                                 "alert alert-success alert-dismissible fade show mt-3")
+            messages.success(request, 'Biuletyn został edytowany',
+                             "alert alert-success alert-dismissible fade show mt-3")
             return redirect('newsletter_admin_panel')
     else:
         form = NewsletterCreationForm(instance=newsletter)
@@ -742,8 +768,8 @@ def newsletter_user_detail_admin_panel_view(request, pk):
 @superuser_required
 def newsletter_user_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(request, pk, NewsletterUser, NewsletterUserDeleteForm,
-                          'newsletter/admin_panel/newsletter_user_delete_admin_panel.html',
-                          USER_SUCCESS_DELETE_MESSAGE, 'newsletter_user_admin_panel')
+                                           'newsletter/admin_panel/newsletter_user_delete_admin_panel.html',
+                                           USER_SUCCESS_DELETE_MESSAGE, 'newsletter_user_admin_panel')
 
 
 # Widok panelu administracyjnego (dla superusera)
@@ -779,7 +805,8 @@ def social_media_admin_panel_view(request):
 # Widok dodawania autora (dla superusera)
 @superuser_required
 def author_add_view(request):
-    return process_form_submission(request, AuthorCreateForm, 'author/author_add.html', 'author_add','Autor został utworzony')
+    return process_form_submission(request, AuthorCreateForm, 'author/author_add.html', 'author_add',
+                                   'Autor został utworzony')
 
 
 # Widok zarządzania autorami (dla superusera)
@@ -832,7 +859,8 @@ def author_delete_admin_panel_view(request, pk):
 # Widok dodawania kategorii (dla superusera)
 @superuser_required
 def category_add_view(request):
-    return process_form_submission(request, CategoryCreateForm, 'category/category_add.html', 'category_add','Kategoria została dodana.')
+    return process_form_submission(request, CategoryCreateForm, 'category/category_add.html', 'category_add',
+                                   'Kategoria została dodana.')
 
 
 # Widok zarządzania kategoriami (dla superusera)
@@ -971,7 +999,8 @@ def post_publication_admin_panel_view(request):
 # Widok dodawania komentarza (dla superusera)
 @superuser_required
 def comment_add_view(request):
-    return process_form_submission(request, CommentCreateForm, 'comment/comment_add.html', 'comment_add', 'Komentarz został dodany')
+    return process_form_submission(request, CommentCreateForm, 'comment/comment_add.html', 'comment_add',
+                                   'Komentarz został dodany')
 
 
 # Widok zarządzania komentarzami (dla superusera)
