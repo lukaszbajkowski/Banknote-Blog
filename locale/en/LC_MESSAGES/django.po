@@ -78,11 +78,11 @@ msgstr ""
 #: blog/form_users.py:172 blog/form_users.py:257 members/forms.py:235
 #: members/forms.py:308 members/forms.py:566
 msgid "Nazwisko jest wymagane."
-msgstr ""
+msgstr "Last name is required"
 
 #: blog/form_users.py:187 members/forms.py:76 members/forms.py:142
 msgid "Nazwa użytkownika"
-msgstr ""
+msgstr "Username"
 
 #: blog/form_users.py:227 members/forms.py:110 members/forms.py:169
 msgid "Nazwa użytkownika jest wymagana."

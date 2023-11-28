@@ -1,0 +1,9 @@
+<div class="p-3 text-start">
+    {% for category in random_posts.category.all %}
+        <a class="no-text-decoration" href="{% url 'category-detail' category.id %}">
+            <span class="text-muted text-black badge rounded-pill mt-2 px-3 py-2 fw-light pill-bg">
+                {{ category.name }}
+            </span>
+        </a>
+    {% endfor %}
+</div>

@@ -1,0 +1,4 @@
+<a class="card-link" href="{% url 'author-detail' post.author.user.pk %}">
+    <img class="card-photo rounded-circle article-author-img" src="{{ post.author.profile_pic.url }}"
+         alt="Author article profile picture">
+</a>

@@ -1,0 +1,9 @@
+{% if comment.days_passed == 0 %}
+    Mniej niż dzień temu
+{% else %}
+    {% if comment.days_passed == 1 %}
+        1 dzień temu
+    {% else %}
+        {{ comment.days_passed }} dni temu
+    {% endif %}
+{% endif %}

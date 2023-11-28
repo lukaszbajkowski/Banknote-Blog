@@ -1,0 +1,14 @@
+<div class="swiper-slide">
+    <a class="card-link" href="{% url 'author-detail' author.id %}">
+        {% include 'UserTemplates/Authors/AuthorIntro.html' %}
+        <div class="row">
+            {% include 'UserTemplates/Authors/AuthorImg.html' %}
+        </div>
+        <div class="row">
+            {% include 'UserTemplates/Authors/AuthorName.html' %}
+        </div>
+        <div class="row">
+            {% include 'UserTemplates/Authors/AuthorFunction.html' %}
+        </div>
+    </a>
+</div>

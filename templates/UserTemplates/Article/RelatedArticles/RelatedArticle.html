@@ -1,0 +1,19 @@
+<div class="col-12 col-md-6 col-lg-6 col-xl-6 p-3 px-md-4 pb-4">
+    <div class="shadow rounded-3 rounded-bottom-0">
+        <div class="row p-0 rounded-3">
+            <div class="col rounded-3">
+                {% include 'UserTemplates/Article/RelatedArticles/RelatedArticleImg.html' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% include 'UserTemplates/Article/RelatedArticles/RelatedArticleCategories.html' %}
+                {% include 'UserTemplates/Article/RelatedArticles/RelatedArticleTitle.html' %}
+                {% include 'UserTemplates/Article/RelatedArticles/RelatedArticleShortText.html' %}
+            </div>
+        </div>
+        <div class="row">
+            {% include 'UserTemplates/Article/RelatedArticles/RelatedArticleAuthor.html' %}
+        </div>
+    </div>
+</div>

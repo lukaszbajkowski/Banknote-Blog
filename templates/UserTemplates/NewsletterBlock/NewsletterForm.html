@@ -1,0 +1,9 @@
+<form class="" method="POST" id="newsletter-form">
+    <div class="input-group p-3 bg-body-tertiary rounded shadow my-auto">
+        {% csrf_token %}
+        {{ form.email }}
+        <button class="btn btn-register rounded px-3" type="submit">
+            Subskrybuj
+        </button>
+    </div>
+</form>

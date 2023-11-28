@@ -1,0 +1,31 @@
+{% if user_account.facebook_url %}
+    <button class="btn btn-socialmedia btn-facebook rounded-circle"
+            onclick="window.open('{{ user_account.facebook_url }}')">
+        <i class="fab fa-facebook"></i>
+    </button>
+{% endif %}
+{% if user_account.twitter_url %}
+    <button class="btn btn-socialmedia btn-twitter rounded-circle"
+            onclick="window.open('{{ user_account.twitter_url }}')">
+        <i class="fab fa-twitter"></i>
+    </button>
+{% endif %}
+{% if user_account.instagram_url %}
+    <button class="btn btn-socialmedia btn-instagram border-0 rounded-circle"
+            onclick="window.open('{{ user_account.instagram_url }}')">
+        <i class="fa-brands fa-instagram"></i>
+    </button>
+{% endif %}
+{% if user_account.pinterest_url %}
+    <button class="btn btn-socialmedia btn-pinterest rounded-circle"
+            onclick="window.open('{{ user_account.pinterest_url }}')">
+        <i class="fa-brands fa-pinterest-p"></i>
+    </button>
+{% endif %}
+{% if user_account.author_url %}
+    <button class="btn btn-socialmedia btn-website rounded-circle"
+            onclick="window.open('{{ user_account.author_url }}')">
+        <i class="fa-solid fa-file"></i>
+    </button>
+{% endif %}
+

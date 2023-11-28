@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-12 ps-0 ps-sm-3 ps-md-3 ps-lg-3 ps-xl-3">
+        <small class="fw-bold">
+            <a class="no-text-decoration first-post" href="{% url 'author-detail' posts.author.pk %}">
+                <h4 class="first-post text-capitalize text-center text-sm-start">
+                    {% if posts.author.user.first_name and posts.author.user.last_name %}
+                        {{ posts.author.user.first_name }}
+                        {{ posts.author.user.last_name }}
+                    {% elif posts.author.user.first_name %}
+                        {{ posts.author.user.first_name }}
+                    {% elif posts.author.user.last_name %}
+                        {{ posts.author.user.last_name }}
+                    {% else %}
+                        {{ posts.author.user.username }}
+                    {% endif %}
+                </h4>
+            </a>
+            <p class="about-author-font-size text-black fw-light text-start">
+                {{ posts.author.bio }}
+            </p>
+        </small>
+    </div>
+</div>

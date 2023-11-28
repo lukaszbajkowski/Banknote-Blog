@@ -1,0 +1,46 @@
+.article-author-img {
+    height: 48px;
+    width: 48px;
+}
+
+.article-date-color {
+    color: rgba(0, 0, 0, .6);
+}
+
+.article-content {
+    display: inline-block;
+    text-align: left;
+    max-width: 100%;
+}
+
+.text-navy-center {
+    text-align: center;
+    color: #000080;
+}
+
+.text-navy-start {
+    text-align: start;
+    color: #000080;
+}
+
+.btn-copy-size {
+    min-height: 42px;
+}
+
+.about-author-img {
+    height: 96px;
+    width: 96px;
+}
+
+.about-author-font-size {
+    font-size: 16px;
+}
+
+.btn-login-border-bottom {
+    border-bottom-width: 2px;
+}
+
+.comment-author-img {
+    height: 64px;
+    width: 64px;
+}

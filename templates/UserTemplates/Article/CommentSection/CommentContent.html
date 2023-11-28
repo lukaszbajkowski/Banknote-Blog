@@ -1,0 +1,14 @@
+<div class="row py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+                {% include 'UserTemplates/Article/CommentSection/CommentAuthorImg.html' %}
+            </div>
+            <div class="col-11 ps-5 ps-lg-4 my-auto">
+                {% include 'UserTemplates/Article/CommentSection/CommentAuthorName.html' %}
+                {% include 'UserTemplates/Article/CommentSection/CommentCreateDate.html' %}
+            </div>
+        </div>
+        {% include 'UserTemplates/Article/CommentSection/CommentText.html' %}
+    </div>
+</div>

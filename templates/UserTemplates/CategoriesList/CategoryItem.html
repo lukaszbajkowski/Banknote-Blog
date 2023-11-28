@@ -1,0 +1,10 @@
+<a class="category-link" href="{% url 'category-detail' category.id %}">
+    <div class="category-box p-4 rounded-3 border">
+        <h2>
+            {{ category.name }}
+        </h2>
+        <h6 class="category-desc">
+            {{ category.description }}
+        </h6>
+    </div>
+</a>

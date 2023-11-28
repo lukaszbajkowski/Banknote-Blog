@@ -1,0 +1,15 @@
+<small class="fw-bold text-capitalize">
+    <a class="no-text-decoration first-post"
+       href="{% url 'author-detail' post.author.user.pk %}">
+        {% if post.author.user.first_name and post.author.user.last_name %}
+            {{ post.author.user.first_name }}
+            {{ post.author.user.last_name }}
+        {% elif post.author.user.first_name %}
+            {{ post.author.user.first_name }}
+        {% elif post.author.user.last_name %}
+            {{ post.author.user.last_name }}
+        {% else %}
+            {{ post.author.user.username }}
+        {% endif %}
+    </a>
+</small>

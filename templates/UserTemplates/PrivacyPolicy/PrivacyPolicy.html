@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Regulamin
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div id="alert-container"></div>
+    <div class="bg-body-tertiary pt-4 px-5">
+        <div class="container px-0 px-xl-5">
+            <div class="container pb-5 pt-3">
+                <h1 class="text-center pt-2" style="color: navy">Polityka prywatności</h1>
+                <p class="text-muted text-center pb-4">Data wejścia w życie: 1 lipca 2023</p>
+                <div class="row pt-5">
+                    <div class="col-3">
+                        {% include 'UserTemplates/PrivacyPolicy/PrivacyPolicyList.html' %}
+                    </div>
+                    <div class="col-9">
+                        {% include 'UserTemplates/PrivacyPolicy/PrivacyPolicyContent.html' %}
+                    </div>
+                </div>
+                {% include 'UserTemplates/PrivacyPolicy/ContactCTA.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foo %}
+    {% include 'Footers/Footer.html' %}
+{% endblock %}
+
+
+
+

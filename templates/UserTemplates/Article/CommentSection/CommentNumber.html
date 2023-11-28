@@ -1,0 +1,11 @@
+<h4 id="total-comment-count" class="mb-3 mb-md-2 pt-4 fw-light text-center text-navy">
+    {% if total_comments == 1 %}
+        1 komentarz
+    {% else %}
+        {% if 2 <= total_comments and total_comments <= 4 %}
+            {{ total_comments }} komentarze
+        {% else %}
+            {{ total_comments }} komentarzy
+        {% endif %}
+    {% endif %}
+</h4>

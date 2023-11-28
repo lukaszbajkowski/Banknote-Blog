@@ -91,7 +91,7 @@ urlpatterns = [
     path('meetups_news/delete/<int:pk>', meetups_news_delete_admin_panel_view, name='meetups_news_delete_admin_panel'),
     path('meetups_news/user/admin_panel/', meetups_news_user_manage_admin_panel_view, name='meetups_news_user_admin_panel'),
     path('meetups_news/user/detail/<int:pk>', meetups_news_user_detail_admin_panel_view, name='meetups_news_user_detail_admin_panel'),
-    path('meetups_news/user/edit/<int:pk>', meetups_news_user_edit_admin_panel_view , name='meetups_news_user_edit_admin_panel'),
+    path('meetups_news/user/edit/<int:pk>', meetups_news_user_edit_admin_panel_view, name='meetups_news_user_edit_admin_panel'),
 
     # Widoki związane z wiadomościami o okazjach aukcyjnych
     path('auction_opportunities/', auction_opportunities_add_view, name='auction_opportunities_add'),

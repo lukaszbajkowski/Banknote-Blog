@@ -1,0 +1,43 @@
+<div class="col-12 col-md-6 col-lg-4 col-xl-4 p-3 px-md-4 pb-4">
+    <div class="card-hover rounded-3 rounded-bottom-0">
+        <div class="row p-0 rounded-3">
+            <div class="col rounded-3">
+                {% include 'UserTemplates/ArticlesList/ArticleImg.html' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="p-3 text-start">
+                    {% for category in post.category.all %}
+                        {% include 'UserTemplates/ArticlesList/ArticleCategories.html' %}
+                    {% endfor %}
+                </div>
+                <div class="px-3 text-start">
+                    {% include 'UserTemplates/ArticlesList/ArticleTitle.html' %}
+                </div>
+                <div class="p-3">
+                    {% include 'UserTemplates/ArticlesList/ArticleIntro.html' %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="px-3 pb-3">
+                <div class="row px-3 pb-3">
+                    <div class="col-1 col-sm-2 col-md-2 col-xl-2">
+                        {% include 'UserTemplates/ArticlesList/ArticleAuthorImg.html' %}
+                    </div>
+                    <div class="col-11 col-sm-10 col-md-10 col-xl-10">
+                        <div class="row ps-5 ps-sm-4 ps-md-3 ps-lg-2 ps-xl-2">
+                            <div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-3">
+                                {% include 'UserTemplates/ArticlesList/ArticleAuthorName.html' %}
+                            </div>
+                            <div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-3">
+                                {% include 'UserTemplates/ArticlesList/ArticleDate.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

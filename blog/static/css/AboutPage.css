@@ -1,0 +1,19 @@
+.about-page-text-indent {
+    text-indent: 2rem;
+}
+
+.about-page-title {
+    font-family: 'Mr De Haviland', cursive;
+    font-size: 1rem;
+    border-color: navy !important;
+    color: navy;
+}
+
+.about-page-main-title {
+    color: navy;
+    font-family: 'Mr De Haviland', cursive;
+}
+
+.more-line-height {
+    line-height: 1.5rem;
+}

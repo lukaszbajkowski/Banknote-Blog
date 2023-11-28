@@ -1,0 +1,16 @@
+{% if page_obj.number == 1 %}
+    <div class="navy-bg text-center p-3">
+        <div class="row">
+            <h2 class="col fst-italic text-white" style="font-family: 'Mr De Haviland', cursive;">
+                Zacznij od ...
+            </h2>
+        </div>
+        <div class="row px-5 py-2">
+            {% for post in favorite_blogs|slice:":4" %}
+                {% if post.favorite %}
+                    {% include 'UserTemplates/Home/Favorite/FavoritePost.html' %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

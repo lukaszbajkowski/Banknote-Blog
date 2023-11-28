@@ -68,18 +68,21 @@ function shareOnFacebook(pk) {
     const url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link);
     window.open(url, "_blank");
 }
+
 function shareOnTwitter(pk) {
     const url = 'http://127.0.0.1:8000/article/' + pk;
     const encodedUrl = encodeURIComponent(url);
     const encodedMessage = encodeURIComponent("Check out this link!");
     window.open("https://twitter.com/intent/tweet?url=" + encodedUrl + "&text=" + encodedMessage);
 }
+
 function shareOnPinterest(pk) {
     const url = 'http://127.0.0.1:8000/article/' + pk;
     const encodedUrl = encodeURIComponent(url);
     const encodedMessage = encodeURIComponent("Check out this link!");
     window.open("https://www.pinterest.com/pin/create/button/?url=" + encodedUrl + "&description=" + encodedMessage);
 }
+
 function shareOnLinkedIn(pk) {
     const url = 'http://127.0.0.1:8000/article/' + pk;
     const encodedUrl = encodeURIComponent(url);

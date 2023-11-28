@@ -1,0 +1,38 @@
+<a class="single-category-card-link" href="{% url 'article-detail' post.id %}">
+    <h4 class="post-title text-start">
+        {{ post.title }}
+    </h4>
+</a>
+<h6 class="text-start text-muted fw-light text-capitalize">
+    {{ post.date_posted | date:"j E Y" }}
+    <i class="border-start ms-3 ps-3 pe-1 fa-regular fa-comment"></i>
+    {{ post.comment_set.count }}
+</h6>
+<h6 class="post-intro text-start fw-light">
+    {{ post.introduction | safe | truncatewords:50 }}...
+</h6>
+<div class="pb-3 text-start">
+    <a class="no-text-decoration" href="{% url 'author-detail' post.author.pk %}">
+        <span class="text-pill text-muted badge rounded-pill px-3 py-2 fw-light">
+            {% if post.author.user.first_name and post.author.user.last_name %}
+                {{ post.author.user.first_name }} {{ post.author.user.last_name }}
+            {% elif post.author.user.first_name %}
+                {{ post.author.user.first_name }}
+            {% elif post.author.user.last_name %}
+                {{ post.author.user.last_name }}
+            {% else %}
+                {{ post.author.user.username }}
+            {% endif %}
+        </span>
+    </a>
+    <div class="vertical-line vr align-middle mx-3 my-lg-2"></div>
+    {% for category in post.category.all %}
+        <div class="text-start d-inline">
+            <a class="no-text-decoration" href="{% url 'category-detail' category.id %}">
+                <span class="text-pill text-muted badge rounded-pill px-3 py-2 mt-2 fw-light">
+                    {{ category.name }}
+                </span>
+            </a>
+        </div>
+    {% endfor %}
+</div>

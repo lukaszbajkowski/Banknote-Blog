@@ -1,0 +1,130 @@
+.author-bg {
+    min-height: 300px;
+    background-image: url('../images/profile_background.jpg');
+}
+
+.text-navy {
+    color: navy;
+}
+
+.share-section-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.img-author-post {
+    float: left;
+    width: 144px;
+    height: 144px;
+    object-fit: cover;
+}
+
+.btn-text-left {
+    text-align: left;
+}
+
+.btn-socialmedia {
+    transition: 0.3s;
+    min-width: 42px;
+    min-height: 42px;
+    margin-left: 2px;
+    margin-right: 2px;
+    color: white;
+    background-color: #000066;
+}
+
+.btn-facebook {
+    transition: 0.2s;
+}
+
+.btn.btn-facebook:active,
+.btn.btn-facebook:hover,
+.btn.btn-facebook:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(24, 119, 242);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.btn-twitter {
+    transition: 0.2s;
+}
+
+.btn.btn-twitter:active,
+.btn.btn-twitter:hover,
+.btn.btn-twitter:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(29, 161, 242);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.btn.btn-linkedin:active,
+.btn.btn-linkedin:hover,
+.btn.btn-linkedin:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(0, 119, 181);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.btn-instagram {
+    transition: 0.2s;
+}
+
+.btn.btn-instagram:active,
+.btn.btn-instagram:hover,
+.btn.btn-instagram:focus {
+    transition: 0.2s;
+    color: white;
+    background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.btn-pinterest {
+    transition: 0.2s;
+}
+
+.btn.btn-pinterest:active,
+.btn.btn-pinterest:hover,
+.btn.btn-pinterest:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(230, 0, 35);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.btn-website {
+    transition: 0.2s;
+}
+
+.btn.btn-website:active,
+.btn.btn-website:hover,
+.btn.btn-website:focus {
+    transition: 0.2s;
+    color: white;
+    background-color: rgb(127, 128, 187);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.author-title {
+    text-align: start;
+    color: navy;
+}
+
+.author-font {
+    font-family: 'Mr De Haviland', cursive;
+}
+
+.author-bio {
+    font-size: 16px;
+}
+
+.text-intro {
+    text-indent: 5%;
+    color: black;
+}
+
+.pill-bg {
+    background-color: #eff1f3;
+}

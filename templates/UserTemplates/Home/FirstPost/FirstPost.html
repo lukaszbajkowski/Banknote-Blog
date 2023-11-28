@@ -1,0 +1,7 @@
+{% if page_obj.number == 1 %}
+    <div class="bg-body-tertiary ">
+        {% for post in blog_first %}
+            {% include 'UserTemplates/Home/FirstPost/FirstPostContent.html' %}
+        {% endfor %}
+    </div>
+{% endif %}

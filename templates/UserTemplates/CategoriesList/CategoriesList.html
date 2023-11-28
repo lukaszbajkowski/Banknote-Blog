@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Kategorie
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% if categories %}
+        <div id="alert-container"></div>
+        <div class="bg-body-tertiary">
+            <div class="container text-center pb-5 px-5 pt-3">
+                <h1 class="category-title text-center pt-2 pb-4">
+                    Kategorie
+                </h1>
+                <div class="row g-5" data-masonry='{"percentPosition": true }'>
+                    {% for category in categories %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            {% include 'UserTemplates/CategoriesList/CategoryItem.html' %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const copyLinkBtns = document.querySelectorAll('.copy-link-btn');
+                const alertContainer = document.querySelector('#alert-container');
+
+                copyLinkBtns.forEach(copyLinkBtn => {
+                    copyLinkBtn.addEventListener('click', () => {
+                        const postId = copyLinkBtn.getAttribute('data-post-id');
+                        const link = `http://127.0.0.1:8000/article/${postId}`;
+
+                        const tempTextarea = document.createElement('textarea');
+                        tempTextarea.value = link;
+                        document.body.appendChild(tempTextarea);
+                        tempTextarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempTextarea);
+
+                        displayAlert('success', 'Sukces', 'Link skopiowany do schowka.', 'fa-regular fa-circle-check');
+                    });
+                });
+
+                function displayAlert (type, title, message, icon) {
+                    const alertElement = document.createElement('div');
+                    alertElement.className = `alert alert-${type} d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show`;
+                    alertElement.style.maxWidth = '400px';
+                    alertElement.style.zIndex = '9999';
+                    alertElement.style.transform = 'translateX(0)';
+                    alertElement.style.opacity = '1';
+
+                    const alertContent = document.createElement('div');
+                    alertContent.className = 'd-flex align-items-start';
+
+                    const successIcon = document.createElement('i');
+                    successIcon.className = icon;
+                    successIcon.style.fontSize = '1.5rem';
+
+                    const textContainer = document.createElement('div');
+                    textContainer.className = 'flex-grow-1';
+                    textContainer.style.marginLeft = '1rem';
+
+                    const titleElement = document.createElement('h6');
+                    titleElement.textContent = title;
+                    titleElement.className = 'alert-heading';
+
+                    const descriptionElement = document.createElement('p');
+                    descriptionElement.textContent = message;
+                    descriptionElement.className = 'mb-0';
+
+                    const closeButton = document.createElement('button');
+                    closeButton.type = 'button';
+                    closeButton.className = 'btn-close';
+                    closeButton.setAttribute('aria-label', 'Close');
+                    closeButton.addEventListener('click', () => {
+                        alertElement.style.opacity = '0';
+                        alertElement.style.transform = 'scale(0.8)';
+                        alertElement.addEventListener('transitionend', () => {
+                            alertElement.remove();
+                        });
+                    });
+
+                    textContainer.appendChild(titleElement);
+                    textContainer.appendChild(descriptionElement);
+                    alertContent.appendChild(successIcon);
+                    alertContent.appendChild(textContainer);
+                    alertElement.appendChild(alertContent);
+                    alertElement.appendChild(closeButton);
+
+                    alertContainer.appendChild(alertElement);
+
+                    void alertElement.offsetWidth;
+
+                    const spacing = 10;
+                    let currentOffset = 0;
+                    const alerts = alertContainer.getElementsByClassName('alert');
+                    for (let i = alerts.length - 1; i >= 0; i--) {
+                        const alert = alerts[i];
+                        const alertHeight = alert.offsetHeight;
+                        const alertHeightWithSpacing = alertHeight + spacing;
+                        alert.style.top = `${currentOffset}px`;
+                        currentOffset += alertHeightWithSpacing;
+                    }
+
+                    const displayTime = 5000;
+                    setTimeout(() => {
+                        alertElement.classList.remove('show');
+                        setTimeout(() => {
+                            alertElement.remove();
+                        }, 500);
+                    }, displayTime);
+                }
+            });
+        </script>
+    {% else %}
+        <img src="{% static 'images/404_Error_Page.svg' %}">
+    {% endif %}
+{% endblock %}
+
+{% block newsletter %}
+    {% if categories %}
+        {% include 'UserTemplates/NewsletterBlock/Newsletter.html' %}
+    {% endif %}
+{% endblock %}
+
+{% block foo %}
+    {% include 'Footers/Footer.html' %}
+{% endblock %}

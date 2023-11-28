@@ -1,0 +1,12 @@
+<h5 class="text-start fw-light no-text-decoration text-black">
+    {% if comment.author.author.user.first_name and comment.author.author.user.last_name %}
+        {{ comment.author.author.user.first_name }}
+        {{ comment.author.author.user.last_name }}
+    {% elif comment.author.author.user.first_name %}
+        {{ comment.author.author.user.first_name }}
+    {% elif comment.author.author.user.last_name %}
+        {{ comment.author.author.user.last_name }}
+    {% else %}
+        {{ comment.author }}
+    {% endif %}
+</h5>

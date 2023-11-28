@@ -1,0 +1,40 @@
+<div class="col-12 col-md-4 col-lg-3 col-xl-2 pe-auto pe-md-0 pe-lg-3 pb-3 pb-md-0">
+    <a class="card-link" href="{% url 'article-detail' post.pk %}">
+        <img class="img-author-post img-fluid p-0 rounded shadow-lg" src="{{ post.background.url }}" alt="{{ post.title }}">
+    </a>
+</div>
+<div class="col-12 col-md-8 col-lg-9 col-xl-10 ps-auto ps-md-0 ps-lg-3">
+    <div class="row">
+        <div class="col-10">
+            <a class="card-link" href="{% url 'article-detail' post.pk %}">
+                <h4 class="first-post text-start">
+                    {{ post.title }}
+                </h4>
+            </a>
+            <h6 class="text-start text-muted fw-light text-capitalize">
+                {{ post.date_posted | date:"j E Y" }}
+                <i class="border-start ms-3 ps-3 pe-1 fa-regular fa-comment"></i>
+                {{ post.comment_set.count }}
+            </h6>
+            <h6 class="text-intro text-start fw-light">
+                {{ post.introduction | safe | truncatewords:50 }}
+                ...
+            </h6>
+            <div class="pb-3 text-start">
+                {% for category in post.category.all %}
+                    <div class="text-start d-inline">
+                        <a class="no-text-decoration"
+                           href="{% url 'category-detail' category.id %}">
+                            <span class="pill-bg text-muted text-black badge rounded-pill px-3 py-2 mt-2 fw-light">
+                                {{ category.name }}
+                            </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-2 text-end">
+            {% include 'UserTemplates/ShareSection/ShareSection.html' %}
+        </div>
+    </div>
+</div>

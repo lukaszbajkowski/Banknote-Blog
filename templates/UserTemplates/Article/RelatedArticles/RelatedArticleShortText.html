@@ -1,0 +1,8 @@
+<div class="p-3">
+    <a class="card-link"
+       href="{% url 'article-detail' random_posts.pk %}">
+        <h6 class="text-start fw-light text-intro">
+            {{ random_posts.introduction | safe | truncatewords:25 }}
+        </h6>
+    </a>
+</div>

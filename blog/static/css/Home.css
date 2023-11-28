@@ -1,0 +1,44 @@
+.navy-bg {
+    background-color: navy;
+}
+
+.favorite-section-title {
+    font-family: 'Mr De Haviland', cursive;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.container-text {
+    position: relative;
+    text-align: center;
+}
+
+.container-text .image {
+    opacity: 0.5;
+    transition: .3s;
+}
+
+.middle {
+    transition: 5s ease;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.container-text:hover .image {
+    opacity: 0.7;
+}
+
+.container-text:hover .middle {
+    opacity: 1;
+}
+
+.text {
+    color: white;
+}

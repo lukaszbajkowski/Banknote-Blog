@@ -1,0 +1,37 @@
+.category-title {
+    color: navy;
+}
+
+.category-link {
+    text-decoration: none;
+    color: navy;
+    transition: .3s;
+}
+
+.category-link:hover {
+    text-decoration: none;
+    color: rgba(0, 0, 128, 0.5);
+    transition: .3s;
+}
+
+.category-box {
+    border-color: navy !important;
+    text-align: start;
+    transition: .3s;
+}
+
+.category-link:hover .category-box {
+    border-color: rgba(0, 0, 128, 0.5) !important;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1), 0 15px 40px rgba(0, 0, 0, .08);
+    transition: .3s;
+}
+
+.category-desc {
+    color: black;
+    transition: .3s;
+}
+
+.category-link:hover .category-desc {
+    color: rgba(0, 0, 0, 0.5);
+    transition: .3s;
+}

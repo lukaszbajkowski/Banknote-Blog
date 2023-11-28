@@ -1,0 +1,9 @@
+<form class="" method="POST">
+    <div class="input-group p-3 bg-body-tertiary rounded shadow my-auto">
+        {% csrf_token %}
+        {{ form.email }}
+        <button class="btn btn-register rounded px-3" type="submit">
+            Zrezygnuj
+        </button>
+    </div>
+</form>

@@ -1,0 +1,60 @@
+.single-category-title {
+    color: navy;
+    text-align: start;
+}
+
+.single-category-title h2 {
+    font-family: 'Mr De Haviland', cursive;
+}
+
+.single-category-desc {
+    color: black;
+    transition: .3s;
+    font-size: 16px;
+}
+
+.single-category-card-link {
+    text-decoration: none;
+    color: navy;
+}
+
+.single-category-card-link:hover {
+    color: rgba(0, 0, 128, 0.7);
+}
+
+.single-category-card-link img {
+    float: left;
+    width: 144px;
+    height: 144px;
+    object-fit: cover;
+}
+
+.post-title {
+    color: navy;
+    transition: .3s;
+}
+
+.post-title:hover {
+    color: #fdc500;
+    transition: .3s;
+}
+
+.post-intro {
+    text-indent: 5%;
+    color: black;
+}
+
+.no-text-decoration {
+    text-decoration: none;
+}
+
+.text-pill {
+    background-color: #eff1f3;
+    color: black;
+}
+
+.vertical-line {
+    min-height: 1.75rem;
+    color: rgb(222, 226, 230);
+    opacity: 1000;
+}

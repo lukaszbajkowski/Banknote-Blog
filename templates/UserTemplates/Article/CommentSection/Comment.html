@@ -1,0 +1,7 @@
+<div id="comments-section">
+    {% if comments %}
+        {% for comment in comments %}
+            {% include 'UserTemplates/Article/CommentSection/CommentContent.html' %}
+        {% endfor %}
+    {% endif %}
+</div>

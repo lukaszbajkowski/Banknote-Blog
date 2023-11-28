@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Rezygnacja z biuletynu
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block newsletter %}
+    <div class="bg-body-tertiary p-4 m-auto">
+        {% if messages %}
+            {% for message in messages %}
+                <div
+                        {% if message.tags %}
+                            class="{{ message.tags }}"
+                        {% endif %}
+                            role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                            onClick="window.location.reload()"></button>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="container shadow rounded" style="background-color: rgb(128,0,32)">
+                <div class="container p-5">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 text-start text-white">
+                            {% include 'UserTemplates/NewsletterDelete/NewsletterCTA.html' %}
+                        </div>
+                        <div class="col-12 col-lg-6 pt-3 pt-lg-0  align-items-center">
+                            {% include 'UserTemplates/NewsletterDelete/NewsletterForm.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block foo %}
+    {% include 'Footers/Footer.html' %}
+{% endblock %}

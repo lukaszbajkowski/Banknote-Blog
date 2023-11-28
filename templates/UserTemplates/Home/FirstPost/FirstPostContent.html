@@ -1,0 +1,43 @@
+<div class="container text-cetner pt-4 pb-5 px-4 px-sm-0">
+    <div class="container text-center">
+        <div class="row align-middle">
+            <div class="col-12 col-md-6 my-auto order-last order-md-first">
+                <div class="row">
+                    <div class="col text-start">
+                        <div class="row">
+                            <div class="col-1 col-sm-2 col-md-2 col-xl-1">
+                                {% include 'UserTemplates/Home/FirstPost/FirstPostAuthorImg.html' %}
+                            </div>
+                            <div class="col-11 col-sm-10 col-md-10 col-xl-11 ps-5 ps-sm-0 ps-md-3 ps-lg-0 ps-xl-3">
+                                <div class="row">
+                                    <div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-3">
+                                        {% include 'UserTemplates/Home/FirstPost/FirstPostAuthor.html' %}
+                                    </div>
+                                    <div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-3">
+                                        {% include 'UserTemplates/Home/FirstPost/FirstPostDate.html' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-3 pt-sm-3 pt-xs-3 pt-md-2">
+                    {% include 'UserTemplates/Home/FirstPost/FirstPostTitle.html' %}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {% include 'UserTemplates/Home/FirstPost/FirstPostIntro.html' %}
+                        <div class="text-start pt-2">
+                            {% for category in post.category.all %}
+                                {% include 'UserTemplates/Home/FirstPost/FirstPostCategories.html' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 pb-4 pb-md-0">
+                {% include 'UserTemplates/Home/FirstPost/FirstPostImg.html' %}
+            </div>
+        </div>
+    </div>
+</div>

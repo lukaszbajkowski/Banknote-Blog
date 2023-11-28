@@ -1,0 +1,5 @@
+<a class="card-link" href="{% url 'article-detail' post.pk %}">
+    <h6 class="text-start fw-light post-intro">
+        {{ post.introduction | safe | truncatewords:50 }} ...
+    </h6>
+</a>

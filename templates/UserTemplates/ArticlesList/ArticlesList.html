@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Wszystkie artykuły
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div id="alert-container"></div>
+    <div class="bg-body-tertiary pt-4 px-5">
+        <div class="container px-0 px-xl-5">
+            <div class="container pb-5 pt-3">
+                <h1 class="text-navy text-center pt-2 pb-4">
+                    Artykuły
+                </h1>
+                <div class="row" data-masonry='{"percentPosition": true }'>
+                    {% for post in page_obj %}
+                        {% include 'UserTemplates/ArticlesList/Article.html' %}
+                    {% endfor %}
+                </div>
+                {% include 'paginator.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block newsletter %}
+    {% include 'UserTemplates/NewsletterBlock/Newsletter.html' %}
+{% endblock %}
+
+{% block foo %}
+    {% include 'Footers/Footer.html' %}
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+        async></script>

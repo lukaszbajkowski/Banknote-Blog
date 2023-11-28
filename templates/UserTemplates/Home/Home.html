@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Banknoty
+{% endblock %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div id="alert-container"></div>
+    {% include 'UserTemplates/Home/FirstPost/FirstPost.html' %}
+{% endblock %}
+
+{% block favorite %}
+   {% include 'UserTemplates/Home/Favorite/FavoriteSection.html' %}
+{% endblock %}
+
+{% block post %}
+   {% include 'UserTemplates/Home/PostSection.html' %}
+{% endblock %}
+
+{% block newsletter %}
+    {% include 'UserTemplates/NewsletterBlock/Newsletter.html' %}
+{% endblock %}
+
+{% block foo %}
+    {% include 'Footers/Footer.html' %}
+{% endblock %}
+
+
+
+

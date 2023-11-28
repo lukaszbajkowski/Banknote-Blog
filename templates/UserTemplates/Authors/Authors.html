@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - O autorze
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div id="alert-container"></div>
+    <h2 class="py-4 fst-italic text-center" style="font-family: 'Mr De Haviland', cursive; color: navy">
+        Siła naszego zespołu
+    </h2>
+    <div class="swiper swiper-container">
+        <div class="swiper-wrapper mb-5">
+            {% for author in author %}
+                {% include 'UserTemplates/Authors/AuthorSlide.html' %}
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+{% endblock %}
+
+{% block newsletter %}
+    {% include 'UserTemplates/NewsletterBlock/Newsletter.html' %}
+{% endblock %}
+
+{% block foo %}
+    {% include 'Footers/Footer.html' %}
+{% endblock %}

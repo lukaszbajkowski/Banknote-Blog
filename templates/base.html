@@ -2,436 +2,416 @@
 
 <!doctype html>
 <html lang="pl" class="h-100">
-    <head>
-        <style>
-            .container-text {
-                position: relative;
-                text-align: center;
-            }
+<head>
 
-            .container-text .image {
-                opacity: 0.8;
-            }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            .middle {
-                transition: 5s ease;
-                opacity: 1;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                -ms-transform: translate(-50%, -50%);
-                text-align: center;
-            }
+    {% load static %}
+    <script src="{% static 'js/script.js' %}"></script>
 
-            .container-text:hover .image {
-                opacity: 0.7;
-            }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            .container-text:hover .middle {
-                opacity: 1;
-            }
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/006c2e7373.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+            integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+            async></script>
 
-            .text {
-                color: white;
-            }
-        </style>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/CategoriesList.css' %}" rel="stylesheet">
+    <link href="{% static 'css/SingleCategory.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Authors.css' %}" rel="stylesheet">
+    <link href="{% static 'css/AboutPage.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Author.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Article.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Home.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Footers.css' %}" rel="stylesheet">
 
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v17.0"
+            nonce="kpEq3kcb"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
-        {% load static %}
-        <script src="{% static 'js/script.js' %}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/006c2e7373.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
-        <link href="{% static 'css/style.css' %}" rel="stylesheet">
-        <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v17.0" nonce="kpEq3kcb"></script>
-        <title>
-            {% block title %}
-            {% endblock %}
-        </title>
-
-    </head>
-    <body class="d-flex flex-column h-100 bg-body-tertiary">
-
-
-        {% block navbar %}
+    <title>
+        {% block title %}
         {% endblock %}
+    </title>
 
-        {% block content %}
-        {% endblock %}
+</head>
+<body class="d-flex flex-column h-100 bg-body-tertiary">
 
-        {% block favorite %}
-        {% endblock %}
+{% block navbar %}
+{% endblock %}
 
-        {% block post %}
-        {% endblock %}
+{% block content %}
+{% endblock %}
 
-        {% block newsletter %}
-        {% endblock %}
+{% block favorite %}
+{% endblock %}
 
-        {% block foo %}
-        {% endblock %}
+{% block post %}
+{% endblock %}
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-        <script>
-            window.addEventListener('scroll', function() {
-                const listGroup = document.getElementById('list');
-                const offset = window.pageYOffset || document.documentElement.scrollTop;
+{% block newsletter %}
+{% endblock %}
 
-                if (offset > 160) {
-                    listGroup.classList.add('sticky-top-with-offset');
-                } else {
-                    listGroup.classList.remove('sticky-top-with-offset');
-                }
-            });
+{% block foo %}
+{% endblock %}
+<script>
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const bookmarkBtn = document.getElementById('add-bookmark-btn');
-                const copyLinkBtn = document.getElementById('copy-link-btn');
-                const contactForm = document.querySelector('#contact-form');
-                const newsletterForm = document.querySelector('#newsletter-form');
-                const alertContainer = document.querySelector('#alert-container');
+    window.addEventListener('scroll', function () {
+        const listGroup = document.getElementById('list');
+        const offset = window.pageYOffset || document.documentElement.scrollTop;
 
-                if (contactForm) {
-                    contactForm.addEventListener('submit', function(event) {
-                        event.preventDefault();
+        if (offset > 160) {
+            listGroup.classList.add('sticky-top-with-offset');
+        } else {
+            listGroup.classList.remove('sticky-top-with-offset');
+        }
+    });
 
-                        const formData = new FormData(contactForm);
+    document.addEventListener('DOMContentLoaded', function () {
+        const bookmarkBtn = document.getElementById('add-bookmark-btn');
+        const copyLinkBtn = document.getElementById('copy-link-btn');
+        const contactForm = document.querySelector('#contact-form');
+        const newsletterForm = document.querySelector('#newsletter-form');
+        const alertContainer = document.querySelector('#alert-container');
 
-                        fetch(contactForm.action, {
-                            method: contactForm.method,
-                            body: formData
-                        })
-
-                        .then(response => response.json())
-
-                        .then(data => {
-                            if (data.success) {
-                                displayAlert('success', 'Sukces', 'Wiadomość została wysłana.', 'fa-regular fa-circle-check');
-                            }
-                        })
-                        .catch(error => {
-                            displayAlert('danger', 'Błąd', 'Wystąpił błąd. Spróbuj ponownie później.', 'fa-solid fa-triangle-exclamation');
-                            console.error('Error:', error);
-                        });
-
-                        contactForm.reset();
-                    });
-                } else if (newsletterForm) {
-                    newsletterForm.addEventListener('submit', function(event) {
-                        event.preventDefault();
-
-                        const formData = new FormData(newsletterForm);
-
-                        fetch(newsletterForm.action, {
-                            method: newsletterForm.method,
-                            body: formData
-                        })
-
-                        .then(response => response.json())
-
-                        .then(data => {
-                            if (data.success) {
-                                displayAlert('success', 'Sukces', 'Dziękujemy za rejestrację do biuletynu.', 'fa-regular fa-circle-check');
-                            } else {
-                                displayAlert('warning', 'E-mail już istnieje', 'Przepraszamy, ten e-mail już istnieje.', 'fa-solid fa-triangle-exclamation');
-                            }
-                        })
-                        .catch(error => {
-                            displayAlert('danger', 'Błąd', 'Wystąpił błąd. Spróbuj ponownie później.', 'fa-solid fa-triangle-exclamation');
-                            console.error('Error:', error);
-                        });
-
-                        newsletterForm.reset();
-                    });
-                }
-
-                bookmarkBtn.addEventListener('click', () => {
-                    const postId = '{{ posts.id }}';
-                    const bookmarkLink = `http://127.0.0.1:8000/article/${postId}`;
-
-                    const alertElement = document.createElement('div');
-                    const alertContent = document.createElement('div');
-                    const successIcon = document.createElement('i');
-                    const textContainer = document.createElement('div');
-                    const titleElement = document.createElement('h6');
-                    const descriptionElement = document.createElement('p');
-
-                    if (window.sidebar && window.sidebar.addPanel) {
-                        // For Firefox
-                        window.sidebar.addPanel(document.title, bookmarkLink, '');
-                    } else if (window.external && ('AddFavorite' in window.external)) {
-                        // For IE
-                        window.external.AddFavorite(bookmarkLink, document.title);
-                    } else if (window.opera && window.print) {
-                        // For Opera
-                        const bookmarkTitle = document.title;
-                        bookmarkLink.setAttribute('rel', 'sidebar');
-                        bookmarkLink.setAttribute('title', bookmarkTitle);
-                        bookmarkLink.setAttribute('href', bookmarkLink);
-                        bookmarkLink.click();
-                    } else if (window.chrome) {
-                        alertElement.className = 'alert alert-warning d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show';
-                        alertElement.style.maxWidth = '400px';
-                        alertElement.style.zIndex = '9999';
-                        alertElement.style.transform = 'translateX(0)';
-                        alertElement.style.opacity = '1';
-
-                        alertContent.className = 'd-flex align-items-start';
-
-                        successIcon.className = "fa-solid fa-triangle-exclamation";
-                        successIcon.style.fontSize = '1.5rem';
-
-                        textContainer.className = 'flex-grow-1';
-                        textContainer.style.marginLeft = '1rem';
-
-                        titleElement.textContent = 'Przeglądarka nieobsługiwana';
-                        titleElement.className = 'alert-heading';
-
-                        descriptionElement.textContent = 'Naciśnij Ctrl+D (Windows) lub Command+D (Mac), aby dodać tę stronę do zakładek.';
-                        descriptionElement.className = 'mb-0';
-
-                    } else {
-                        alertElement.className = 'alert alert-warning d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show';
-                        alertElement.style.maxWidth = '400px';
-                        alertElement.style.zIndex = '9999';
-                        alertElement.style.transform = 'translateX(0)';
-                        alertElement.style.opacity = '1';
-
-                        alertContent.className = 'd-flex align-items-start';
-
-                        successIcon.className = "fa-solid fa-triangle-exclamation";
-                        successIcon.style.fontSize = '1.5rem';
-
-                        textContainer.className = 'flex-grow-1';
-                        textContainer.style.marginLeft = '1rem';
-
-                        titleElement.textContent = 'Przeglądarka nieobsługiwana';
-                        titleElement.className = 'alert-heading';
-
-                        descriptionElement.textContent = 'Naciśnij Ctrl+D (Windows) lub Command+D (Mac), aby dodać tę stronę do zakładek.';
-                        descriptionElement.className = 'mb-0';
-                    }
-
-                    const closeButton = document.createElement('button');
-                    closeButton.type = 'button';
-                    closeButton.className = 'btn-close';
-                    closeButton.setAttribute('aria-label', 'Close');
-                    closeButton.addEventListener('click', () => {
-                        alertElement.style.opacity = '0';
-                        alertElement.style.transform = 'scale(0.8)';
-                        alertElement.addEventListener('transitionend', () => {
-                            alertElement.remove();
-                        });
-                    });
-
-                    textContainer.appendChild(titleElement);
-                    textContainer.appendChild(descriptionElement);
-                    alertContent.appendChild(successIcon);
-                    alertContent.appendChild(textContainer);
-                    alertElement.appendChild(alertContent);
-                    alertElement.appendChild(closeButton);
-
-                    alertContainer.appendChild(alertElement);
-
-                    void alertElement.offsetWidth;
-
-                    const spacing = 10;
-                    let currentOffset = 0;
-                    const alerts = alertContainer.getElementsByClassName('alert');
-                    for (let i = alerts.length - 1; i >= 0; i--) {
-                        const alert = alerts[i];
-                        const alertHeight = alert.offsetHeight;
-                        const alertHeightWithSpacing = alertHeight + spacing;
-                        alert.style.top = `${currentOffset}px`;
-                        currentOffset += alertHeightWithSpacing;
-                    }
-
-                    const displayTime = 5000;
-                    setTimeout(() => {
-                        alertElement.classList.remove('show');
-                        setTimeout(() => {
-                            alertElement.remove();
-                        }, 500);
-                    }, displayTime);
-                });
-
-                copyLinkBtn.addEventListener('click', () => {
-                    const postId = '{{ posts.id }}';
-                    const link = `http://127.0.0.1:8000/article/${postId}`;
-
-                    const tempTextarea = document.createElement('textarea');
-                    tempTextarea.value = link;
-                    document.body.appendChild(tempTextarea);
-                    tempTextarea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempTextarea);
-
-                    displayAlert('success', 'Sukces', 'Link skopiowany do schowka.', 'fa-regular fa-circle-check');
-                });
-
-                function displayAlert(type, title, message, icon) {
-                    const alertElement = document.createElement('div');
-                    alertElement.className = `alert alert-${type} d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show`;
-                    alertElement.style.maxWidth = '400px';
-                    alertElement.style.zIndex = '9999';
-                    alertElement.style.transform = 'translateX(0)';
-                    alertElement.style.opacity = '1';
-
-                    const alertContent = document.createElement('div');
-                    alertContent.className = 'd-flex align-items-start';
-
-                    const successIcon = document.createElement('i');
-                    successIcon.className = icon;
-                    successIcon.style.fontSize = '1.5rem';
-
-                    const textContainer = document.createElement('div');
-                    textContainer.className = 'flex-grow-1';
-                    textContainer.style.marginLeft = '1rem';
-
-                    const titleElement = document.createElement('h6');
-                    titleElement.textContent = title;
-                    titleElement.className = 'alert-heading';
-
-                    const descriptionElement = document.createElement('p');
-                    descriptionElement.textContent = message;
-                    descriptionElement.className = 'mb-0';
-
-                    const closeButton = document.createElement('button');
-                    closeButton.type = 'button';
-                    closeButton.className = 'btn-close';
-                    closeButton.setAttribute('aria-label', 'Close');
-                    closeButton.addEventListener('click', () => {
-                        alertElement.style.opacity = '0';
-                        alertElement.style.transform = 'scale(0.8)';
-                        alertElement.addEventListener('transitionend', () => {
-                            alertElement.remove();
-                        });
-                    });
-
-                    textContainer.appendChild(titleElement);
-                    textContainer.appendChild(descriptionElement);
-                    alertContent.appendChild(successIcon);
-                    alertContent.appendChild(textContainer);
-                    alertElement.appendChild(alertContent);
-                    alertElement.appendChild(closeButton);
-
-                    alertContainer.appendChild(alertElement);
-
-                    void alertElement.offsetWidth;
-
-                    const spacing = 10;
-                    let currentOffset = 0;
-                    const alerts = alertContainer.getElementsByClassName('alert');
-                    for (let i = alerts.length - 1; i >= 0; i--) {
-                        const alert = alerts[i];
-                        const alertHeight = alert.offsetHeight;
-                        const alertHeightWithSpacing = alertHeight + spacing;
-                        alert.style.top = `${currentOffset}px`;
-                        currentOffset += alertHeightWithSpacing;
-                    }
-
-                    const displayTime = 5000;
-                    setTimeout(() => {
-                        alertElement.classList.remove('show');
-                        setTimeout(() => {
-                            alertElement.remove();
-                        }, 500);
-                    }, displayTime);
-                }
-            });
-
-            function fetchCommentsAndCharacterCount() {
-                fetch(window.location.href)
-
-                .then(response => response.text())
-
-                .then(html => {
-                    const parser = new DOMParser();
-                    const newDocument = parser.parseFromString(html, 'text/html');
-
-                    const commentsSection = newDocument.getElementById('comments-section');
-                    if (commentsSection) {
-                        const currentCommentsSection = document.getElementById('comments-section');
-                        currentCommentsSection.innerHTML = commentsSection.innerHTML;
-                    }
-
-                    const characterCounter = newDocument.getElementById('character-counter');
-                    if (characterCounter) {
-                        const currentCharacterCounter = document.getElementById('character-counter');
-                        currentCharacterCounter.textContent = characterCounter.textContent;
-                    }
-
-                    const totalCommentCount = newDocument.getElementById('total-comment-count');
-                    if (totalCommentCount) {
-                        const currentTotalCommentCount = document.getElementById('total-comment-count');
-                        currentTotalCommentCount.textContent = totalCommentCount.textContent;
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-
-            document.getElementById('comment-form').addEventListener('submit', function(event) {
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (event) {
                 event.preventDefault();
 
-                const form = event.target;
-                const formData = new FormData(form);
+                const formData = new FormData(contactForm);
 
-                fetch(form.action, {
-                    method: form.method,
+                fetch(contactForm.action, {
+                    method: contactForm.method,
                     body: formData
                 })
 
-                .then(response => response.json())
+                    .then(response => response.json())
 
-                .then(data => {
-                    if (data.success) {
-                        form.reset();
-                        fetchCommentsAndCharacterCount();
-                    }
+                    .then(data => {
+                        if (data.success) {
+                            displayAlert('success', 'Sukces', 'Wiadomość została wysłana.', 'fa-regular fa-circle-check');
+                        }
+                    })
+                    .catch(error => {
+                        displayAlert('danger', 'Błąd', 'Wystąpił błąd. Spróbuj ponownie później.', 'fa-solid fa-triangle-exclamation');
+                        console.error('Error:', error);
+                    });
+
+                contactForm.reset();
+            });
+        } else if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(newsletterForm);
+
+                fetch(newsletterForm.action, {
+                    method: newsletterForm.method,
+                    body: formData
                 })
 
-                .catch(error => console.error('Error:', error));
+                    .then(response => response.json())
+
+                    .then(data => {
+                        if (data.success) {
+                            displayAlert('success', 'Sukces', 'Dziękujemy za rejestrację do biuletynu.', 'fa-regular fa-circle-check');
+                        } else {
+                            displayAlert('warning', 'E-mail już istnieje', 'Przepraszamy, ten e-mail już istnieje.', 'fa-solid fa-triangle-exclamation');
+                        }
+                    })
+                    .catch(error => {
+                        displayAlert('danger', 'Błąd', 'Wystąpił błąd. Spróbuj ponownie później.', 'fa-solid fa-triangle-exclamation');
+                        console.error('Error:', error);
+                    });
+
+                newsletterForm.reset();
+            });
+        }
+
+        bookmarkBtn.addEventListener('click', () => {
+            const postId = '{{ posts.id }}';
+            const bookmarkLink = `http://127.0.0.1:8000/article/${postId}`;
+
+            const alertElement = document.createElement('div');
+            const alertContent = document.createElement('div');
+            const successIcon = document.createElement('i');
+            const textContainer = document.createElement('div');
+            const titleElement = document.createElement('h6');
+            const descriptionElement = document.createElement('p');
+
+            if (window.sidebar && window.sidebar.addPanel) {
+                // For Firefox
+                window.sidebar.addPanel(document.title, bookmarkLink, '');
+            } else if (window.external && ('AddFavorite' in window.external)) {
+                // For IE
+                window.external.AddFavorite(bookmarkLink, document.title);
+            } else if (window.opera && window.print) {
+                // For Opera
+                const bookmarkTitle = document.title;
+                bookmarkLink.setAttribute('rel', 'sidebar');
+                bookmarkLink.setAttribute('title', bookmarkTitle);
+                bookmarkLink.setAttribute('href', bookmarkLink);
+                bookmarkLink.click();
+            } else if (window.chrome) {
+                alertElement.className = 'alert alert-warning d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show';
+                alertElement.style.maxWidth = '400px';
+                alertElement.style.zIndex = '9999';
+                alertElement.style.transform = 'translateX(0)';
+                alertElement.style.opacity = '1';
+
+                alertContent.className = 'd-flex align-items-start';
+
+                successIcon.className = "fa-solid fa-triangle-exclamation";
+                successIcon.style.fontSize = '1.5rem';
+
+                textContainer.className = 'flex-grow-1';
+                textContainer.style.marginLeft = '1rem';
+
+                titleElement.textContent = 'Przeglądarka nieobsługiwana';
+                titleElement.className = 'alert-heading';
+
+                descriptionElement.textContent = 'Naciśnij Ctrl+D (Windows) lub Command+D (Mac), aby dodać tę stronę do zakładek.';
+                descriptionElement.className = 'mb-0';
+
+            } else {
+                alertElement.className = 'alert alert-warning d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show';
+                alertElement.style.maxWidth = '400px';
+                alertElement.style.zIndex = '9999';
+                alertElement.style.transform = 'translateX(0)';
+                alertElement.style.opacity = '1';
+
+                alertContent.className = 'd-flex align-items-start';
+
+                successIcon.className = "fa-solid fa-triangle-exclamation";
+                successIcon.style.fontSize = '1.5rem';
+
+                textContainer.className = 'flex-grow-1';
+                textContainer.style.marginLeft = '1rem';
+
+                titleElement.textContent = 'Przeglądarka nieobsługiwana';
+                titleElement.className = 'alert-heading';
+
+                descriptionElement.textContent = 'Naciśnij Ctrl+D (Windows) lub Command+D (Mac), aby dodać tę stronę do zakładek.';
+                descriptionElement.className = 'mb-0';
+            }
+
+            const closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'btn-close';
+            closeButton.setAttribute('aria-label', 'Close');
+            closeButton.addEventListener('click', () => {
+                alertElement.style.opacity = '0';
+                alertElement.style.transform = 'scale(0.8)';
+                alertElement.addEventListener('transitionend', () => {
+                    alertElement.remove();
+                });
             });
 
-            fetchCommentsAndCharacterCount();
+            textContainer.appendChild(titleElement);
+            textContainer.appendChild(descriptionElement);
+            alertContent.appendChild(successIcon);
+            alertContent.appendChild(textContainer);
+            alertElement.appendChild(alertContent);
+            alertElement.appendChild(closeButton);
 
-            const commentContent = document.getElementById('comment-content');
-            const characterCounter = document.getElementById('character-counter');
-            const maxCharacters = 255;
+            alertContainer.appendChild(alertElement);
 
-            commentContent.addEventListener('input', function() {
-                const remainingCharacters = maxCharacters - commentContent.value.length;
+            void alertElement.offsetWidth;
 
-                if(remainingCharacters === 1){
-                    characterCounter.textContent = `Pozostał ${remainingCharacters} znak`;
-                } else if (remainingCharacters >= 2 && remainingCharacters < 5){
-                    characterCounter.textContent = `Pozostały ${remainingCharacters} znaki`;
-                } else {
-                    characterCounter.textContent = `Pozostało ${remainingCharacters} znaków`;
-                }
+            const spacing = 10;
+            let currentOffset = 0;
+            const alerts = alertContainer.getElementsByClassName('alert');
+            for (let i = alerts.length - 1; i >= 0; i--) {
+                const alert = alerts[i];
+                const alertHeight = alert.offsetHeight;
+                const alertHeightWithSpacing = alertHeight + spacing;
+                alert.style.top = `${currentOffset}px`;
+                currentOffset += alertHeightWithSpacing;
+            }
 
-                if (remainingCharacters < 0) {
-                    commentContent.classList.add('is-invalid');
-                    characterCounter.classList.add('text-danger');
-                } else {
-                    commentContent.classList.remove('is-invalid');
-                    characterCounter.classList.remove('text-danger');
-                }
+            const displayTime = 5000;
+            setTimeout(() => {
+                alertElement.classList.remove('show');
+                setTimeout(() => {
+                    alertElement.remove();
+                }, 500);
+            }, displayTime);
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            const postId = '{{ posts.id }}';
+            const link = `http://127.0.0.1:8000/article/${postId}`;
+
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = link;
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextarea);
+
+            displayAlert('success', 'Sukces', 'Link skopiowany do schowka.', 'fa-regular fa-circle-check');
+        });
+
+        function displayAlert (type, title, message, icon) {
+            const alertElement = document.createElement('div');
+            alertElement.className = `alert alert-${type} d-flex align-items-start justify-content-between fixed-top mx-auto my-3 fade show`;
+            alertElement.style.maxWidth = '400px';
+            alertElement.style.zIndex = '9999';
+            alertElement.style.transform = 'translateX(0)';
+            alertElement.style.opacity = '1';
+
+            const alertContent = document.createElement('div');
+            alertContent.className = 'd-flex align-items-start';
+
+            const successIcon = document.createElement('i');
+            successIcon.className = icon;
+            successIcon.style.fontSize = '1.5rem';
+
+            const textContainer = document.createElement('div');
+            textContainer.className = 'flex-grow-1';
+            textContainer.style.marginLeft = '1rem';
+
+            const titleElement = document.createElement('h6');
+            titleElement.textContent = title;
+            titleElement.className = 'alert-heading';
+
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = message;
+            descriptionElement.className = 'mb-0';
+
+            const closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'btn-close';
+            closeButton.setAttribute('aria-label', 'Close');
+            closeButton.addEventListener('click', () => {
+                alertElement.style.opacity = '0';
+                alertElement.style.transform = 'scale(0.8)';
+                alertElement.addEventListener('transitionend', () => {
+                    alertElement.remove();
+                });
             });
 
+            textContainer.appendChild(titleElement);
+            textContainer.appendChild(descriptionElement);
+            alertContent.appendChild(successIcon);
+            alertContent.appendChild(textContainer);
+            alertElement.appendChild(alertContent);
+            alertElement.appendChild(closeButton);
 
-        </script>
-    </body>
+            alertContainer.appendChild(alertElement);
+
+            void alertElement.offsetWidth;
+
+            const spacing = 10;
+            let currentOffset = 0;
+            const alerts = alertContainer.getElementsByClassName('alert');
+            for (let i = alerts.length - 1; i >= 0; i--) {
+                const alert = alerts[i];
+                const alertHeight = alert.offsetHeight;
+                const alertHeightWithSpacing = alertHeight + spacing;
+                alert.style.top = `${currentOffset}px`;
+                currentOffset += alertHeightWithSpacing;
+            }
+
+            const displayTime = 5000;
+            setTimeout(() => {
+                alertElement.classList.remove('show');
+                setTimeout(() => {
+                    alertElement.remove();
+                }, 500);
+            }, displayTime);
+        }
+    });
+
+    function fetchCommentsAndCharacterCount () {
+        fetch(window.location.href)
+
+            .then(response => response.text())
+
+            .then(html => {
+                const parser = new DOMParser();
+                const newDocument = parser.parseFromString(html, 'text/html');
+
+                const commentsSection = newDocument.getElementById('comments-section');
+                if (commentsSection) {
+                    const currentCommentsSection = document.getElementById('comments-section');
+                    currentCommentsSection.innerHTML = commentsSection.innerHTML;
+                }
+
+                const characterCounter = newDocument.getElementById('character-counter');
+                if (characterCounter) {
+                    const currentCharacterCounter = document.getElementById('character-counter');
+                    currentCharacterCounter.textContent = characterCounter.textContent;
+                }
+
+                const totalCommentCount = newDocument.getElementById('total-comment-count');
+                if (totalCommentCount) {
+                    const currentTotalCommentCount = document.getElementById('total-comment-count');
+                    currentTotalCommentCount.textContent = totalCommentCount.textContent;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    document.getElementById('comment-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData
+        })
+
+            .then(response => response.json())
+
+            .then(data => {
+                if (data.success) {
+                    form.reset();
+                    fetchCommentsAndCharacterCount();
+                }
+            })
+
+            .catch(error => console.error('Error:', error));
+    });
+
+    fetchCommentsAndCharacterCount();
+
+    const commentContent = document.getElementById('comment-content');
+    const characterCounter = document.getElementById('character-counter');
+    const maxCharacters = 255;
+
+    commentContent.addEventListener('input', function () {
+        const remainingCharacters = maxCharacters - commentContent.value.length;
+
+        if (remainingCharacters === 1) {
+            characterCounter.textContent = `Pozostał ${remainingCharacters} znak`;
+        } else if (remainingCharacters >= 2 && remainingCharacters < 5) {
+            characterCounter.textContent = `Pozostały ${remainingCharacters} znaki`;
+        } else {
+            characterCounter.textContent = `Pozostało ${remainingCharacters} znaków`;
+        }
+
+        if (remainingCharacters < 0) {
+            commentContent.classList.add('is-invalid');
+            characterCounter.classList.add('text-danger');
+        } else {
+            commentContent.classList.remove('is-invalid');
+            characterCounter.classList.remove('text-danger');
+        }
+    });
+</script>
+</body>
 </html>

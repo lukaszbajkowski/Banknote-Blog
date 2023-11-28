@@ -1,0 +1,36 @@
+<div class="btn-group">
+    <button type="button" class="btn btn-nav border border-0 dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+        <i class="fa-solid fa-ellipsis"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end py-3 shadow border-0">
+        <li class="mx-3">
+            <div class="d-grid gap-1">
+                <span class="fw-light">
+                    Udostępnij
+                </span>
+                <button onclick="shareOnFacebook({{ post.id }})" class="btn btn-facebook-opacity btn-text-left">
+                    <i class="share-section-icon fa-brands fa-facebook me-2"></i>
+                    Facebook
+                </button>
+                <button onclick="shareOnTwitter({{ post.id }})" class="btn btn-twitter-opacity btn-text-left">
+                    <i class="share-section-icon fa-brands fa-twitter me-2"></i>
+                    Twitter
+                </button>
+                <button onclick="shareOnLinkedIn({{ post.id }})" class="btn btn-linkedin-opacity btn-text-left">
+                    <i class="share-section-icon fa-brands fa-linkedin me-2"></i>
+                    LindkedIn
+                </button>
+                <button onclick="shareOnPinterest({{ post.id }})" class="btn btn-pinterest-opacity btn-text-left">
+                    <i class="share-section-icon fa-brands fa-pinterest-p me-2"></i>
+                    Pinterest
+                </button>
+                <button class="btn btn-register container-fluid copy-link-btn btn-text-left"
+                        data-post-id="{{ post.id }}">
+                    <i class="share-section-icon fa-regular fa-copy me-2"></i>
+                    Kopiuj link
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>

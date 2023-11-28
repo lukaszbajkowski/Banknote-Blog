@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 d-none d-lg-block p-0 "></div>
+    <div class="col p-0">
+        <div class="card-title card-text mt-5 text-navy-start">
+            <hr class="mt-5 pb-2 text-sm">
+            <h5 class="mb-3 mb-md-2 fw-light text-center text-md-start text-navy">
+                Powiązane artykuły
+            </h5>
+        </div>
+        <div class="row pt-3">
+            <div class="container">
+                <div class="row gx-5">
+                    {% for random_posts in random_posts %}
+                        {% include 'UserTemplates/Article/RelatedArticles/RelatedArticle.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
+</div>

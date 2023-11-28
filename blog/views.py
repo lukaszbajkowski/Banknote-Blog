@@ -41,19 +41,20 @@ def superuser_required(view_func):
 
 # Funkcja obsługująca proces rejestracji do biuletynu
 def process_newsletter_signup(request, form_class, template, admin_panel_template):
+    category = Category.objects.all()
+    blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
     form = form_class(request.POST or None)
+
     if form.is_valid():
         instance = form.save(commit=False)
         email = instance.email
-        if delete_newsletter_user(email):
+        # if delete_newsletter_user(email):
+        if NewsletterUser.objects.filter(email=email).exists():
             messages.warning(request, DUPLICATE_EMAIL_MESSAGE, "alert alert-warning alert-dismissible fade show")
         else:
             instance.save()
             messages.success(request, SUCCESS_MESSAGE, "alert alert-success alert-dismissible fade show")
             send_signup_mail(email)
-
-    category = Category.objects.all()
-    blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
 
     context = {
         'form': form,
@@ -335,7 +336,7 @@ def HomeView(request):
         'favorite_blogs': favorite_blogs,
         'form': newsletter_form,
     }
-    return render(request, 'home.html', context)
+    return render(request, 'UserTemplates/Home/Home.html', context)
 
 
 # Widok artykułu
@@ -394,7 +395,7 @@ def ArticleDetailView(request, pk=None):
         'total_comments': total_comments,
         'comment_form': comment_form,
     }
-    return render(request, 'article_details.html', context)
+    return render(request, 'UserTemplates/Article/Article.html', context)
 
 
 # Widok listy artykułów
@@ -425,7 +426,7 @@ def ArticleListView(request):
         'blog': blog,
         'category': category,
     }
-    return render(request, 'article_list.html', context)
+    return render(request, 'UserTemplates/ArticlesList/ArticlesList.html', context)
 
 
 # Widok formularza kontaktowego
@@ -495,13 +496,13 @@ def profile_view(request, pk):
         'category': category,
         'blog': blog
     }
-    return render(request, 'profile_view.html', context)
+    return render(request, 'UserTemplates/Author/Author.html', context)
 
 
 # Widok kategorii
 def CategoryView(request, pk):
     category_posts = Blog.objects.filter(category=pk)
-    blog_data = Blog.objects.all()
+    blog_data = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
     a = Category.objects.all()
     category_name = Category.objects.filter(id=pk)
     paginator = Paginator(category_posts, 5)
@@ -513,11 +514,12 @@ def CategoryView(request, pk):
         'category_posts': category_posts,
         'posts': blog_data,
         'page_obj': page_obj,
-        'a': a,
         'category_name': category_name,
+        'category': a,
+        'blog': blog_data,
     }
 
-    return render(request, 'categories_detail.html', context)
+    return render(request, 'UserTemplates/SingleCategory/Category.html', context)
 
 
 # Widok listy kategorii
@@ -545,7 +547,7 @@ def CategoryListView(request):
         'blog': blog,
         'category': categories,
     }
-    return render(request, 'category_list.html', context)
+    return render(request, 'UserTemplates/CategoriesList/CategoriesList.html', context)
 
 
 # Widok listy profili użytkowników
@@ -573,7 +575,7 @@ def ProfileListView(request):
         'blog': blog,
         'form': newsletter_form,
     }
-    return render(request, 'author_list.html', context)
+    return render(request, 'UserTemplates/Authors/Authors.html', context)
 
 
 # Widok regulaminu
@@ -585,7 +587,7 @@ def TermsConditionsView(request):
         'category': category,
         'blog': blog,
     }
-    return render(request, 'terms_conditions.html', context)
+    return render(request, 'UserTemplates/TermsConditions/TermsConditions.html', context)
 
 
 # Widok polityki prywatności
@@ -597,7 +599,7 @@ def PrivacyPolicyView(request):
         'category': category,
         'blog': blog,
     }
-    return render(request, 'pricacy_policy.html', context)
+    return render(request, 'UserTemplates/PrivacyPolicy/PrivacyPolicy.html', context)
 
 
 # Widok strony "O Nas"
@@ -609,18 +611,21 @@ def AboutPageView(request):
         'category': category,
         'blog': blog,
     }
-    return render(request, 'about_page.html', context)
+    return render(request, 'UserTemplates/About/About.html', context)
 
 
 # Widok rejestracji do biuletynu
 def newsletter_signup_view(request):
     return process_newsletter_signup(request, NewsletterUserSignUpForm,
-                                     'newsletter/newsletter_signup.html', None)
+                                     'UserTemplates/NewsletterRegister/NewsletterSignUp.html', None)
 
 
 # Widok rezygnacji z biuletynu
 def newsletter_unsubscribe_view(request):
+    category = Category.objects.all()
+    blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
     form = NewsletterUserSignUpForm(request.POST or None)
+
     if form.is_valid():
         instance = form.save(commit=False)
         email = instance.email
@@ -629,14 +634,13 @@ def newsletter_unsubscribe_view(request):
             messages.success(request, UNSUBSCRIBE_SUCCESS_MESSAGE, "alert alert-success alert-dismissible fade show")
         else:
             messages.warning(request, INVALID_EMAIL_MESSAGE, "alert alert-danger alert-dismissible fade show")
-    category = Category.objects.all()
-    blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
+
     context = {
         'form': form,
         'category': category,
         'blog': blog
     }
-    return render(request, 'newsletter/newsletter_unsubscribe.html', context)
+    return render(request, 'UserTemplates/NewsletterDelete/NewsletterDelete.html', context)
 
 
 # Widok tworzenia biuletynu (dla superusera)
