@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('Draft', 'Projekt'), ('Published', 'Opublikowany')], default='Draft', max_length=10, verbose_name='Status'),
         ),
         migrations.AlterField(
-            model_name='newsletter',
+            model_name='Newsletter',
             name='status_field',
             field=models.CharField(choices=[('Draft', 'Projekt'), ('Published', 'Opublikowany')], default='Draft', max_length=10, verbose_name='Status'),
         ),

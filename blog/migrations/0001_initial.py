@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                 ('profile_pic', models.ImageField(default='images/profile/1.png', upload_to='images/user/', verbose_name='Zdjęcie profilowe')),
                 ('phone_number', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region='PL', unique=True, verbose_name='Numer telefonu')),
                 ('gender', models.CharField(choices=[('M', 'Mężczyzna'), ('K', 'Kobieta'), ('I', 'Inna')], default='Mężczyzna', max_length=6, verbose_name='Płeć')),
-                ('newsletter', models.BooleanField(default=False, verbose_name='Biuletyn')),
+                ('Newsletter', models.BooleanField(default=False, verbose_name='Biuletyn')),
                 ('miss_news', models.BooleanField(default=False, verbose_name='Pominięte artykuły')),
                 ('meetups_news', models.BooleanField(default=True, verbose_name='Spotkania i wydarzenia')),
                 ('opportunities_news', models.BooleanField(default=False, verbose_name='Okazje z rynku aukcyjnego')),

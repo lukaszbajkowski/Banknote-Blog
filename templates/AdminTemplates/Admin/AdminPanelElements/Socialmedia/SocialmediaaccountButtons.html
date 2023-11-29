@@ -1,0 +1,15 @@
+<nav class="nav flex-column text-start px-3">
+    <h5 class=" fw-bold text-navy">
+        Konta społecznościowe
+    </h5>
+    <button class="btn btn-list btn-list mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'social_account_add' %}'">
+        <i class="fa-regular fa-user me-2"></i>
+        Stworzenie konta społecznościowego
+    </button>
+    <button class="btn btn-list btn-list mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'social_account_admin_panel' %}'">
+        <i class="fa-solid fa-clipboard-list me-2"></i>
+        Zarządzanie kontami społecznościowymi
+    </button>
+</nav>

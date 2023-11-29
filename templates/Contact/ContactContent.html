@@ -1,0 +1,43 @@
+<div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>
+<div class="col">
+    <h1 class="pt-2 text-navy">
+        Zapraszamy do kontaktu!
+    </h1>
+    <p class="text-muted pb-3">
+        Masz pytania, sugestie lub chcesz podzielić się swoimi pomysłami? Jesteśmy tu, aby Ci pomóc.
+    </p>
+    <script>
+        $(document).ready(function () {
+    $('#contact-form').submit(function (event) {
+        event.preventDefault();
+
+        const form = $(this);
+        const submitButton = $('#submit-button-email');
+
+        submitButton.attr('disabled', 'disabled');
+
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+
+            success: function (response) {
+                grecaptcha.reset(); // Corrected typo here
+                form[0].reset();
+                submitButton.removeAttr('disabled');
+            },
+
+            error: function (response) {
+                submitButton.removeAttr('disabled');
+            }
+        });
+    });
+});
+
+    </script>
+    {% include 'Contact/ContactForm.html' %}
+    <p class="text-muted pt-3 pb-1">
+        Zazwyczaj odpowiadamy w przeciągu jednego dnia.
+    </p>
+</div>
+<div class="col-0 col-sm-0 col-md-0 col-lg-1 col-xl-2 p-0"></div>

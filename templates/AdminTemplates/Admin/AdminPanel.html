@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<head>
+    {{ form.media }}
+</head>
+
+{% block title %}
+    Banknoty - Panel administracyjny
+{% endblock %}
+
+{% block navbar %}
+    {% include 'Navbar/NavbarAdmin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                {% include 'AdminTemplates/Admin/AdminPanelElements/Newsletters/Newsletters.html' %}
+            </div>
+            <hr class="mt-2 mb-4 text-navy">
+            <div class="row">
+                {% include 'AdminTemplates/Admin/AdminPanelElements/Users/Users.html' %}
+            </div>
+            <hr class="mt-2 mb-4 text-navy">
+            <div class="row">
+                {% include 'AdminTemplates/Admin/AdminPanelElements/Socialmedia/Socialmedia.html' %}
+            </div>
+            <hr class="mt-2 mb-4 text-navy">
+            <div class="row">
+                {% include 'AdminTemplates/Admin/AdminPanelElements/Contnet/Content.html' %}
+            </div>
+            <hr class="mt-2 mb-4" style="color: navy">
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+<h3 class="ps-3 ps-sm-0 ps-md-3 mb-3">
+    <a class="admin_category text-navy" href='{% url 'users_admin' %}'>
+        Użytkownicy
+    </a>
+</h3>
+<div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+    {% include 'AdminTemplates/Admin/AdminPanelElements/Users/UserButtons.html' %}
+</div>
+<div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+    {% include 'AdminTemplates/Admin/AdminPanelElements/Users/AuthorsButtons.html' %}
+</div>
+<div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">
+    {% include 'AdminTemplates/Admin/AdminPanelElements/Users/ApplicationAuthorButtons.html' %}
+</div>

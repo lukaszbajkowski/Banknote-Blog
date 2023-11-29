@@ -1,0 +1,20 @@
+<nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+    <h5 class=" fw-bold text-navy">
+        Spotkania i wydarzenia
+    </h5>
+    <button class="btn btn-list mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'meetups_news_add' %}'">
+        <i class="fa-solid fa-envelope-open-text me-2"></i>
+        Stworzenie wiadomości o spotkaniach i wydarzeniach
+    </button>
+    <button class="btn btn-list my-1 text-start"
+            onclick="location.href='{% url 'meetups_news_admin_panel' %}'">
+        <i class="fa-solid fa-list me-2"></i>
+        Zarządzanie wiadmościami o spotkaniach i wydarzeniach
+    </button>
+    <button class="btn btn-list my-1 text-start"
+            onclick="location.href='{% url 'meetups_news_user_admin_panel' %}'">
+        <i class="fa-solid fa-list-check me-2"></i>
+        Zarządzanie subskrybcjami wiadomości o spotkaniach i wydarzeniach
+    </button>
+</nav>

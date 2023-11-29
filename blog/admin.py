@@ -122,7 +122,7 @@ class UserAdmin(admin.ModelAdmin):
             'description': 'Informacje dodatkowe na temat użytkownika rozszerzające bazowy model User.',
         }),
         ('Biuletyn i powiadomienia', {
-            'fields': ('newsletter', 'miss_news', 'meetups_news', 'opportunities_news')
+            'fields': ('Newsletter', 'miss_news', 'meetups_news', 'opportunities_news')
         }),
         ('Komunikacja od administracji', {
             'fields': ('company_news', 'replay_news', 'development_news')

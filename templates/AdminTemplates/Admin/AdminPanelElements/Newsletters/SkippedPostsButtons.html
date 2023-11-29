@@ -1,0 +1,20 @@
+<nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+    <h5 class=" fw-bold text-navy">
+        Pominięte artykuły
+    </h5>
+    <button class="btn btn-list mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'send_emails' %}'">
+        <i class="fa-solid fa-paper-plane me-2"></i>
+        Wysłanie e-maila do użytkowników
+    </button>
+    <button class="btn btn-list my-1 text-start"
+            onclick="location.href='{% url 'skipped_posts_admin_panel' %}'">
+        <i class="fa-solid fa-list me-2"></i>
+        Pominięte artykuły przez użytkowników
+    </button>
+    <button class="btn btn-list my-1 text-start"
+            onclick="location.href='{% url 'skipped_posts_user_admin_panel' %}'">
+        <i class="fa-solid fa-list-ol me-2"></i>
+        Zarządzanie subskrybcjami pominiętych artykułów
+    </button>
+</nav>

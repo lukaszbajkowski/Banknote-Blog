@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Kontakt
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div id="alert-container"></div>
+    <div class="bg-body-tertiary pt-0 px-5">
+        <div class="container text-center px-0 px-xl-5">
+            <div class="container text-center pb-5 pt-0">
+                <div class="row">
+                    {% include 'Contact/ContactContent.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foo %}
+    {% include 'Footers/Footer.html' %}
+{% endblock %}

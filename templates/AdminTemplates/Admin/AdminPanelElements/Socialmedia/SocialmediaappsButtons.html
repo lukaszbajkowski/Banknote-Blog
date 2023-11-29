@@ -1,0 +1,15 @@
+<nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+    <h5 class=" fw-bold text-navy">
+        Aplikacja społeczna
+    </h5>
+    <button class="btn btn-list mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'social_app_add' %}'">
+        <i class="fa-solid fa-universal-access me-2"></i>
+        Stworzenie aplikacji społecznościowej
+    </button>
+    <button class="btn btn-list my-1 text-start"
+            onclick="location.href='{% url 'social_app_admin_panel' %}'">
+        <i class="fa-solid fa-users-gear me-2"></i>
+        Zarządzanie aplikacjami społecznościowymi
+    </button>
+</nav>

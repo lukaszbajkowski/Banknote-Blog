@@ -170,9 +170,9 @@ def process_delete_admin_panel_view(request, pk, model, form_class, template, su
 # Funkcja wysyłająca e-maile z biuletynami
 def send_newsletter_emails(newsletter):
     for email in newsletter.email.all():
-        msg_plain = render_to_string('newsletter/admin_panel/newsletter_mail.txt',
+        msg_plain = render_to_string('Newsletter/admin_panel/newsletter_mail.txt',
                                      {'mail': email, 'text': newsletter.text})
-        msg_html = render_to_string('newsletter/admin_panel/newsletter_mail.html',
+        msg_html = render_to_string('Newsletter/admin_panel/newsletter_mail.html',
                                     {'mail': email, 'text': newsletter.text, 'image_url': IMAGE_URL})
         send_mail(subject=newsletter.title,
                   from_email=settings.EMAIL_HOST_USER,
@@ -195,8 +195,8 @@ def send_unsubscribe_mail(email):
     subject = 'Rezygnacja z biuletynu.'
     from_email = settings.EMAIL_HOST_USER
     to_email = [email]
-    msg_plain = render_to_string('newsletter/newsletter_unsubscribe_mail.txt', {'mail': email})
-    msg_html = render_to_string('newsletter/newsletter_unsubscribe_mail.html', {'mail': str(email),
+    msg_plain = render_to_string('Newsletter/newsletter_unsubscribe_mail.txt', {'mail': email})
+    msg_html = render_to_string('Newsletter/newsletter_unsubscribe_mail.html', {'mail': str(email),
                                                                                 'image_url': IMAGE_URL})
     send_mail(subject, msg_plain, from_email, to_email, html_message=msg_html, fail_silently=False)
 
@@ -206,8 +206,8 @@ def send_signup_mail(email):
     subject = 'Dziękujemy za rejestrację do biuletynu.'
     from_email = settings.EMAIL_HOST_USER
     to_email = [email]
-    msg_plain = render_to_string('newsletter/newsletter_singup_mail.txt', {'mail': email})
-    msg_html = render_to_string('newsletter/newsletter_singup_mail.html',
+    msg_plain = render_to_string('Newsletter/newsletter_singup_mail.txt', {'mail': email})
+    msg_html = render_to_string('Newsletter/newsletter_singup_mail.html',
                                 {'mail': str(email),
                                  'image_url': IMAGE_URL})
     send_mail(subject, msg_plain, from_email, to_email, html_message=msg_html, fail_silently=False)
@@ -443,18 +443,18 @@ def ContactView(request):
             image_url = IMAGE_URL
 
             subject = 'Wiadomość z formularza kontaktowego'
+            subject_user = 'Potwierdzenie wiadomości z formularza kontaktowego'
             context = {
                 'name': name,
                 'mail': email,
                 'message': message,
                 'image_url': image_url,
             }
-            msg_plain = render_to_string('contact/contact_mail_to_admin.txt', context)
-            msg_html = render_to_string('contact/contact_mail_to_admin.html', context)
+            msg_plain = render_to_string('Contact/Mail/ContactMailToAdmin.txt', context)
+            msg_html = render_to_string('Contact/Mail/ContactMailToAdmin.html', context)
 
-            subject_user = 'Potwierdzenie wiadomości z formularza kontaktowego'
-            msg_plain_user = render_to_string('contact/contact_mail_to_user.txt', context)
-            msg_html_user = render_to_string('contact/contact_mail_to_user.html', context)
+            msg_plain_user = render_to_string('Contact/Mail/ContactMailToUser.txt', context)
+            msg_html_user = render_to_string('Contact/Mail/ContactMailToUser.html', context)
 
             send_mail(
                 subject, msg_plain, email, [settings.EMAIL_HOST_USER], html_message=msg_html, fail_silently=False
@@ -476,7 +476,7 @@ def ContactView(request):
         'blog': blog,
         'category': category,
     }
-    return render(request, 'contact/contact_form.html', context)
+    return render(request, 'Contact/ContactPage.html', context)
 
 
 # Widok profilu użytkownika
@@ -653,8 +653,8 @@ def newsletter_creation_view(request):
 
         def send_newsletter(emails, newsletter):
             subject = newsletter.title
-            text_template = 'newsletter/admin_panel/newsletter_mail.txt'
-            html_template = 'newsletter/admin_panel/newsletter_mail.html'
+            text_template = 'Newsletter/admin_panel/newsletter_mail.txt'
+            html_template = 'Newsletter/admin_panel/newsletter_mail.html'
             send_custom_emails(emails, subject, text_template, html_template)
 
         if newsletter.status_field == "Published":
@@ -670,15 +670,15 @@ def newsletter_creation_view(request):
     context = {
         'form': form,
     }
-    return render(request, 'newsletter/admin_panel/newsletter_addpost_admin_panel.html', context)
+    return render(request, 'Newsletter/admin_panel/newsletter_addpost_admin_panel.html', context)
 
 
 # Widok dodawania użytkownika do biuletynu (dla superusera)
 @superuser_required
 def newsletter_add_user_view(request):
     return process_newsletter_signup(request, NewsletterAddUserForm,
-                                     'newsletter/admin_panel/newsletter_singup_admin_panel.html',
-                                     'newsletter/admin_panel/newsletter_singup_admin_panel.html')
+                                     'Newsletter/admin_panel/newsletter_singup_admin_panel.html',
+                                     'Newsletter/admin_panel/newsletter_singup_admin_panel.html')
 
 
 # Widok usuwania użytkownika z biuletynu (dla superusera)
@@ -697,7 +697,7 @@ def newsletter_remove_user_view(request):
     context = {
         'form': form
     }
-    return render(request, 'newsletter/admin_panel/newsletter_unsubscribe_admin_panel.html', context)
+    return render(request, 'Newsletter/admin_panel/newsletter_unsubscribe_admin_panel.html', context)
 
 
 # Widok zarządzania biuletynami (dla superusera)
@@ -705,7 +705,7 @@ def newsletter_remove_user_view(request):
 def newsletter_manage_admin_panel_view(request):
     newsletter = Newsletter.objects.all()
     context = get_paginated_context(request, newsletter, 10)
-    return render(request, 'newsletter/admin_panel/newsletter_manage_admin_panel.html', context)
+    return render(request, 'Newsletter/admin_panel/newsletter_manage_admin_panel.html', context)
 
 
 # Widok szczegółów biuletynu (dla superusera)
@@ -713,9 +713,9 @@ def newsletter_manage_admin_panel_view(request):
 def newsletter_detail_admin_panel_view(request, pk):
     newsletter = get_object_or_404(Newsletter, pk=pk)
     context = {
-        'newsletter': newsletter,
+        'Newsletter': newsletter,
     }
-    return render(request, 'newsletter/admin_panel/newsletter_detail_admin_panel.html', context)
+    return render(request, 'Newsletter/admin_panel/newsletter_detail_admin_panel.html', context)
 
 
 # Widok edycji biuletynu (dla superusera)
@@ -739,14 +739,14 @@ def newsletter_edit_admin_panel_view(request, pk):
     context = {
         'form': form
     }
-    return render(request, 'newsletter/admin_panel/newsletter_edit_admin_panel.html', context)
+    return render(request, 'Newsletter/admin_panel/newsletter_edit_admin_panel.html', context)
 
 
 # Widok usuwania biuletynu (dla superusera)
 @superuser_required
 def newsletter_delete_admin_panel_view(request, pk):
     return process_delete(request, Newsletter, NewsletterDeleteForm,
-                          'newsletter/admin_panel/newsletter_delete_admin_panel.html',
+                          'Newsletter/admin_panel/newsletter_delete_admin_panel.html',
                           SUCCESS_DELETE_MESSAGE, 'newsletter_admin_panel')
 
 
@@ -755,7 +755,7 @@ def newsletter_delete_admin_panel_view(request, pk):
 def newsletter_user_manage_admin_panel_view(request):
     newsletter = NewsletterUser.objects.all()
     context = get_paginated_context(request, newsletter, 10)
-    return render(request, 'newsletter/admin_panel/newsletter_user_manage_admin_panel.html', context)
+    return render(request, 'Newsletter/admin_panel/newsletter_user_manage_admin_panel.html', context)
 
 
 # Widok szczegółów użytkownika newslettera (dla superusera)
@@ -763,47 +763,47 @@ def newsletter_user_manage_admin_panel_view(request):
 def newsletter_user_detail_admin_panel_view(request, pk):
     newsletter = get_object_or_404(NewsletterUser, pk=pk)
     context = {
-        'newsletter': newsletter,
+        'Newsletter': newsletter,
     }
-    return render(request, 'newsletter/admin_panel/newsletter_user_detail_admin_panel.html', context)
+    return render(request, 'Newsletter/admin_panel/newsletter_user_detail_admin_panel.html', context)
 
 
 # Widok usuwania użytkownika newslettera (dla superusera)
 @superuser_required
 def newsletter_user_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(request, pk, NewsletterUser, NewsletterUserDeleteForm,
-                                           'newsletter/admin_panel/newsletter_user_delete_admin_panel.html',
+                                           'Newsletter/admin_panel/newsletter_user_delete_admin_panel.html',
                                            USER_SUCCESS_DELETE_MESSAGE, 'newsletter_user_admin_panel')
 
 
 # Widok panelu administracyjnego (dla superusera)
 @superuser_required
 def admin_panel_view(request):
-    return render(request, 'admin/admin_panel.html')
+    return render(request, 'AdminTemplates/Admin/AdminPanel.html')
 
 
 # Widok panelu administracyjnego dla newsletterów (dla superusera)
 @superuser_required
 def newsletters_admin_panel_view(request):
-    return render(request, 'admin/newsletters_admin_panel.html')
+    return render(request, 'AdminTemplates/Admin/Panels/NewslettersAdminPanel.html')
 
 
 # Widok panelu administracyjnego dla użytkowników (dla superusera)
 @superuser_required
 def users_admin_panel_view(request):
-    return render(request, 'admin/users_admin_panel.html')
+    return render(request, 'AdminTemplates/Admin/Panels/UsersAdminPanel.html')
 
 
 # Widok panelu administracyjnego dla postów (dla superusera)
 @superuser_required
 def posts_admin_panel_view(request):
-    return render(request, 'admin/posts_admin_panel.html')
+    return render(request, 'AdminTemplates/Admin/Panels/ContentAdminPanel.html')
 
 
 # Widok panelu administracyjnego dla mediów społecznościowych (dla superusera)
 @superuser_required
 def social_media_admin_panel_view(request):
-    return render(request, 'admin/social_media_admin_panel.html')
+    return render(request, 'AdminTemplates/Admin/Panels/SocialmediaAdminPanel.html')
 
 
 # Widok dodawania autora (dla superusera)

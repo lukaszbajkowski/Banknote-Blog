@@ -1,0 +1,30 @@
+<nav class="nav flex-column text-start px-3 px-sm-0 px-md-3">
+<h5 class=" fw-bold text-navy">
+    Biuletyn
+</h5>
+<button class="btn btn-list mt-2 mb-1 text-start"
+        onclick="location.href='{% url 'newsletter_creation' %}'">
+    <i class="fa-solid fa-newspaper me-2"></i>
+    Stworzenie biuletynu
+</button>
+<button class="btn btn-list my-1 text-start"
+        onclick="location.href='{% url 'newsletter_admin_panel' %}'">
+    <i class="fa-solid fa-pen me-2"></i>
+    Zarządzanie biuletynem
+</button>
+<button class="btn btn-list my-1 text-start"
+        onclick="location.href='{% url 'newsletter_add_user' %}'">
+    <i class="fa-solid fa-user-plus me-2"></i>
+    Dodanie do biuletynu
+</button>
+<button class="btn btn-list my-1 text-start"
+        onclick="location.href='{% url 'newsletter_remove_user' %}'">
+    <i class="fa-solid fa-user-slash me-2"></i>
+    Usunięcie z biuletynu
+</button>
+<button class="btn btn-list my-1 text-start"
+        onclick="location.href='{% url 'newsletter_user_admin_panel' %}'">
+    <i class="fa-solid fa-clipboard-user me-2"></i>
+    Zarządzanie subskrybcjami biuletynu
+</button>
+</nav>

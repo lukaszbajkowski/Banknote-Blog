@@ -1,0 +1,22 @@
+<form method="post" id="contact-form" class="px-5">
+    {% csrf_token %}
+    <h6 class="form-label pt-2 text-start fw-bold">
+        {{ form.name.label }}
+    </h6>
+    {{ form.name }}
+    {% include 'Contact/Error/ErrorName.html' %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.email.label }}
+    </h6>
+    {{ form.email }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.message.label }}
+    </h6>
+    {{ form.message }}
+    {{ form.captcha }}
+    {% include 'Contact/Error/ErrorCaptcha.html' %}
+    <button class="d-flex justify-content-center btn btn-register px-5 mt-4 my-2 mx-auto" id="submit-button-email"
+            type="submit">
+        Wyślij
+    </button>
+</form>

@@ -311,7 +311,7 @@ msgid "English"
 msgstr ""
 
 #: templates/admin/base_site.html:3
-msgid "Django site admin"
+msgid "Django site Admin"
 msgstr ""
 
 #: templates/terms_conditions.html:44
