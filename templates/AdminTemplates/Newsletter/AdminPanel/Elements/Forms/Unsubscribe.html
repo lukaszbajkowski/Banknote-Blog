@@ -1,0 +1,10 @@
+<form method="POST">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.email.label }}
+    </h6>
+    {{ form.email }}
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Usuń
+    </button>
+</form>

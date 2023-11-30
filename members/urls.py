@@ -22,7 +22,7 @@ urlpatterns = [
     path('myprofile/posts/delete/<int:pk>', views.my_posts_delete, name='my_posts_delete'),
 
     path('myprofile/author_application/',  views.article_author_form, name='article_author_form'),
-    path('myprofile/decision_maker/admin_panel/', views.decision_maker_admin_panel, name='decision_maker_admin_panel'),
+    path('myprofile/decision_maker/AdminPanel/', views.decision_maker_admin_panel, name='decision_maker_admin_panel'),
     path('myprofile/decision_maker/detail/<int:pk>', views.decision_maker_detail_admin_panel_view,
          name='decision_maker_detail_admin_panel_view'),
     path('myprofile/author_application/history/', views.article_author_history, name='article_author_history'),

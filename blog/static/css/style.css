@@ -57,7 +57,7 @@
 }
 
 .card-text > div > *:has(img) {
-    text-indent: 0%;
+    text-indent: 0;
 }
 
 .card-text > div > * {
@@ -75,7 +75,7 @@
     padding-left: 2rem;
     border-left: navy 3px solid;
     color: navy;
-    text-indent: 0%;
+    text-indent: 0;
     padding-top: .5rem;
     padding-bottom: 1rem;
 }
@@ -83,11 +83,11 @@
 .card-text > div > *:has(q):before,
 .card-text > div > q:before {
     content: '\f10d';
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 5 Free', serif;
     left: -1rem;
     font-size: 2rem;
     position: relative;
-    text-indent: 0%;
+    text-indent: 0;
 }
 
 .card-text > div > * > * > * > * > a, .card-text > div > * > * > * > * > a :visited,
@@ -96,7 +96,7 @@
 .card-text > div > * > a, .card-text > div > * > a :visited {
     color: rgba(0, 0, 128, 0.7);
     text-decoration: none !important;
-    text-indent: 0%;
+    text-indent: 0;
 }
 
 .card-text > div > * > * > * > * > a:hover,
@@ -105,7 +105,7 @@
 .card-text > div > * > a :hover {
     color: #000080;
     text-decoration: underline !important;
-    text-indent: 0%;
+    text-indent: 0;
 }
 
 .card-text > div > * > * > h1,
@@ -127,7 +127,7 @@
 .card-text > div > h5,
 .card-text > div > h6 {
     color: #000080 !important;
-    text-indent: 0%;
+    text-indent: 0;
 }
 
 .card-link {
@@ -234,10 +234,10 @@
 .btn-list-active {
     border-left-width: 2px;
     border-left-color: navy !important;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-width: 0px;
-    border-bottom-width: 0px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }
 
 .btn.btn-facebook-opacity:hover,
@@ -455,8 +455,8 @@
 }
 
 .btn-arrow-right {
-    border-bottom-left-radius: 0px;
-    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
 
 
@@ -468,7 +468,7 @@
     margin: 0 auto 100px;
     padding: 45px;
     text-align: center;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .form .registration-form {
@@ -491,9 +491,9 @@
 
 .alert_register {
     color: darkred;
-    box-shadow: 0px 0px 10px 0px rgba(139, 0, 0, 0.1);
+    box-shadow: 0 0 10px 0 rgba(139, 0, 0, 0.1);
     border-color: darkred;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .form-check-input:checked {
@@ -541,7 +541,7 @@ button[data-toggle="dropdown"]:hover {
     }
 
     .add-shadow {
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
     }
 
 }
@@ -577,7 +577,7 @@ button[data-toggle="dropdown"]:hover {
     .navbar .dropdown-menu.fade-down {
         top: 80%;
         transform: rotateX(-75deg);
-        transform-origin: 0% 0%;
+        transform-origin: 0 0;
     }
 
     .navbar .dropdown-menu.fade-up {
@@ -744,7 +744,7 @@ button[data-toggle="dropdown"]:hover {
 
 #top_edit_profile_page {
     top: 404px;
-    left: 0%;
+    left: 0;
     background-color: rgb(248, 249, 250);
 }
 
@@ -784,8 +784,8 @@ button[data-toggle="dropdown"]:hover {
 
 @media all and (max-width: 768px) {
     .card-photo-rounded {
-        border-bottom-left-radius: 0px !important;
-        border-bottom-right-radius: 0px !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
     }
 }
 
@@ -893,7 +893,7 @@ button[data-toggle="dropdown"]:hover {
     border-color: navy;
     border: none !important;
     border-left: 2px rgba(0, 0, 0, 0) solid !important;
-    border-radius: 0px;
+    border-radius: 0;
     margin-top: 4px !important;
     margin-bottom: 4px !important;
     transition: .2s;
@@ -917,7 +917,7 @@ button[data-toggle="dropdown"]:hover {
     border-color: navy;
     border: none !important;
     border-left: 2px navy solid !important;
-    border-radius: 0px 6px 6px 0px;
+    border-radius: 0 6px 6px 0;
     margin-top: 4px !important;
     margin-bottom: 4px !important;
     transition: .2s;
@@ -934,7 +934,7 @@ button[data-toggle="dropdown"]:hover {
 
 .form-label-required:after {
     content: "\f621";
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 5 Free", serif;
     font-weight: 900;
     color: rgb(176, 42, 55);
     font-size: 6px;

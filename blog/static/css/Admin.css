@@ -2,3 +2,7 @@
     display: flex;
     align-items: center;
 }
+
+.admin-panel-nav-btn {
+    background-color: rgba(0,0,128,0.05);
+}

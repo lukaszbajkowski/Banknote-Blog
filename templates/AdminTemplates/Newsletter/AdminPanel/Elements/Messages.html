@@ -1,0 +1,18 @@
+{% if messages %}
+    {% for message in messages %}
+        <div
+                {% if message.tags %}
+                    class="{{ message.tags }}"
+                {% endif %}
+                    role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    onClick="window.location.reload()"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+{% for field, error in form.errors.items %}
+    <div class="alert alert-danger fw-light px-2 py-2 my-3" role="alert">
+        {{ error|striptags }}
+    </div>
+{% endfor %}
