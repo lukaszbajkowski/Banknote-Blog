@@ -6,3 +6,7 @@
 .admin-panel-nav-btn {
     background-color: rgba(0,0,128,0.05);
 }
+
+.col-min-width {
+    min-width: 80px;
+}

@@ -1,0 +1,97 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col" class="col-min-width"></th>
+            <th scope="col">Użytkownik</th>
+            <th scope="col">Stanowisko</th>
+            <th scope="col">Strona autora</th>
+            <th scope="col">Facebook</th>
+            <th scope="col">Twitter</th>
+            <th scope="col">Instagram</th>
+            <th scope="col">Pinterest</th>
+            <th scope="col">Edytuj</th>
+            <th scope="col">Usuń</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for author in page_obj %}
+            <tr>
+                <td class="text-center">
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        <img src="/images/{{ author.profile_pic }}"
+                             class="img-author-admin rounded shadow my-2">
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        {{ author.user }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        {{ author.author_function }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        {% if author.author_url %}
+                            <i class="fa-solid fa-check"></i>
+                        {% else %}
+                            <i class="fa-solid fa-x"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        {% if author.facebook_url %}
+                            <i class="fa-solid fa-check"></i>
+                        {% else %}
+                            <i class="fa-solid fa-x"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        {% if author.twitter_url %}
+                            <i class="fa-solid fa-check"></i>
+                        {% else %}
+                            <i class="fa-solid fa-x"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        {% if author.instagram_url %}
+                            <i class="fa-solid fa-check"></i>
+                        {% else %}
+                            <i class="fa-solid fa-x"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'author_detail_admin_panel' author.pk %}">
+                        {% if author.pinterest_url %}
+                            <i class="fa-solid fa-check"></i>
+                        {% else %}
+                            <i class="fa-solid fa-x"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_edit_link"
+                       href="{% url 'author_edit_admin_panel' author.pk %}">
+                        Edytuj
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_edit_link"
+                       href="{% url 'author_delete_admin_panel' author.pk %}">
+                        Usuń
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

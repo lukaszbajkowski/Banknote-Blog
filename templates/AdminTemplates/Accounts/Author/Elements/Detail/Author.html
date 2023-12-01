@@ -1,0 +1,68 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        Autor | {{ author.user }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Użytkownik
+</h6>
+{{ author.user }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    O autorze
+</h6>
+{{ author.bio }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Zdjęcie profilowe
+</h6>
+<img src="/images/{{ author.profile_pic }}" style="min-width: 120px; min-height: 120px"
+     class="img-author-admin rounded-circle shadow my-2">
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do strony użytkownika
+</h6>
+{% if  author.author_url %}
+    {{ author.author_url }}
+{% else %}
+    Brak
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Cytat autora
+</h6>
+{{ author.author_quote }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Stanowisko autora
+</h6>
+{{ author.author_function }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do Facebooka
+</h6>
+{% if  author.facebook_url %}
+    {{ author.facebook_url }}
+{% else %}
+    Brak
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do Twittera
+</h6>
+{% if  author.twitter_url %}
+    {{ author.twitter_url }}
+{% else %}
+    Brak
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do Instagrama
+</h6>
+{% if  author.instagram_url %}
+    {{ author.instagram_url }}
+{% else %}
+    Brak
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do Pinteresta
+</h6>
+{% if  author.pinterest_url %}
+    {{ author.pinterest_url }}
+{% else %}
+    Brak
+{% endif %}
+<div class="mb-4"></div>

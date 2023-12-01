@@ -13,6 +13,10 @@ from .form import *
 from .form_users import *
 from .models import User as DjangoUser
 
+from .admin_views import *
+
+from .decorators import *
+
 # Stałe komunikaty
 SUCCESS_MESSAGE = 'Dziękujemy za rejestrację do biuletynu.'
 DUPLICATE_EMAIL_MESSAGE = 'Przepraszamy, ten e-mail już istnieje.'
@@ -777,40 +781,10 @@ def newsletter_user_delete_admin_panel_view(request, pk):
                                            USER_SUCCESS_DELETE_MESSAGE, 'newsletter_user_admin_panel')
 
 
-# Widok panelu administracyjnego (dla superusera)
-@superuser_required
-def admin_panel_view(request):
-    return render(request, 'AdminTemplates/Admin/AdminPanel.html')
-
-
-# Widok panelu administracyjnego dla newsletterów (dla superusera)
-@superuser_required
-def newsletters_admin_panel_view(request):
-    return render(request, 'AdminTemplates/Admin/Panels/NewslettersAdminPanel.html')
-
-
-# Widok panelu administracyjnego dla użytkowników (dla superusera)
-@superuser_required
-def users_admin_panel_view(request):
-    return render(request, 'AdminTemplates/Admin/Panels/UsersAdminPanel.html')
-
-
-# Widok panelu administracyjnego dla postów (dla superusera)
-@superuser_required
-def posts_admin_panel_view(request):
-    return render(request, 'AdminTemplates/Admin/Panels/ContentAdminPanel.html')
-
-
-# Widok panelu administracyjnego dla mediów społecznościowych (dla superusera)
-@superuser_required
-def social_media_admin_panel_view(request):
-    return render(request, 'AdminTemplates/Admin/Panels/SocialmediaAdminPanel.html')
-
-
 # Widok dodawania autora (dla superusera)
 @superuser_required
 def author_add_view(request):
-    return process_form_submission(request, AuthorCreateForm, 'author/author_add.html', 'author_add',
+    return process_form_submission(request, AuthorCreateForm, 'AdminTemplates/Accounts/Author/AuthorAddAdmin.html', 'author_add',
                                    'Autor został utworzony')
 
 
@@ -819,7 +793,7 @@ def author_add_view(request):
 def author_manage_admin_panel_view(request):
     author = Author.objects.all().order_by('user_id')
     context = get_paginated_context(request, author, 10)
-    return render(request, 'author/author_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Accounts/Author/AuthorManageAdmin.html', context)
 
 
 # Widok szczegółów autora (dla superusera)
@@ -829,7 +803,7 @@ def author_detail_admin_panel_view(request, pk):
     context = {
         'author': author,
     }
-    return render(request, 'author/author_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Accounts/Author/AuthorDetailAdmin.html', context)
 
 
 # Widok edycji autora (dla superusera)
@@ -845,7 +819,7 @@ def author_edit_admin_panel_view(request, pk):
         pk,
         model_class=Author,
         form_class=AuthorEditForm,
-        template_name='author/author_edit_admin_panel.html',
+        template_name='AdminTemplates/Accounts/Author/AuthorEditAdmin.html',
         success_message='Autor został edytowany',
         redirect_name='author_admin_panel',
         extra_context=extra_context
@@ -856,7 +830,7 @@ def author_edit_admin_panel_view(request, pk):
 @superuser_required
 def author_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
-        request, pk, Author, AuthorDeleteForm, 'author/author_delete_admin_panel.html',
+        request, pk, Author, AuthorDeleteForm, 'AdminTemplates/Accounts/Author/AuthorDeleteAdmin.html',
         'Autor został usunięty', 'author_admin_panel'
     )
 

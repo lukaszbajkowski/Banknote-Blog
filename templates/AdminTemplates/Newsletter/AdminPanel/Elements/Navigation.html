@@ -1,26 +1,31 @@
 <div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_creation' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
-            onclick="location.href='{% url 'newsletter_creation' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_creation' %}btn-list-active{% endif %} mt-2 mb-1"
+            onclick="location.href='{% url 'newsletter_creation' %}'"
+            style="text-align: left; width: 100%; display: block;">
         <i class="fa-solid fa-newspaper me-2"></i>
         Stworzenie biuletynu
     </button>
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
-            onclick="location.href='{% url 'newsletter_admin_panel' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'newsletter_admin_panel, newsletter_detail_admin_panel, newsletter_edit_admin_panel, newsletter_delete_admin_panel' %}btn-list-active{% endif %} my-1"
+            onclick="location.href='{% url 'newsletter_admin_panel' %}'"
+            style="text-align: left; width: 100%; display: block;">
         <i class="fa-solid fa-pen me-2"></i>
         Zarządzanie biuletynem
     </button>
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_add_user' %}btn-list-active{% endif %} my-1 text-start"
-            onclick="location.href='{% url 'newsletter_add_user' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_add_user' %}btn-list-active{% endif %} my-1"
+            onclick="location.href='{% url 'newsletter_add_user' %}'"
+            style="text-align: left; width: 100%; display: block;">
         <i class="fa-solid fa-user-plus me-2"></i>
         Dodanie do biuletynu
     </button>
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_remove_user' %}btn-list-active{% endif %} my-1 text-start"
-            onclick="location.href='{% url 'newsletter_remove_user' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_remove_user' %}btn-list-active{% endif %} my-1"
+            onclick="location.href='{% url 'newsletter_remove_user' %}'"
+            style="text-align: left; width: 100%; display: block;">
         <i class="fa-solid fa-user-slash me-2"></i>
         Usunięcie z biuletynu
     </button>
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'newsletter_user_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
-            onclick="location.href='{% url 'newsletter_user_admin_panel' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'newsletter_user_admin_panel, newsletter_user_detail_admin_panel, newsletter_user_delete_admin_panel' %}btn-list-active{% endif %} my-1"
+            onclick="location.href='{% url 'newsletter_user_admin_panel' %}'"
+            style="text-align: left; width: 100%; display: block;">
         <i class="fa-solid fa-clipboard-user me-2"></i>
         Zarządzanie subskrypcjami biuletynu
     </button>

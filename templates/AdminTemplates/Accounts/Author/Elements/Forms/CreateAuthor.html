@@ -1,0 +1,55 @@
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.user.label }}
+    </h6>
+    {{ form.user }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.bio.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.bio.help_text }}
+    </p>
+    {{ form.bio }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.profile_pic.label }}
+    </h6>
+    {{ form.profile_pic }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.author_url.label }}
+    </h6>
+    {{ form.author_url }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.author_quote.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.author_quote.help_text }}
+    </p>
+    {{ form.author_quote }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.author_function.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.author_function.help_text }}
+    </p>
+    {{ form.author_function }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.facebook_url.label }}
+    </h6>
+    {{ form.facebook_url }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.twitter_url.label }}
+    </h6>
+    {{ form.twitter_url }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.instagram_url.label }}
+    </h6>
+    {{ form.instagram_url }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.pinterest_url.label }}
+    </h6>
+    {{ form.pinterest_url }}
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Stwórz
+    </button>
+</form>
