@@ -1,0 +1,21 @@
+<h4 class="mb-0 pb-2 fw-bold text-navy">
+    Stworzenie kategorii
+</h4>
+{% include 'AdminTemplates/Newsletter/AdminPanel/Elements/Messages.html' %}
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.name.label }}
+    </h6>
+    {{ form.name }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.description.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.description.help_text }}
+    </p>
+    {{ form.description }}
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Stwórz
+    </button>
+</form>

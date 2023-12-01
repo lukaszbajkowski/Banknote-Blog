@@ -1,0 +1,38 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Kategoria</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Edytuj</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for category in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link" href="{% url 'category_detail_admin_panel' category.pk %}">
+                    {{ category.name|truncatewords:6 }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'category_detail_admin_panel' category.pk %}">
+                    {{ category.description|truncatewords:8 }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'category_edit_admin_panel' category.pk %}">
+                    Edytuj
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'category_delete_admin_panel' category.pk %}">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -674,7 +674,7 @@ def newsletter_creation_view(request):
     context = {
         'form': form,
     }
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterAdd.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterAddAdmin.html', context)
 
 
 # Widok dodawania użytkownika do biuletynu (dla superusera)
@@ -838,7 +838,7 @@ def author_delete_admin_panel_view(request, pk):
 # Widok dodawania kategorii (dla superusera)
 @superuser_required
 def category_add_view(request):
-    return process_form_submission(request, CategoryCreateForm, 'category/category_add.html', 'category_add',
+    return process_form_submission(request, CategoryCreateForm, 'AdminTemplates/Content/Category/CategoryAddAdmin.html', 'category_add',
                                    'Kategoria została dodana.')
 
 
@@ -847,7 +847,7 @@ def category_add_view(request):
 def category_manage_admin_panel_view(request):
     category = Category.objects.all().order_by('name')
     context = get_paginated_context(request, category, 10)
-    return render(request, 'category/category_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Category/CategoryManageAdmin.html', context)
 
 
 # Widok szczegółów kategorii (dla superusera)
@@ -859,7 +859,7 @@ def category_detail_admin_panel_view(request, pk):
         'category': category,
         'categories': categories
     }
-    return render(request, 'category/category_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Category/CategoryDetailAdmin.html', context)
 
 
 # Widok edycji kategorii (dla superusera)
@@ -875,7 +875,7 @@ def category_edit_admin_panel_view(request, pk):
         pk,
         model_class=Category,
         form_class=CategoryCreateForm,
-        template_name='category/category_edit_admin_panel.html',
+        template_name='AdminTemplates/Content/Category/CategoryEditAdmin.html',
         success_message='Kategoria została edytowana',
         redirect_name='category_admin_panel',
         extra_context=extra_context
@@ -886,7 +886,7 @@ def category_edit_admin_panel_view(request, pk):
 @superuser_required
 def category_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
-        request, pk, Category, CategoryDeleteForm, 'category/category_delete_admin_panel.html',
+        request, pk, Category, CategoryDeleteForm, 'AdminTemplates/Content/Category/CategoryDeleteAdmin.html',
         'Kategoria została usunięta', 'category_admin_panel'
     )
 
@@ -896,7 +896,7 @@ def category_delete_admin_panel_view(request, pk):
 def category_post_in_category_panel_admin_panel_view(request):
     category = Category.objects.all().order_by('name')
     context = get_paginated_context(request, category, 10)
-    return render(request, 'category/category_post_in_category_panel_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Category/CategoryPostInCategoryAdmin.html', context)
 
 
 # Widok szczegółów postów w danej kategorii (dla superusera)
@@ -908,7 +908,7 @@ def category_post_in_category_panel_detail_admin_panel_view(request, pk):
         'category': category,
         'posts': posts,
     }
-    return render(request, 'category/category_post_in_category_panel_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Category/CategoryPostInCategoryManageAdmin.html', context)
 
 
 # Widok dodawania posta (dla superusera)

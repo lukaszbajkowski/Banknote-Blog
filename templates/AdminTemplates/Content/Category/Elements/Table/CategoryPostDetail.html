@@ -1,0 +1,30 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Tytuł</th>
+        <th scope="col">Data publikacji</th>
+        <th scope="col">Autor</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for post in posts %}
+        <tr>
+            <td>
+                <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' post.pk %}">
+                    {{ post.date_posted }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link" href="{% url 'author_detail_admin_panel' post.author.user.pk %}">
+                    {{ post.author.user.username }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        {{ category }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Nazwa
+</h6>
+{{ category.name }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Opis
+</h6>
+{{ category.description }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Liczba postów w kategorii
+</h6>
+{{ category.blog_set.count }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Posty
+</h6>
+{% include 'AdminTemplates/Content/Category/Elements/Table/CategoryPostDetail.html' %}
+<div class="mb-4"></div>
