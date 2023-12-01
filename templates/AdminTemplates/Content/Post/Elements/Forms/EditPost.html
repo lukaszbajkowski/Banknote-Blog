@@ -1,0 +1,60 @@
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.author.label }}
+    </h6>
+    {{ form.author }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.title.label }}
+    </h6>
+    {{ form.title }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.content.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.content.help_text }}
+    </p>
+    {{ form.media }}
+    {{ form.content }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.introduction.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.introduction.help_text }}
+    </p>
+    {{ form.introduction }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.background.label }}
+    </h6>
+    {{ form.background }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.category.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.category.help_text }}
+    </p>
+    {{ form.category }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.favorite.label }}
+    </h6>
+    <div class="form-check">
+        <input type="checkbox" id="check-api-checkbox" class="form-check-input">
+        <label for="check-api-checkbox" class="form-check-label fw-light message mb-0">
+            Tak, wyróżnić post
+        </label>
+        {{ form.favorite }}
+    </div>
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.publiction_status.label }}
+    </h6>
+    <div class="form-check">
+        <input type="checkbox" id="check-api-checkbox" class="form-check-input">
+        <label for="check-api-checkbox" class="form-check-label fw-light message mb-0">
+            Tak, opublikować post
+        </label>
+        {{ form.publiction_status }}
+    </div>
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Zapisz zmiany
+    </button>
+</form>

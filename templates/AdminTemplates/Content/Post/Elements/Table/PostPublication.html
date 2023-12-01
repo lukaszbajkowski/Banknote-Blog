@@ -1,0 +1,35 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Tytuł</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Data utworzenia</th>
+            <th scope="col">Czy opublikowany</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for blog in page_obj %}
+            <tr>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {{ blog.title }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {{ blog.author }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {{ blog.date_posted }}
+                    </a>
+                </td>
+                {% include 'AdminTemplates/Content/Post/Elements/Forms/PostPublication.html' %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

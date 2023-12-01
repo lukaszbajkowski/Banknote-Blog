@@ -4,9 +4,20 @@
 }
 
 .admin-panel-nav-btn {
-    background-color: rgba(0,0,128,0.05);
+    background-color: rgba(0, 0, 128, 0.05);
 }
 
 .col-min-width {
     min-width: 80px;
+}
+
+.admin-panel-post-bg {
+    min-width: 120px;
+    min-height: 120px;
+}
+
+.admin-panel-post-publication {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 29px;
 }

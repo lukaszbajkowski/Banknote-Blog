@@ -1,0 +1,16 @@
+<table class="table mb-0">
+    <thead>
+    <tr>
+        <th scope="col">Treść</th>
+        <th scope="col">Autor</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for comment in comments %}
+        <tr>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.author }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

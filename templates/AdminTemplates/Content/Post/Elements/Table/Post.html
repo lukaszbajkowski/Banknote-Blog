@@ -1,0 +1,65 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Tytuł</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Wyróżniony post</th>
+            <th scope="col">Czy opublikowany</th>
+            <th scope="col">Data utworzenia</th>
+            <th scope="col">Edytuj</th>
+            <th scope="col">Usuń</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for blog in page_obj %}
+            <tr>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {{ blog.title }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {{ blog.author }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {% if blog.favorite %}
+                            <i class="fa-solid fa-check"></i>
+                        {% else %}
+                            <i class="fa-solid fa-x"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {% if blog.publiction_status %}
+                            <i class="fa-solid fa-check"></i>
+                        {% else %}
+                            <i class="fa-solid fa-x"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link" href="{% url 'post_detail_admin_panel' blog.pk %}">
+                        {{ blog.date_posted }}
+                    </a>
+                </td>
+
+                <td>
+                    <a class="admin_panel_edit_link" href="{% url 'post_edit_admin_panel' blog.pk %}">
+                        Edytuj
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_edit_link" href="{% url 'post_delete_admin_panel' blog.pk %}">
+                        Usuń
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

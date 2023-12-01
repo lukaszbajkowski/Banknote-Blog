@@ -914,7 +914,7 @@ def category_post_in_category_panel_detail_admin_panel_view(request, pk):
 # Widok dodawania posta (dla superusera)
 @superuser_required
 def post_add_view(request):
-    return process_form_submission(request, PostCreateForm, 'post/post_add.html', 'post_add', 'Post został dodany')
+    return process_form_submission(request, PostCreateForm, 'AdminTemplates/Content/Post/PostAddAdmin.html', 'post_add', 'Post został dodany')
 
 
 # Widok zarządzania postami (dla superusera)
@@ -922,7 +922,7 @@ def post_add_view(request):
 def post_manage_admin_panel_view(request):
     post = Blog.objects.all().order_by('title')
     context = get_paginated_context(request, post, 10)
-    return render(request, 'post/post_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Post/PostManageAdmin.html', context)
 
 
 # Widok szczegółów posta (dla superusera)
@@ -934,7 +934,7 @@ def post_detail_admin_panel_view(request, pk):
         'post': post,
         'comments': comments,
     }
-    return render(request, 'post/post_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Post/PostDetailAdmin.html', context)
 
 
 # Widok edycji posta (dla superusera)
@@ -945,7 +945,7 @@ def post_edit_admin_panel_view(request, pk):
         pk,
         model_class=Blog,
         form_class=PostCreateForm,
-        template_name='post/post_edit_admin_panel.html',
+        template_name='AdminTemplates/Content/Post/PostEditAdmin.html',
         success_message='Post został edytowany',
         redirect_name='post_admin_panel',
     )
@@ -955,7 +955,7 @@ def post_edit_admin_panel_view(request, pk):
 @superuser_required
 def post_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
-        request, pk, Blog, PostDeleteForm, 'post/post_delete_admin_panel.html',
+        request, pk, Blog, PostDeleteForm, 'AdminTemplates/Content/Post/PostDeleteAdmin.html',
         'Post został usunięty', 'post_admin_panel'
     )
 
@@ -965,14 +965,14 @@ def post_delete_admin_panel_view(request, pk):
 def post_publication_admin_panel_view(request):
     if request.method == 'POST':
         blog_id = request.POST.get('blog_id')
-        publication_status = request.POST.get('publication_status')
+        publiction_status = request.POST.get('publiction_status')
         blog = Blog.objects.get(pk=blog_id)
-        blog.publication_status = (publication_status == 'approve')
+        blog.publiction_status = (publiction_status == 'approve')
         blog.save()
 
     post = Blog.objects.all().order_by('title')
     context = get_paginated_context(request, post, 10)
-    return render(request, 'post/post_publication.html', context)
+    return render(request, 'AdminTemplates/Content/Post/PostPublicationAdmin.html', context)
 
 
 # Widok dodawania komentarza (dla superusera)

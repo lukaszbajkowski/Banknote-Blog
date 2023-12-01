@@ -1,0 +1,60 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        {{ post }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót"
+           onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Autor
+</h6>
+{{ post.author }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Tytuł
+</h6>
+{{ post.title }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Treść
+</h6>
+<div class="card-text card-title">
+    <div>
+        {{ post.content | safe }}
+    </div>
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Wstęp
+</h6>
+{{ post.introduction }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Tło postu
+</h6>
+<img src="/images/{{ post.background }}" class="card-photo shadow rounded-1 admin-panel-post-bg">
+<h6 class="form-label pt-3 text-start fw-bold">
+    Kategorie
+</h6>
+{% include 'AdminTemplates/Content/Post/Elements/Table/PostCategory.html' %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Czy wyróżnic post?
+</h6>
+{% if post.favorite %}
+    Tak
+{% else %}
+    Nie
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Komentarze
+</h6>
+{% if comments %}
+    {% include 'AdminTemplates/Content/Post/Elements/Table/PostComment.html' %}
+{% else %}
+    Brak komentarzy
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Data utworzenia
+</h6>
+{{ post.date_posted }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Data ostatniej edycji
+</h6>
+{{ post.date_edited }}
+<div class="mb-4"></div>

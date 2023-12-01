@@ -1,0 +1,17 @@
+<div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'post_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'post_add' %}'">
+        <i class="fa-regular fa-pen-to-square me-2"></i>
+        Stworzenie postu
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'post_admin_panel, post_detail_admin_panel, post_edit_admin_panel, post_delete_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
+            onclick="location.href='{% url 'post_admin_panel' %}'">
+        <i class="fa-solid fa-list-ul me-2"></i>
+        Zarządzanie postami
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'post_publication_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
+            onclick="location.href='{% url 'post_publication_admin_panel' %}'">
+        <i class="fa-solid fa-bullhorn me-2"></i>
+        Publikacja postów
+    </button>
+</div>
