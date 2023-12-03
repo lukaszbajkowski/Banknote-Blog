@@ -1,0 +1,18 @@
+<table class="table mb-0">
+    <thead>
+    <tr>
+        <th scope="col">Komentarz</th>
+        <th scope="col">Post</th>
+        <th scope="col">Data utworzenia</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for comment in comments %}
+        <tr>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.blog.title }}</td>
+            <td>{{ comment.date_posted }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

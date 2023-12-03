@@ -1,0 +1,19 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        Komentarze {{ users }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Autor
+</h6>
+{{ users }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Lista komentarzy
+</h6>
+{% if comments %}
+    {% include 'AdminTemplates/Content/Comment/Elements/Table/CommentUserComment.html' %}
+{% else %}
+    Brak komentarzy
+{% endif %}
+<div class="mb-4"></div>

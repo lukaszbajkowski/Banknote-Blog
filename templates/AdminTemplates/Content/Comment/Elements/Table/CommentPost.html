@@ -1,0 +1,47 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Post</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Liczba komentarzy</th>
+        <th scope="col">Data utworzenia</th>
+        <th scope="col">Podgląd</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for post in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'comment_in_post_detail_admin_panel' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'comment_in_post_detail_admin_panel' post.pk %}">
+                    {{ post.author }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'comment_in_post_detail_admin_panel' post.pk %}">
+                    {{ post.comment_set.count }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'comment_in_post_detail_admin_panel' post.pk %}">
+                    {{ post.date_posted }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'comment_in_post_detail_admin_panel' post.pk %}">
+                    Podgląd
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

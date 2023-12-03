@@ -5,6 +5,7 @@
         Stworzenie kategorii
     </button>
     <button class="btn btn-list {% if request.resolver_match.url_name in 'category_admin_panel, category_detail_admin_panel, category_edit_admin_panel, category_delete_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
+
             onclick="location.href='{% url 'category_admin_panel' %}'">
         <i class="fa-solid fa-list-ul me-2"></i>
         Zarządzanie kategoriami

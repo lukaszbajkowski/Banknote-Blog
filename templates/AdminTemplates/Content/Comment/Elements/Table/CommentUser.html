@@ -1,0 +1,31 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Użytkownik</th>
+        <th scope="col">Liczba komentarzy</th>
+        <th scope="col">Podgląd</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for user in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link" href="{% url 'comment_users_detail_admin_panel' user.pk %}">
+                    {{ user.username }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'comment_users_detail_admin_panel' user.pk %}">
+                    {{ user.comment_count }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'comment_users_detail_admin_panel' user.pk %}">
+                    Podgląd
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

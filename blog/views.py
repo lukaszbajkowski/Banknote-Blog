@@ -908,7 +908,7 @@ def category_post_in_category_panel_detail_admin_panel_view(request, pk):
         'category': category,
         'posts': posts,
     }
-    return render(request, 'AdminTemplates/Content/Category/CategoryPostInCategoryManageAdmin.html', context)
+    return render(request, 'AdminTemplates/Content/Category/CategoryPostInCategoryDetailAdmin.html', context)
 
 
 # Widok dodawania posta (dla superusera)
@@ -978,7 +978,7 @@ def post_publication_admin_panel_view(request):
 # Widok dodawania komentarza (dla superusera)
 @superuser_required
 def comment_add_view(request):
-    return process_form_submission(request, CommentCreateForm, 'comment/comment_add.html', 'comment_add',
+    return process_form_submission(request, CommentCreateForm, 'AdminTemplates/Content/Comment/CommentAdd.html', 'comment_add',
                                    'Komentarz został dodany')
 
 
@@ -987,7 +987,7 @@ def comment_add_view(request):
 def comment_manage_admin_panel_view(request):
     comment = Comment.objects.all().order_by('-date_posted')
     context = get_paginated_context(request, comment, 10)
-    return render(request, 'comment/comment_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Comment/CommentMangeAdmin.html', context)
 
 
 # Widok szczegółów komentarza (dla superusera)
@@ -997,7 +997,7 @@ def comment_detail_admin_panel_view(request, pk):
     context = {
         'comment': comment,
     }
-    return render(request, 'comment/comment_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Comment/CommentDetailAdmin.html', context)
 
 
 # Widok edycji komentarza (dla superusera)
@@ -1008,7 +1008,7 @@ def comment_edit_admin_panel_view(request, pk):
         pk,
         model_class=Comment,
         form_class=CommentCreateForm,
-        template_name='comment/comment_edit_admin_panel.html',
+        template_name='AdminTemplates/Content/Comment/CommentEditAdmin.html',
         success_message='Komentarz został edytowany',
         redirect_name='comment_admin_panel',
     )
@@ -1018,7 +1018,7 @@ def comment_edit_admin_panel_view(request, pk):
 @superuser_required
 def comment_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
-        request, pk, Comment, CommentDeleteForm, 'comment/comment_delete_admin_panel.html',
+        request, pk, Comment, CommentDeleteForm, 'AdminTemplates/Content/Comment/CommentDeleteAdmin.html',
         'Komentarz został usunięty', 'comment_admin_panel'
     )
 
@@ -1028,7 +1028,7 @@ def comment_delete_admin_panel_view(request, pk):
 def comment_in_post_admin_panel_view(request):
     post = Blog.objects.all().order_by('title')
     context = get_paginated_context(request, post, 10)
-    return render(request, 'comment/comment_in_post_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Comment/CommentInPostManageAdmin.html', context)
 
 
 # Widok szczegółów komentarzy w ramach posta (dla superusera)
@@ -1040,32 +1040,32 @@ def comment_in_post_detail_admin_panel_view(request, pk):
         'posts': posts,
         'comments': comments,
     }
-    return render(request, 'comment/comment_in_post_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Comment/CommentInPostDetailAdmin.html', context)
 
 
 # Widok użytkowników wraz z liczbą ich komentarzy (dla superusera)
 @superuser_required
 def comment_users_admin_panel_view(request):
-    users = User.objects.annotate(comment_count=Count('user__comment'))
+    users = User.objects.annotate(comment_count=Count('comment'))
     paginator = Paginator(users, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
         'page_obj': page_obj
     }
-    return render(request, 'comment/comment_users_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Comment/CommentUserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika wraz z komentarzami (dla superusera)
 @superuser_required
 def comment_users_detail_admin_panel_view(request, pk):
     user = get_object_or_404(User, id=pk)
-    comments = Comment.objects.filter(author=user.user).order_by('-date_posted')
+    comments = Comment.objects.filter(author=user).order_by('-date_posted')
     context = {
         'users': user,
         'comments': comments
     }
-    return render(request, 'comment/comment_users_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Content/Comment/CommentUserDetailAdmin.html', context)
 
 
 # Widok dodawania newslettera spotkań i wydarzeń (dla superusera)

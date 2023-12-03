@@ -1,0 +1,24 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        {{ comment }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót"
+           onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Autor
+</h6>
+{{ comment.author }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Komentarz
+</h6>
+{{ comment.content }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Post
+</h6>
+{{ comment.blog }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Data utworzenia
+</h6>
+{{ comment.date_posted }}
+<div class="mb-4"></div>

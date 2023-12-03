@@ -1,0 +1,49 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Komentarz</th>
+        <th scope="col">Post</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Data utworzenia</th>
+        <th scope="col">Edytuj</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for comment in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link" href="{% url 'comment_detail_admin_panel' comment.pk %}">
+                    {{ comment.content|truncatewords:8 }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'comment_detail_admin_panel' comment.pk %}">
+                    {{ comment.blog }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'comment_detail_admin_panel' comment.pk %}">
+                    {{ comment.author }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'comment_detail_admin_panel' comment.pk %}">
+                    {{ comment.date_posted }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link" href="{% url 'comment_edit_admin_panel' comment.pk %}">
+                    Edytuj
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'comment_delete_admin_panel' comment.pk %}">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
