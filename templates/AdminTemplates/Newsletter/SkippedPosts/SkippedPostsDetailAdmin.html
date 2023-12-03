@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Banknoty - Usunięcie {{ form.email.value }}
+    Banknoty - Pominięte artykuły {{ user.user }}
 {% endblock %}
 
 {% block navbar %}
@@ -9,16 +9,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid p-0 m-0">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
-                {% include 'AdminTemplates/Newsletter/AdminPanel/Elements/Navigation.html' %}
+                {% include 'AdminTemplates/Newsletter/SkippedPosts/Elements/Navigation.html' %}
             </div>
             <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
-                <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
-                    Usunięcie subskrybenta | {{ news.email }}
-                </h4>
-                {% include 'AdminTemplates/Newsletter/AdminPanel/Elements/Forms/DeleteNewsletterUser.html' %}
+                {% include 'AdminTemplates/Newsletter/SkippedPosts/Elements/Detail/SkippedPosts.html' %}
             </div>
         </div>
     </div>

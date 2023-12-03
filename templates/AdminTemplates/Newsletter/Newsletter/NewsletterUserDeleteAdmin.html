@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Usunięcie {{ form.email.value }}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'Navbar/NavbarAdmin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid p-0 m-0">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                {% include 'AdminTemplates/Newsletter/Newsletter/Elements/Navigation.html' %}
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold text-navy">
+                    Usunięcie subskrybenta | {{ news.email }}
+                </h4>
+                {% include 'AdminTemplates/Newsletter/Newsletter/Elements/Forms/DeleteNewsletterUser.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

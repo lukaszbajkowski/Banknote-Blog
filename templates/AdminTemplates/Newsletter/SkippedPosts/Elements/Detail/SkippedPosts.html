@@ -1,0 +1,28 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        Użytkownik | {{ users.user }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót"
+           onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Użytkownik
+</h6>
+{{ users.user }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Zgoda na e-maile z pominiętymi postami
+</h6>
+{% if user.user.miss_news %}
+    Tak
+{% else %}
+    Nie
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Pominięte artykuły
+</h6>
+{% if posts %}
+    {% include 'AdminTemplates/Newsletter/SkippedPosts/Elements/Table/SkippedPostsPost.html' %}
+{% else %}
+    Brak pominiętych artykółów
+{% endif %}
+<div class="mb-4"></div>

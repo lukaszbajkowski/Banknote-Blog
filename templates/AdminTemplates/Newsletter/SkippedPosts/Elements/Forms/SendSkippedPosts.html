@@ -1,0 +1,9 @@
+<form method="POST" action="{% url 'send_emails' %}">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        Wyślij pominięte artykuły do użytkowników, którzy zgodzili się na nie.
+    </h6>
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Wyślij e-maile
+    </button>
+</form>

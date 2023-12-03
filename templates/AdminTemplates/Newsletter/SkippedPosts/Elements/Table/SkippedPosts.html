@@ -1,0 +1,41 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Użytkownik</th>
+        <th scope="col">Liczba pominiętych postów</th>
+        <th scope="col">Zgoda na e-mail z pominiętymi postami</th>
+        <th scope="col">Podgląd</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for user in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link" href="{% url 'skipped_posts_detail_admin_panel' user.pk %}">
+                    {{ user.user }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'skipped_posts_detail_admin_panel' user.pk %}">
+                    {{ user.unopened_posts_count }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'skipped_posts_detail_admin_panel' user.pk %}">
+                    {% if user.miss_news %}
+                        <i class="fa-solid fa-check"></i>
+                    {% else %}
+                        <i class="fa-solid fa-x"></i>
+                    {% endif %}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'skipped_posts_detail_admin_panel' user.pk %}">
+                    Podgląd
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

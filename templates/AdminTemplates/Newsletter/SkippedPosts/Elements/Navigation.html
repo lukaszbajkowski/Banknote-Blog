@@ -1,0 +1,17 @@
+<div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'send_emails' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'send_emails' %}'">
+        <i class="fa-solid fa-paper-plane me-2"></i>
+        Wysłanie e-maila do użytkowników
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'skipped_posts_admin_panel, skipped_posts_detail_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'skipped_posts_admin_panel' %}'">
+        <i class="fa-solid fa-list me-2"></i>
+        Pominięte artykuły przez użytkowników
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'skipped_posts_user_admin_panel, skipped_posts_user_edit_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'skipped_posts_user_admin_panel' %}'">
+        <i class="fa-solid fa-list-ol me-2"></i>
+        Zarządzanie subskrybcjami pominiętych artykułów
+    </button>
+</div>

@@ -670,15 +670,15 @@ def newsletter_creation_view(request):
     context = {
         'form': form,
     }
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterAddAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/Newsletter/NewsletterAddAdmin.html', context)
 
 
 # Widok dodawania użytkownika do biuletynu (dla superusera)
 @superuser_required
 def newsletter_add_user_view(request):
     return process_newsletter_signup(request, NewsletterAddUserForm,
-                                     'AdminTemplates/Newsletter/AdminPanel/NewsletterSingUpAdmin.html',
-                                     'AdminTemplates/Newsletter/AdminPanel/NewsletterSingUpAdmin.html')
+                                     'AdminTemplates/Newsletter/Newsletter/NewsletterSingUpAdmin.html',
+                                     'AdminTemplates/Newsletter/Newsletter/NewsletterSingUpAdmin.html')
 
 
 # Widok usuwania użytkownika z biuletynu (dla superusera)
@@ -698,7 +698,7 @@ def newsletter_remove_user_view(request):
     context = {
         'form': form
     }
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterUnsubscribeAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/Newsletter/NewsletterUnsubscribeAdmin.html', context)
 
 
 # Widok zarządzania biuletynami (dla superusera)
@@ -706,7 +706,7 @@ def newsletter_remove_user_view(request):
 def newsletter_manage_admin_panel_view(request):
     newsletter = Newsletter.objects.all()
     context = get_paginated_context(request, newsletter, 10)
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterManageAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/Newsletter/NewsletterManageAdmin.html', context)
 
 
 # Widok szczegółów biuletynu (dla superusera)
@@ -716,7 +716,7 @@ def newsletter_detail_admin_panel_view(request, pk):
     context = {
         'newsletter': newsletter,
     }
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterDetaliAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/Newsletter/NewsletterDetaliAdmin.html', context)
 
 
 # Widok edycji biuletynu (dla superusera)
@@ -740,14 +740,14 @@ def newsletter_edit_admin_panel_view(request, pk):
     context = {
         'form': form
     }
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterEditAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/Newsletter/NewsletterEditAdmin.html', context)
 
 
 # Widok usuwania biuletynu (dla superusera)
 @superuser_required
 def newsletter_delete_admin_panel_view(request, pk):
     return process_delete(request, pk, Newsletter, NewsletterDeleteForm,
-                          'AdminTemplates/Newsletter/AdminPanel/NewsletterDeleteAdmin.html',
+                          'AdminTemplates/Newsletter/Newsletter/NewsletterDeleteAdmin.html',
                           SUCCESS_DELETE_MESSAGE, 'newsletter_admin_panel')
 
 
@@ -756,7 +756,7 @@ def newsletter_delete_admin_panel_view(request, pk):
 def newsletter_user_manage_admin_panel_view(request):
     newsletter = NewsletterUser.objects.all()
     context = get_paginated_context(request, newsletter, 10)
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterUserManageAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/Newsletter/NewsletterUserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika newslettera (dla superusera)
@@ -766,14 +766,14 @@ def newsletter_user_detail_admin_panel_view(request, pk):
     context = {
         'newsletter': newsletter,
     }
-    return render(request, 'AdminTemplates/Newsletter/AdminPanel/NewsletterUserDetailAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/Newsletter/NewsletterUserDetailAdmin.html', context)
 
 
 # Widok usuwania użytkownika newslettera (dla superusera)
 @superuser_required
 def newsletter_user_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(request, pk, NewsletterUser, NewsletterUserDeleteForm,
-                                           'AdminTemplates/Newsletter/AdminPanel/NewsletterUserDeleteAdmin.html',
+                                           'AdminTemplates/Newsletter/Newsletter/NewsletterUserDeleteAdmin.html',
                                            USER_SUCCESS_DELETE_MESSAGE, 'newsletter_user_admin_panel')
 
 
@@ -1168,8 +1168,8 @@ def send_emails_view(request):
         users_with_missed_news = DjangoUser.objects.filter(miss_news=True)
 
         from_email = settings.EMAIL_HOST_USER
-        skipped_posts_template = 'skipped_posts/skipped_posts_mail.txt'
-        skipped_posts_html_template = 'skipped_posts/skipped_posts_mail.html'
+        skipped_posts_template = 'AdminTemplates/Newsletter/SkippedPosts/Mail/SkippedPostMail.txt'
+        skipped_posts_html_template = 'AdminTemplates/Newsletter/SkippedPosts/Mail/skipped_posts/SkippedPostMail.html'
 
         for user in users_with_missed_news:
             unopened_posts = Blog.objects.filter(publiction_status=True).exclude(id__in=user.opened_posts.all())
@@ -1191,9 +1191,9 @@ def send_emails_view(request):
                     html_message=msg_html
                 )
 
-        return render(request, 'skipped_posts/skipped_posts_send_emails.html')
+        return render(request, 'AdminTemplates/Newsletter/SkippedPosts/SkippedPostsSendEmails.html')
 
-    return render(request, 'skipped_posts/skipped_posts_confirmation_send_emails.html')
+    return render(request, 'AdminTemplates/Newsletter/SkippedPosts/SkippedPostsConfirmation.html')
 
 
 # Widok zarządzania pominiętymi postami (dla superusera)
@@ -1209,7 +1209,7 @@ def skipped_posts_admin_panel(request):
         users_with_unopened_posts.append(user)
 
     context = get_paginated_context(request, users_with_unopened_posts, 10)
-    return render(request, 'skipped_posts/skipped_posts_user_list.html', context)
+    return render(request, 'AdminTemplates/Newsletter/SkippedPosts/SkippedPostsManageAdmin.html', context)
 
 
 # Widok szczegółów pominiętych postów dla konkretnego użytkownika (dla superusera)
@@ -1221,7 +1221,7 @@ def skipped_posts_detail_admin_panel(request, pk):
         'posts': posts,
         'users': user
     }
-    return render(request, 'skipped_posts/skipped_posts_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/SkippedPosts/SkippedPostsDetailAdmin.html', context)
 
 
 # Widok zarządzania użytkownikami w kontekście pominiętych postów (dla superusera)
@@ -1231,7 +1231,7 @@ def skipped_posts_user_admin_panel(request):
     context = {
         'users': users,
     }
-    return render(request, 'skipped_posts/skipped_posts_user_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/SkippedPosts/SkippedPostsUserManageAdmin.html', context)
 
 
 # Widok edycji ustawień pominiętych postów dla konkretnego użytkownika (dla superusera)
@@ -1246,7 +1246,7 @@ def skipped_posts_user_edit_admin_panel(request, pk):
         pk,
         model_class=DjangoUser,
         form_class=UserMissNewsForm,
-        template_name='skipped_posts/skipped_posts_user_edit_admin_panel.html',
+        template_name='AdminTemplates/Newsletter/SkippedPosts/SkippedPostsUserEditAdmin.html',
         success_message='Ustawienia pominiętych artykułów zostały zaktualizowane.',
         redirect_name='skipped_posts_user_admin_panel',
         extra_context=extra_context
