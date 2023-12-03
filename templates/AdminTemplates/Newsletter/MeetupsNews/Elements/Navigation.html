@@ -1,0 +1,17 @@
+<div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'meetups_news_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'meetups_news_add' %}'">
+        <i class="fa-solid fa-comment me-2"></i>
+        Stworzenie wiadomości o spotkaniach i wydarzeniach
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'meetups_news_admin_panel, meetups_news_detail_admin_panel, meetups_news_edit_admin_panel, meetups_news_delete_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'meetups_news_admin_panel' %}'">
+        <i class="fa-solid fa-list me-2"></i>
+        Zarządzanie wiadomościami o spotkaniach i wydarzeniach
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'meetups_news_user_admin_panel, meetups_news_user_detail_admin_panel, meetups_news_user_edit_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'meetups_news_user_admin_panel' %}'">
+        <i class="fa-solid fa-list me-2"></i>
+        Zarządzanie subskrypcjami wiadomości o spotkaniach i wydarzeniach
+    </button>
+</div>

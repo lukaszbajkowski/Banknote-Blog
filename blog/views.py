@@ -1,21 +1,17 @@
-from functools import wraps
-
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 
+from .admin_views import *
+from .decorators import *
 from .form import *
 from .form_users import *
 from .models import User as DjangoUser
-
-from .admin_views import *
-
-from .decorators import *
 
 # Stałe komunikaty
 SUCCESS_MESSAGE = 'Dziękujemy za rejestrację do biuletynu.'
@@ -218,9 +214,9 @@ def send_signup_mail(email):
 
 
 # Funkcja wysyłająca e-maile z newsletterami do użytkowników
-def send_newsletters_mail(subject, user, content_template, mail_context):
-    msg_plain = render_to_string(content_template + '/' + content_template + '_mail.txt', mail_context)
-    msg_html = render_to_string(content_template + '/' + content_template + '_mail.html', mail_context)
+def send_newsletters_mail(subject, user, mail, mail_context):
+    msg_plain = render_to_string(mail + '.txt', mail_context)
+    msg_html = render_to_string(mail + '.html', mail_context)
 
     send_mail(
         subject=subject,
@@ -233,7 +229,7 @@ def send_newsletters_mail(subject, user, content_template, mail_context):
 
 
 # Widok edycji treści w panelu administratora
-def edit_admin_panel_view(request, pk, model_class, userfield, form_class, content_template, mail_subject):
+def edit_admin_panel_view(request, pk, model_class, userfield, form_class, content_template, mail, mail_subject):
     instance = get_object_or_404(model_class, pk=pk)
     if request.method == "POST":
         form = form_class(request.POST, instance=instance)
@@ -247,25 +243,25 @@ def edit_admin_panel_view(request, pk, model_class, userfield, form_class, conte
                         'text': instance.text,
                         'image_url': IMAGE_URL,
                     }
-                    send_newsletters_mail(mail_subject, user, content_template, mail_context)
+                    send_newsletters_mail(mail_subject, user, mail, mail_context)
                 messages.success(request,
                                  f'Mail {mail_subject.lower()} został wysłany',
                                  "alert alert-success alert-dismissible fade show mt-3")
             messages.success(request,
                              f'Mail {mail_subject.lower()} został edytowany',
                              "alert alert-success alert-dismissible fade show mt-3")
-            return redirect(content_template + '_admin_panel')
+            return redirect(userfield + '_admin_panel')
     else:
         form = form_class(instance=instance)
 
     context = {
         'form': form,
     }
-    return render(request, content_template + '/' + content_template + '_edit_admin_panel.html', context)
+    return render(request, content_template, context)
 
 
 # Widok dodawania treści w panelu administratora
-def newsletter_add_panel_view(request, userfield, form_class, content_template, mail_subject):
+def newsletter_add_panel_view(request, userfield, form_class, content_template, mail, mail_subject):
     form = form_class(request.POST or None)
     if form.is_valid():
         instance = form.save()
@@ -277,19 +273,19 @@ def newsletter_add_panel_view(request, userfield, form_class, content_template, 
                     'text': instance.text,
                     'image_url': IMAGE_URL,
                 }
-                send_newsletters_mail(mail_subject, user, content_template, mail_context)
+                send_newsletters_mail(mail_subject, user, mail, mail_context)
             messages.success(request,
                              f'Mail {mail_subject.lower()} został wysłany',
                              "alert alert-success alert-dismissible fade show mt-3")
         messages.success(request,
                          f'Mail {mail_subject.lower()} został utworzony',
                          "alert alert-success alert-dismissible fade show mt-3")
-        return redirect(content_template + '_add')
+        return redirect(userfield + '_add')
 
     context = {
         'form': form,
     }
-    return render(request, content_template + '/' + content_template + '_add.html', context)
+    return render(request, content_template, context)
 
 
 # Funkcja generująca kontekst paginacji
@@ -784,7 +780,8 @@ def newsletter_user_delete_admin_panel_view(request, pk):
 # Widok dodawania autora (dla superusera)
 @superuser_required
 def author_add_view(request):
-    return process_form_submission(request, AuthorCreateForm, 'AdminTemplates/Accounts/Author/AuthorAddAdmin.html', 'author_add',
+    return process_form_submission(request, AuthorCreateForm, 'AdminTemplates/Accounts/Author/AuthorAddAdmin.html',
+                                   'author_add',
                                    'Autor został utworzony')
 
 
@@ -838,7 +835,8 @@ def author_delete_admin_panel_view(request, pk):
 # Widok dodawania kategorii (dla superusera)
 @superuser_required
 def category_add_view(request):
-    return process_form_submission(request, CategoryCreateForm, 'AdminTemplates/Content/Category/CategoryAddAdmin.html', 'category_add',
+    return process_form_submission(request, CategoryCreateForm, 'AdminTemplates/Content/Category/CategoryAddAdmin.html',
+                                   'category_add',
                                    'Kategoria została dodana.')
 
 
@@ -914,7 +912,8 @@ def category_post_in_category_panel_detail_admin_panel_view(request, pk):
 # Widok dodawania posta (dla superusera)
 @superuser_required
 def post_add_view(request):
-    return process_form_submission(request, PostCreateForm, 'AdminTemplates/Content/Post/PostAddAdmin.html', 'post_add', 'Post został dodany')
+    return process_form_submission(request, PostCreateForm, 'AdminTemplates/Content/Post/PostAddAdmin.html', 'post_add',
+                                   'Post został dodany')
 
 
 # Widok zarządzania postami (dla superusera)
@@ -978,7 +977,8 @@ def post_publication_admin_panel_view(request):
 # Widok dodawania komentarza (dla superusera)
 @superuser_required
 def comment_add_view(request):
-    return process_form_submission(request, CommentCreateForm, 'AdminTemplates/Content/Comment/CommentAdd.html', 'comment_add',
+    return process_form_submission(request, CommentCreateForm, 'AdminTemplates/Content/Comment/CommentAdd.html',
+                                   'comment_add',
                                    'Komentarz został dodany')
 
 
@@ -1075,7 +1075,8 @@ def meetups_news_add_view(request):
         request,
         'meetups_news',
         Meetups_newsCreationForm,
-        'meetups_news',
+        'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsAddAdmin.html',
+        'AdminTemplates/Newsletter/MeetupsNews/Mail/MeetupsNewsMail',
         'Nadchodzące spotkania i wydarzenia'
     )
 
@@ -1085,7 +1086,7 @@ def meetups_news_add_view(request):
 def meetups_news_manage_admin_panel_view(request):
     meetups_news = Meetups_news.objects.all().order_by('title')
     context = get_paginated_context(request, meetups_news, 10)
-    return render(request, 'meetups_news/meetups_news_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsManageAdmin.html', context)
 
 
 # Widok szczegółów newslettera spotkań i wydarzeń (dla superusera)
@@ -1095,7 +1096,7 @@ def meetups_news_detail_admin_panel_view(request, pk):
     context = {
         'meetups_news': meetups_news,
     }
-    return render(request, 'meetups_news/meetups_news_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsDetailAdmin.html', context)
 
 
 # Widok edycji newslettera spotkań i wydarzeń (dla superusera)
@@ -1107,7 +1108,8 @@ def meetups_news_edit_admin_panel_view(request, pk):
         Meetups_news,
         'meetups_news',
         Meetups_newsCreationForm,
-        'meetups_news',
+        'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsEditAdmin.html',
+        'AdminTemplates/Newsletter/MeetupsNews/Mail/MeetupsNewsMail',
         'Nadchodzące spotkania i wydarzenia'
     )
 
@@ -1116,7 +1118,8 @@ def meetups_news_edit_admin_panel_view(request, pk):
 @superuser_required
 def meetups_news_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
-        request, pk, Meetups_news, Meetups_newsCreationForm, 'meetups_news/meetups_news_delete_admin_panel.html',
+        request, pk, Meetups_news, Meetups_newsCreationForm,
+        'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsDeleteAdmin.html',
         'Mail o spotkaniach i wydarzeniach został usunięty', 'meetups_news_admin_panel'
     )
 
@@ -1126,7 +1129,7 @@ def meetups_news_delete_admin_panel_view(request, pk):
 def meetups_news_user_manage_admin_panel_view(request):
     users = DjangoUser.objects.all().order_by('user__id')
     context = get_paginated_context(request, users, 10)
-    return render(request, 'meetups_news/meetups_news_user_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsUserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika w kontekście newslettera spotkań i wydarzeń (dla superusera)
@@ -1136,7 +1139,7 @@ def meetups_news_user_detail_admin_panel_view(request, pk):
     context = {
         'users': user,
     }
-    return render(request, 'meetups_news/meetups_news_user_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsUserDetailAdmin.html', context)
 
 
 # Widok edycji ustawień użytkownika w kontekście newslettera spotkań i wydarzeń (dla superusera)
@@ -1151,7 +1154,7 @@ def meetups_news_user_edit_admin_panel_view(request, pk):
         pk,
         model_class=DjangoUser,
         form_class=UserMeetups_newsForm,
-        template_name='meetups_news/meetups_news_user_edit_admin_panel.html',
+        template_name='AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsUserEditAdmin.html',
         success_message='Ustawienia e-maila o spotkaniach i wydarzeniach zostały zaaktualizowane.',
         redirect_name='meetups_news_user_admin_panel',
         extra_context=extra_context
