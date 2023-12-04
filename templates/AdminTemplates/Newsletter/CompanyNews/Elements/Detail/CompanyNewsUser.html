@@ -1,0 +1,20 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold" style="color: navy">
+        Zarządzanie subskrybcjami wiadomości od Banknoty | {{ users.user }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót"
+           onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Użytkownik
+</h6>
+{{ users.user }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Zgoda na e-maile z wiadomościami od Banknoty
+</h6>
+{% if users.meetups_news %}
+    Tak
+{% else %}
+    Nie
+{% endif %}
+<div class="mb-4"></div>

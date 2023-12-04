@@ -1353,7 +1353,8 @@ def company_news_add_view(request):
         request,
         'company_news',
         CompanyNewsCreationForm,
-        'company_news',
+        'AdminTemplates/Newsletter/CompanyNews/CompanyNewsAddAdmin.html',
+        'AdminTemplates/Newsletter/CompanyNews/Mail/CompanyNewsMail',
         'Wiadomość od Banknoty'
     )
 
@@ -1363,7 +1364,7 @@ def company_news_add_view(request):
 def company_news_admin_panel_view(request):
     company_news = CompanyNews.objects.all().order_by('title')
     context = get_paginated_context(request, company_news, 10)
-    return render(request, 'company_news/company_news_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/CompanyNews/CompanyNewsManageAdmin.html', context)
 
 
 # Widok szczegółów newslettera od Banknoty (dla superusera)
@@ -1373,7 +1374,7 @@ def company_news_detail_admin_panel_view(request, pk):
     context = {
         'company_news': company_news,
     }
-    return render(request, 'company_news/company_news_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/CompanyNews/CompanyNewsDetailAdmin.html', context)
 
 
 # Widok edycji newslettera od Banknoty (dla superusera)
@@ -1385,7 +1386,8 @@ def company_news_edit_admin_panel_view(request, pk):
         CompanyNews,
         'company_news',
         CompanyNewsCreationForm,
-        'company_news',
+        'AdminTemplates/Newsletter/CompanyNews/CompanyNewsEditAdmin.html',
+        'AdminTemplates/Newsletter/CompanyNews/Mail/CompanyNewsMail',
         'Wiadomość od banknoty'
     )
 
@@ -1395,7 +1397,7 @@ def company_news_edit_admin_panel_view(request, pk):
 def company_news_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, CompanyNews, CompanyNewsDeleteEmailForm,
-        'company_news/company_news_delete_admin_panel.html',
+        'AdminTemplates/Newsletter/CompanyNews/CompanyNewsDeleteAdmin.html',
         'Mail z wiadomością od Bankonty został usunięty', 'company_news_admin_panel'
     )
 
@@ -1405,7 +1407,7 @@ def company_news_delete_admin_panel_view(request, pk):
 def company_news_user_manage_admin_panel_view(request):
     users = DjangoUser.objects.all().order_by('user__id')
     context = get_paginated_context(request, users, 10)
-    return render(request, 'company_news/company_news_user_manage_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/CompanyNews/CompanyNewsUserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika w kontekście newslettera od Banknoty (dla superusera)
@@ -1415,7 +1417,7 @@ def company_news_user_detail_admin_panel_view(request, pk):
     context = {
         'users': user,
     }
-    return render(request, 'company_news/company_news_user_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/CompanyNews/CompanyNewsUserDetailAdmin.html', context)
 
 
 # Widok edycji ustawień e-maila z wiadomością od Banknoty dla konkretnego użytkownika (dla superusera)
@@ -1430,7 +1432,7 @@ def company_news_user_edit_admin_panel_view(request, pk):
         pk,
         model_class=DjangoUser,
         form_class=UserCompanyNewsForm,
-        template_name='company_news/company_news_user_edit_admin_panel.html',
+        template_name='AdminTemplates/Newsletter/CompanyNews/CompanyNewsUserEditAdmin.html',
         success_message='Ustawienia e-maila z wiadmością od Banknoty zostały zaaktualizowane.',
         redirect_name='company_news_user_manage_admin_panel',
         extra_context=extra_context
