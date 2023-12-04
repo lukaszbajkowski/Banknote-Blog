@@ -1260,7 +1260,8 @@ def auction_opportunities_add_view(request):
         request,
         'opportunities_news',
         AuctionOpportunitiesCreationForm,
-        'auction_opportunities',
+        'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesAddAdmin.html',
+        'AdminTemplates/Newsletter/AuctionOpportunities/Mail/AuctionOpportunitiesMail',
         'Okazje z rynku aukcyjnego'
     )
 
@@ -1270,7 +1271,7 @@ def auction_opportunities_add_view(request):
 def auction_opportunities_admin_panel_view(request):
     auction_opportunities = AuctionOpportunities.objects.all().order_by('title')
     context = get_paginated_context(request, auction_opportunities, 10)
-    return render(request, 'auction_opportunities/auction_opportunities_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesManageAdmin.html', context)
 
 
 # Widok szczegółów okazji z rynku aukcyjnego (dla superusera)
@@ -1280,7 +1281,7 @@ def auction_opportunities_detail_admin_panel_view(request, pk):
     context = {
         'auction_opportunities': auction_opportunities,
     }
-    return render(request, 'auction_opportunities/auction_opportunities_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesDetailAdmin.html', context)
 
 
 # Widok edycji newslettera okazji z rynku aukcyjnego (dla superusera)
@@ -1292,7 +1293,8 @@ def auction_opportunities_edit_admin_panel_view(request, pk):
         AuctionOpportunities,
         'opportunities_news',
         AuctionOpportunitiesCreationForm,
-        'auction_opportunities',
+        'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesEditAdmin.html',
+        'AdminTemplates/Newsletter/AuctionOpportunities/Mail/AuctionOpportunitiesMail',
         'Okazje z rynku aukcyjnego'
     )
 
@@ -1302,7 +1304,7 @@ def auction_opportunities_edit_admin_panel_view(request, pk):
 def auction_opportunities_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, AuctionOpportunities, AuctionOpportunitiesDeleteEmailForm,
-        'auction_opportunities/auction_opportunities_delete_admin_panel.html',
+        'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesDeleteAdmin.html',
         'Mail o okazjach z rynku aukcyjnego został usunięty', 'auction_opportunities_admin_panel'
     )
 
@@ -1312,7 +1314,7 @@ def auction_opportunities_delete_admin_panel_view(request, pk):
 def auction_opportunities_user_manage_admin_panel_view(request):
     users = DjangoUser.objects.all().order_by('user__id')
     context = get_paginated_context(request, users, 10)
-    return render(request, 'auction_opportunities/auction_opportunities_user_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika w kontekście okazji z rynku aukcyjnego (dla superusera)
@@ -1322,7 +1324,7 @@ def auction_opportunities_user_detail_admin_panel_view(request, pk):
     context = {
         'users': user,
     }
-    return render(request, 'auction_opportunities/auction_opportunities_user_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserDetailAdmin.html', context)
 
 
 # Widok edycji ustawień e-maila o okazjach z rynku aukcyjnego dla konkretnego użytkownika (dla superusera)
@@ -1337,7 +1339,7 @@ def auction_opportunities_user_edit_admin_panel_view(request, pk):
         pk,
         model_class=DjangoUser,
         form_class=UserAuctionOpportunitiesForm,
-        template_name='auction_opportunities/auction_opportunities_user_edit_admin_panel.html',
+        template_name='AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserEditAdmin.html',
         success_message='Ustawienia e-maila o okazjach z rynku aukcyjnego zostały zaaktualizowane.',
         redirect_name='auction_opportunities_user_manage_admin_panel',
         extra_context=extra_context
