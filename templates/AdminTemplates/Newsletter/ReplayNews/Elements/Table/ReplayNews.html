@@ -1,0 +1,58 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Temat</th>
+        <th scope="col">Status</th>
+        <th scope="col">Data utworzenia</th>
+        <th scope="col">Data edycji</th>
+        <th scope="col">Edytuj</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for replay_news in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
+                    {{ replay_news.title }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
+                    {% if replay_news.status_field == 'Draft' %}
+                        Projekt
+                    {% else %}
+                        Opublikowany
+                    {% endif %}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
+                    {{ replay_news.date_added |date:'Y-m-d H:i' }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'replay_news_detail_admin_panel' replay_news.pk %}">
+                    {{ replay_news.date_modified |date:'Y-m-d H:i' }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'repaly_news_edit_admin_panel' replay_news.pk %}">
+                    Edytuj
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'replay_news_delete_admin_panel' replay_news.pk %}">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

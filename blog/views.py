@@ -1446,7 +1446,8 @@ def replay_news_add_view(request):
         request,
         'replay_news',
         ReplayNewsCreationForm,
-        'replay_news',
+        'AdminTemplates/Newsletter/ReplayNews/ReplayNewsAddAdmin.html',
+        'AdminTemplates/Newsletter/ReplayNews/Mail/ReplayNewsMail',
         'z shotem od Bankonty'
     )
 
@@ -1456,7 +1457,7 @@ def replay_news_add_view(request):
 def replay_news_admin_panel_view(request):
     replay_news = ReplayNews.objects.all().order_by('title')
     context = get_paginated_context(request, replay_news, 10)
-    return render(request, 'replay_news/replay_news_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/ReplayNews/ReplayNewsManageAdmin.html', context)
 
 
 # Widok szczegółów newslettera z shotem od Bankonty (dla superusera)
@@ -1466,7 +1467,7 @@ def replay_news_detail_admin_panel_view(request, pk):
     context = {
         'replay_news': replay_news,
     }
-    return render(request, 'replay_news/replay_news_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/ReplayNews/ReplayNewsDetailAdmin.html', context)
 
 
 # Widok edycji newslettera z shotem od Bankonty (dla superusera)
@@ -1478,7 +1479,8 @@ def replay_news_edit_admin_panel_view(request, pk):
         ReplayNews,
         'replay_news',
         ReplayNewsCreationForm,
-        'replay_news',
+        'AdminTemplates/Newsletter/ReplayNews/ReplayNewsEditAdmin.html',
+        'AdminTemplates/Newsletter/CompanyNews/Mail/ReplayNewsMail',
         'z shotem od Bankonty'
     )
 
@@ -1488,7 +1490,7 @@ def replay_news_edit_admin_panel_view(request, pk):
 def replay_news_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, ReplayNews, ReplayNewsDeleteEmailForm,
-        'replay_news/replay_news_delete_admin_panel.html',
+        'AdminTemplates/Newsletter/ReplayNews/ReplayNewsDeleteAdmin.html',
         'Mail z shotem od Bankonty został usunięty', 'replay_news_admin_panel'
     )
 
@@ -1498,7 +1500,7 @@ def replay_news_delete_admin_panel_view(request, pk):
 def replay_news_user_manage_admin_panel_view(request):
     users = DjangoUser.objects.all().order_by('user__id')
     context = get_paginated_context(request, users, 10)
-    return render(request, 'replay_news/replay_news_user_manage_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/ReplayNews/ReplayNewsUserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika w kontekście newslettera z shotem od Bankonty (dla superusera)
@@ -1508,7 +1510,7 @@ def replay_news_user_detail_admin_panel_view(request, pk):
     context = {
         'users': user,
     }
-    return render(request, 'replay_news/replay_news_user_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/ReplayNews/ReplayNewsUserDetailAdmin.html', context)
 
 
 # Widok edycji ustawień e-maila z shotem wiadomości od Banknoty dla konkretnego użytkownika (dla superusera)
@@ -1523,7 +1525,7 @@ def replay_news_user_edit_admin_panel_view(request, pk):
         pk,
         model_class=DjangoUser,
         form_class=UserReplayNewsForm,
-        template_name='replay_news/replay_news_user_edit_admin_panel.html',
+        template_name='AdminTemplates/Newsletter/ReplayNews/ReplayNewsUserEditAdmin.html',
         success_message='Ustawienia e-maila z shotem wiadomości od Banknoty zostały zaaktualizowane.',
         redirect_name='replay_news_user_manage_admin_panel',
         extra_context=extra_context
