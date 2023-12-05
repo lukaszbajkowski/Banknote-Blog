@@ -1,0 +1,40 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        {{ social_app | capfirst }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót"
+           onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Dostawca usługi
+</h6>
+{{ social_app.provider }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    ID dostawcy
+</h6>
+{{ social_app.provider_id }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Nazwa dostawcy
+</h6>
+{{ social_app.name }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    ID klienta
+</h6>
+{{ social_app.client_id }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Klucz prywatny
+</h6>
+{{ social_app.secret }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Klucz publiczny
+</h6>
+{{ social_app.key }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Ustawienia
+</h6>
+{{ social_app.settings }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Strony
+</h6>
+{{ social_app.sites }}
+<div class="mb-4"></div>

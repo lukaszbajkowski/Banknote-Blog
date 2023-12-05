@@ -1,0 +1,62 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Adres e-mail</th>
+        <th scope="col">Użytkownik</th>
+        <th scope="col">Zweryfikowany</th>
+        <th scope="col">Podstawowy</th>
+        <th scope="col">Edytuj</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for email_address in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                    {{ email_address.email }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                    {{ email_address.user }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                    {% if email_address.verified is True %}
+                        Tak
+                    {% else %}
+                        Nie
+                    {% endif %}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'email_address_detail_admin_panel' email_address.pk %}">
+                    {% if email_address.primary is True %}
+                        Tak
+                    {% else %}
+                        Nie
+                    {% endif %}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'email_address_edit_admin_panel' email_address.pk %}">
+                    Edytuj
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'email_address_delete_admin_panel' email_address.pk %}">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

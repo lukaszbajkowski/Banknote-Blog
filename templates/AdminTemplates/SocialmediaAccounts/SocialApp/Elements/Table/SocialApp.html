@@ -1,0 +1,40 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Dostawca usług</th>
+        <th scope="col">Edytuj</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for social_app in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'social_app_detail_admin_panel' social_app.pk %}">
+                    {{ social_app.name | capfirst }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'social_app_detail_admin_panel' social_app.pk %}">
+                    {{ social_app.provider | capfirst }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'social_app_edit_admin_panel' social_app.pk %}">
+                    Edytuj
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'social_app_delete_admin_panel' social_app.pk %}">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

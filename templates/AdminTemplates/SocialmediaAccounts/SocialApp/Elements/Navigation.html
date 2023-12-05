@@ -1,0 +1,12 @@
+<div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'social_app_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'social_app_add' %}'">
+        <i class="fa-solid fa-universal-access me-2"></i>
+        Stworzenie aplikacji społecznościowej
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'social_app_admin_panel, social_app_detail_admin_panel, social_app_edit_admin_panel, social_app_delete_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'social_app_admin_panel' %}'">
+        <i class="fa-solid fa-users-gear me-2"></i>
+        Zarządzanie aplikacjami społecznościowymi
+    </button>
+</div>

@@ -1,0 +1,47 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Nazwa użytkownika</th>
+        <th scope="col">UID</th>
+        <th scope="col">Dostawca usług</th>
+        <th scope="col">Edytuj</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for social_account in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'social_account_detail_admin_panel' social_account.pk %}">
+                    {{ social_account.user | capfirst }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'social_account_detail_admin_panel' social_account.pk %}">
+                    {{ social_account.uid }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link"
+                   href="{% url 'social_account_detail_admin_panel' social_account.pk %}">
+                    {{ social_account.provider | capfirst }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'social_account_edit_admin_panel' social_account.pk %}">
+                    Edytuj
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'social_account_delete_admin_panel' social_account.pk %}">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

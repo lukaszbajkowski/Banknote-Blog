@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<head>
+    {{ form.media }}
+</head>
+
+{% block title %}
+    Banknoty - Stworzenie konta społecznościowego
+{% endblock %}
+
+{% block navbar %}
+    {% include 'Navbar/NavbarAdmin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                {% include 'AdminTemplates/SocialmediaAccounts/SocialAccount/Elements/Navigation.html' %}
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2  fw-bold text-navy">
+                    Stworzenie konta społecznościowej
+                </h4>
+                {% load static %}
+                {% include 'AdminTemplates/Newsletter/Newsletter/Elements/Messages.html' %}
+                {% include 'AdminTemplates/SocialmediaAccounts/SocialAccount/Elements/Forms/CreateSocialAccount.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

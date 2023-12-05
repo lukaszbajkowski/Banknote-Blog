@@ -1,0 +1,32 @@
+<form method="POST">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.user.label }}
+    </h6>
+    {{ form.user }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.email.label }}
+    </h6>
+    {{ form.email }}
+    <div class="form-check form-switch pt-3">
+        {{ form.verified }}
+        <label class="form-check-label">
+            {{ form.verified.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0 admin-panel-help-text-position">
+            Czy użytkownik jest zweryfikowany?
+        </p>
+    </div>
+    <div class="form-check form-switch pt-1">
+        {{ form.primary }}
+        <label class="form-check-label">
+            {{ form.primary.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0 admin-panel-help-text-position">
+            Czy użytkownik ma status "primary"?
+        </p>
+    </div>
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Stwórz
+    </button>
+</form>

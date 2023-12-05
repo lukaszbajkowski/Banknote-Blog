@@ -1,0 +1,44 @@
+<form method="POST">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.provider.label }}
+    </h6>
+    {{ form.provider }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.provider_id.label }}
+    </h6>
+    {{ form.provider_id }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.name.label }}
+    </h6>
+    {{ form.name }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.client_id.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.client_id.help_text }}
+    </p>
+    {{ form.client_id }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ form.secret.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ form.secret.help_text }}
+    </p>
+    {{ form.secret }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.key.label }}
+    </h6>
+    {{ form.key }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.settings.label }}
+    </h6>
+    {{ form.settings }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ form.sites.label }}
+    </h6>
+    {{ form.sites }}
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Zapisz
+    </button>
+</form>

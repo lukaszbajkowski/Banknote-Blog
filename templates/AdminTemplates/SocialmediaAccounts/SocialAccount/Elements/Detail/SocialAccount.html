@@ -1,0 +1,32 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        {{ social_account.user | capfirst }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót"
+           onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Użytkownik
+</h6>
+{{ social_account.user }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Dostawca usługi
+</h6>
+{{ social_account.provider }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    UID
+</h6>
+{{ social_account.uid }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Dodatkowe dane
+</h6>
+{{ social_account.extra_data }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Ostatnie logowanie
+</h6>
+{{ social_account.last_login }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Data dołączenia
+</h6>
+{{ social_account.date_joined }}
+<div class="mb-4"></div>

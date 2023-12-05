@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Banknoty - Zarządzanie tokenami aplikacjami społecznościowych
+{% endblock %}
+
+{% block navbar %}
+    {% include 'Navbar/NavbarAdmin.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                {% include 'AdminTemplates/SocialmediaAccounts/SocialToken/Elements/Navigation.html' %}
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                <h4 class="mb-0 pb-2 fw-bold text-navy">
+                    Zarządzanie tokenami aplikacji społecznościowych
+                </h4>
+                {% include 'AdminTemplates/Newsletter/Newsletter/Elements/Messages.html' %}
+                {% include 'AdminTemplates/SocialmediaAccounts/SocialToken/Elements/Table/SocialToken.html' %}
+                {% include 'paginator.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

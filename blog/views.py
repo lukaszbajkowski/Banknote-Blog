@@ -1757,7 +1757,7 @@ def users_delete_admin_panel_view(request, pk):
 @superuser_required
 def social_app_add_view(request):
     return process_form_submission(request, SocialAppForm,
-                                   'social_app/social_app_add.html',
+                                   'AdminTemplates/SocialmediaAccounts/SocialApp/SocialAppAddAdmin.html',
                                    'social_app_add',
                                    'Aplikacja społeczna została dodana.')
 
@@ -1767,7 +1767,7 @@ def social_app_add_view(request):
 def social_app_admin_panel_view(request):
     social_apps = SocialApp.objects.all().order_by('id')
     context = get_paginated_context(request, social_apps, 10)
-    return render(request, 'social_app/social_app_manage_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/SocialApp/SocialAppManageAdmin.html', context)
 
 
 # Widok szczegółów aplikacji społecznej (dla superusera)
@@ -1777,7 +1777,7 @@ def social_app_detail_admin_panel_view(request, pk):
     context = {
         'social_app': social_apps,
     }
-    return render(request, 'social_app/social_app_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/SocialApp/SocialAppDetailAdmin.html', context)
 
 
 # Widok edycji aplikacji społecznej (dla superusera)
@@ -1789,7 +1789,7 @@ def social_app_edit_admin_panel_view(request, pk):
         pk,
         model_class=SocialApp,
         form_class=SocialAppForm,
-        template_name='social_app/social_app_edit_admin_panel.html',
+        template_name='AdminTemplates/SocialmediaAccounts/SocialApp/SocialAppEditAdmin.html',
         success_message='Aplikacja społeczna została edytowana.',
         redirect_name='social_app_admin_panel',
         extra_context={
@@ -1803,7 +1803,7 @@ def social_app_edit_admin_panel_view(request, pk):
 def social_app_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, SocialApp, SocialAppDeleteEmailForm,
-        'social_app/social_app_delete_admin_panel.html',
+        'AdminTemplates/SocialmediaAccounts/SocialApp/SocialAppDeleteAdmin.html',
         'Aplikacja społeczna została usunięta',
         'social_app_admin_panel'
     )
@@ -1813,7 +1813,7 @@ def social_app_delete_admin_panel_view(request, pk):
 @superuser_required
 def social_token_add_view(request):
     return process_form_submission(request, SocialTokenForm,
-                                   'social_token/social_token_add.html',
+                                   'AdminTemplates/SocialmediaAccounts/SocialToken/SocialTokenAddAdmin.html',
                                    'social_token_add',
                                    'Token aplikacji społecznościowej został dodany.')
 
@@ -1823,7 +1823,7 @@ def social_token_add_view(request):
 def social_token_admin_panel_view(request):
     social_tokens = SocialToken.objects.all().order_by('id')
     context = get_paginated_context(request, social_tokens, 10)
-    return render(request, 'social_token/social_token_manage_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/SocialToken/SocialTokenManageAdmin.html', context)
 
 
 # Widok szczegółów tokena aplikacji społecznej (dla superusera)
@@ -1833,7 +1833,7 @@ def social_token_detail_admin_panel_view(request, pk):
     context = {
         'social_token': social_tokens,
     }
-    return render(request, 'social_token/social_token_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/SocialToken/SocialTokenDetailAdmin.html', context)
 
 
 # Widok edycji tokena aplikacji społecznej (dla superusera)
@@ -1845,7 +1845,7 @@ def social_token_edit_admin_panel_view(request, pk):
         pk,
         model_class=SocialToken,
         form_class=SocialTokenForm,
-        template_name='social_token/social_token_edit_admin_panel.html',
+        template_name='AdminTemplates/SocialmediaAccounts/SocialToken/SocialTokenEditAdmin.html',
         success_message='Token aplikacji społecznościowej został edytowany.',
         redirect_name='social_token_admin_panel',
         extra_context={
@@ -1859,7 +1859,7 @@ def social_token_edit_admin_panel_view(request, pk):
 def social_token_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, SocialToken, SocialTokenDeleteEmailForm,
-        'social_token/social_token_delete_admin_panel.html',
+        'AdminTemplates/SocialmediaAccounts/SocialToken/SocialTokenDeleteAdmin.html',
         'Token aplikacji społecznościowej został usunięty',
         'social_token_admin_panel'
     )
@@ -1869,7 +1869,7 @@ def social_token_delete_admin_panel_view(request, pk):
 @superuser_required
 def social_account_add_view(request):
     return process_form_submission(request, SocialAccountForm,
-                                   'social_account/social_account_add.html',
+                                   'AdminTemplates/SocialmediaAccounts/SocialAccount/SocialAccountAddAdmin.html',
                                    'social_account_add',
                                    'Konto aplikacji społecznościowej zostało dodane.')
 
@@ -1879,7 +1879,7 @@ def social_account_add_view(request):
 def social_account_admin_panel_view(request):
     social_accounts = SocialAccount.objects.all().order_by('id')
     context = get_paginated_context(request, social_accounts, 10)
-    return render(request, 'social_account/social_account_manage_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/SocialAccount/SocialAccountManageAdmin.html', context)
 
 
 # Widok szczegółów konta aplikacji społecznej (dla superusera)
@@ -1889,7 +1889,7 @@ def social_account_detail_admin_panel_view(request, pk):
     context = {
         'social_account': social_accounts,
     }
-    return render(request, 'social_account/social_account_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/SocialAccount/SocialAccountDetailAdmin.html', context)
 
 
 # Widok edycji konta aplikacji społecznej (dla superusera)
@@ -1901,7 +1901,7 @@ def social_account_edit_admin_panel_view(request, pk):
         pk,
         model_class=SocialAccount,
         form_class=SocialAccountForm,
-        template_name='social_account/social_account_edit_admin_panel.html',
+        template_name='AdminTemplates/SocialmediaAccounts/SocialAccount/SocialAccountEditAdmin.html',
         success_message='Konto aplikacji społecznościowej zostało edytowane.',
         redirect_name='social_account_admin_panel',
         extra_context={
@@ -1915,7 +1915,7 @@ def social_account_edit_admin_panel_view(request, pk):
 def social_account_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, SocialAccount, SocialAccountDeleteEmailForm,
-        'social_account/social_account_delete_admin_panel.html',
+        'AdminTemplates/SocialmediaAccounts/SocialAccount/SocialAccountDeleteAdmin.html',
         'Konto aplikacji społecznościowej zostało usunięte',
         'social_account_admin_panel'
     )
@@ -1925,7 +1925,7 @@ def social_account_delete_admin_panel_view(request, pk):
 @superuser_required
 def email_address_add_view(request):
     return process_form_submission(request, EmailAddressForm,
-                                   'email_address/email_address_add.html',
+                                   'AdminTemplates/SocialmediaAccounts/EmailAddress/EmailAddressAddAdmin.html',
                                    'email_address_add',
                                    'Adres email został dodany.')
 
@@ -1935,7 +1935,7 @@ def email_address_add_view(request):
 def email_address_admin_panel_view(request):
     email_addresses = EmailAddress.objects.all().order_by('id')
     context = get_paginated_context(request, email_addresses, 10)
-    return render(request, 'email_address/email_address_manage_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/EmailAddress/EmailAddressManageAdmin.html', context)
 
 
 # Widok szczegółów adresu email (dla superusera)
@@ -1945,7 +1945,7 @@ def email_address_detail_admin_panel_view(request, pk):
     context = {
         'email_address': email_addresses,
     }
-    return render(request, 'email_address/email_address_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/SocialmediaAccounts/EmailAddress/EmailAddressDetailAdmin.html', context)
 
 
 # Widok edycji adresu email (dla superusera)
@@ -1957,7 +1957,7 @@ def email_address_edit_admin_panel_view(request, pk):
         pk,
         model_class=EmailAddress,
         form_class=EmailAddressForm,
-        template_name='email_address/email_address_edit_admin_panel.html',
+        template_name='AdminTemplates/SocialmediaAccounts/EmailAddress/EmailAddressEditAdmin.html',
         success_message='Adres email został edytowany.',
         redirect_name='email_address_admin_panel',
         extra_context={
@@ -1971,7 +1971,7 @@ def email_address_edit_admin_panel_view(request, pk):
 def email_address_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, EmailAddress, EmailAddressDeleteForm,
-        'email_address/email_address_delete_admin_panel.html',
+        'AdminTemplates/SocialmediaAccounts/EmailAddress/EmailAddressDeleteAdmin.html',
         'Adres email został usunięty',
         'email_address_admin_panel'
     )

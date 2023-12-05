@@ -1,0 +1,32 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        {{ social_token | capfirst }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót"
+           onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Aplikacja
+</h6>
+{{ social_token.app }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Konto
+</h6>
+{{ social_token.account }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Token
+</h6>
+{{ social_token.token }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Token prywatny
+</h6>
+{{ social_token.token_secret }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Data wygaśnięcia
+</h6>
+{% if social_token.expires_at is None %}
+    Brak
+{% else %}
+    {{ social_token.expires_at }}
+{% endif %}
+<div class="mb-4"></div>
