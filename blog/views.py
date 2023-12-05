@@ -1539,7 +1539,8 @@ def development_news_add_view(request):
         request,
         'development_news',
         DevelopmentNewsCreationForm,
-        'development_news',
+        'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsAddAdmin.html',
+        'AdminTemplates/Newsletter/DevelopmentNews/Mail/DevelopmentNewsMail',
         'z informacjami o rozwoju i zmianach na Bankonty'
     )
 
@@ -1549,7 +1550,7 @@ def development_news_add_view(request):
 def development_news_admin_panel_view(request):
     development_news = DevelopmentNews.objects.all().order_by('title')
     context = get_paginated_context(request, development_news, 10)
-    return render(request, 'development_news/development_news_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsManageAdmin.html', context)
 
 
 # Widok szczegółów newslettera z informacjami o rozwoju i zmianach na Bankonty (dla superusera)
@@ -1559,7 +1560,7 @@ def development_news_detail_admin_panel_view(request, pk):
     context = {
         'development_news': development_news,
     }
-    return render(request, 'development_news/development_news_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsDetailAdmin.html', context)
 
 
 # Widok edycji newslettera z informacjami o rozwoju i zmianach na Bankonty (dla superusera)
@@ -1571,8 +1572,9 @@ def development_news_edit_admin_panel_view(request, pk):
         DevelopmentNews,
         'development_news',
         DevelopmentNewsCreationForm,
-        'development_news',
-        'z informacjami o rozwoju i zmianach na Bankonty'
+        'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsEditAdmin.html',
+        'AdminTemplates/Newsletter/DevelopmentNews/Mail/DevelopmentNewsMail',
+        'Mail z informacjami o rozwoju i zmianach na Bankonty'
     )
 
 
@@ -1581,7 +1583,7 @@ def development_news_edit_admin_panel_view(request, pk):
 def development_news_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(
         request, pk, DevelopmentNews, DevelopmentNewsDeleteEmailForm,
-        'development_news/development_news_delete_admin_panel.html',
+        'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsDeleteAdmin.html',
         'Mail z informacjami o rozwoju i zmianach na Bankonty został usunięty',
         'development_news_admin_panel'
     )
@@ -1592,7 +1594,7 @@ def development_news_delete_admin_panel_view(request, pk):
 def development_news_user_manage_admin_panel_view(request):
     users = DjangoUser.objects.all().order_by('user__id')
     context = get_paginated_context(request, users, 10)
-    return render(request, 'development_news/development_news_user_manage_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsUserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika w kontekście newslettera z informacjami o rozwoju i zmianach na Bankonty (dla superusera)
@@ -1602,7 +1604,7 @@ def development_news_user_detail_admin_panel_view(request, pk):
     context = {
         'users': user,
     }
-    return render(request, 'development_news/development_news_user_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsUserDetailAdmin.html', context)
 
 
 # Widok edycji ustawień e-maila z informacjami o rozwoju i zmianach na Bankonty dla konkretnego użytkownika (dla superusera)
@@ -1616,8 +1618,8 @@ def development_news_user_edit_admin_panel_view(request, pk):
         request,
         pk,
         model_class=DjangoUser,
-        form_class=UserReplayNewsForm,
-        template_name='development_news/development_news_user_edit_admin_panel.html',
+        form_class=UserDevelopmentNewsForm,
+        template_name='AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsUserEditAdmin.html',
         success_message='Ustawienia e-maila z informacjami o rozwoju i zmianach na Banknoty zostały zaaktualizowane.',
         redirect_name='development_news_user_manage_admin_panel',
         extra_context=extra_context
