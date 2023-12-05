@@ -1,0 +1,12 @@
+<div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'users_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'users_add' %}'">
+        <i class="fa-solid fa-person-circle-plus me-2"></i>
+        Stworzenie użytkownika
+    </button>
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'users_admin_panel, users_detail_admin_panel, users_edit_admin_panel, users_edit_password_admin_panel, users_delete_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
+            onclick="location.href='{% url 'users_admin_panel' %}'">
+        <i class="fa-solid fa-pen me-2"></i>
+        Zarządzanie użytkownikami
+    </button>
+</div>

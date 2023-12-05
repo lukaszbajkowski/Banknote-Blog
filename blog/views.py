@@ -1271,7 +1271,8 @@ def auction_opportunities_add_view(request):
 def auction_opportunities_admin_panel_view(request):
     auction_opportunities = AuctionOpportunities.objects.all().order_by('title')
     context = get_paginated_context(request, auction_opportunities, 10)
-    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesManageAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesManageAdmin.html',
+                  context)
 
 
 # Widok szczegółów okazji z rynku aukcyjnego (dla superusera)
@@ -1281,7 +1282,8 @@ def auction_opportunities_detail_admin_panel_view(request, pk):
     context = {
         'auction_opportunities': auction_opportunities,
     }
-    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesDetailAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesDetailAdmin.html',
+                  context)
 
 
 # Widok edycji newslettera okazji z rynku aukcyjnego (dla superusera)
@@ -1314,7 +1316,8 @@ def auction_opportunities_delete_admin_panel_view(request, pk):
 def auction_opportunities_user_manage_admin_panel_view(request):
     users = DjangoUser.objects.all().order_by('user__id')
     context = get_paginated_context(request, users, 10)
-    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserManageAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserManageAdmin.html',
+                  context)
 
 
 # Widok szczegółów użytkownika w kontekście okazji z rynku aukcyjnego (dla superusera)
@@ -1324,7 +1327,8 @@ def auction_opportunities_user_detail_admin_panel_view(request, pk):
     context = {
         'users': user,
     }
-    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserDetailAdmin.html', context)
+    return render(request, 'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserDetailAdmin.html',
+                  context)
 
 
 # Widok edycji ustawień e-maila o okazjach z rynku aukcyjnego dla konkretnego użytkownika (dla superusera)
@@ -1651,7 +1655,7 @@ def users_add_view(request):
         'user_form': user_form,
         'profile_form': profile_form
     }
-    return render(request, 'user/user_add.html', context)
+    return render(request, 'AdminTemplates/Accounts/User/UserAddAdmin.html', context)
 
 
 # Widok zarządzania użytkownikami (dla superusera)
@@ -1659,7 +1663,7 @@ def users_add_view(request):
 def users_manage_admin_panel_view(request):
     users = DjangoUser.objects.select_related('user').all().order_by('-user__id')
     context = get_paginated_context(request, users, 10)
-    return render(request, 'user/users_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Accounts/User/UserManageAdmin.html', context)
 
 
 # Widok szczegółów użytkownika (dla superusera)
@@ -1670,7 +1674,7 @@ def users_detail_admin_panel_view(request, pk):
     context = {
         'users': users,
     }
-    return render(request, 'user/user_detail_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Accounts/User/UserDetailAdmin.html', context)
 
 
 # Widok edycji użytkownika (dla superusera)
@@ -1692,11 +1696,13 @@ def users_edit_main_page_admin_panel_view(request, pk):
     else:
         user_profile_form = UserProfileForm(instance=users)
         user_email_form = UserEditForm(instance=django_user)
-    return render(request, 'user/user_edit_admin_panel.html', {
+
+    context = {
         'profile_form': user_profile_form,
         'user_form': user_email_form,
         'users': users,
-    })
+    }
+    return render(request, 'AdminTemplates/Accounts/User/UserEditAdmin.html', context)
 
 
 # Widok edycji hasła użytkownika (dla superusera)
@@ -1720,7 +1726,7 @@ def users_edit_password_admin_panel_view(request, pk):
         'edit_password_form': edit_password_form,
         'users': user,
     }
-    return render(request, 'user/user_edit_password_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Accounts/User/UserEditPasswordAdmin.html', context)
 
 
 # Widok usuwania użytkownika (dla superusera)
@@ -1744,7 +1750,7 @@ def users_delete_admin_panel_view(request, pk):
         'form': form,
         'users': user,
     }
-    return render(request, 'user/user_delete_admin_panel.html', context)
+    return render(request, 'AdminTemplates/Accounts/User/UserDeleteAdmin.html', context)
 
 
 # Widok dodawania aplikacji społecznej (dla superusera)

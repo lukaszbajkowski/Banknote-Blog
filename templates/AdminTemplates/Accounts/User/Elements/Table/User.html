@@ -1,0 +1,68 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Nazwa użytkownika</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Imię</th>
+        <th scope="col">Nazwisko</th>
+        <th scope="col">Czy może być autorem?</th>
+        <th scope="col">Edytuj</th>
+        <th scope="col">Zmień hasło</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for user in page_obj %}
+        <tr>
+            <td>
+                <a class="admin_panel_link" href="{% url 'users_detail_admin_panel' user.pk %}">
+                    {{ user.user.username }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'users_detail_admin_panel' user.pk %}">
+                    {{ user.user.email }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'users_detail_admin_panel' user.pk %}">
+                    {{ user.user.first_name }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'users_detail_admin_panel' user.pk %}">
+                    {{ user.user.last_name }}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_link" href="{% url 'users_detail_admin_panel' user.pk %}">
+
+                    {% if user.can_be_author %}
+                        <i class="fa-solid fa-check"></i>
+                    {% else %}
+                        <i class="fa-solid fa-x"></i>
+                    {% endif %}
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link" href="{% url 'users_edit_admin_panel' user.pk %}">
+                    Edytuj
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'users_edit_password_admin_panel' user.pk %}">
+                    Zmień hasło
+                </a>
+            </td>
+            <td>
+                <a class="admin_panel_edit_link"
+                   href="{% url 'users_delete_admin_panel' user.pk %}">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>

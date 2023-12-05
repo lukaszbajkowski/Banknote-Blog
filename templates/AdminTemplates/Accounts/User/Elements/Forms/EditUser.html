@@ -1,0 +1,120 @@
+<form method="POST">
+    {% csrf_token %}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ user_form.email.label }}
+    </h6>
+    {{ user_form.email }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ user_form.first_name.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ user_form.first_name.help_text }}
+    </p>
+    {{ user_form.first_name }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ user_form.last_name.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ user_form.last_name.help_text }}
+    </p>
+    {{ user_form.last_name }}
+    <h6 class="form-label pt-3 mb-0 text-start fw-bold">
+        {{ profile_form.bio.label }}
+    </h6>
+    <p class="text-start message m-0 mb-2 text-muted fw-light">
+        {{ profile_form.bio.help_text }}
+    </p>
+    {{ profile_form.bio }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ profile_form.profile_pic.label }}
+    </h6>
+    {{ profile_form.profile_pic }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        {{ profile_form.gender.label }}
+    </h6>
+    {{ profile_form.gender }}
+    <h6 class="form-label pt-3 text-start fw-bold">
+        Biuletyn
+    </h6>
+    <div class="form-check form-switch">
+        {{ profile_form.newsletter }}
+        <label class="form-check-label">
+            {{ profile_form.newsletter.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.newsletter.help_text }}
+        </p>
+    </div>
+    <div class="form-check form-switch pt-2">
+        {{ profile_form.miss_news }}
+        <label class="form-check-label">
+            {{ profile_form.miss_news.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.miss_news.help_text }}
+        </p>
+    </div>
+    <div class="form-check form-switch pt-2">
+        {{ profile_form.meetups_news }}
+        <label class="form-check-label">
+            {{ profile_form.meetups_news.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.meetups_news.help_text }}
+        </p>
+    </div>
+    <div class="form-check form-switch pt-2">
+        {{ profile_form.opportunities_news }}
+        <label class="form-check-label">
+            {{ profile_form.opportunities_news.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.opportunities_news.help_text }}
+        </p>
+    </div>
+    <h6 class="form-label pt-3 text-start fw-bold">
+        Komunikacja z Banknoty
+    </h6>
+    <div class="form-check form-switch">
+        {{ profile_form.company_news }}
+        <label class="form-check-label">
+            {{ profile_form.company_news.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.company_news.help_text }}
+        </p>
+    </div>
+    <div class="form-check form-switch pt-2">
+        {{ profile_form.replay_news }}
+        <label class="form-check-label">
+            {{ profile_form.replay_news.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.replay_news.help_text }}
+        </p>
+    </div>
+    <div class="form-check form-switch pt-2">
+        {{ profile_form.development_news }}
+        <label class="form-check-label">
+            {{ profile_form.development_news.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.development_news.help_text }}
+        </p>
+    </div>
+    <h6 class="form-label pt-3 text-start fw-bold">
+        Aplikacja na autora
+    </h6>
+    <div class="form-check form-switch">
+        {{ profile_form.can_be_author }}
+        <label class="form-check-label">
+            {{ profile_form.can_be_author.label }}
+        </label>
+        <p class="form-check-label message fw-light text-muted mb-0 pb-0" style="margin-left: 12px">
+            {{ profile_form.can_be_author.help_text }}
+        </p>
+    </div>
+    <button class="d-flex justify-content-center btn btn-register px-4 my-4 mx-auto" type="submit">
+        Zapisz zmiany
+    </button>
+</form>
