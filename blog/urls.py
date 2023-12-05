@@ -1,13 +1,14 @@
-from django.urls import path
-from .views import *
-from . import views
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include
+from django.urls import path
 
+from . import views
+from .views import *
 from .views_admin.accounts.author.author_views import *
-from .views_admin.accounts.user.user_views import *
 from .views_admin.accounts.author_application.author_application_views import *
+from .views_admin.accounts.user.user_views import *
+from .views_admin.content.category.category_views import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),

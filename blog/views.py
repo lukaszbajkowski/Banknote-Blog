@@ -1,6 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db.models import Count
@@ -9,12 +7,9 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 
 from blog.views_admin.admin_panel.admin_views import *
-
 from .decorators import *
-
 from .form import *
 from .form_users import *
-
 from .models import User as DjangoUser
 
 # Stałe komunikaty
@@ -767,83 +762,6 @@ def newsletter_user_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(request, pk, NewsletterUser, NewsletterUserDeleteForm,
                                            'AdminTemplates/Newsletter/Newsletter/NewsletterUserDeleteAdmin.html',
                                            USER_SUCCESS_DELETE_MESSAGE, 'newsletter_user_admin_panel')
-
-
-# Widok dodawania kategorii (dla superusera)
-@superuser_required
-def category_add_view(request):
-    return process_form_submission(request, CategoryCreateForm, 'AdminTemplates/Content/Category/CategoryAddAdmin.html',
-                                   'category_add',
-                                   'Kategoria została dodana.')
-
-
-# Widok zarządzania kategoriami (dla superusera)
-@superuser_required
-def category_manage_admin_panel_view(request):
-    category = Category.objects.all().order_by('name')
-    context = get_paginated_context(request, category, 10)
-    return render(request, 'AdminTemplates/Content/Category/CategoryManageAdmin.html', context)
-
-
-# Widok szczegółów kategorii (dla superusera)
-@superuser_required
-def category_detail_admin_panel_view(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    categories = category.blog_set.count()
-    context = {
-        'category': category,
-        'categories': categories
-    }
-    return render(request, 'AdminTemplates/Content/Category/CategoryDetailAdmin.html', context)
-
-
-# Widok edycji kategorii (dla superusera)
-@superuser_required
-def category_edit_admin_panel_view(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    extra_context = {
-        'categories': category.blog_set.count(),
-    }
-
-    return edit_entity_admin_panel_view(
-        request,
-        pk,
-        model_class=Category,
-        form_class=CategoryCreateForm,
-        template_name='AdminTemplates/Content/Category/CategoryEditAdmin.html',
-        success_message='Kategoria została edytowana',
-        redirect_name='category_admin_panel',
-        extra_context=extra_context
-    )
-
-
-# Widok usuwania kategorii (dla superusera)
-@superuser_required
-def category_delete_admin_panel_view(request, pk):
-    return process_delete_admin_panel_view(
-        request, pk, Category, CategoryDeleteForm, 'AdminTemplates/Content/Category/CategoryDeleteAdmin.html',
-        'Kategoria została usunięta', 'category_admin_panel'
-    )
-
-
-# Widok panelu administracyjnego dla postów w danej kategorii (dla superusera)
-@superuser_required
-def category_post_in_category_panel_admin_panel_view(request):
-    category = Category.objects.all().order_by('name')
-    context = get_paginated_context(request, category, 10)
-    return render(request, 'AdminTemplates/Content/Category/CategoryPostInCategoryAdmin.html', context)
-
-
-# Widok szczegółów postów w danej kategorii (dla superusera)
-@superuser_required
-def category_post_in_category_panel_detail_admin_panel_view(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    posts = category.blog_set.all()
-    context = {
-        'category': category,
-        'posts': posts,
-    }
-    return render(request, 'AdminTemplates/Content/Category/CategoryPostInCategoryDetailAdmin.html', context)
 
 
 # Widok dodawania posta (dla superusera)

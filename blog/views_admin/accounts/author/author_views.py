@@ -2,17 +2,14 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-
 from blog.form import AuthorCreateForm
-from blog.form import AuthorEditForm
 from blog.form import AuthorDeleteForm
-
+from blog.form import AuthorEditForm
 from blog.models import Author
-
-from blog.views import get_paginated_context
-from blog.views import process_form_submission
 from blog.views import edit_entity_admin_panel_view
+from blog.views import get_paginated_context
 from blog.views import process_delete_admin_panel_view
+from blog.views import process_form_submission
 
 
 # Widok dodawania autora (dla superusera)
