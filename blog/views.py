@@ -1,16 +1,20 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 
-from .admin_views import *
+from blog.views_admin.admin_panel.admin_views import *
+
 from .decorators import *
+
 from .form import *
 from .form_users import *
+
 from .models import User as DjangoUser
 
 # Stałe komunikaty
@@ -25,18 +29,6 @@ SUCCESS_DELETE_MESSAGE = 'Biuletyn został usunięty'
 USER_SUCCESS_DELETE_MESSAGE = 'Użytkownik został usunięty'
 SUCCESS_MESSAGE_EDIT = 'Mail został edytowany i wysłany'
 PUBLISHED_SUCCESS_MESSAGE_EDIT = 'Mail został edytowany i wysłany oraz opublikowany'
-
-
-# Dekorator sprawdzający uprawnienia superusera
-def superuser_required(view_func):
-    @wraps(view_func)
-    def _wrapped_view(request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.is_superuser:
-            return view_func(request, *args, **kwargs)
-        else:
-            return redirect('home')
-
-    return _wrapped_view
 
 
 # Funkcja obsługująca proces rejestracji do biuletynu
@@ -300,7 +292,7 @@ def get_paginated_context(request, queryset, items_per_page=10):
 
 
 # Widok strony głównej
-def HomeView(request):
+def home_view(request):
     blog_first = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[:1]
     blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
     category = Category.objects.all()
@@ -775,61 +767,6 @@ def newsletter_user_delete_admin_panel_view(request, pk):
     return process_delete_admin_panel_view(request, pk, NewsletterUser, NewsletterUserDeleteForm,
                                            'AdminTemplates/Newsletter/Newsletter/NewsletterUserDeleteAdmin.html',
                                            USER_SUCCESS_DELETE_MESSAGE, 'newsletter_user_admin_panel')
-
-
-# Widok dodawania autora (dla superusera)
-@superuser_required
-def author_add_view(request):
-    return process_form_submission(request, AuthorCreateForm, 'AdminTemplates/Accounts/Author/AuthorAddAdmin.html',
-                                   'author_add',
-                                   'Autor został utworzony')
-
-
-# Widok zarządzania autorami (dla superusera)
-@superuser_required
-def author_manage_admin_panel_view(request):
-    author = Author.objects.all().order_by('user_id')
-    context = get_paginated_context(request, author, 10)
-    return render(request, 'AdminTemplates/Accounts/Author/AuthorManageAdmin.html', context)
-
-
-# Widok szczegółów autora (dla superusera)
-@superuser_required
-def author_detail_admin_panel_view(request, pk):
-    author = get_object_or_404(Author, pk=pk)
-    context = {
-        'author': author,
-    }
-    return render(request, 'AdminTemplates/Accounts/Author/AuthorDetailAdmin.html', context)
-
-
-# Widok edycji autora (dla superusera)
-@superuser_required
-def author_edit_admin_panel_view(request, pk):
-    author_name = get_object_or_404(Author, pk=pk)
-    extra_context = {
-        'author_name': author_name,
-    }
-
-    return edit_entity_admin_panel_view(
-        request,
-        pk,
-        model_class=Author,
-        form_class=AuthorEditForm,
-        template_name='AdminTemplates/Accounts/Author/AuthorEditAdmin.html',
-        success_message='Autor został edytowany',
-        redirect_name='author_admin_panel',
-        extra_context=extra_context
-    )
-
-
-# Widok usuwania autora (dla superusera)
-@superuser_required
-def author_delete_admin_panel_view(request, pk):
-    return process_delete_admin_panel_view(
-        request, pk, Author, AuthorDeleteForm, 'AdminTemplates/Accounts/Author/AuthorDeleteAdmin.html',
-        'Autor został usunięty', 'author_admin_panel'
-    )
 
 
 # Widok dodawania kategorii (dla superusera)
@@ -1628,129 +1565,6 @@ def development_news_user_edit_admin_panel_view(request, pk):
         redirect_name='development_news_user_manage_admin_panel',
         extra_context=extra_context
     )
-
-
-# Widok dodawania użytkownika (dla superusera)
-@superuser_required
-def users_add_view(request):
-    if request.method == 'POST':
-        user_form = UserCreationForm(request.POST)
-        profile_form = UserProfileForm(request.POST, request.FILES)
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user_form.cleaned_data['password'])
-            user.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            messages.success(request,
-                             'Użytkownik został utworzony',
-                             "alert alert-success alert-dismissible fade show mt-3")
-            return redirect('users_add')
-    else:
-        user_form = UserCreationForm()
-        profile_form = UserProfileForm()
-
-    context = {
-        'user_form': user_form,
-        'profile_form': profile_form
-    }
-    return render(request, 'AdminTemplates/Accounts/User/UserAddAdmin.html', context)
-
-
-# Widok zarządzania użytkownikami (dla superusera)
-@superuser_required
-def users_manage_admin_panel_view(request):
-    users = DjangoUser.objects.select_related('user').all().order_by('-user__id')
-    context = get_paginated_context(request, users, 10)
-    return render(request, 'AdminTemplates/Accounts/User/UserManageAdmin.html', context)
-
-
-# Widok szczegółów użytkownika (dla superusera)
-@superuser_required
-def users_detail_admin_panel_view(request, pk):
-    users = get_object_or_404(DjangoUser, pk=pk)
-
-    context = {
-        'users': users,
-    }
-    return render(request, 'AdminTemplates/Accounts/User/UserDetailAdmin.html', context)
-
-
-# Widok edycji użytkownika (dla superusera)
-@superuser_required
-def users_edit_main_page_admin_panel_view(request, pk):
-    users = get_object_or_404(DjangoUser, pk=pk)
-    django_user = users.user
-
-    if request.method == 'POST':
-        user_profile_form = UserProfileForm(request.POST, instance=users)
-        user_email_form = UserEditForm(request.POST, instance=django_user)
-        if user_profile_form.is_valid() and user_email_form.is_valid():
-            user_profile_form.save()
-            user_email_form.save()
-            messages.success(request,
-                             'Użytkownik został edytowany',
-                             "alert alert-success alert-dismissible fade show mt-3")
-            return redirect('users_admin_panel')
-    else:
-        user_profile_form = UserProfileForm(instance=users)
-        user_email_form = UserEditForm(instance=django_user)
-
-    context = {
-        'profile_form': user_profile_form,
-        'user_form': user_email_form,
-        'users': users,
-    }
-    return render(request, 'AdminTemplates/Accounts/User/UserEditAdmin.html', context)
-
-
-# Widok edycji hasła użytkownika (dla superusera)
-@superuser_required
-def users_edit_password_admin_panel_view(request, pk):
-    user = get_object_or_404(DjangoUser, pk=pk)
-
-    if request.method == 'POST':
-        edit_password_form = CustomPasswordChangingForm(data=request.POST)
-        if edit_password_form.is_valid():
-            user = edit_password_form.save(user.user)
-            update_session_auth_hash(request, user)
-            messages.success(request,
-                             'Hasło użytkownika został edytowane',
-                             "alert alert-success alert-dismissible fade show mt-3")
-            return redirect('users_admin_panel')
-    else:
-        edit_password_form = CustomPasswordChangingForm()
-
-    context = {
-        'edit_password_form': edit_password_form,
-        'users': user,
-    }
-    return render(request, 'AdminTemplates/Accounts/User/UserEditPasswordAdmin.html', context)
-
-
-# Widok usuwania użytkownika (dla superusera)
-@superuser_required
-def users_delete_admin_panel_view(request, pk):
-    user = get_object_or_404(DjangoUser, pk=pk)
-
-    if request.method == "POST":
-        form = UsersDeleteEmailForm(request.POST, instance=user)
-        if form.is_valid():
-            user = user.user
-            user.delete()
-            messages.success(request,
-                             'Użytkownik został usunięty',
-                             "alert alert-success alert-dismissible fade show mt-3")
-            return redirect('users_admin_panel')
-    else:
-        form = UsersDeleteEmailForm(instance=user)
-
-    context = {
-        'form': form,
-        'users': user,
-    }
-    return render(request, 'AdminTemplates/Accounts/User/UserDeleteAdmin.html', context)
 
 
 # Widok dodawania aplikacji społecznej (dla superusera)

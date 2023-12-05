@@ -1,0 +1,49 @@
+<div class="admin-panel-header-position">
+    <h4 class="mb-0 pb-2 fw-bold text-navy">
+        {{ submitted_forms }}
+    </h4>
+    <input type=button class="btn btn-register ms-auto" value="Powrót" onClick="javascript:history.go(-1);">
+</div>
+<h6 class="form-label pt-3 text-start fw-bold">
+    Imię
+</h6>
+{{ submitted_forms.first_name }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Nazwisko
+</h6>
+{{ submitted_forms.last_name }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    E-mail
+</h6>
+{{ submitted_forms.email }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Numer telefonu
+</h6>
+{% if submitted_forms.phone_number == None %}
+Brak
+{% else %}
+{{ submitted_forms.phone_number }}
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Doświadczenie
+</h6>
+{{ submitted_forms.experience }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Próbny artykuł
+</h6>
+{{ submitted_forms.sample_article | safe }}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Status
+</h6>
+{% if submitted_forms.approved %}
+Zatwierdzono
+{% elif submitted_forms.rejected %}
+Odrzucono
+{% else %}
+Oczekuje na decyzję
+{% endif %}
+<h6 class="form-label pt-3 text-start fw-bold">
+    Data przesłania aplikacji
+</h6>
+{{ submitted_forms.date_added }}
+<div class="mb-4"></div>

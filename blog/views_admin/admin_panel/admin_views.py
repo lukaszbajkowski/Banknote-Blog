@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .decorators import superuser_required
+from blog.decorators import superuser_required
 
 
 # Widok panelu administracyjnego (dla superusera)
