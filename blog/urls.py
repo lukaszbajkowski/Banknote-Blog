@@ -17,6 +17,7 @@ from .views_admin.newsletter.meetups_news.meetups_news_views import *
 from .views_admin.newsletter.newsletter.newsletter_views import *
 from .views_admin.newsletter.replay_news.replay_news_views import *
 from .views_admin.newsletter.skipped_posts.skipped_posts_views import *
+from .views_admin.socialmedia_accounts.email_address.email_address_views import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
@@ -160,7 +161,7 @@ urlpatterns = [
                   path('replay_news/detail/<int:pk>', replay_news_detail_admin_panel_view,
                        name='replay_news_detail_admin_panel'),
                   path('replay_news/edit/<int:pk>', replay_news_edit_admin_panel_view,
-                       name='repaly_news_edit_admin_panel'),
+                       name='replay_news_edit_admin_panel'),
                   path('replay_news/delete/<int:pk>', replay_news_delete_admin_panel_view,
                        name='replay_news_delete_admin_panel'),
                   path('replay_news/user/AdminPanel', replay_news_user_manage_admin_panel_view,
