@@ -12,7 +12,7 @@
 <h6 class="form-label pt-3 text-start fw-bold">
     Zgoda na e-maile z pominiętymi postami
 </h6>
-{% if user.user.miss_news %}
+{% if users.miss_news %}
     Tak
 {% else %}
     Nie
@@ -23,6 +23,6 @@
 {% if posts %}
     {% include 'AdminTemplates/Newsletter/SkippedPosts/Elements/Table/SkippedPostsPost.html' %}
 {% else %}
-    Brak pominiętych artykółów
+    Brak pominiętych artykułów
 {% endif %}
 <div class="mb-4"></div>

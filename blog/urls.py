@@ -16,6 +16,7 @@ from .views_admin.newsletter.development_news.development_news_views import *
 from .views_admin.newsletter.meetups_news.meetups_news_views import *
 from .views_admin.newsletter.newsletter.newsletter_views import *
 from .views_admin.newsletter.replay_news.replay_news_views import *
+from .views_admin.newsletter.skipped_posts.skipped_posts_views import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
@@ -187,13 +188,13 @@ urlpatterns = [
                        name='development_news_user_edit_admin_panel'),
 
                   # Widoki związane z pominiętymi artykułami
-                  path('send_emails/', views.send_emails_view, name='send_emails'),
-                  path('skipped_posts/AdminPanel/', views.skipped_posts_admin_panel, name='skipped_posts_admin_panel'),
-                  path('skipped_posts/detail/<int:pk>', views.skipped_posts_detail_admin_panel,
+                  path('send_emails/', send_emails_view, name='send_emails'),
+                  path('skipped_posts/AdminPanel/', skipped_posts_admin_panel, name='skipped_posts_admin_panel'),
+                  path('skipped_posts/detail/<int:pk>', skipped_posts_detail_admin_panel,
                        name='skipped_posts_detail_admin_panel'),
-                  path('skipped_posts/user/AdminPanel/', views.skipped_posts_user_admin_panel,
+                  path('skipped_posts/user/AdminPanel/', skipped_posts_user_admin_panel,
                        name='skipped_posts_user_admin_panel'),
-                  path('skipped_posts/user/edit/<int:pk>', views.skipped_posts_user_edit_admin_panel,
+                  path('skipped_posts/user/edit/<int:pk>', skipped_posts_user_edit_admin_panel,
                        name='skipped_posts_user_edit_admin_panel'),
 
                   # Widoki związane z użytkownikiem
