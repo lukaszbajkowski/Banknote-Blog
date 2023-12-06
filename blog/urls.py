@@ -10,6 +10,7 @@ from .views_admin.accounts.user.user_views import *
 from .views_admin.content.category.category_views import *
 from .views_admin.content.comment.comment_views import *
 from .views_admin.content.post.post_views import *
+from .views_admin.newsletter.auction_opportunities.auction_opportunities import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
