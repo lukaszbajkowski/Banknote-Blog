@@ -14,6 +14,7 @@ from .views_admin.newsletter.auction_opportunities.auction_opportunities_views i
 from .views_admin.newsletter.company_news.company_news_views import *
 from .views_admin.newsletter.development_news.development_news_views import *
 from .views_admin.newsletter.meetups_news.meetups_news_views import *
+from .views_admin.newsletter.newsletter.newsletter_views import newsletter_creation_view
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
