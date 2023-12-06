@@ -18,6 +18,7 @@ from .views_admin.newsletter.newsletter.newsletter_views import *
 from .views_admin.newsletter.replay_news.replay_news_views import *
 from .views_admin.newsletter.skipped_posts.skipped_posts_views import *
 from .views_admin.socialmedia_accounts.email_address.email_address_views import *
+from .views_admin.socialmedia_accounts.social_account.social_account_views import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
