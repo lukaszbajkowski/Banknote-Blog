@@ -10,7 +10,8 @@ from .views_admin.accounts.user.user_views import *
 from .views_admin.content.category.category_views import *
 from .views_admin.content.comment.comment_views import *
 from .views_admin.content.post.post_views import *
-from .views_admin.newsletter.auction_opportunities.auction_opportunities import *
+from .views_admin.newsletter.auction_opportunities.auction_opportunities_views import *
+from .views_admin.newsletter.company_news.company_news_views import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),

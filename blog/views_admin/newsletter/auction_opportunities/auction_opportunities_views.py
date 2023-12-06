@@ -126,7 +126,7 @@ def auction_opportunities_user_edit_admin_panel_view(request, pk):
         DjangoUser,
         UserAuctionOpportunitiesForm,
         'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesUserEditAdmin.html',
-        'Ustawienia e-maila o okazjach z rynku aukcyjnego zostały zaaktualizowane.',
+        'Ustawienia e-maila o okazjach z rynku aukcyjnego zostały zaktualizowane.',
         'auction_opportunities_user_manage_admin_panel',
         extra_context
     )
