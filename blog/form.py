@@ -374,7 +374,7 @@ class PostDeleteForm(DeleteEmailForm):
         model = Blog
 
 
-# Formularz do tworzenia komentarza z panelu adminstracyjnego
+# Formularz do tworzenia komentarza z panelu administracyjnego
 class CommentCreateForm(forms.ModelForm):
     content = forms.CharField(
         label='Treść',

@@ -2,7 +2,6 @@ from django.conf.urls.static import static
 from django.urls import include
 from django.urls import path
 
-from . import views
 from .views import *
 from .views_admin.accounts.author.author_views import *
 from .views_admin.accounts.author_application.author_application_views import *
@@ -21,6 +20,13 @@ from .views_admin.socialmedia_accounts.email_address.email_address_views import 
 from .views_admin.socialmedia_accounts.social_account.social_account_views import *
 from .views_admin.socialmedia_accounts.social_app.social_app_views import *
 from .views_admin.socialmedia_accounts.social_token.social_token_views import *
+from .views_user.article.article_views import *
+from .views_user.author.author_views import *
+from .views_user.category.category_views import *
+from .views_user.contact.contact_views import *
+from .views_user.home.hove_views import *
+from .views_user.information.information_views import *
+from .views_user.newsletter.newsletter_views import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
@@ -28,13 +34,11 @@ urlpatterns = [
                   path('', home_view, name='home'),  # Strona główna
                   path('article/<int:pk>', article_detail_view, name="article-detail"),  # Szczegóły artykułu
                   path('article/all/', article_list_view, name="article-all"),  # Lista wszystkich artykułów
-                  path('author/<int:pk>', views.profile_view, name="author-detail"),  # Szczegóły autora
+                  path('author/<int:pk>', profile_view, name="author-detail"),  # Szczegóły autora
                   path('category/<str:pk>/', category_view, name='category-detail'),  # Widok kategorii
                   path('category/', category_list_view, name='category-all'),  # Lista wszystkich kategorii
                   path('author/all/', profile_list_view, name='author-all'),  # Lista wszystkich autorów
-
                   path('contact/', contact_view, name='contact'),  # Widok kontaktu
-
                   path('terms_and_conditions/', terms_conditions_view, name='terms_and_conditions'),  # Regulamin
                   path('privacy_policy/', privacy_policy_view, name='privacy_policy'),  # Polityka prywatności
                   path('about/', about_page_view, name='about_page'),  # Strona informacyjna "O nas"

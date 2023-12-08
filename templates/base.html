@@ -394,7 +394,7 @@
 
     const commentContent = document.getElementById('comment-content');
     const characterCounter = document.getElementById('character-counter');
-    const maxCharacters = 255;
+    const maxCharacters = 256;
 
     commentContent.addEventListener('input', function () {
         const remainingCharacters = maxCharacters - commentContent.value.length;
@@ -407,7 +407,7 @@
             characterCounter.textContent = `Pozostało ${remainingCharacters} znaków`;
         }
 
-        if (remainingCharacters < 0) {
+        if (remainingCharacters <= 0) {
             commentContent.classList.add('is-invalid');
             characterCounter.classList.add('text-danger');
         } else {
