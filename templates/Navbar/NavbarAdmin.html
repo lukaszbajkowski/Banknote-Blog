@@ -1,24 +1,118 @@
 {% load static %}
-    <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
-        <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
-            <a class="navbar-brand py-2 me-5" href="/">
-                <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 72px">
-            </a>
-            <div class="d-flex justify-content-between">
-                <button class="navbar-toggler border border-0 ps-0 pe-0" onclick="toggle()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
-                    <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
-                </button>
-                <li class="d-block d-xl-none" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                <div class="dropdown d-block d-xl-none">
-                    <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
-                        <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
+<nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
+    <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
+        <a class="navbar-brand py-2 me-5" href="/">
+            <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}"
+                 alt="Logo" style="max-height: 72px">
+        </a>
+        <div class="d-flex justify-content-between">
+            <button class="navbar-toggler border border-0 ps-0 pe-0" onclick="toggle()" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+                    aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
+                <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
+            </button>
+            <li class="d-block d-xl-none"
+                STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
+            <div class="dropdown d-block d-xl-none">
+                <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                   aria-expanded="false" style="line-height: 32px">
+                    <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt=""
+                         style="height: 48px; width: 48px">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px">
+                    <li>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
+                                    <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt=""
+                                         style="max-height: 64px; max-width: 64px">
+                                </div>
+                                <div class="col-8 ps-0 pe-3">
+                                    <div class="row ps-0" style="padding-right: 12px">
+                                        <div class="col ps-0 pe-0 ms-1">
+                                            <h6 class="my-1" style="color: navy">
+                                                {% if user.first_name and user.last_name %}
+                                                    {{ user.first_name }} {{ user.last_name }}
+                                                {% elif user.first_name %}
+                                                    {{ user.first_name }}
+                                                {% elif user.last_name %}
+                                                    {{ user.last_name }}
+                                                {% else %}
+                                                    {{ user.username }}
+                                                {% endif %}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row ps-0" style="padding-right: 12px">
+                                        <div class="col ps-0 pe-0 ms-1 lh-1">
+                                            <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
+                                                {% if user.email %}
+                                                    {{ user.email }}
+                                                {% endif %}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider mx-2 my-3">
+                    </li>
+                    <li class="mx-3">
+                        <div class="d-grid gap-0">
+                            <button class="btn btn-list" href="#" style="text-align: left; ">
+                                <i class="fa-solid fa-bookmark me-2"></i>
+                                Moje posty
+                            </button>
+                            <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'"
+                                    style="text-align: left; ">
+                                <i class="fa-solid fa-gear me-2"></i>
+                                Moje konto
+                            </button>
+                            <button class="btn btn-list" onclick="location.href='{% url 'comments' %}'"
+                                    style="text-align: left; ">
+                                <i class="fa-solid fa-comments me-2"></i>
+                                Moje komentarze
+                            </button>
+                            <button class="btn btn-list" onclick="location.href='{% url 'about_page' %}'"
+                                    style="text-align: left; ">
+                                <i class="fa-regular fa-circle-question me-2"></i>
+                                Informacje
+                            </button>
+                            <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"
+                                    style="text-align: left; ">
+                                <i class="fa-solid fa-power-off me-2"></i>
+                                Wyloguj się
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link btn-nav px-4" href="/">
+                    <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
+                </a>
+                <a class="nav-link btn-nav px-4" href="/admin">
+                    <h5 class="text-center text-md-start fw-light my-1">Panel administracyjny</h5>
+                </a>
+                <li class="d-none d-xl-block"
+                    STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
+                <div class="dropdown d-none d-xl-block">
+                    <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                       aria-expanded="false" style="line-height: 32px">
+                        <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt=""
+                             style="height: 48px; width: 48px">
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px">
+                    <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px;">
                         <li>
                             <div class="container">
                                 <div class="row">
                                     <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
-                                        <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
+                                        <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt=""
+                                             style="max-height: 64px; max-width: 64px">
                                     </div>
                                     <div class="col-8 ps-0 pe-3">
                                         <div class="row ps-0" style="padding-right: 12px">
@@ -49,27 +143,33 @@
                                 </div>
                             </div>
                         </li>
-                        <li><hr class="dropdown-divider mx-2 my-3"></li>
+                        <li>
+                            <hr class="dropdown-divider mx-2 my-3">
+                        </li>
                         <li class="mx-3">
                             <div class="d-grid gap-0">
                                 <button class="btn btn-list" href="#" style="text-align: left; ">
                                     <i class="fa-solid fa-bookmark me-2"></i>
                                     Moje posty
                                 </button>
-                                <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
+                                <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'"
+                                        style="text-align: left; ">
                                     <i class="fa-solid fa-gear me-2"></i>
                                     Moje konto
                                 </button>
-                                <button class="btn btn-list" onclick="location.href='{% url 'comments' %}'" style="text-align: left; ">
+                                <button class="btn btn-list" onclick="location.href='{% url 'comments' %}'"
+                                        style="text-align: left; ">
                                     <i class="fa-solid fa-comments me-2"></i>
                                     Moje komentarze
                                 </button>
-                                <button class="btn btn-list" href="#" style="text-align: left; ">
-                                     <i class="fa-regular fa-circle-question me-2"></i>
+                                <button class="btn btn-list" onclick="location.href='{% url 'about_page' %}'"
+                                        style="text-align: left; ">
+                                    <i class="fa-regular fa-circle-question me-2"></i>
                                     Informacje
                                 </button>
-                                <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
-                                        <i class="fa-solid fa-power-off me-2"></i>
+                                <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"
+                                        style="text-align: left; ">
+                                    <i class="fa-solid fa-power-off me-2"></i>
                                     Wyloguj się
                                 </button>
                             </div>
@@ -77,83 +177,6 @@
                     </ul>
                 </div>
             </div>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link btn-nav px-4" href="/">
-                        <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
-                    </a>
-                    <a class="nav-link btn-nav px-4" href="/admin">
-                        <h5 class="text-center text-md-start fw-light my-1">Panel administracyjny</h5>
-                    </a>
-                    <li class="d-none d-xl-block" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                    <div class="dropdown d-none d-xl-block">
-                        <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
-                            <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px;">
-                            <li>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
-                                            <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
-                                        </div>
-                                        <div class="col-8 ps-0 pe-3">
-                                            <div class="row ps-0" style="padding-right: 12px">
-                                                <div class="col ps-0 pe-0 ms-1">
-                                                    <h6 class="my-1" style="color: navy">
-                                                        {% if user.first_name and user.last_name %}
-                                                            {{ user.first_name }} {{ user.last_name }}
-                                                        {% elif user.first_name %}
-                                                            {{ user.first_name }}
-                                                        {% elif user.last_name %}
-                                                            {{ user.last_name }}
-                                                        {% else %}
-                                                            {{ user.username }}
-                                                        {% endif %}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                            <div class="row ps-0" style="padding-right: 12px">
-                                                <div class="col ps-0 pe-0 ms-1 lh-1">
-                                                    <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
-                                                        {% if user.email %}
-                                                            {{ user.email }}
-                                                        {% endif %}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><hr class="dropdown-divider mx-2 my-3"></li>
-                            <li class="mx-3">
-                                <div class="d-grid gap-0">
-                                    <button class="btn btn-list" href="#" style="text-align: left; ">
-                                        <i class="fa-solid fa-bookmark me-2"></i>
-                                        Moje posty
-                                    </button>
-                                    <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
-                                        <i class="fa-solid fa-gear me-2"></i>
-                                        Moje konto
-                                    </button>
-                                    <button class="btn btn-list" onclick="location.href='{% url 'comments' %}'" style="text-align: left; ">
-                                        <i class="fa-solid fa-comments me-2"></i>
-                                        Moje komentarze
-                                    </button>
-                                    <button class="btn btn-list" href="#" style="text-align: left; ">
-                                         <i class="fa-regular fa-circle-question me-2"></i>
-                                        Informacje
-                                    </button>
-                                    <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}'"  style="text-align: left; ">
-                                            <i class="fa-solid fa-power-off me-2"></i>
-                                        Wyloguj się
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
-    </nav>
+    </div>
+</nav>

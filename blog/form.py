@@ -505,7 +505,7 @@ class EmailAddressDeleteForm(DeleteEmailForm):
         model = EmailAddress
 
 
-# Formularz do zarządzania wiadomościami o spotkaniah i wydarzeniach dla użytkowników
+# Formularz do zarządzania wiadomościami o spotkaniach i wydarzeniach dla użytkowników
 class UserMeetups_newsForm(forms.ModelForm):
     meetups_news = forms.BooleanField(
         label='Spotkania i wydarzenia',

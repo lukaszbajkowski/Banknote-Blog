@@ -14,7 +14,8 @@
                         <div class="p-5 card-body">
                             <div class="mb-4">
                                 <a href="/">
-                                    <img src="{% static 'images/logo-no-background.png' %}" alt="" class="mb-4" style="max-height: 72px;">
+                                    <img src="{% static 'images/logo-no-background.png' %}" alt="" class="mb-4"
+                                         style="max-height: 72px;">
                                 </a>
                                 <h2 class="mb-2 fw-bold">Dziękujemy!</h2>
                                 <h6 class="message mb-0 fw-light">
@@ -37,7 +38,7 @@
     </div>
 
     <script>
-        setTimeout(function() {
+        setTimeout(function () {
             window.location.href = "{% url 'home' %}";
         }, 10000);
     </script>

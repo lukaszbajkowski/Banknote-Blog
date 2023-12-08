@@ -26,18 +26,18 @@ urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
 
                   path('', home_view, name='home'),  # Strona główna
-                  path('article/<int:pk>', ArticleDetailView, name="article-detail"),  # Szczegóły artykułu
-                  path('article/all/', ArticleListView, name="article-all"),  # Lista wszystkich artykułów
+                  path('article/<int:pk>', article_detail_view, name="article-detail"),  # Szczegóły artykułu
+                  path('article/all/', article_list_view, name="article-all"),  # Lista wszystkich artykułów
                   path('author/<int:pk>', views.profile_view, name="author-detail"),  # Szczegóły autora
-                  path('category/<str:pk>/', CategoryView, name='category-detail'),  # Widok kategorii
-                  path('category/', CategoryListView, name='category-all'),  # Lista wszystkich kategorii
-                  path('author/all/', ProfileListView, name='author-all'),  # Lista wszystkich autorów
+                  path('category/<str:pk>/', category_view, name='category-detail'),  # Widok kategorii
+                  path('category/', category_list_view, name='category-all'),  # Lista wszystkich kategorii
+                  path('author/all/', profile_list_view, name='author-all'),  # Lista wszystkich autorów
 
-                  path('contact/', ContactView, name='contact'),  # Widok kontaktu
+                  path('contact/', contact_view, name='contact'),  # Widok kontaktu
 
-                  path('terms_and_conditions/', TermsConditionsView, name='terms_and_conditions'),  # Regulamin
-                  path('privacy_policy/', PrivacyPolicyView, name='privacy_policy'),  # Polityka prywatności
-                  path('about/', AboutPageView, name='about_page'),  # Strona informacyjna "O nas"
+                  path('terms_and_conditions/', terms_conditions_view, name='terms_and_conditions'),  # Regulamin
+                  path('privacy_policy/', privacy_policy_view, name='privacy_policy'),  # Polityka prywatności
+                  path('about/', about_page_view, name='about_page'),  # Strona informacyjna "O nas"
 
                   # Widoki związane z obsługą newslettera
                   path('newsletter/sign_up/', newsletter_signup_view, name='newsletter_signup'),
