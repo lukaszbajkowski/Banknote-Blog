@@ -1,0 +1,8 @@
+<a class="ms-4 nav-user" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+   aria-expanded="false">
+    {% if user.author %}
+        <img class="card-photo rounded nav-user-img" src="{{ user.author.profile_pic.url }}" alt="">
+    {% else %}
+        <img class="card-photo rounded nav-user-img" src="{{ user.user.profile_pic.url }}" alt="">
+    {% endif %}
+</a>

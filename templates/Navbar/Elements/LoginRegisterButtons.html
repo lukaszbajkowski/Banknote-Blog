@@ -1,0 +1,13 @@
+<li class="d-none d-sm-none d-md-block d-lg-block d-xl-none nav-separation"></li>
+<div class="d-none d-sm-none d-md-block d-lg-block d-xl-none">
+    <a class="btn btn-log ms-3 px-4" href="{% url 'login' %}?next={{ request.path }}">
+        <h5 class="fw-light my-1">
+            Zaloguj się
+        </h5>
+    </a>
+    <a class="btn btn-register ms-3 px-4" href="{% url 'register' %}">
+        <h5 class="fw-light my-1">
+            Dołącz teraz
+        </h5>
+    </a>
+</div>

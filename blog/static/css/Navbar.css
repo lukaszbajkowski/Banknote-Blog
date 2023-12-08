@@ -1,0 +1,81 @@
+.nav-logo {
+    max-height: 72px
+}
+
+.btn-bars {
+    margin-right: 24px;
+}
+
+.nav-separation {
+    height: 2rem;
+    border-left: .1rem solid rgba(0, 34, 28, .1);
+    margin: .5rem;
+}
+
+.nav-user {
+    line-height: 32px;
+}
+
+.nav-user-img {
+    height: 48px;
+    width: 48px;
+}
+
+.dropdown-size {
+    min-width: 300px;
+}
+
+.dropdown-user {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-user-img {
+    max-height: 64px;
+    max-width: 64px;
+}
+
+.dropdown-username {
+    padding-right: 12px;
+}
+
+.dropdown-email {
+    color: rgba(0, 0, 128, 0.5);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.dropdown-article {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.dropdown-menu-right {
+    right: 0;
+}
+
+.dropdown-first-element {
+    margin-top: 12px;
+}
+
+.dropdown-other-element {
+    margin-top: 6px;
+}
+
+.dropdown-all-element {
+    margin-top: 6px;
+    position: absolute;
+    bottom: 40px;
+}
+
+.article-img-size {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.article-name {
+    color: rgba(0,0,0,0.5);
+}

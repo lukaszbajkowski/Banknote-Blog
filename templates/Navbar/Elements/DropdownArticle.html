@@ -1,0 +1,32 @@
+<h5 class="title fw-bold text-navy">
+    Artykuły
+</h5>
+<ul class="list-unstyled">
+    {% for post in blog|slice:":2" %}
+        <li>
+            <a href="{% url 'article-detail' post.pk %}" class="sub-item">
+                <div class="container">
+                    <div class="row pb-2">
+                        <div class="col-4 ps-0 article-img-size">
+                            <img class="card-photo text-left article-img-size" src="{{ post.background.url }}"
+                                 alt="...">
+                        </div>
+                        <div class="col-8 p-0">
+                            <div>
+                                {{ post.title|truncatechars:35 }}
+                            </div>
+                            <div class="article-name">
+                                {{ post.date_posted | date:"j E Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+    {% endfor %}
+    <li class="dropdown-other-element">
+        <a class="fw-bold border-bottom show-all" href="{% url 'article-all' %}">
+            Pokaż wszystkie
+        </a>
+    </li>
+</ul>

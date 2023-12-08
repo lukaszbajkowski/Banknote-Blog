@@ -1,0 +1,29 @@
+<div class="d-grid gap-0">
+    {% if user.is_superuser %}
+        <button class="btn btn-list text-start"
+                onclick="location.href='{% url 'admin' %}'">
+            <i class="fa-solid fa-screwdriver-wrench me-2"></i>
+            Panel administracyjny
+        </button>
+    {% endif %}
+    <button class="btn btn-list text-start"
+            onclick="location.href='{% url 'edit_profile' %}'">
+        <i class="fa-solid fa-gear me-2"></i>
+        Moje konto
+    </button>
+    <button class="btn btn-list text-start"
+            onclick="location.href='{% url 'comments' %}'">
+        <i class="fa-solid fa-comments me-2"></i>
+        Moje komentarze
+    </button>
+    <button class="btn btn-list text-start"
+            onclick="location.href='{% url 'about_page' %}'">
+        <i class="fa-regular fa-circle-question me-2"></i>
+        Informacje
+    </button>
+    <button class="btn btn-logout text-start"
+            onclick="location.href='{% url 'logout' %}?next={{ request.path }}'">
+        <i class="fa-solid fa-power-off me-2"></i>
+        Wyloguj się
+    </button>
+</div>
