@@ -58,7 +58,7 @@ def register_page(request):
 
             current_site = get_current_site(request)
             mail_subject = 'Potwierdź swój adres e-mail'
-            message = render_to_string('registration/confirmation_email.html', {
+            message = render_to_string('Registration/confirmation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -78,8 +78,14 @@ def register_page(request):
 
             return redirect('confirmation')  # Przekierowanie na stronę potwierdzenia rejestracji
 
-    context = {'form': form}
-    return render(request, 'registration/registration.html', context)
+    context = {
+        'form': form
+    }
+    return render(
+        request,
+        'Registration/Registration.html',
+        context
+    )
 
 
 # Widoki potwierdzenia e-maila po rejestracji
@@ -100,17 +106,26 @@ def confirm_email(request, uidb64, token):
 
 # Widok potwierdzenia rejestracji
 def registration_confirmed(request):
-    return render(request, 'registration/confirmed.html')
+    return render(
+        request,
+        'Registration/confirmed.html'
+    )
 
 
 # Widok błędu potwierdzenia e-maila po rejestracji
 def confirmation_error(request):
-    return render(request, 'registration/confirmation_error.html')
+    return render(
+        request,
+        'Registration/confirmation_error.html'
+    )
 
 
 # Widok strony z informacją o potwierdzeniu rejestracji
 def confirmation_page(request):
-    return render(request, 'registration/confirmation.html')
+    return render(
+        request,
+        'Registration/confirmation.html'
+    )
 
 
 # Widok logowania użytkownika
@@ -130,7 +145,10 @@ def login_page(request):
                 except User.DoesNotExist:
                     return redirect('edit_profile')
             else:
-                messages.error(request, 'Nieprawidłowa nazwa użytkownika lub hasło.')
+                messages.error(
+                    request,
+                    'Nieprawidłowa nazwa użytkownika lub hasło.'
+                )
     else:
         form = LoginForm()
 
@@ -138,7 +156,11 @@ def login_page(request):
         'form': form,
     }
 
-    return render(request, 'registration/login.html', context)
+    return render(
+        request,
+        'Registration/Login.html',
+        context
+    )
 
 
 # Widok wylogowania użytkownika
@@ -500,57 +522,6 @@ def article_author_form(request):
         'blog': blog,
     }
     return render(request, 'my_account/author_application/author_application.html', context)
-
-
-# Widok panelu administracyjnego do decydowania o aplikacjach na autora
-@user_passes_test(
-    lambda u: u.is_authenticated and u.is_superuser,
-    login_url='home'
-)
-def decision_maker_admin_panel(request):
-    if request.method == 'POST':
-        form_id = request.POST.get('form_id')
-        decision = request.POST.get('decision')
-        if form_id and decision:
-            form = ArticleAuthor.objects.get(id=form_id)
-            if not form.approved and not form.rejected:
-                if decision == 'approve':
-                    form.approved = True
-                    form.rejected = False
-
-                    # Update User's can_be_author field based on email
-                    users = User.objects.all()
-                    for user in users:
-                        if user.user.email == form.email:
-                            user.can_be_author = True
-                            user.save()
-                elif decision == 'reject':
-                    form.approved = False
-                    form.rejected = True
-                form.save()
-            return redirect('decision_maker_admin_panel')
-    else:
-        submitted_forms = ArticleAuthor.objects.all().order_by('-date_added')
-        paginator = Paginator(submitted_forms, 10)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context = {
-            'page_obj': page_obj,
-        }
-        return render(request, 'author_application/decision_maker_admin_panel.html', context)
-
-
-# Widok panelu administracyjnego ze szczegółami do decydowania o aplikacjach na autora
-@user_passes_test(
-    lambda u: u.is_authenticated and u.is_superuser,
-    login_url='home'
-)
-def decision_maker_detail_admin_panel_view(request, pk):
-    submitted_forms = get_object_or_404(ArticleAuthor, pk=pk)
-    context = {
-        'submitted_forms': submitted_forms,
-    }
-    return render(request, 'author_application/decision_maker_detail_admin_panel.html', context)
 
 
 # Widok historii zgłoszeń na autora

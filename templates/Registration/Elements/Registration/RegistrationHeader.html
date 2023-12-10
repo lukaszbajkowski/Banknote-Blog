@@ -1,0 +1,15 @@
+{% load static %}
+<div class="mb-4">
+    <a href="/">
+        <img src="{% static 'images/logo-no-background.png' %}" alt="" class="mb-4 nav-logo">
+    </a>
+    <h2 class="mb-1 fw-bold">
+        Zarejestruj się
+    </h2>
+    <span class="message text-end mb-0 fw-light">
+        Masz już konto?
+        <a href="{% url 'login' %}" class="already_link ms-1">
+            Zaloguj się
+        </a>
+    </span>
+</div>
