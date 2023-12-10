@@ -30,6 +30,8 @@
     <link href="{% static 'css/Home.css' %}" rel="stylesheet">
     <link href="{% static 'css/Footers.css' %}" rel="stylesheet">
     <link href="{% static 'css/Admin.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Navbar.css' %}" rel="stylesheet">
+
 
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v17.0"
@@ -392,7 +394,7 @@
 
     const commentContent = document.getElementById('comment-content');
     const characterCounter = document.getElementById('character-counter');
-    const maxCharacters = 255;
+    const maxCharacters = 256;
 
     commentContent.addEventListener('input', function () {
         const remainingCharacters = maxCharacters - commentContent.value.length;
@@ -405,7 +407,7 @@
             characterCounter.textContent = `Pozostało ${remainingCharacters} znaków`;
         }
 
-        if (remainingCharacters < 0) {
+        if (remainingCharacters <= 0) {
             commentContent.classList.add('is-invalid');
             characterCounter.classList.add('text-danger');
         } else {

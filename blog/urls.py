@@ -2,7 +2,6 @@ from django.conf.urls.static import static
 from django.urls import include
 from django.urls import path
 
-from . import views
 from .views import *
 from .views_admin.accounts.author.author_views import *
 from .views_admin.accounts.author_application.author_application_views import *
@@ -15,23 +14,34 @@ from .views_admin.newsletter.company_news.company_news_views import *
 from .views_admin.newsletter.development_news.development_news_views import *
 from .views_admin.newsletter.meetups_news.meetups_news_views import *
 from .views_admin.newsletter.newsletter.newsletter_views import *
+from .views_admin.newsletter.replay_news.replay_news_views import *
+from .views_admin.newsletter.skipped_posts.skipped_posts_views import *
+from .views_admin.socialmedia_accounts.email_address.email_address_views import *
+from .views_admin.socialmedia_accounts.social_account.social_account_views import *
+from .views_admin.socialmedia_accounts.social_app.social_app_views import *
+from .views_admin.socialmedia_accounts.social_token.social_token_views import *
+from .views_user.article.article_views import *
+from .views_user.author.author_views import *
+from .views_user.category.category_views import *
+from .views_user.contact.contact_views import *
+from .views_user.home.hove_views import *
+from .views_user.information.information_views import *
+from .views_user.newsletter.newsletter_views import *
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
 
                   path('', home_view, name='home'),  # Strona główna
-                  path('article/<int:pk>', ArticleDetailView, name="article-detail"),  # Szczegóły artykułu
-                  path('article/all/', ArticleListView, name="article-all"),  # Lista wszystkich artykułów
-                  path('author/<int:pk>', views.profile_view, name="author-detail"),  # Szczegóły autora
-                  path('category/<str:pk>/', CategoryView, name='category-detail'),  # Widok kategorii
-                  path('category/', CategoryListView, name='category-all'),  # Lista wszystkich kategorii
-                  path('author/all/', ProfileListView, name='author-all'),  # Lista wszystkich autorów
-
-                  path('contact/', ContactView, name='contact'),  # Widok kontaktu
-
-                  path('terms_and_conditions/', TermsConditionsView, name='terms_and_conditions'),  # Regulamin
-                  path('privacy_policy/', PrivacyPolicyView, name='privacy_policy'),  # Polityka prywatności
-                  path('about/', AboutPageView, name='about_page'),  # Strona informacyjna "O nas"
+                  path('article/<int:pk>', article_detail_view, name="article-detail"),  # Szczegóły artykułu
+                  path('article/all/', article_list_view, name="article-all"),  # Lista wszystkich artykułów
+                  path('author/<int:pk>', profile_view, name="author-detail"),  # Szczegóły autora
+                  path('category/<str:pk>/', category_view, name='category-detail'),  # Widok kategorii
+                  path('category/', category_list_view, name='category-all'),  # Lista wszystkich kategorii
+                  path('author/all/', profile_list_view, name='author-all'),  # Lista wszystkich autorów
+                  path('contact/', contact_view, name='contact'),  # Widok kontaktu
+                  path('terms_and_conditions/', terms_conditions_view, name='terms_and_conditions'),  # Regulamin
+                  path('privacy_policy/', privacy_policy_view, name='privacy_policy'),  # Polityka prywatności
+                  path('about/', about_page_view, name='about_page'),  # Strona informacyjna "O nas"
 
                   # Widoki związane z obsługą newslettera
                   path('newsletter/sign_up/', newsletter_signup_view, name='newsletter_signup'),
@@ -158,7 +168,7 @@ urlpatterns = [
                   path('replay_news/detail/<int:pk>', replay_news_detail_admin_panel_view,
                        name='replay_news_detail_admin_panel'),
                   path('replay_news/edit/<int:pk>', replay_news_edit_admin_panel_view,
-                       name='repaly_news_edit_admin_panel'),
+                       name='replay_news_edit_admin_panel'),
                   path('replay_news/delete/<int:pk>', replay_news_delete_admin_panel_view,
                        name='replay_news_delete_admin_panel'),
                   path('replay_news/user/AdminPanel', replay_news_user_manage_admin_panel_view,
@@ -186,13 +196,13 @@ urlpatterns = [
                        name='development_news_user_edit_admin_panel'),
 
                   # Widoki związane z pominiętymi artykułami
-                  path('send_emails/', views.send_emails_view, name='send_emails'),
-                  path('skipped_posts/AdminPanel/', views.skipped_posts_admin_panel, name='skipped_posts_admin_panel'),
-                  path('skipped_posts/detail/<int:pk>', views.skipped_posts_detail_admin_panel,
+                  path('send_emails/', send_emails_view, name='send_emails'),
+                  path('skipped_posts/AdminPanel/', skipped_posts_admin_panel, name='skipped_posts_admin_panel'),
+                  path('skipped_posts/detail/<int:pk>', skipped_posts_detail_admin_panel,
                        name='skipped_posts_detail_admin_panel'),
-                  path('skipped_posts/user/AdminPanel/', views.skipped_posts_user_admin_panel,
+                  path('skipped_posts/user/AdminPanel/', skipped_posts_user_admin_panel,
                        name='skipped_posts_user_admin_panel'),
-                  path('skipped_posts/user/edit/<int:pk>', views.skipped_posts_user_edit_admin_panel,
+                  path('skipped_posts/user/edit/<int:pk>', skipped_posts_user_edit_admin_panel,
                        name='skipped_posts_user_edit_admin_panel'),
 
                   # Widoki związane z użytkownikiem

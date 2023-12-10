@@ -7,7 +7,7 @@
 {% load static %}
 
 {% block navbar %}
-    {% include 'Navbar.html' %}
+    {% include 'Navbar/Navbar.html' %}
 {% endblock %}
 
 {% block content %}
@@ -15,10 +15,12 @@
     <div class="bg-body-tertiary pt-4 px-5">
         <div class="container px-0 px-xl-5">
             <div class="container pb-5 pt-3">
-                <h1 class="text-center pt-2 pb-0" style="color: navy">Moje komentarze</h1>
-                <h5 class="text-center fw-normal pt-0 pb-4" style="color: navy">
+                <h1 class="text-center pt-2 pb-0 text-navy">
+                    Moje komentarze
+                </h1>
+                <h5 class="text-center fw-normal pt-0 pb-4 text-navy">
                     {% if user_gender == "M" %}
-                        Opubllikowałeś
+                        Opublikowałeś
                     {% elif user_gender == "K" %}
                         Opublikowałaś
                     {% elif user_gender == "I" %}

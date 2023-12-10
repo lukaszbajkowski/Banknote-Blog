@@ -1,0 +1,19 @@
+<form method="POST" action="">
+    {% csrf_token %}
+    {% include 'Registration/Elements/Registration/Forms/UsernameField.html' %}
+    {% include 'Registration/Elements/Registration/Forms/EmailField.html' %}
+    {% include 'Registration/Elements/Registration/Forms/PasswordField.html' %}
+    {% include 'Registration/Elements/Registration/Forms/PasswordConfirmationField.html' %}
+    <div class="my-3 col-lg-12 col-md-12">
+        <div class="d-md-flex justify-content-between align-items-center">
+            <div class="mb-3 mb-md-0">
+                {% include 'Registration/Elements/Registration/Forms/AcceptanceTermsAndCondition.html' %}
+            </div>
+        </div>
+    </div>
+    <div class="d-grid gap-2 mt-3 mb-2">
+        <button class="btn btn-register" type="submit">
+            Zarejestruj się
+        </button>
+    </div>
+</form>

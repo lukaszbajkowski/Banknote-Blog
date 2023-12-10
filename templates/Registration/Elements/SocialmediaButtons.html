@@ -1,0 +1,19 @@
+{% load socialaccount %}
+<div class="mt-4 text-center">
+    <a class="btn btn-socialmedia btn-google rounded-3"
+       onclick="location.href='{% provider_login_url 'google' %}?next=/'">
+        <i class="fab fa-google"></i>
+    </a>
+    <button class="btn btn-socialmedia btn-twitter rounded-3"
+            href="/authentication/sign-in/">
+        <i class="fab fa-twitter"></i>
+    </button>
+    <button class="btn btn-socialmedia btn-linkedin rounded-3"
+            href="/authentication/sign-in/">
+        <i class="fab fa-linkedin"></i>
+    </button>
+    <button class="btn btn-socialmedia btn-github rounded-3"
+            href="/authentication/sign-in/">
+        <i class="fab fa-github"></i>
+    </button>
+</div>

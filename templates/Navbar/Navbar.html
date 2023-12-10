@@ -1,352 +1,123 @@
 <script>
-    function handleClick() {
+    function handleClick () {
         if (window.innerWidth > 1199) {
             location.href = "{% url 'article-all' %}";
         }
     }
 </script>
 {% load static %}
-    {% if user.is_authenticated %}
-        <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
-            <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
-                <a class="navbar-brand py-2 me-5" href="/">
-                    <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 72px">
-                </a>
-                <div class="d-flex justify-content-between">
-                    <button class="navbar-toggler border border-0 ps-0 pe-0" onclick="toggle()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
-                        <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
-                    </button>
-                    <li class="d-block d-xl-none" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                    <div class="dropdown d-block d-xl-none">
-                        <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
-                            {% if user.author %}
-                                <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
-                            {% else %}
-                                <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
-                            {% endif %}
+{% if user.is_authenticated %}
+    <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
+        <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
+            <a class="navbar-brand py-2 me-5" href="/">
+                <img class="ps-5 img img-fluid mx-auto d-block nav-logo"
+                     src="{% static 'images/logo-no-background.png' %}" alt="Logo">
+            </a>
+            {% include 'Navbar/Elements/DropdownSmallScreen.html' %}
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link btn-nav px-4" href="/">
+                        <h5 class="text-center text-md-start fw-light my-1">
+                            Strona główna
+                        </h5>
+                    </a>
+                    <li class="nav-item px-0 dropdown">
+                        <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle dropdown-article"
+                           onclick="handleClick()" data-bs-toggle="dropdown">
+                            Artykuły
+                            <i class="fa-solid fa-angle-down fa-2xs"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4"
+                             id="dropdown-margin-minus">
+                            <div class="row g-3">
+                                <div class="col-5 mb-3">
+                                    {% include 'Navbar/Elements/DropdownCategory.html' %}
+                                </div>
+                                <div class="col-7">
+                                    {% include 'Navbar/Elements/DropdownArticle.html' %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
+                        <h5 class="text-center text-md-start fw-light my-1">
+                            O autorze
+                        </h5>
+                    </a>
+                    <li class="d-none d-xl-block nav-separation"></li>
+                    <div class="dropdown d-none d-xl-block">
+                        {% include 'Navbar/Elements/DropdownUserSmallScreen.html' %}
+                        <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3 dropdown-size">
                             <li>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
-                                            {% if user.author %}
-                                                <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
-                                            {% else %}
-                                                <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
-                                            {% endif %}
-                                        </div>
-                                        <div class="col-8 ps-0 pe-3">
-                                            <div class="row ps-0" style="padding-right: 12px">
-                                                <div class="col ps-0 pe-0 ms-1">
-                                                    <h6 class="my-1" style="color: navy">
-                                                        {% if user.first_name and user.last_name %}
-                                                            {{ user.first_name }} {{ user.last_name }}
-                                                        {% elif user.first_name %}
-                                                            {{ user.first_name }}
-                                                        {% elif user.last_name %}
-                                                            {{ user.last_name }}
-                                                        {% else %}
-                                                            {{ user.username }}
-                                                        {% endif %}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                            <div class="row ps-0" style="padding-right: 12px">
-                                                <div class="col ps-0 pe-0 ms-1 lh-1">
-                                                    <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
-                                                        {% if user.email %}
-                                                            {{ user.email }}
-                                                        {% endif %}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% include 'Navbar/Elements/DropdownUser.html' %}
                             </li>
-                            <li><hr class="dropdown-divider mx-2 my-3"></li>
+                            <li>
+                                <hr class="dropdown-divider mx-2 my-3">
+                            </li>
                             <li class="mx-3">
-                                <div class="d-grid gap-0">
-                                    {% if user.is_superuser %}
-                                        <button class="btn btn-list" onclick="location.href='{% url 'admin' %}'" style="text-align: left; ">
-                                            <i class="fa-solid fa-screwdriver-wrench me-2"></i>
-                                            Panel administracyjny
-                                        </button>
-                                    {% endif %}
-                                    <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
-                                        <i class="fa-solid fa-gear me-2"></i>
-                                        Moje konto
-                                    </button>
-                                    <button class="btn btn-list" onclick="location.href='{% url 'comments' %}'" style="text-align: left; ">
-                                        <i class="fa-solid fa-comments me-2"></i>
-                                        Moje komentarze
-                                    </button>
-                                    <button class="btn btn-list" onclick="location.href='{% url 'about_page' %}'" style="text-align: left; ">
-                                         <i class="fa-regular fa-circle-question me-2"></i>
-                                        Informacje
-                                    </button>
-                                    <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}?next={{ request.path }}'"  style="text-align: left; ">
-                                            <i class="fa-solid fa-power-off me-2"></i>
-                                        Wyloguj się
-                                    </button>
-                                </div>
+                                {% include 'Navbar/Elements/DropdownButtons.html' %}
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <div class="navbar-nav ms-auto">
-                        <a class="nav-link btn-nav px-4" href="/">
-                            <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
+            </div>
+        </div>
+    </nav>
+{% else %}
+    <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
+        <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
+            <a class="navbar-brand py-2 me-5" href="/">
+                <img class="ps-5 img img-fluid mx-auto d-block nav-logo"
+                     src="{% static 'images/logo-no-background.png' %}"
+                     alt="Logo">
+            </a>
+            <div class="d-flex justify-content-between">
+                {% include 'Navbar/Elements/LoginRegister.html' %}
+            </div>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link btn-nav px-4" href="/">
+                        <h5 class="text-center text-md-start fw-light my-1">
+                            Strona główna
+                        </h5>
+                    </a>
+                    <li class="nav-item px-0 dropdown">
+                        <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle dropdown-article"
+                           onclick="handleClick()" data-bs-toggle="dropdown">
+                            Artykuły
+                            <i class="fa-solid fa-angle-down fa-2xs"></i>
                         </a>
-                        <li class="nav-item px-0 dropdown">
-                            <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle" onclick="handleClick()" data-bs-toggle="dropdown" style="padding-top: 12px; padding-bottom: 12px; font-size: 20px; line-height: 24px; cursor: pointer;">
-                                Artykuły
-                                <i class="fa-solid fa-angle-down fa-2xs"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4" style="right: 0px" id="dropdown-margin-minus">
-                                <div class="row g-3">
-                                    <div class="col-5 mb-3">
-                                        <h5 class="title fw-bold" style="color:navy;">Kategorie</h5>
-                                        <ul class="list-unstyled">
-                                            {% for ca in category|slice:":5"%}
-                                                {% if forloop.first %}
-                                                    <li style="margin-top: 12px">
-                                                        <a href="{% url 'category-detail' ca.id %}" class="sub-item">
-                                                            {{ ca.name }}
-                                                        </a>
-                                                    </li>
-                                                {% else %}
-                                                    <li style="margin-top: 6px">
-                                                        <a href="{% url 'category-detail' ca.id %}" class="sub-item">
-                                                            {{ ca.name }}
-                                                        </a>
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                            <li style="margin-top: 6px; position: absolute; bottom: 40px">
-                                                <a class="fw-bold border-bottom show-all" href="{% url 'category-all' %}">
-                                                    Pokaż wszystkie
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-7">
-                                        <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
-                                        <ul class="list-unstyled">
-                                            {% for post in blog|slice:":2" %}
-                                               <li>
-                                                    <a href="{% url 'article-detail' post.pk %}" class="sub-item" style="text-decoration: none">
-                                                        <div class="container">
-                                                            <div class="row pb-2">
-                                                                <div class="col-4 ps-0" style="max-height: 100px; max-width: 100px">
-                                                                    <img class="card-photo text-left" src="{{ post.background.url }}" alt="..." style="max-height: 100px; max-width: 100px">
-                                                                </div>
-                                                                <div class="col-8 p-0">
-                                                                    <div>{{ post.title|truncatechars:35 }}</div>
-                                                                    <div style="color: rgba(0,0,0,0.5)">{{ post.date_posted | date:"j E Y" }}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            {% endfor %}
-                                            <li style="margin-top: 6px">
-                                                <a class="fw-bold border-bottom show-all" href="{% url 'article-all' %}">
-                                                    Pokaż wszystkie
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4"
+                             id="dropdown-margin-minus">
+                            <div class="row g-3">
+                                <div class="col-5 mb-3">
+                                    {% include 'Navbar/Elements/DropdownCategory.html' %}
+                                </div>
+                                <div class="col-7">
+                                    {% include 'Navbar/Elements/DropdownArticle.html' %}
                                 </div>
                             </div>
-                        </li>
-                        <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
-                            <h5 class="text-center text-md-start fw-light my-1">O autorze</h5>
-                        </a>
-                        <li class="d-none d-xl-block" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                        <div class="dropdown d-none d-xl-block">
-                            <a class="ms-4 " role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 32px">
-                                {% if user.author %}
-                                    <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
-                                {% else %}
-                                    <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="height: 48px; width: 48px">
-                                {% endif %}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border border-0 py-3" style="min-width: 300px;">
-                                <li>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col pe-0 ps-3" style="display: flex; align-items: center;">
-                                                {% if user.author %}
-                                                    <img class="card-photo rounded" src="{{ user.author.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
-                                                {% else %}
-                                                    <img class="card-photo rounded" src="{{ user.user.profile_pic.url }}" alt="" style="max-height: 64px; max-width: 64px">
-                                                {% endif %}
-                                            </div>
-                                            <div class="col-8 ps-0 pe-3">
-                                                <div class="row ps-0" style="padding-right: 12px">
-                                                    <div class="col ps-0 pe-0 ms-1">
-                                                        <h6 class="my-1" style="color: navy">
-                                                            {% if user.first_name and user.last_name %}
-                                                                {{ user.first_name }} {{ user.last_name }}
-                                                            {% elif user.first_name %}
-                                                                {{ user.first_name }}
-                                                            {% elif user.last_name %}
-                                                                {{ user.last_name }}
-                                                            {% else %}
-                                                                {{ user.username }}
-                                                            {% endif %}
-                                                        </h6>
-                                                    </div>
-                                                </div>
-                                                <div class="row ps-0" style="padding-right: 12px">
-                                                    <div class="col ps-0 pe-0 ms-1 lh-1">
-                                                        <small style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
-                                                            {% if user.email %}
-                                                                {{ user.email }}
-                                                            {% endif %}
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li><hr class="dropdown-divider mx-2 my-3"></li>
-                                <li class="mx-3">
-                                    <div class="d-grid gap-0">
-                                        {% if user.is_superuser %}
-                                            <button class="btn btn-list" onclick="location.href='{% url 'admin' %}'" style="text-align: left; ">
-                                                <i class="fa-solid fa-screwdriver-wrench me-2"></i>
-                                                Panel administracyjny
-                                            </button>
-                                        {% endif %}
-                                        <button class="btn btn-list" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
-                                            <i class="fa-solid fa-gear me-2"></i>
-                                            Moje konto
-                                        </button>
-                                        <button class="btn btn-list" onclick="location.href='{% url 'comments' %}'" style="text-align: left; ">
-                                            <i class="fa-solid fa-comments me-2"></i>
-                                            Moje komentarze
-                                        </button>
-                                        <button class="btn btn-list" onclick="location.href='{% url 'about_page' %}'" style="text-align: left; ">
-                                             <i class="fa-regular fa-circle-question me-2"></i>
-                                            Informacje
-                                        </button>
-                                        <button class="btn btn-logout" onclick="location.href='{% url 'logout' %}?next={{ request.path }}'"  style="text-align: left; ">
-                                                <i class="fa-solid fa-power-off me-2"></i>
-                                            Wyloguj się
-                                        </button>
-                                    </div>
-                                </li>
-                            </ul>
                         </div>
-                    </div>
+                    </li>
+                    <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
+                        <h5 class="text-center text-md-start fw-light my-1">
+                            O autorze
+                        </h5>
+                    </a>
+                    <li class="d-none d-xl-block nav-separation"></li>
+                    <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-log px-4 border"
+                       href="{% url 'login' %}?next={{ request.path }}">
+                        <h5 class="fw-light my-1">
+                            Zaloguj się
+                        </h5>
+                    </a>
+                    <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-register px-4"
+                       href="{% url 'register' %}?next={{ request.path }}">
+                        <h5 class="fw-light my-1">
+                            Dołącz teraz
+                        </h5>
+                    </a>
                 </div>
             </div>
-        </nav>
-    {% else %}
-        <nav class="nav navbar nav-sticky navbar-expand-xl bg-body-tertiary">
-            <div class="container-fluid mx-5 px-5 ps-0 pe-0 pe-lg-5">
-                <a class="navbar-brand py-2 me-5" href="/">
-                    <img class="ps-5 img img-fluid mx-auto d-block" src="{% static 'images/logo-no-background.png' %}" alt="Logo" style="max-height: 72px">
-                </a>
-                <div class="d-flex justify-content-between">
-                    <button class="navbar-toggler collapsed border border-0 ps-0 pe-0" onclick="toggle()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 24px">
-                        <i class="fa-solid fa-bars fa-lg btn-nav" id="btn-bars"></i>
-                    </button>
-                    <li class="d-none d-sm-none d-md-block d-lg-block d-xl-none" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                    <div class="d-none d-sm-none d-md-block d-lg-block d-xl-none">
-                        <a class="btn btn-log ms-3 px-4" href="{% url 'login' %}?next={{ request.path }}">
-                            <h5 class="fw-light my-1">Zaloguj się</h5>
-                        </a>
-                        <a class="btn btn-register ms-3 px-4" href="{% url 'register' %}">
-                            <h5 class="fw-light my-1">Dołącz teraz</h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <div class="navbar-nav ms-auto">
-                        <a class="nav-link btn-nav px-4" href="/">
-                            <h5 class="text-center text-md-start fw-light my-1">Strona główna</h5>
-                        </a>
-                        <li class="nav-item px-0 dropdown">
-                            <a class="nav-link btn-nav px-4 text-center text-md-start fw-light dropdown-toggle" onclick="handleClick()" data-bs-toggle="dropdown" style="padding-top: 12px; padding-bottom: 12px; font-size: 20px; line-height: 24px; cursor: pointer;">
-                                Artykuły
-                                <i class="fa-solid fa-angle-down fa-2xs"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-large border border-0 shadow p-4">
-                                <div class="row g-3">
-                                    <div class="col-5 mb-3">
-                                        <h5 class="title fw-bold" style="color:navy;">Kategorie</h5>
-                                        <ul class="list-unstyled">
-                                            {% for ca in category|slice:":5"%}
-                                                {% if forloop.first %}
-                                                    <li style="margin-top: 12px">
-                                                        <a href="{% url 'category-detail' ca.id %}" class="sub-item">
-                                                            {{ ca.name }}
-                                                        </a>
-                                                    </li>
-                                                {% else %}
-                                                    <li style="margin-top: 6px">
-                                                        <a href="{% url 'category-detail' ca.id %}" class="sub-item">
-                                                            {{ ca.name }}
-                                                        </a>
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                            <li style="margin-top: 6px; position: absolute; bottom: 40px">
-                                                <a class="fw-bold border-bottom show-all" href="{% url 'category-all' %}">
-                                                    Pokaż wszystkie
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-7">
-                                        <h5 class="title fw-bold" style="color:navy;">Artykuły</h5>
-                                        <ul class="list-unstyled">
-                                            {% for post in blog %}
-                                                {% if forloop.counter == 1 or forloop.counter == 2 %}
-                                                   <li>
-                                                        <a href="{% url 'article-detail' post.pk %}" class="sub-item" style="text-decoration: none">
-                                                            <div class="container">
-                                                                <div class="row pb-2">
-                                                                    <div class="col-4 ps-0" style="max-height: 100px; max-width: 100px">
-                                                                        <img class="card-photo text-left" src="{{ post.background.url }}" alt="..." style="max-height: 100px; max-width: 100px">
-                                                                    </div>
-                                                                    <div class="col-8 p-0">
-                                                                        <div>{{ post.title|truncatechars:35 }}</div>
-                                                                        <div style="color: rgba(0,0,0,0.5)">{{ post.date_posted | date:"j E Y" }}</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                            <li style="margin-top: 6px">
-                                                <a class="fw-bold border-bottom show-all" href="{% url 'article-all' %}" style="">
-                                                    Pokaż wszystkie
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <a class="nav-link btn-nav px-4" href="{% url 'author-all' %}">
-                            <h5 class="text-center text-md-start fw-light my-1">O autorze</h5>
-                        </a>
-                        <li class="d-none d-xl-block" STYLE="height: 2rem; border-left: .1rem solid rgba(0,34,28,.1); margin: .5rem;"></li>
-                        <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-log px-4 border" href="{% url 'login' %}?next={{ request.path }}">
-                            <h5 class="fw-light my-1">Zaloguj się</h5>
-                        </a>
-                        <a class="mb-2 mb-md-0 ms-0 ms-md-3 d-block d-sm-block d-md-none d-lg-none d-xl-block btn btn-register px-4" href="{% url 'register' %}?next={{ request.path }}">
-                            <h5 class="fw-light my-1">Dołącz teraz</h5>
-                        </a>
-                </div>
-            </div>
-        </nav>
-    {% endif %}
+    </nav>
+{% endif %}

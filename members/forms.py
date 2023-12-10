@@ -27,7 +27,7 @@ from django.template import loader
 # Rozszerzenie formularza resetowania hasła
 class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
-        label=_("Eeeeeeeemail"),
+        label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(attrs={"autocomplete": "email"}),
     )

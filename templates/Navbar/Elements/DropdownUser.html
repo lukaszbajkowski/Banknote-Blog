@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col pe-0 ps-3 dropdown-user">
+            {% if user.author %}
+                <img class="card-photo rounded dropdown-user-img"
+                     src="{{ user.author.profile_pic.url }}" alt="">
+            {% else %}
+                <img class="card-photo rounded dropdown-user-img"
+                     src="{{ user.user.profile_pic.url }}" alt="">
+            {% endif %}
+        </div>
+        <div class="col-8 ps-0 pe-3">
+            <div class="row ps-0 dropdown-username">
+                <div class="col ps-0 pe-0 ms-1">
+                    <h6 class="my-1 text-navy">
+                        {% if user.first_name and user.last_name %}
+                            {{ user.first_name }} {{ user.last_name }}
+                        {% elif user.first_name %}
+                            {{ user.first_name }}
+                        {% elif user.last_name %}
+                            {{ user.last_name }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+                    </h6>
+                </div>
+            </div>
+            <div class="row ps-0 dropdown-username">
+                <div class="col ps-0 pe-0 ms-1 lh-1">
+                    <small class="dropdown-email">
+                        {% if user.email %}
+                            {{ user.email }}
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

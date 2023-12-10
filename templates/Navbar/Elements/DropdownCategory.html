@@ -1,0 +1,25 @@
+<h5 class="title fw-bold text-navy">
+    Kategorie
+</h5>
+<ul class="list-unstyled">
+    {% for ca in category|slice:":5" %}
+        {% if forloop.first %}
+            <li class="dropdown-first-element">
+                <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                    {{ ca.name }}
+                </a>
+            </li>
+        {% else %}
+            <li class="dropdown-other-element">
+                <a href="{% url 'category-detail' ca.id %}" class="sub-item">
+                    {{ ca.name }}
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    <li class="dropdown-all-element">
+        <a class="fw-bold border-bottom show-all" href="{% url 'category-all' %}">
+            Pokaż wszystkie
+        </a>
+    </li>
+</ul>

@@ -10,12 +10,10 @@ from blog.form import NewsletterDeleteForm
 from blog.form import NewsletterUserDeleteForm
 from blog.models import Newsletter
 from blog.models import NewsletterUser
-from blog.models import User
 from blog.views import INVALID_EMAIL_MESSAGE
 from blog.views import PUBLISHED_SUCCESS_MESSAGE
-from blog.views import PUBLISHED_SUCCESS_MESSAGE_EDIT
 from blog.views import SUCCESS_DELETE_MESSAGE
-from blog.views import SUCCESS_MESSAGE_EDIT
+from blog.views import SUCCESS_MESSAGE_CREATE
 from blog.views import UNSUBSCRIBE_SUCCESS_MESSAGE
 from blog.views import USER_SUCCESS_DELETE_MESSAGE
 from blog.views import delete_newsletter_user
@@ -34,25 +32,17 @@ def newsletter_creation_view(request):
     if form.is_valid():
         instance = form.save()
         newsletter = Newsletter.objects.get(id=instance.id)
-
-        def send_newsletter(emails, newsletter):
-            subject = newsletter.title
-            text_template = 'AdminTemplates/Newsletter/Mail/NewsletterMail.txt'
-            html_template = 'AdminTemplates/Newsletter/Mail/NewsletterMail.html'
-            send_custom_emails(emails, subject, text_template, html_template)
-
         if newsletter.status_field == "Published":
-            users = User.objects.filter(subscribed=True)
-            emails = [user.email for user in users]
-            send_newsletter(emails, newsletter)
+            send_newsletter_emails(newsletter)
             messages.success(
                 request,
-                PUBLISHED_SUCCESS_MESSAGE_EDIT,
-                "alert alert-success alert-dismissible fade show mt-3")
+                f'{SUCCESS_MESSAGE_CREATE} i wysłany',
+                "alert alert-success alert-dismissible fade show mt-3"
+            )
         else:
             messages.success(
                 request,
-                SUCCESS_MESSAGE_EDIT,
+                SUCCESS_MESSAGE_CREATE,
                 "alert alert-success alert-dismissible fade show mt-3")
         return redirect('newsletter_creation')
 
@@ -73,7 +63,6 @@ def newsletter_add_user_view(request):
         request,
         NewsletterAddUserForm,
         'AdminTemplates/Newsletter/Newsletter/NewsletterSingUpAdmin.html',
-        'AdminTemplates/Newsletter/Newsletter/NewsletterSingUpAdmin.html'
     )
 
 

@@ -3,6 +3,10 @@
     height: 120px !important;
 }
 
+.mail-logo {
+    max-height: 120px;
+}
+
 .img-author-admin {
     aspect-ratio: 1/1;
     object-position: center;

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Zarejestruj się - Banknoty
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="bg-body-tertiary">
+        <section class="container d-flex flex-column ">
+            <div class="align-items-center justify-content-center g-0 min-vh-100 row">
+                <div class="py-8 py-xl-0 col-lg-5 col-md-7">
+                    <div class="card border border-0 shadow">
+                        <div class="p-5 card-body">
+                            {% include 'Registration/Elements/Registration/RegistrationHeader.html' %}
+                            {% include 'Registration/Elements/Registration/Forms/Registration.html' %}
+                            <hr class="my-4">
+                            {% include 'Registration/Elements/SocialmediaButtons.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

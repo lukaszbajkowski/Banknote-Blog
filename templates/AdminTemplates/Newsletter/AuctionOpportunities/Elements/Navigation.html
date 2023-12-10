@@ -7,11 +7,11 @@
     <button class="btn btn-list {% if request.resolver_match.url_name in 'auction_opportunities_admin_panel, auction_opportunities_detail_admin_panel, auction_opportunities_edit_admin_panel, auction_opportunities_delete_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
             onclick="location.href='{% url 'auction_opportunities_admin_panel' %}'">
         <i class="fa-solid fa-list me-2"></i>
-        Zarządzanie wiadmościami o okazjach z rynku aukcyjnego
+        Zarządzanie wiadomościami o okazjach z rynku aukcyjnego
     </button>
     <button class="btn btn-list {% if request.resolver_match.url_name in 'auction_opportunities_user_manage_admin_panel, auction_opportunities_user_detail_admin_panel, auction_opportunities_user_edit_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
             onclick="location.href='{% url 'auction_opportunities_user_manage_admin_panel' %}'">
         <i class="fa-solid fa-list me-2"></i>
-        Zarządzanie subskrybcjami wiadomości o okazjach z rynku aukcyjnego
+        Zarządzanie subskrypcjami wiadomości o okazjach z rynku aukcyjnego
     </button>
 </nav>

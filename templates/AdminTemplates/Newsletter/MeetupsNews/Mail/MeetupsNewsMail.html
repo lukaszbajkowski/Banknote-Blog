@@ -3,86 +3,69 @@
 <script src="https://kit.fontawesome.com/006c2e7373.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-<style>
-    .nav-link:hover {
-        color: rgba(0, 0, 128, 0.5);
-    }
-    .btn-nav {
-        color: navy;
-    }
-    .btn-nav:hover {
-        color: rgba(0, 0, 128, 0.5);
-    }
-    .btn-nav:focus-visible {
-        border: none;
-        color: rgba(0, 0, 128, 0.5);
-    }
-    .btn-socialmedia {
-        color: white;
-        background-color: #000066;
-        transition: 0.2s;
-        min-width: 42px;
-        min-height: 42px;
-        margin-left: 2px;
-        margin-right: 2px;
-    }
-</style>
-
 {% block content %}
     {% load static %}
-        <div class="bg-body-tertiary">
-            <div class="container-fluid mt-3">
-                <img class="my-5 mx-auto img-fluid d-block" src="{{ image_url }}" alt="Logo" style="max-height: 120px">
-            </div>
-            <div class="container-fluid">
-                <h4 class="fw-bold text-center p-0 m-0" style="color: navy">Nadchodzące spotkania i wydarzenia</h4>
-            </div>
-            <div class="container mt-5">
-                <div class="container px-5">
-                    <h6 class="fw-bold text-start" style="color: navy">
-                        Szanowna/y {% if mail.first_name and mail.last_name %}
-                            {{ mail.first_name }} {{ mail.last_name }}
-                        {% elif mail.first_name %}
-                            {{ mail.first_name }}
-                        {% elif mail.last_name %}
-                            {{ mail.last_name }}
-                        {% else %}
-                            {{ mail.username }}
-                        {% endif %}
-                    </h6>
-                    <p>
-                        Jesteśmy świadomi Twojego zainteresowania banknotami i chcielibyśmy podzielić się z Tobą zestawieniem nadchodzących wydarzeń i spotkań, które mogą Cię zainteresować.
-                        To doskonała okazja do zdobywania wiedzy, rozwijania umiejętności oraz nawiązywania cennych kontaktów z innymi kolekcjonerami.
-                    </p>
-                    <p>
-                        Poniżej przedstawiamy kilka najbliższych wydarzeń w naszej branży, które odbywają się w Twojej okolicy:
-                    </p>
-                    <p>
-                       {{ text | safe }}
-                    </p>
-                    <p>
-                        Pragniemy zaznaczyć, że te wydarzenia nie są organizowane przez nas, ale są świetną okazją do poszerzenia Twojej wiedzy i uczestnictwa w pasjonujących dyskusjach z ekspertami z branży.
-                    </p>
-                    <p>
-                        Jeśli jesteś zainteresowany uczestnictwem w którymkolwiek z tych wydarzeń, zachęcamy do zapoznania się z dodatkowymi informacjami na oficjalnych stronach internetowych organizatorów.
-                        Tam znajdziesz pełne szczegóły dotyczące programu, rejestracji i innych istotnych informacji.
-                    </p>
-                    <p>
-                        Jeśli masz jakiekolwiek pytania lub potrzebujesz dodatkowych informacji na temat któregoś z tych wydarzeń, chętnie Ci pomożemy.
-                        Odpisz na tę wiadomość, a z przyjemnością udzielimy Ci niezbędnych informacji.
-                    </p>
-                    <p>
-                        Życzymy Ci inspirujących doświadczeń na nadchodzących wydarzeniach i spotkaniach!
-                    </p>
-                    <h6 class="fw-bold text-end" style="color: navy">
-                        Z wyrazami szacunku
-                    </h6>
-                    <h6 class="fw-bold text-end" style="color: navy">
-                        Banknoty
-                    </h6>
-                </div>
+    <div class="bg-body-tertiary">
+        <div class="container-fluid mt-3">
+            <img class="my-5 mx-auto img-fluid d-block article-author-img" src="{{ image_url }}" alt="Logo">
+        </div>
+        <div class="container-fluid">
+            <h4 class="fw-bold text-center p-0 m-0 text-navy">
+                Nadchodzące spotkania i wydarzenia
+            </h4>
+        </div>
+        <div class="container mt-5">
+            <div class="container px-5">
+                <h6 class="fw-bold text-start text-navy">
+                    Szanowna/y {% if mail.first_name and mail.last_name %}
+                    {{ mail.first_name }} {{ mail.last_name }}
+                {% elif mail.first_name %}
+                    {{ mail.first_name }}
+                {% elif mail.last_name %}
+                    {{ mail.last_name }}
+                {% else %}
+                    {{ mail.username }}
+                {% endif %}
+                </h6>
+                <p>
+                    Jesteśmy świadomi Twojego zainteresowania banknotami i chcielibyśmy podzielić się z Tobą
+                    zestawieniem nadchodzących wydarzeń i spotkań, które mogą Cię zainteresować.
+                    To doskonała okazja do zdobywania wiedzy, rozwijania umiejętności oraz nawiązywania cennych
+                    kontaktów z innymi kolekcjonerami.
+                </p>
+                <p>
+                    Poniżej przedstawiamy kilka najbliższych wydarzeń w naszej branży, które odbywają się w Twojej
+                    okolicy:
+                </p>
+                <p>
+                    {{ text | safe }}
+                </p>
+                <p>
+                    Pragniemy zaznaczyć, że te wydarzenia nie są organizowane przez nas, ale są świetną okazją do
+                    poszerzenia Twojej wiedzy i uczestnictwa w pasjonujących dyskusjach z ekspertami z branży.
+                </p>
+                <p>
+                    Jeśli jesteś zainteresowany uczestnictwem w którymkolwiek z tych wydarzeń, zachęcamy do zapoznania
+                    się z dodatkowymi informacjami na oficjalnych stronach internetowych organizatorów.
+                    Tam znajdziesz pełne szczegóły dotyczące programu, rejestracji i innych istotnych informacji.
+                </p>
+                <p>
+                    Jeśli masz jakiekolwiek pytania lub potrzebujesz dodatkowych informacji na temat któregoś z tych
+                    wydarzeń, chętnie Ci pomożemy.
+                    Odpisz na tę wiadomość, a z przyjemnością udzielimy Ci niezbędnych informacji.
+                </p>
+                <p>
+                    Życzymy Ci inspirujących doświadczeń na nadchodzących wydarzeniach i spotkaniach!
+                </p>
+                <h6 class="fw-bold text-end text-navy">
+                    Z wyrazami szacunku
+                </h6>
+                <h6 class="fw-bold text-end text-navy">
+                    Banknoty
+                </h6>
             </div>
         </div>
+    </div>
 {% endblock %}
 
 {% block foo %}
@@ -90,29 +73,39 @@
         <div class="container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center pt-3">
                 <div class="col-sm-12 col-md-12 col-lg-2 mx-auto justify-content-start d-flex align-items-center">
-                    <img class="mx-sm-auto mx-auto mx-lg-0 img-fluid d-block" src="{{ image_url }}" alt="Logo" style="max-height: 48px">
+                    <img class="mx-sm-auto mx-auto mx-lg-0 img-fluid d-block article-author-img" src="{{ image_url }}"
+                         alt="Logo">
                 </div>
                 <ul class="nav col-sm-12 col-md-12 col-lg-10 mx-auto justify-content-center justify-content-lg-end list-unstyled d-flex">
                     <div class="text-end">
                         <ul class="nav">
                             <li class="nav-item mx-auto">
-                                <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/members/myprofile/notifications/">
-                                    <h5 class="fw-light my-1">Zrezygnuj z biuletynu</h5>
+                                <a class="nav-link btn-nav px-3"
+                                   href="http://127.0.0.1:8000/members/myprofile/notifications/">
+                                    <h5 class="fw-light my-1">
+                                        Zrezygnuj z biuletynu
+                                    </h5>
                                 </a>
                             </li>
                             <li class="nav-item mx-auto">
                                 <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/author/all/">
-                                    <h5 class="fw-light my-1">Artykuły</h5>
+                                    <h5 class="fw-light my-1">
+                                        Artykuły
+                                    </h5>
                                 </a>
                             </li>
                             <li class="nav-item mx-auto">
                                 <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/terms_and_conditions/">
-                                    <h5 class="fw-light my-1">Regulamin serwisu</h5>
+                                    <h5 class="fw-light my-1">
+                                        Regulamin serwisu
+                                    </h5>
                                 </a>
                             </li>
                             <li class="nav-item mx-auto">
                                 <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/privacy_policy/">
-                                    <h5 class="fw-light my-1">Polityka prywatności</h5>
+                                    <h5 class="fw-light my-1">
+                                        Polityka prywatności
+                                    </h5>
                                 </a>
                             </li>
                         </ul>
@@ -122,21 +115,27 @@
             <hr class="mt-4 text-sm">
             <footer class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
                 <div class="col-12 col-md-6 mx-auto d-flex align-items-center justify-content-center justify-content-md-start">
-                    <span class="mb-3 mb-md-0 fw-light" style="color: navy">© 2023 Banknoty. Wszelkie prawa zastrzeżone.</span>
+                    <span class="mb-3 mb-md-0 fw-light text-navy">
+                        © 2023 Banknoty. Wszelkie prawa zastrzeżone.
+                    </span>
                 </div>
                 <ul class="nav col-12 col-sm-12 col-md-6 px-sm-2 px-md-0 mx-auto justify-content-center justify-content-md-end list-unstyled d-flex">
                     <div class=" text-end">
-                        <a href="https://www.facebook.com" target="_blank" class="btn btn-socialmedia btn-facebook rounded-circle">
+                        <a href="https://www.facebook.com" target="_blank"
+                           class="btn btn-socialmedia btn-facebook rounded-circle">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.twitter.com" target="_blank" class="btn btn-socialmedia btn-twitter rounded-circle">
+                        <a href="https://www.twitter.com" target="_blank"
+                           class="btn btn-socialmedia btn-twitter rounded-circle">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="https://www.linkedin.com" target="_blank" class="btn btn-socialmedia btn-linkedin rounded-circle">
+                        <a href="https://www.linkedin.com" target="_blank"
+                           class="btn btn-socialmedia btn-linkedin rounded-circle">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://www.github.com" target="_blank" class="btn btn-socialmedia btn-github rounded-circle">
-                             <i class="fab fa-github"></i>
+                        <a href="https://www.github.com" target="_blank"
+                           class="btn btn-socialmedia btn-github rounded-circle">
+                            <i class="fab fa-github"></i>
                         </a>
                     </div>
                 </ul>
