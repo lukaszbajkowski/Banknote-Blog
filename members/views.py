@@ -1,41 +1,22 @@
+import ssl
+
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.utils.decorators import method_decorator
-from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
-from django.template.loader import get_template, render_to_string
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
-from django.core.exceptions import ValidationError
-from django.core.validators import EmailValidator
-from django.db import IntegrityError
-from django.core.paginator import Paginator
-from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_protect
-from django.conf import settings
-from django.contrib.auth import (
-    login, authenticate, logout, update_session_auth_hash, get_user_model
-)
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import (
-    UserCreationForm, UserChangeForm, PasswordChangeForm,
-    PasswordResetForm, SetPasswordForm
-)
-from django.contrib.auth.views import (
-    PasswordResetView, PasswordResetConfirmView
-)
-from django.contrib import messages
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+from blog.form import PostDeleteForm, NewsletterUserSignUpForm
 from .forms import *
-from blog.form import (
-    PostCreateForm, PostDeleteForm, NewsletterUserSignUpForm
-)
-from blog.models import *
-import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -339,13 +320,20 @@ def UserAuthorView(request):
         'blog': blog,
         'form': form,
     }
-    return render(request, 'my_account/author/edit_author_page.html', context)
+    return render(
+        request,
+        'my_account/author/edit_author_page.html',
+        context
+    )
 
 
 # Widok tworzenia nowego postu przez autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
 def my_posts_create(request):
+    category = Category.objects.all()
+    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
+
     if request.method == 'POST':
         form = PostAddForm(request.POST, request.FILES)
         if form.is_valid():
@@ -356,14 +344,17 @@ def my_posts_create(request):
             return redirect('my_posts')
     else:
         form = PostAddForm()
-    category = Category.objects.all()
-    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
+
     context = {
         'form': form,
         'category': category,
         'blog': blog,
     }
-    return render(request, 'my_account/author/my_posts_add.html', context)
+    return render(
+        request,
+        'my_account/author/my_posts_add.html',
+        context
+    )
 
 
 # Widok wyświetlania postów przez autora
@@ -399,7 +390,11 @@ def my_posts(request):
         'show_published': show_published,
         'blog': blog,
     }
-    return render(request, 'my_account/author/my_posts.html', context)
+    return render(
+        request,
+        'my_account/author/my_posts.html',
+        context
+    )
 
 
 # Widok szczegółów postu przez autora
@@ -410,13 +405,18 @@ def my_posts_detail(request, pk):
     comments = post.comment_set.all().order_by('date_posted')
     category = Category.objects.all()
     blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
+
     context = {
         'post': post,
         'comments': comments,
         'category': category,
         'blog': blog,
     }
-    return render(request, 'my_account/author/my_posts_detail.html', context)
+    return render(
+        request,
+        'my_account/author/my_posts_detail.html',
+        context
+    )
 
 
 # Widok edycji postu przez autora
@@ -424,26 +424,33 @@ def my_posts_detail(request, pk):
 @user_passes_test(is_author, login_url='home')
 def my_posts_edit(request, pk):
     post = get_object_or_404(Blog, pk=pk)
+    category = Category.objects.all()
+    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
+
     if request.method == "POST":
         form = PostEditForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
-            messages.success(request,
-                             'Post został edytowany',
-                             "alert alert-success alert-dismissible fade show mt-3")
+            messages.success(
+                request,
+                'Post został edytowany',
+                "alert alert-success alert-dismissible fade show mt-3"
+            )
             return redirect('my_posts')
 
     else:
         form = PostEditForm(instance=post)
 
-    category = Category.objects.all()
-    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
     context = {
         'form': form,
         'category': category,
         'blog': blog,
     }
-    return render(request, 'my_account/author/my_posts_edit.html', context)
+    return render(
+        request,
+        'my_account/author/my_posts_edit.html',
+        context
+    )
 
 
 # Widok usuwania postu przez autora
@@ -452,26 +459,33 @@ def my_posts_edit(request, pk):
 def my_posts_delete(request, pk):
     post = get_object_or_404(Blog, pk=pk)
     news = get_object_or_404(Blog, pk=pk)
+    category = Category.objects.all()
+    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
+
     if request.method == "POST":
         form = PostDeleteForm(request.POST, instance=post)
         if form.is_valid():
             post.delete()
-            messages.success(request,
-                             'Post został usunięty',
-                             "alert alert-success alert-dismissible fade show mt-3")
+            messages.success(
+                request,
+                'Post został usunięty',
+                "alert alert-success alert-dismissible fade show mt-3"
+            )
             return redirect('my_posts')
     else:
         form = PostDeleteForm(instance=post)
 
-    category = Category.objects.all()
-    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
     context = {
         'form': form,
         'news': news,
         'category': category,
         'blog': blog,
     }
-    return render(request, 'my_account/author/my_posts_delete.html', context)
+    return render(
+        request,
+        'my_account/author/my_posts_delete.html',
+        context
+    )
 
 
 # Widok formularza do zgłoszenia się jako autor
@@ -521,7 +535,11 @@ def article_author_form(request):
         'category': category,
         'blog': blog,
     }
-    return render(request, 'my_account/author_application/author_application.html', context)
+    return render(
+        request,
+        'my_account/author_application/author_application.html',
+        context
+    )
 
 
 # Widok historii zgłoszeń na autora
@@ -543,7 +561,11 @@ def article_author_history(request):
         'blog': blog,
         'category': category,
     }
-    return render(request, 'my_account/author_application/author_application_history.html', context)
+    return render(
+        request,
+        'my_account/author_application/author_application_history.html',
+        context
+    )
 
 
 # Widok szczegółów zgłoszeń na autora
@@ -564,10 +586,14 @@ def article_author_detail(request, pk):
         'blog': blog,
         'category': category,
     }
-    return render(request, 'my_account/author_application/author_application_detail.html', context)
+    return render(
+        request,
+        'my_account/author_application/author_application_detail.html',
+        context
+    )
 
 
-# Widok tworzenia autora przez użytkonika, który ma do tego uprawnienia
+# Widok tworzenia autora przez użytkownika, który ma do tego uprawnienia
 @login_required(login_url='home')
 def create_author(request):
     user = request.user.user
@@ -596,7 +622,14 @@ def create_author(request):
             else:
                 form = CreateAuthorForm()
 
-            return render(request, 'my_account/author_application/create_author.html', {'form': form})
+            context = {
+                'form': form,
+            }
+            return render(
+                request,
+                'my_account/author_application/create_author.html',
+                context
+            )
         else:
             return redirect('edit_author')
     else:
@@ -635,4 +668,8 @@ def CommentListView(request):
         'user_comments': user_comments,
         'user_gender': user.user.gender,
     }
-    return render(request, 'my_account/comments.html', context)
+    return render(
+        request,
+        'my_account/comments.html',
+        context
+    )
