@@ -14,7 +14,6 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
 from blog.form import PostDeleteForm, NewsletterUserSignUpForm
 from .forms import *
 
