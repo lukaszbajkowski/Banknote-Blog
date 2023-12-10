@@ -58,7 +58,7 @@ def register_page(request):
 
             current_site = get_current_site(request)
             mail_subject = 'Potwierdź swój adres e-mail'
-            message = render_to_string('Registration/confirmation_email.html', {
+            message = render_to_string('Registration/ConfirmationEmail.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -108,7 +108,7 @@ def confirm_email(request, uidb64, token):
 def registration_confirmed(request):
     return render(
         request,
-        'Registration/confirmed.html'
+        'Registration/Confirmed.html'
     )
 
 
@@ -116,7 +116,7 @@ def registration_confirmed(request):
 def confirmation_error(request):
     return render(
         request,
-        'Registration/confirmation_error.html'
+        'Registration/ConfirmationError.html'
     )
 
 
@@ -124,7 +124,7 @@ def confirmation_error(request):
 def confirmation_page(request):
     return render(
         request,
-        'Registration/confirmation.html'
+        'Registration/Confirmation.html'
     )
 
 
