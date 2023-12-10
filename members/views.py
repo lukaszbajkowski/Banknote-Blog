@@ -120,7 +120,7 @@ def login_page(request):
             if user is not None:
                 login(request, user)
                 try:
-                    user_extension = User.objects.get(user_id=user)
+                    user_extension = User.objects.get(id=user.id)
                     return redirect('home')
                 except User.DoesNotExist:
                     return redirect('edit_profile')
