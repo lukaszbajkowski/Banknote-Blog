@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
 from blog.form import PostDeleteForm, NewsletterUserSignUpForm
 from .forms import *
 
@@ -180,7 +181,11 @@ def UserEditView(request):
         'edit_user_form': edit_user_form,
         'delete_form': delete_form,
     }
-    return render(request, 'my_account/edit_profile.html', context)
+    return render(
+        request,
+        'my_account/edit_profile.html',
+        context
+    )
 
 
 # Widok zmiany hasła użytkownika
@@ -193,7 +198,7 @@ def UserChangePasswordView(request):
         edit_password_form = PasswordChangingForm(user=request.user, data=request.POST)
         if edit_password_form.is_valid():
             user = edit_password_form.save()
-            update_session_auth_hash(request, user)  # Important! Refresh the session
+            update_session_auth_hash(request, user)
             return redirect('edit_security_page')
     else:
         edit_password_form = PasswordChangingForm(user=request.user)
@@ -203,7 +208,11 @@ def UserChangePasswordView(request):
         'blog': blog,
         'edit_password_form': edit_password_form,
     }
-    return render(request, 'my_account/edit_security.html', context)
+    return render(
+        request,
+        'my_account/edit_security.html',
+        context
+    )
 
 
 # Widok do przekierowania do zmiany e-mail lub hasła
@@ -215,28 +224,45 @@ def UserChangePageView(request):
         'category': category,
         'blog': blog,
     }
-    return render(request, 'my_account/edit_security_page.html', context)
+    return render(
+        request,
+        'my_account/edit_security_page.html',
+        context
+    )
 
 
 # Widok zmiany e-maila użytkownika
 @login_required(login_url='home')
 def UserChangeEmailView(request):
+    category = Category.objects.all()
+    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
+
     if request.method == 'POST':
         form = EmailChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             new_email = form.cleaned_data['new_email1']
             form.save()
-            messages.success(request,
-                             'Dziękujemy za rejestrację do biuletynu.',
-                             "alert alert-success alert-dismissible fade show")
+            messages.success(
+                request,
+                'Dziękujemy za rejestrację do biuletynu.',
+                "alert alert-success alert-dismissible fade show"
+            )
             subject = 'Zmiana adresu e-mail'
             from_email = settings.EMAIL_HOST_USER
             to_email = [new_email]
-            msg_plain = render_to_string('my_account/edit_email_confirmation.txt',
-                                         {'mail': new_email})
-            msg_html = render_to_string('my_account/edit_email_confirmation.html',
-                                        {'mail': new_email,
-                                         'image_url': 'http://127.0.0.1:8000/static/images/logo-no-background.png'})
+            msg_plain = render_to_string(
+                'my_account/edit_email_confirmation.txt',
+                {
+                    'mail': new_email
+                }
+            )
+            msg_html = render_to_string(
+                'my_account/edit_email_confirmation.html',
+                {
+                    'mail': new_email,
+                    'image_url': 'http://127.0.0.1:8000/static/images/logo-no-background.png'
+                }
+            )
             send_mail(
                 subject,
                 msg_plain,
@@ -249,8 +275,6 @@ def UserChangeEmailView(request):
     else:
         form = EmailChangeForm(user=request.user)
 
-    category = Category.objects.all()
-    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
     context = {
         'category': category,
         'blog': blog,
@@ -268,12 +292,10 @@ def is_author(user):
 
 
 # Widok zarządzania ustawieniami powiadomień użytkownika
-@login_required(login_url='home')
-def UserNotificationView(request):
-    try:
-        settings = User.objects.get(user=request.user)
-    except User.DoesNotExist:
-        settings = User(user=request.user)
+def user_notification_view(request):
+    category = Category.objects.all()
+    blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
+    settings = User_Custom.objects.get(user=request.user)
 
     if request.method == 'POST':
         form = NotificationSettingsForm(request.POST, instance=settings)
@@ -286,15 +308,17 @@ def UserNotificationView(request):
         form = NotificationSettingsForm(instance=settings)
         communication_form = CommunicationSettingForm(instance=settings)
 
-    category = Category.objects.all()
-    blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
     context = {
         'category': category,
         'blog': blog,
         'form': form,
         'communication_form': communication_form,
     }
-    return render(request, 'my_account/notification.html', context)
+    return render(
+        request,
+        'my_account/notification.html',
+        context
+    )
 
 
 # Widok tworzenia profilu autora

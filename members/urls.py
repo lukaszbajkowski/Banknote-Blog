@@ -11,7 +11,7 @@ urlpatterns = [
     path('myprofile/change_password/', views.UserChangePasswordView, name='edit_security'),
     path('myprofile/security/', views.UserChangePageView, name='edit_security_page'),
     path('myprofile/change_email/', views.UserChangeEmailView, name='edit_email'),
-    path('myprofile/notifications/', views.UserNotificationView, name='notifications'),
+    path('myprofile/notifications/', views.user_notification_view, name='notifications'),
     path('myprofile/author/', views.UserAuthorView, name='edit_author'),
 
     path('myprofile/posts/', views.my_posts, name='my_posts'),
