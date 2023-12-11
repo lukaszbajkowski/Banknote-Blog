@@ -13,3 +13,12 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
     # other middleware classes...
 ]
+```
+
+### Test Account Information
+
+For test purposes, you can use the following account credentials:
+
+- **Login:** `admin`
+- **Password:** `admin`
+

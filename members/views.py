@@ -26,130 +26,6 @@ class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
 
 
-# Widok rejestracji użytkownika
-def register_page(request):
-    if request.method != 'POST':
-        form = CustomUserForm()
-    else:
-        form = CustomUserForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-
-            current_site = get_current_site(request)
-            mail_subject = 'Potwierdź swój adres e-mail'
-            message = render_to_string('Registration/ConfirmationEmail.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
-                'image_url': 'http://127.0.0.1:8000/static/images/logo-no-background.png',
-            })
-            from_email = settings.EMAIL_HOST_USER
-            to_email = form.cleaned_data.get('email')
-            send_mail(
-                mail_subject,
-                message,
-                from_email,
-                [to_email],
-                html_message=message,
-                fail_silently=False
-            )
-
-            return redirect('confirmation')  # Przekierowanie na stronę potwierdzenia rejestracji
-
-    context = {
-        'form': form
-    }
-    return render(
-        request,
-        'Registration/Registration.html',
-        context
-    )
-
-
-# Widoki potwierdzenia e-maila po rejestracji
-def confirm_email(request, uidb64, token):
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = get_user_model().objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
-        user = None
-
-    if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
-        user.save()
-        return redirect('registration_confirmed')
-    else:
-        return redirect('confirmation_error')
-
-
-# Widok potwierdzenia rejestracji
-def registration_confirmed(request):
-    return render(
-        request,
-        'Registration/Confirmed.html'
-    )
-
-
-# Widok błędu potwierdzenia e-maila po rejestracji
-def confirmation_error(request):
-    return render(
-        request,
-        'Registration/ConfirmationError.html'
-    )
-
-
-# Widok strony z informacją o potwierdzeniu rejestracji
-def confirmation_page(request):
-    return render(
-        request,
-        'Registration/Confirmation.html'
-    )
-
-
-# Widok logowania użytkownika
-def login_page(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                try:
-                    user_extension = User.objects.get(id=user.id)
-                    return redirect('home')
-                except User.DoesNotExist:
-                    return redirect('edit_profile')
-            else:
-                messages.error(
-                    request,
-                    'Nieprawidłowa nazwa użytkownika lub hasło.'
-                )
-    else:
-        form = LoginForm()
-
-    context = {
-        'form': form,
-    }
-
-    return render(
-        request,
-        'Registration/Login.html',
-        context
-    )
-
-
-# Widok wylogowania użytkownika
-def logout_page(request):
-    logout(request)
-    return redirect('/')
-
-
 # Widok edycji profilu użytkownika
 @login_required(login_url='home')
 def UserEditView(request):
@@ -292,6 +168,7 @@ def is_author(user):
 
 
 # Widok zarządzania ustawieniami powiadomień użytkownika
+@login_required(login_url='home')
 def user_notification_view(request):
     category = Category.objects.all()
     blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]

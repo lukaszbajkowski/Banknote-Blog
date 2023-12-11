@@ -1,12 +1,17 @@
-from django.urls import path
-from . import views
-from .views import UserEditView
 from django.contrib.auth import views as auth_views
+from django.urls import path
+
+from . import views
+from .views_confirmation.confirmation.confirmation_views import *
+from .views_login.login.login_views import *
+from .views_register.register.register_views import *
 
 urlpatterns = [
-    path('register/', views.register_page, name='register'),
-    path(r'^login/$', views.login_page, name='login'),
+    path('register/', register_page, name='register'),
+    path(r'^login/$', login_page, name='login'),
+
     path('mycomments/', views.CommentListView, name='comments'),
+
     path('myprofile/', views.UserEditView, name='edit_profile'),
     path('myprofile/change_password/', views.UserChangePasswordView, name='edit_security'),
     path('myprofile/security/', views.UserChangePageView, name='edit_security_page'),
@@ -25,10 +30,10 @@ urlpatterns = [
     path('myprofile/author_application/detail/<int:pk>', views.article_author_detail, name='article_author_detail'),
     path('myprofile/author/create/', views.create_author, name='create_author'),
 
-    path('confirmation/', views.confirmation_page, name='confirmation'),
-    path('confirm/<str:uidb64>/<str:token>/', views.confirm_email, name='confirm_email'),
-    path('confirmed/', views.registration_confirmed, name='registration_confirmed'),
-    path('confirmation-error/', views.confirmation_error, name='confirmation_error'),
+    path('confirmation/', confirmation_page, name='confirmation'),
+    path('confirm/<str:uidb64>/<str:token>/', confirm_email, name='confirm_email'),
+    path('confirmed/', registration_confirmed, name='registration_confirmed'),
+    path('confirmation-error/', confirmation_error, name='confirmation_error'),
 
     path('reset_password/', views.CustomPasswordResetView.as_view(
         template_name='Registration/ResetPassword/PasswordResetForm.html',
