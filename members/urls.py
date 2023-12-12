@@ -2,6 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from . import views
+from .views_author.author_app.author_app_views import *
 from .views_confirmation.confirmation.confirmation_views import *
 from .views_login.login.login_views import *
 from .views_notification.notification.notification_views import *
@@ -30,11 +31,11 @@ urlpatterns = [
     path('myprofile/posts/delete/<int:pk>', views.my_posts_delete, name='my_posts_delete'),
 
     path('myprofile/author/', views.UserAuthorView, name='edit_author'),
-    path('myprofile/author/create/', views.create_author, name='create_author'),
+    path('myprofile/author/create/', author_create_view, name='create_author'),
 
-    path('myprofile/author_application/', views.article_author_form, name='article_author_form'),
-    path('myprofile/author_application/history/', views.article_author_history, name='article_author_history'),
-    path('myprofile/author_application/detail/<int:pk>', views.article_author_detail, name='article_author_detail'),
+    path('myprofile/author_application/', author_app_view, name='article_author_form'),
+    path('myprofile/author_application/history/', author_app_history_view, name='article_author_history'),
+    path('myprofile/author_application/detail/<int:pk>', author_app_detail_view, name='article_author_detail'),
 
     path('confirmation/', confirmation_page, name='confirmation'),
     path('confirm/<str:uidb64>/<str:token>/', confirm_email, name='confirm_email'),
