@@ -2,6 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from . import views
+from .views_author.author.author_views import *
 from .views_author.author_app.author_app_views import *
 from .views_confirmation.confirmation.confirmation_views import *
 from .views_login.login.login_views import *
@@ -24,13 +25,13 @@ urlpatterns = [
 
     path('myprofile/notifications/', user_notification_view, name='notifications'),
 
-    path('myprofile/posts/', views.my_posts, name='my_posts'),
-    path('myprofile/posts/create/', views.my_posts_create, name='my_posts_create'),
-    path('myprofile/posts/detail/<int:pk>', views.my_posts_detail, name='my_posts_detail'),
-    path('myprofile/posts/edit/<int:pk>', views.my_posts_edit, name='my_posts_edit'),
-    path('myprofile/posts/delete/<int:pk>', views.my_posts_delete, name='my_posts_delete'),
+    path('myprofile/posts/', author_post_view, name='my_posts'),
+    path('myprofile/posts/create/', author_post_create_view, name='my_posts_create'),
+    path('myprofile/posts/detail/<int:pk>', author_post_detail_view, name='my_posts_detail'),
+    path('myprofile/posts/edit/<int:pk>', author_post_edit_view, name='my_posts_edit'),
+    path('myprofile/posts/delete/<int:pk>', author_post_delete_view, name='my_posts_delete'),
 
-    path('myprofile/author/', views.UserAuthorView, name='edit_author'),
+    path('myprofile/author/', author_view, name='edit_author'),
     path('myprofile/author/create/', author_create_view, name='create_author'),
 
     path('myprofile/author_application/', author_app_view, name='article_author_form'),
