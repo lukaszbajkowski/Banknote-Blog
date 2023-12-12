@@ -4,6 +4,7 @@ from django.urls import path
 from . import views
 from .views_confirmation.confirmation.confirmation_views import *
 from .views_login.login.login_views import *
+from .views_notification.notification.notification_views import *
 from .views_register.register.register_views import *
 from .views_user.email.email_views import *
 from .views_user.password.password_views import *
@@ -20,7 +21,7 @@ urlpatterns = [
     path('myprofile/change_password/', user_change_password_view, name='edit_security'),
     path('myprofile/change_email/', user_change_email_view, name='edit_email'),
 
-    path('myprofile/notifications/', views.user_notification_view, name='notifications'),
+    path('myprofile/notifications/', user_notification_view, name='notifications'),
 
     path('myprofile/posts/', views.my_posts, name='my_posts'),
     path('myprofile/posts/create/', views.my_posts_create, name='my_posts_create'),

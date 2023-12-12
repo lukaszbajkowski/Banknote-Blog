@@ -27,37 +27,6 @@ class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
 
 
-# Widok zarządzania ustawieniami powiadomień użytkownika
-@login_required(login_url='home')
-def user_notification_view(request):
-    category = Category.objects.all()
-    blog = Blog.objects.filter(publiction_status=True).order_by('-date_posted')[1:]
-    settings = User_Custom.objects.get(user=request.user)
-
-    if request.method == 'POST':
-        form = NotificationSettingsForm(request.POST, instance=settings)
-        communication_form = CommunicationSettingForm(request.POST, instance=settings)
-        if form.is_valid() and communication_form.is_valid():
-            form.save()
-            communication_form.save()
-            return redirect('notifications')
-    else:
-        form = NotificationSettingsForm(instance=settings)
-        communication_form = CommunicationSettingForm(instance=settings)
-
-    context = {
-        'category': category,
-        'blog': blog,
-        'form': form,
-        'communication_form': communication_form,
-    }
-    return render(
-        request,
-        'my_account/notification.html',
-        context
-    )
-
-
 # Widok tworzenia profilu autora
 @login_required(login_url='home')
 @user_passes_test(is_author, login_url='home')
