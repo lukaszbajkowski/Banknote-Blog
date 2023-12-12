@@ -5,19 +5,22 @@ from . import views
 from .views_confirmation.confirmation.confirmation_views import *
 from .views_login.login.login_views import *
 from .views_register.register.register_views import *
+from .views_user.email.email_views import *
+from .views_user.password.password_views import *
+from .views_user.settings.settings_views import *
 
 urlpatterns = [
-    path('register/', register_page, name='register'),
-    path(r'^login/$', login_page, name='login'),
+    path('register/', register_view, name='register'),
+    path(r'^login/$', login_view, name='login'),
 
     path('mycomments/', views.CommentListView, name='comments'),
 
-    path('myprofile/', views.UserEditView, name='edit_profile'),
-    path('myprofile/change_password/', views.UserChangePasswordView, name='edit_security'),
-    path('myprofile/security/', views.UserChangePageView, name='edit_security_page'),
-    path('myprofile/change_email/', views.UserChangeEmailView, name='edit_email'),
+    path('myprofile/', user_edit_view, name='edit_profile'),
+    path('myprofile/security/', user_change_main_page_view, name='edit_security_page'),
+    path('myprofile/change_password/', user_change_password_view, name='edit_security'),
+    path('myprofile/change_email/', user_change_email_view, name='edit_email'),
+
     path('myprofile/notifications/', views.user_notification_view, name='notifications'),
-    path('myprofile/author/', views.UserAuthorView, name='edit_author'),
 
     path('myprofile/posts/', views.my_posts, name='my_posts'),
     path('myprofile/posts/create/', views.my_posts_create, name='my_posts_create'),
@@ -25,10 +28,12 @@ urlpatterns = [
     path('myprofile/posts/edit/<int:pk>', views.my_posts_edit, name='my_posts_edit'),
     path('myprofile/posts/delete/<int:pk>', views.my_posts_delete, name='my_posts_delete'),
 
+    path('myprofile/author/', views.UserAuthorView, name='edit_author'),
+    path('myprofile/author/create/', views.create_author, name='create_author'),
+
     path('myprofile/author_application/', views.article_author_form, name='article_author_form'),
     path('myprofile/author_application/history/', views.article_author_history, name='article_author_history'),
     path('myprofile/author_application/detail/<int:pk>', views.article_author_detail, name='article_author_detail'),
-    path('myprofile/author/create/', views.create_author, name='create_author'),
 
     path('confirmation/', confirmation_page, name='confirmation'),
     path('confirm/<str:uidb64>/<str:token>/', confirm_email, name='confirm_email'),

@@ -10,7 +10,7 @@ from members.forms import LoginForm
 
 
 # Widok logowania użytkownika
-def login_page(request):
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
 

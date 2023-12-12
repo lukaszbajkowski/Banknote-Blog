@@ -12,7 +12,7 @@ from pm_blog import settings
 
 
 # Widok rejestracji użytkownika
-def register_page(request):
+def register_view(request):
     if request.method != 'POST':
         form = CustomUserForm()
     else:
