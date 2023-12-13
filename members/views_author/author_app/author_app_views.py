@@ -61,7 +61,7 @@ def author_app_view(request):
     }
     return render(
         request,
-        'my_account/author_application/author_application.html',
+        'UserTemplates/UserAccount/author_application/author_application.html',
         context
     )
 
@@ -87,7 +87,7 @@ def author_app_history_view(request):
     }
     return render(
         request,
-        'my_account/author_application/author_application_history.html',
+        'UserTemplates/UserAccount/author_application/author_application_history.html',
         context
     )
 
@@ -112,7 +112,7 @@ def author_app_detail_view(request, pk):
     }
     return render(
         request,
-        'my_account/author_application/author_application_detail.html',
+        'UserTemplates/UserAccount/author_application/author_application_detail.html',
         context
     )
 
@@ -151,7 +151,7 @@ def author_create_view(request):
             }
             return render(
                 request,
-                'my_account/author_application/create_author.html',
+                'UserTemplates/UserAccount/author_application/create_author.html',
                 context
             )
         else:

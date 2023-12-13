@@ -36,6 +36,6 @@ def comment_list_view(request):
     }
     return render(
         request,
-        'my_account/comments.html',
+        'UserTemplates/UserAccount/comments.html',
         context
     )
