@@ -27,7 +27,7 @@
                         Zostało przez Ciebie opublikowanych
                     {% endif %}
                     w sumie
-                    {% if user_comments.count  %}
+                    {% if user_comments.count %}
                         {% if user_comments.count == 1 %}
                             {{ user_comments.count }} komentarz
                         {% else %}
@@ -44,47 +44,60 @@
                         <div class="col-12 shadow my-3 rounded">
                             <div class="row">
                                 <div class="col-5 col-lg-3 p-0 shadow">
-                                    <a style="text-decoration: none !important;" href="{% url 'article-detail' comment.blog.pk %}">
-                                        <img class="card-photo shadow card-photo-rounded rounded rounded-end-0" src="{{ comment.blog.background.url }}" alt="{{ comment.blog.title }}">
+                                    <a style="text-decoration: none !important;"
+                                       href="{% url 'article-detail' comment.blog.pk %}">
+                                        <img class="card-photo shadow card-photo-rounded rounded rounded-end-0"
+                                             src="{{ comment.blog.background.url }}" alt="{{ comment.blog.title }}">
                                     </a>
                                 </div>
                                 <div class="col-7 col-lg-4 shadow" style="position: relative;">
-                                    <a style="text-decoration: none !important;" href="{% url 'article-detail' comment.blog.pk %}">
-                                        <h4 class="fw-normal pt-4 ps-2" style="color: navy">{{ comment.blog.title }}</h4>
+                                    <a style="text-decoration: none !important;"
+                                       href="{% url 'article-detail' comment.blog.pk %}">
+                                        <h4 class="fw-normal pt-4 ps-2"
+                                            style="color: navy">{{ comment.blog.title }}</h4>
                                     </a>
                                     <div class="row px-4 pb-4" style="position: absolute; bottom: 0;">
                                         <div class="col-1 col-sm-2 col-md-2 col-xl-2 ps-0 ps-sm-0">
-                                            <a class="card-link" href="{% url 'author-detail' comment.blog.author.pk %}">
-                                                <img class="card-photo rounded-circle" src="{{ comment.blog.author.profile_pic.url }}" alt="Author article profile picture" style="height: 48px; width: 48px">
+                                            <a class="card-link"
+                                               href="{% url 'author-detail' comment.blog.author.pk %}">
+                                                <img class="card-photo rounded-circle"
+                                                     src="{{ comment.blog.author.profile_pic.url }}"
+                                                     alt="Author article profile picture"
+                                                     style="height: 48px; width: 48px">
                                             </a>
                                         </div>
-                                            <div class="col-11 col-sm-10 col-md-10 col-xl-10">
-                                                <div class="row ps-5 ps-sm-3 ps-md-3 ps-lg-0">
-                                                    <div class="col-12 ps-0 ps-sm-1 ps-md-1 ps-lg-2">
-                                                        <small class="fw-bold text-capitalize">
-                                                            <a class=" first-post" style="text-decoration: none" href="{% url 'author-detail' comment.blog.author.pk %}">
-                                                                {% if comment.blog.author.user.first_name and comment.blog.author.user.last_name %}
-                                                                        {{ comment.blog.author.user.first_name }} {{ comment.blog.author.user.last_name }}
-                                                                    {% elif comment.blog.author.user.first_name %}
-                                                                        {{ comment.blog.author.user.first_name }}
-                                                                    {% elif comment.blog.author.user.last_name %}
-                                                                        {{ comment.blog.author.user.last_name }}
-                                                                    {% else %}
-                                                                        {{ comment.blog.author.user.username }}
-                                                                {% endif %}
-                                                            </a>
-                                                        </small>
-                                                    </div>
-                                                    <div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-2">
-                                                        <small class="fw-light text-capitalize" style="color: rgba(0,0,0, .6)">{{ comment.blog.date_posted | date:"j E Y" }}</small>
-                                                    </div>
+                                        <div class="col-11 col-sm-10 col-md-10 col-xl-10">
+                                            <div class="row ps-5 ps-sm-3 ps-md-3 ps-lg-0">
+                                                <div class="col-12 ps-0 ps-sm-1 ps-md-1 ps-lg-2">
+                                                    <small class="fw-bold text-capitalize">
+                                                        <a class=" first-post" style="text-decoration: none"
+                                                           href="{% url 'author-detail' comment.blog.author.pk %}">
+                                                            {% if comment.blog.author.user.first_name and comment.blog.author.user.last_name %}
+                                                                {{ comment.blog.author.user.first_name }}
+                                                                {{ comment.blog.author.user.last_name }}
+                                                            {% elif comment.blog.author.user.first_name %}
+                                                                {{ comment.blog.author.user.first_name }}
+                                                            {% elif comment.blog.author.user.last_name %}
+                                                                {{ comment.blog.author.user.last_name }}
+                                                            {% else %}
+                                                                {{ comment.blog.author.user.username }}
+                                                            {% endif %}
+                                                        </a>
+                                                    </small>
+                                                </div>
+                                                <div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-2">
+                                                    <small class="fw-light text-capitalize"
+                                                           style="color: rgba(0,0,0, .6)">{{ comment.blog.date_posted | date:"j E Y" }}</small>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
-                                <div class="col-12 col-lg-5 shadow" style="position: relative;background-color: navy; color: white">
-                                    <div class="px-3 py-4 shadow" >
-                                        <h6 class="mb-5 mb-lg-4 fw-normal" style="font-size: 1.2rem">{{ comment.content }}</h6>
+                                <div class="col-12 col-lg-5 shadow"
+                                     style="position: relative;background-color: navy; color: white">
+                                    <div class="px-3 py-4 shadow">
+                                        <h6 class="mb-5 mb-lg-4 fw-normal"
+                                            style="font-size: 1.2rem">{{ comment.content }}</h6>
                                         <small class="py-4 mb-0 fw-light" style="position: absolute; bottom: 0;">Opublikowano {{ comment.date_posted }}</small>
                                     </div>
                                 </div>
@@ -94,7 +107,7 @@
                     {% endfor %}
 
                 </div>
-                {% include 'paginator.html' %}
+                {% include 'Paginator/Paginator.html' %}
             </div>
         </div>
     </div>
@@ -107,7 +120,8 @@
                 <div class="row">
                     <div class="col-12 col-lg-6 text-start text-white">
                         <h5 class="fw-bold">Dołącz do naszego biuletynu</h5>
-                        <h6 class="fw-light">Raz w tygodniu wyślemy Ci przyjemną wiadomość, która dostarczy wartościowe informacje i ciekawe artykuły na temat naszej pasji. Bez zbędnego spamu.</h6>
+                        <h6 class="fw-light">Raz w tygodniu wyślemy Ci przyjemną wiadomość, która dostarczy wartościowe
+                            informacje i ciekawe artykuły na temat naszej pasji. Bez zbędnego spamu.</h6>
                     </div>
                     <div class="col-12 col-lg-6 pt-3 pt-lg-0  align-items-center">
                         <form class="" method="POST" id="newsletter-form">
@@ -128,4 +142,6 @@
     {% include 'Footers/Footer.html' %}
 {% endblock %}
 
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+        async></script>

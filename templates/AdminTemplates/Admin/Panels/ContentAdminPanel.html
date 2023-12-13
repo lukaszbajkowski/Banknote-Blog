@@ -3,6 +3,7 @@
 {% load static %}
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
 <head>
     {{ form.media }}
 </head>
@@ -25,7 +26,9 @@
                         <i class="fa-solid fa-right-to-bracket fa-rotate-180"></i>
                     </button>
                     <h3 class="ms-3 mb-0 align-middle">
-                        <a class="admin_category text-navy" href='{% url 'posts_admin' %}'>Zarządzanie treścią</a>
+                        <a class="admin_category text-navy" href='{% url 'posts_admin' %}'>
+                            Zarządzanie treścią
+                        </a>
                     </h3>
                 </div>
                 <div class="col-6 col-xl-3 px-1 px-lg-2 pb-3 bg-body-tertiary">

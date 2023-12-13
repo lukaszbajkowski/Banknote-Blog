@@ -29,8 +29,8 @@
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                const copyLinkBtns = document.querySelectorAll('.copy-link-btn');
-                const alertContainer = document.querySelector('#alert-container');
+                const copyLinkBtns = document.querySelectorAll(".copy-link-btn");
+                const alertContainer = document.querySelector("#alert-container");
 
                 copyLinkBtns.forEach(copyLinkBtn => {
                     copyLinkBtn.addEventListener('click', () => {
@@ -120,7 +120,7 @@
             });
         </script>
     {% else %}
-        <img src="{% static 'images/404_Error_Page.svg' %}">
+        <img src="{% static 'images/404_Error_Page.svg' %}" alt="Error, 404">
     {% endif %}
 {% endblock %}
 

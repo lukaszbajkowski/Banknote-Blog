@@ -9,9 +9,15 @@
     <tbody>
     {% for comment in comments %}
         <tr>
-            <td>{{ comment.content }}</td>
-            <td>{{ comment.blog.title }}</td>
-            <td>{{ comment.date_posted }}</td>
+            <td>
+                {{ comment.content }}
+            </td>
+            <td>
+                {{ comment.blog.title }}
+            </td>
+            <td>
+                {{ comment.date_posted }}
+            </td>
         </tr>
     {% endfor %}
     </tbody>

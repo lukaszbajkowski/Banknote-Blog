@@ -4,7 +4,7 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <head>
-     {{ form.media }}
+    {{ form.media }}
 </head>
 
 {% block title %}
@@ -25,7 +25,9 @@
                 <div class="row gx-5 p-0 ">
                     <div class="col-12 col-lg-4 px-sm-5 px-lg-0">
                         <div class="p-3 bg-white rounded-top-3 text-center shadow">
-                            <img class="img rounded-circle shadow mt-3 mb-1" style="aspect-ratio: 1/1 !important; object-fit: cover; object-position: center;" src="{{ user.user.profile_pic.url }}" >
+                            <img class="img rounded-circle shadow mt-3 mb-1"
+                                 style="aspect-ratio: 1/1 !important; object-fit: cover; object-position: center;"
+                                 src="{{ user.user.profile_pic.url }}">
                             <h4 class="pt-2 mb-0 text-capitalize" style="color: navy">
                                 {% if user.first_name and user.last_name %}
                                     {{ user.first_name }} {{ user.last_name }}
@@ -37,22 +39,27 @@
                                     {{ user.username }}
                                 {% endif %}
                             </h4>
-                            <small class="pt-1" style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
+                            <small class="pt-1"
+                                   style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
                                 {{ user.email }}
                             </small>
                             <h6 class="text-capitalize fw-semibold mb-0 ms-4 pt-4 text-start" style="color:navy;">
                                 Konto
                             </h6>
                             <nav class="nav flex-column text-start mx-1 px-3">
-                                <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
+                                <button class="btn btn-list btn-list mt-2 mb-1"
+                                        onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
                                     <i class="fa-solid fa-circle-user me-2"></i>
                                     Dane osobiste
                                 </button>
-                                <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'edit_security_page' %}'" style="text-align: left; ">
+                                <button class="btn btn-list btn-list my-1"
+                                        onclick="location.href='{% url 'edit_security_page' %}'"
+                                        style="text-align: left; ">
                                     <i class="fa-solid fa-shield-halved me-2"></i>
                                     Zabezpieczenia
                                 </button>
-                                <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'notifications' %}'" style="text-align: left; ">
+                                <button class="btn btn-list btn-list my-1"
+                                        onclick="location.href='{% url 'notifications' %}'" style="text-align: left; ">
                                     <i class="fa-solid fa-envelope-open-text me-2"></i>
                                     Powiadomienia
                                 </button>
@@ -66,24 +73,33 @@
                             </h6>
                             <nav class="nav flex-column text-start mx-1 px-3">
                                 {% if user.author %}
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'edit_author' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'edit_author' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-solid fa-id-card me-2"></i>
                                         Strona autora
                                     </button>
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'my_posts' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'my_posts' %}'" style="text-align: left; ">
                                         <i class="fa-regular fa-newspaper me-2"></i>
                                         Moje artykuły
                                     </button>
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'my_posts_create' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'my_posts_create' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-solid fa-circle-plus me-2"></i>
                                         Dodaj artykuł
                                     </button>
                                 {% else %}
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'article_author_form' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'article_author_form' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-solid fa-user-pen me-2"></i>
                                         Zostań autorem
                                     </button>
-                                    <button class="btn btn-list-active btn-list mt-2 mb-1" onclick="location.href='{% url 'article_author_history' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list-active btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'article_author_history' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-regular fa-folder-open me-2"></i>
                                         Historia aplikacji
                                     </button>
@@ -101,52 +117,56 @@
                                     <div class="table-responsive">
                                         <table class="table table-hover pt-4">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col">Status</th>
-                                                    <th scope="col">Data aplikacji</th>
-                                                    <th scope="col">Szczegóły</th>
-                                                </tr>
+                                            <tr>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Data aplikacji</th>
+                                                <th scope="col">Szczegóły</th>
+                                            </tr>
                                             </thead>
                                             <tbody class="table-group-divider">
-                                                {% for sub in page_obj %}
-                                                    <tr>
-                                                        <td>
-                                                            <a class="admin_panel_link" href="{% url 'article_author_detail' sub.pk %}">
-                                                                {% if sub.approved and not sub.rejected %}
-                                                                    Aplikacja zaakceptowana
-                                                                {% elif sub.rejected and not sub.approved %}
-                                                                    Aplikacja odrzucona
-                                                                {% else %}
-                                                                     Oczekuje na rozpatrzenie
-                                                                {% endif %}
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <a class="admin_panel_link" href="{% url 'article_author_detail' sub.pk %}">
-                                                               {{ sub.date_added }}
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <a class="admin_panel_edit_link" href="{% url 'article_author_detail' sub.pk %}">
-                                                                Szczegóły
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                {% endfor %}
+                                            {% for sub in page_obj %}
+                                                <tr>
+                                                    <td>
+                                                        <a class="admin_panel_link"
+                                                           href="{% url 'article_author_detail' sub.pk %}">
+                                                            {% if sub.approved and not sub.rejected %}
+                                                                Aplikacja zaakceptowana
+                                                            {% elif sub.rejected and not sub.approved %}
+                                                                Aplikacja odrzucona
+                                                            {% else %}
+                                                                Oczekuje na rozpatrzenie
+                                                            {% endif %}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="admin_panel_link"
+                                                           href="{% url 'article_author_detail' sub.pk %}">
+                                                            {{ sub.date_added }}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="admin_panel_edit_link"
+                                                           href="{% url 'article_author_detail' sub.pk %}">
+                                                            Szczegóły
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
                                 {% else %}
                                     <p class="pt-2 text-start message m-0 mb-2 text-muted fw-light">
-                                        Brak aplikacji na zostanie autorem. Jeśli zaaplikujesz na zostanie autorem Twój wniosek pojawi się tutaj.
+                                        Brak aplikacji na zostanie autorem. Jeśli zaaplikujesz na zostanie autorem Twój
+                                        wniosek pojawi się tutaj.
                                     </p>
                                 {% endif %}
                             </div>
-                            {% include 'paginator.html' %}
+                            {% include 'Paginator/Paginator.html' %}
                         </div>
                     </div>
                 </div>
-                {% include 'FooterMembers.html' %}
+                {% include 'Footers/FooterMembers.html' %}
             </div>
         </div>
     </div>

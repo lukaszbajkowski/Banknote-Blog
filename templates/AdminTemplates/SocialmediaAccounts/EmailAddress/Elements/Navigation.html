@@ -1,9 +1,11 @@
 <div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'email_address_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start" onclick="location.href='{% url 'email_address_add' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'email_address_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'email_address_add' %}'">
         <i class="fa-solid fa-at me-2"></i>
         Stworzenie adresu email dla konta społecznościowego
     </button>
-    <button class="btn btn-list {% if request.resolver_match.url_name in 'email_address_admin_panel, email_address_detail_admin_panel, email_address_edit_admin_panel, email_address_delete_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start" onclick="location.href='{% url 'email_address_admin_panel' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'email_address_admin_panel, email_address_detail_admin_panel, email_address_edit_admin_panel, email_address_delete_admin_panel' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'email_address_admin_panel' %}'">
         <i class="fa-solid fa-envelopes-bulk me-2"></i>
         Zarządzanie adresami email dla konta społecznościowych
     </button>

@@ -1,0 +1,10 @@
+{% load static %}
+{% if page_obj.paginator.num_pages > 1 %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-3">
+            {% include 'Paginator/Elements/PreviousButton.html' %}
+            {% include 'Paginator/Elements/NumbersButtons.html' %}
+            {% include 'Paginator/Elements/NextButton.html' %}
+        </ul>
+    </nav>
+{% endif %}

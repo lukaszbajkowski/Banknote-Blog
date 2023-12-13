@@ -9,22 +9,22 @@
 </head>
 
 {% block title %}
-Banknoty -  {{ submitted_forms }}
+    Banknoty -  {{ submitted_forms }}
 {% endblock %}
 
 {% block navbar %}
-{% include 'Navbar/NavbarAdmin.html' %}
+    {% include 'Navbar/NavbarAdmin.html' %}
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
-            {% include 'AdminTemplates/Accounts/AuthorApplication/Elements/Navigation.html' %}
-        </div>
-        <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
-            {% include 'AdminTemplates/Accounts/AuthorApplication/Elements/Detail/AuthorApplication.html' %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-3 px-5 px-lg-5 mx-auto bg-body-tertiary">
+                {% include 'AdminTemplates/Accounts/AuthorApplication/Elements/Navigation.html' %}
+            </div>
+            <div class="col-12 col-lg-9 px-5 px-lg-0 pe-lg-5 pt-4 pt-lg-3 mx-auto bg-body-tertiary mt-2">
+                {% include 'AdminTemplates/Accounts/AuthorApplication/Elements/Detail/AuthorApplication.html' %}
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

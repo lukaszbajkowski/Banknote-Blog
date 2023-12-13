@@ -1,0 +1,61 @@
+{% if page_obj.number|add:"-1" > 1 %}
+    <li class="page-item">
+        <a class="btn btn-arrow rounded-0" href="?page=1">
+            1
+        </a>
+    </li>
+{% endif %}
+{% if page_obj.number|add:"-2" > 1 %}
+    <li class="page-item">
+        <a class="btn btn-arrow rounded-0">
+            ...
+        </a>
+    </li>
+{% endif %}
+{% for i in page_obj.paginator.page_range %}
+    {% if i >= page_obj.number|add:"-1" and i <= page_obj.number|add:"1" %}
+        {% if i == page_obj.number %}
+            <li class="page-item ">
+                <a class="btn btn-arrow-active rounded-0">
+                    {{ i }}
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a class="btn btn-arrow rounded-0" href="?page={{ i }}">
+                    {{ i }}
+                </a>
+            </li>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+{% if page_obj.number|add:"3" < paginator.num_pages %}
+    {% if page_obj.paginator.num_pages not in page_obj.paginator.page_range %}
+        <li class="page-item">
+            <a class="btn btn-arrow rounded-0">
+                ...
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="btn btn-arrow rounded-0"
+               href="?page={{ page_obj.paginator.num_pages }}">
+                {{ page_obj.paginator.num_pages }}
+            </a>
+        </li>
+    {% endif %}
+{% endif %}
+{% if page_obj.paginator.num_pages > page_obj.number|add:"2" %}
+    <li class="page-item">
+        <a class="btn btn-arrow rounded-0">
+            ...
+        </a>
+    </li>
+{% endif %}
+{% if page_obj.paginator.num_pages > page_obj.number|add:"1" %}
+    <li class="page-item">
+        <a class="btn btn-arrow rounded-0"
+           href="?page={{ page_obj.paginator.num_pages }}">
+            {{ page_obj.paginator.num_pages }}
+        </a>
+    </li>
+{% endif %}

@@ -1,9 +1,11 @@
 <div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'author_add' %}btn-list-active{% endif %} mt-2 mb-1" onclick="location.href='{% url 'author_add' %}'" style="text-align: left; width: 100%; display: block;">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'author_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'author_add' %}'">
         <i class="fa-solid fa-id-card-clip me-2"></i>
         Stworzenie autora
     </button>
-    <button class="btn btn-list {% if request.resolver_match.url_name in 'author_admin_panel,author_detail_admin_panel,author_edit_admin_panel,author_delete_admin_panel' %}btn-list-active{% endif %} my-1" onclick="location.href='{% url 'author_admin_panel' %}'" style="text-align: left; width: 100%; display: block;">
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'author_admin_panel,author_detail_admin_panel,author_edit_admin_panel,author_delete_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
+            onclick="location.href='{% url 'author_admin_panel' %}'">
         <i class="fa-regular fa-address-book me-2"></i>
         Zarządzanie autorami
     </button>

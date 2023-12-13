@@ -3,14 +3,14 @@
     <input type="hidden" name="blog_id" value="{{ blog.pk }}">
     <td>
         <div class="form-check form-border admin-panel-post-publication">
-            <input type="radio" name="publiction_status" value="approve" class="form-check-input"
+            <input type="radio" name="publication_status" value="approve" class="form-check-input"
                    {% if blog.publiction_status %}checked{% endif %}>
             <label>
                 Tak
             </label>
         </div>
         <div class="form-check form-border admin-panel-post-publication">
-            <input type="radio" name="publiction_status" value="reject" class="form-check-input"
+            <input type="radio" name="publication_status" value="reject" class="form-check-input"
                    {% if not blog.publiction_status %}checked{% endif %}>
             <label>
                 Nie

@@ -1,7 +1,9 @@
 {% if form.captcha.errors %}
 <div class="invalid-feedback">
     {% for error in form.captcha.errors %}
-        <p class="mb-1">{{ error }}</p>
+        <p class="mb-1">
+            {{ error }}
+        </p>
     {% endfor %}
 </div>
 {% endif %}

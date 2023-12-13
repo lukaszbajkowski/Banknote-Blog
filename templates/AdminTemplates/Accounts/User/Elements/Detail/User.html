@@ -36,8 +36,7 @@
 <h6 class="form-label pt-3 text-start fw-bold">
     Zdjęcie profilowe
 </h6>
-<img src="/images/{{ users.profile_pic }}" style="min-width: 120px; min-height: 120px"
-     class="img-author-admin rounded-circle shadow my-2">
+<img src="/images/{{ users.profile_pic }}" alt="User Img" class="img-author-admin admin-panel-post-bg rounded-circle shadow my-2">
 <h6 class="form-label pt-3 text-start fw-bold">
     Biogram
 </h6>
@@ -83,7 +82,7 @@
     Nie
 {% endif %}
 <h6 class="form-label pt-3 text-start fw-bold">
-    Wiadkomości od Banknoty
+    Wiadomości od Banknoty
 </h6>
 {% if users.company_news %}
     Tak

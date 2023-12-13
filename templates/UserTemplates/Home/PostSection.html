@@ -20,10 +20,9 @@
                                         {% for category in post.category.all %}
                                             <a class="no-text-decoration"
                                                href="{% url 'category-detail' category.id %}">
-                                                    <span class="text-muted text-black badge rounded-pill mt-2 px-3 py-2 fw-light"
-                                                          style="background-color: #eff1f3">
-                                                        {{ category.name }}
-                                                    </span>
+                                                <span class="text-muted text-black badge rounded-pill mt-2 px-3 py-2 fw-light pill-bg">
+                                                    {{ category.name }}
+                                                </span>
                                             </a>
                                         {% endfor %}
                                     </div>
@@ -35,8 +34,9 @@
                                     </div>
                                     <div class="p-3">
                                         <a class="card-link" href="{% url 'article-detail' post.pk %}">
-                                            <h6 class="text-start fw-light"
-                                                style="text-indent: 5%; color: black">{{ post.introduction | safe | truncatewords:25 }}</h6>
+                                            <h6 class="text-start fw-light text-intro">
+                                                {{ post.introduction | safe | truncatewords:25 }}
+                                            </h6>
                                         </a>
                                     </div>
                                 </div>
@@ -46,10 +46,9 @@
                                     <div class="row px-3 pb-3">
                                         <div class="col-1 col-sm-2 col-md-2 col-xl-2">
                                             <a class="card-link" href="{% url 'author-detail' post.author.pk %}">
-                                                <img class="card-photo rounded-circle"
+                                                <img class="card-photo rounded-circle article-author-img"
                                                      src="{{ post.author.profile_pic.url }}"
-                                                     alt="Author article profile picture"
-                                                     style="height: 48px; width: 48px">
+                                                     alt="Author article profile picture">
                                             </a>
                                         </div>
                                         <div class="col-11 col-sm-10 col-md-10 col-xl-10">
@@ -72,8 +71,9 @@
                                                     </small>
                                                 </div>
                                                 <div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-3">
-                                                    <small class="fw-light text-capitalize"
-                                                           style="color: rgba(0,0,0, .6)">{{ post.date_posted | date:"j E Y" }}</small>
+                                                    <small class="fw-light text-capitalize article-date-color">
+                                                        {{ post.date_posted | date:"j E Y" }}
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                     </div>
                 {% endfor %}
             </div>
-            {% include 'paginator.html' %}
+            {% include 'Paginator/Paginator.html' %}
         </div>
     </div>
 </div>

@@ -8,31 +8,31 @@
     </p>
     <script>
         $(document).ready(function () {
-    $('#contact-form').submit(function (event) {
-        event.preventDefault();
+            $('#contact-form').submit(function (event) {
+                event.preventDefault();
 
-        const form = $(this);
-        const submitButton = $('#submit-button-email');
+                const form = $(this);
+                const submitButton = $('#submit-button-email');
 
-        submitButton.attr('disabled', 'disabled');
+                submitButton.attr('disabled', 'disabled');
 
-        $.ajax({
-            url: form.attr('action'),
-            type: form.attr('method'),
-            data: form.serialize(),
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
 
-            success: function (response) {
-                grecaptcha.reset(); // Corrected typo here
-                form[0].reset();
-                submitButton.removeAttr('disabled');
-            },
+                    success: function (response) {
+                        grecaptcha.reset();
+                        form[0].reset();
+                        submitButton.removeAttr('disabled');
+                    },
 
-            error: function (response) {
-                submitButton.removeAttr('disabled');
-            }
+                    error: function (response) {
+                        submitButton.removeAttr('disabled');
+                    }
+                });
+            });
         });
-    });
-});
 
     </script>
     {% include 'Contact/ContactForm.html' %}

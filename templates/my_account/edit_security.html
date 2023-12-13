@@ -20,7 +20,9 @@
                 <div class="row gx-5 p-0 ">
                     <div class="col-12 col-lg-4 px-sm-5 px-lg-0">
                         <div class="p-3 bg-white rounded-top-3 text-center shadow">
-                            <img class="img rounded-circle shadow mt-3 mb-1" style="aspect-ratio: 1/1 !important; object-fit: cover; object-position: center;" src="{{ user.user.profile_pic.url }}" >
+                            <img class="img rounded-circle shadow mt-3 mb-1"
+                                 style="aspect-ratio: 1/1 !important; object-fit: cover; object-position: center;"
+                                 src="{{ user.user.profile_pic.url }}">
                             <h4 class="pt-2 mb-0 text-capitalize" style="color: navy">
                                 {% if user.first_name and user.last_name %}
                                     {{ user.first_name }} {{ user.last_name }}
@@ -32,22 +34,27 @@
                                     {{ user.username }}
                                 {% endif %}
                             </h4>
-                            <small class="pt-1" style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
+                            <small class="pt-1"
+                                   style="color: rgba(0, 0, 128, 0.5); overflow-wrap: break-word; word-wrap: break-word;">
                                 {{ user.email }}
                             </small>
                             <h6 class="text-capitalize fw-semibold mb-0 ms-4 pt-4 text-start" style="color:navy;">
                                 Konto
                             </h6>
                             <nav class="nav flex-column text-start mx-1 px-3">
-                                <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
+                                <button class="btn btn-list btn-list mt-2 mb-1"
+                                        onclick="location.href='{% url 'edit_profile' %}'" style="text-align: left; ">
                                     <i class="fa-solid fa-circle-user me-2"></i>
                                     Dane osobiste
                                 </button>
-                                <button class="btn btn-list-active btn-list my-1" onclick="location.href='{% url 'edit_security_page' %}'" style="text-align: left; ">
+                                <button class="btn btn-list-active btn-list my-1"
+                                        onclick="location.href='{% url 'edit_security_page' %}'"
+                                        style="text-align: left; ">
                                     <i class="fa-solid fa-shield-halved me-2"></i>
                                     Zabezpieczenia
                                 </button>
-                                <button class="btn btn-list btn-list my-1" onclick="location.href='{% url 'notifications' %}'" style="text-align: left; ">
+                                <button class="btn btn-list btn-list my-1"
+                                        onclick="location.href='{% url 'notifications' %}'" style="text-align: left; ">
                                     <i class="fa-solid fa-envelope-open-text me-2"></i>
                                     Powiadomienia
                                 </button>
@@ -61,24 +68,33 @@
                             </h6>
                             <nav class="nav flex-column text-start mx-1 px-3">
                                 {% if user.author %}
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'edit_author' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'edit_author' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-solid fa-id-card me-2"></i>
                                         Strona autora
                                     </button>
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'my_posts' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'my_posts' %}'" style="text-align: left; ">
                                         <i class="fa-regular fa-newspaper me-2"></i>
                                         Moje artykuły
                                     </button>
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'my_posts_create' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'my_posts_create' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-solid fa-circle-plus me-2"></i>
                                         Dodaj artykuł
                                     </button>
                                 {% else %}
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'article_author_form' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'article_author_form' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-solid fa-user-pen me-2"></i>
                                         Zostań autorem
                                     </button>
-                                    <button class="btn btn-list btn-list mt-2 mb-1" onclick="location.href='{% url 'article_author_history' %}'" style="text-align: left; ">
+                                    <button class="btn btn-list btn-list mt-2 mb-1"
+                                            onclick="location.href='{% url 'article_author_history' %}'"
+                                            style="text-align: left; ">
                                         <i class="fa-regular fa-folder-open me-2"></i>
                                         Historia aplikacji
                                     </button>
@@ -114,7 +130,9 @@
                                 <h6 class="form-label pt-3 text-start fw-bold">
                                     {{ edit_password_form.old_password.label }}
                                 </h6>
-                                <input class="form-control {% if edit_password_form.old_password.value and not edit_password_form.is_bound %}is-not-submit{% endif %} {% if edit_password_form.old_password.errors %}is-invalid{% endif %} {% if edit_password_form.old_password.value and not edit_password_form.old_password.errors and edit_password_form.is_bound %}is-valid{% endif %}" type="password" id="id_old_password" name="old_password" value="{{ edit_password_form.old_password.value|default:'' }}">
+                                <input class="form-control {% if edit_password_form.old_password.value and not edit_password_form.is_bound %}is-not-submit{% endif %} {% if edit_password_form.old_password.errors %}is-invalid{% endif %} {% if edit_password_form.old_password.value and not edit_password_form.old_password.errors and edit_password_form.is_bound %}is-valid{% endif %}"
+                                       type="password" id="id_old_password" name="old_password"
+                                       value="{{ edit_password_form.old_password.value|default:'' }}">
                                 {% if edit_password_form.old_password.errors %}
                                     <div class="invalid-feedback">
                                         {% for error in edit_password_form.old_password.errors %}
@@ -136,7 +154,7 @@
                                 <h6 class="form-label pt-3 mb-0 text-start fw-bold">
                                     {{ edit_password_form.new_password2.label }}
                                 </h6>
-                                {{ edit_password_form.new_password2}}
+                                {{ edit_password_form.new_password2 }}
                                 {% if edit_password_form.new_password2.errors %}
                                     <div class="invalid-feedback">
                                         {% for error in edit_password_form.new_password2.errors %}
@@ -144,7 +162,10 @@
                                         {% endfor %}
                                     </div>
                                 {% endif %}
-                                <button class="d-flex justify-content-center btn btn-register px-4 mt-4 my-2 mx-auto" id="submit-button" disabled="true" style="opacity: 0.5" type="submit">Zmień hasło</button>
+                                <button class="d-flex justify-content-center btn btn-register px-4 mt-4 my-2 mx-auto"
+                                        id="submit-button" disabled="true" style="opacity: 0.5" type="submit">Zmień
+                                    hasło
+                                </button>
                                 {% for field, error in edit_password_form.errors.items %}
                                     <div class="alert alert-danger fw-light px-2 py-2 my-3" role="alert">
                                         {{ error|striptags }}
@@ -162,7 +183,7 @@
                     const icon_isNotCommon = document.getElementById("isNotCommon");
                     const icon_isNotOnlyNumbers = document.getElementById("isNotOnlyNumbers");
 
-                    document.addEventListener("input", function() {
+                    document.addEventListener("input", function () {
                         const password = passwordInput.value;
 
                         const isSimilar = checkSimilarity(password);
@@ -213,7 +234,7 @@
                         }
                     });
 
-                    function checkSimilarity(password) {
+                    function checkSimilarity (password) {
                         const username = "{{ user.username }}";
                         const email = "{{ user.email }}";
                         const first_name = "{{ user.first_name }}";
@@ -241,16 +262,16 @@
                             || last_nameSimilarity >= similarityThreshold;
                     }
 
-                    function checkLength(password) {
+                    function checkLength (password) {
                         return password.length >= 8;
                     }
 
-                    function checkCommon(password) {
-                      // Check if password is a commonly used password
-                      // Return true if password is commonly used, false otherwise
+                    function checkCommon (password) {
+                        // Check if password is a commonly used password
+                        // Return true if password is commonly used, false otherwise
                     }
 
-                    function checkOnlyNumbers(password) {
+                    function checkOnlyNumbers (password) {
                         if (password.length === 0) {
                             return true
                         }

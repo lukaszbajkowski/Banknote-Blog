@@ -8,8 +8,12 @@
     <tbody>
     {% for comment in comments %}
         <tr>
-            <td>{{ comment.content }}</td>
-            <td>{{ comment.author }}</td>
+            <td>
+                {{ comment.content }}
+            </td>
+            <td>
+                {{ comment.author }}
+            </td>
         </tr>
     {% endfor %}
     </tbody>

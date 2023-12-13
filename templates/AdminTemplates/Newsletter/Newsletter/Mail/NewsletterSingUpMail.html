@@ -5,61 +5,62 @@
 
 {% block content %}
     {% load static %}
-        <div class="bg-body-tertiary">
-            <div class="container-fluid mt-3">
-                <img class="my-5 mx-auto img-fluid d-block article-author-img" src="{{ image_url }}" alt="Logo">
-            </div>
-            <div class="container-fluid">
-                <h4 class="fw-bold text-center p-0 m-0 text-navy">
-                    Dziękujemy za rejestrację do biuletynu.
-                </h4>
-            </div>
-            <div class="container mt-5">
-                <div class="container px-5">
-                    <h6 class="fw-bold text-start text-navy">
-                        Szanowna/y {{ mail }}
-                    </h6>
-                    <p>
-                        Serdecznie witamy w naszej społeczności biuletynu!
-                        Dziękujemy za zapisanie się do naszego newslettera.
-                        Jesteśmy bardzo zadowoleni, że dołączyłeś/aś do naszej listy subskrybentów i jesteśmy pewni
-                        , że będziesz zainteresowany/a najnowszymi wiadomościami, aktualnościami i ofertami
-                        , które będziemy przesyłać na Twój adres e-mail.
-                    </p>
-                    <p>
-                        Potwierdzamy zapisanie Twojego adresu
-                        <span class="fw-bolder text-navy no-text-decoration">{{ mail }}</span>
-                        do naszej listy dystrybucyjnej biuletynu.
-                        Od tej chwili będziesz otrzymywać regularne wiadomości e-mail od naszej strony.
-                    </p>
-                    <p>
-                        Nasz biuletyn dostarcza najświeższe informacje związane z naszą stroną, nowe produkty,
-                        promocje, ważne wydarzenia i wiele innych interesujących treści. Jesteśmy przekonani,
-                        że znajdziesz wiele wartościowych informacji, które pomogą Ci być na bieżąco z naszą firmą.
-                    </p>
-                    <p>
-                        Jeśli w przyszłości zdecydujesz się zrezygnować z subskrypcji, możesz to zrobić w każdej chwili,
-                        klikając w link "Zrezygnuj z biuletynu" na dole każdego e-maila, który do Ciebie wysyłamy.
-                        Zapewniamy Cię, że Twoje dane osobowe będą traktowane z najwyższą dbałością
-                        i nie będą udostępniane osobom trzecim.
-                    </p>
-                    <p>
-                        Jeśli masz jakiekolwiek pytania, sugestie lub uwagi dotyczące naszego biuletynu, prosimy o kontakt.
-                        Nasz zespół jest gotowy, aby Ci pomóc i odpowiedzieć na wszystkie Twoje zapytania.
-                    </p>
-                    <p>
-                        Raz jeszcze dziękujemy za zapisanie się do naszego biuletynu.
-                        Cieszymy się na to, że będziemy mogli dostarczać Ci interesujące i wartościowe treści.
-                    </p>
-                    <h6 class="fw-bold text-end text-navy">
-                        Z wyrazami szacunku
-                    </h6>
-                    <h6 class="fw-bold text-end text-navy">
-                        Banknoty
-                    </h6>
-                </div>
+    <div class="bg-body-tertiary">
+        <div class="container-fluid mt-3">
+            <img class="my-5 mx-auto img-fluid d-block article-author-img" src="{{ image_url }}" alt="Logo">
+        </div>
+        <div class="container-fluid">
+            <h4 class="fw-bold text-center p-0 m-0 text-navy">
+                Dziękujemy za rejestrację do biuletynu.
+            </h4>
+        </div>
+        <div class="container mt-5">
+            <div class="container px-5">
+                <h6 class="fw-bold text-start text-navy">
+                    Szanowna/y {{ mail }}
+                </h6>
+                <p>
+                    Serdecznie witamy w naszej społeczności biuletynu! Dziękujemy za zapisanie się do naszego
+                    newslettera. Jesteśmy bardzo zadowoleni, że dołączyłeś/aś do naszej listy subskrybentów i jesteśmy
+                    pewni, że będziesz zainteresowany/a najnowszymi wiadomościami, aktualnościami i ofertami, które
+                    będziemy przesyłać na Twój adres e-mail.
+                </p>
+                <p>
+                    Potwierdzamy zapisanie Twojego adresu
+                    <span class="fw-bolder text-navy no-text-decoration">
+                        {{ mail }}
+                    </span>
+                    do naszej listy dystrybucyjnej biuletynu. Od tej chwili będziesz otrzymywać regularne wiadomości
+                    e-mail od naszej strony.
+                </p>
+                <p>
+                    Nasz biuletyn dostarcza najświeższe informacje związane z naszą stroną, nowe produkty, promocje,
+                    ważne wydarzenia i wiele innych interesujących treści. Jesteśmy przekonani, że znajdziesz wiele
+                    wartościowych informacji, które pomogą Ci być na bieżąco z naszą firmą.
+                </p>
+                <p>
+                    Jeśli w przyszłości zdecydujesz się zrezygnować z subskrypcji, możesz to zrobić w każdej chwili,
+                    klikając w link "Zrezygnuj z biuletynu" na dole każdego e-maila, który do Ciebie wysyłamy.
+                    Zapewniamy Cię, że Twoje dane osobowe będą traktowane z najwyższą dbałością
+                    i nie będą udostępniane osobom trzecim.
+                </p>
+                <p>
+                    Jeśli masz jakiekolwiek pytania, sugestie lub uwagi dotyczące naszego biuletynu, prosimy o kontakt.
+                    Nasz zespół jest gotowy, aby Ci pomóc i odpowiedzieć na wszystkie Twoje zapytania.
+                </p>
+                <p>
+                    Raz jeszcze dziękujemy za zapisanie się do naszego biuletynu. Cieszymy się na to, że będziemy mogli
+                    dostarczać Ci interesujące i wartościowe treści.
+                </p>
+                <h6 class="fw-bold text-end text-navy">
+                    Z wyrazami szacunku
+                </h6>
+                <h6 class="fw-bold text-end text-navy">
+                    Banknoty
+                </h6>
             </div>
         </div>
+    </div>
 {% endblock %}
 
 {% block foo %}
@@ -67,13 +68,15 @@
         <div class="container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center pt-3">
                 <div class="col-sm-12 col-md-12 col-lg-2 mx-auto justify-content-start d-flex align-items-center">
-                    <img class="mx-sm-auto mx-auto mx-lg-0 img-fluid d-block article-author-img" src="{{ image_url }}" alt="Logo">
+                    <img class="mx-sm-auto mx-auto mx-lg-0 img-fluid d-block article-author-img" src="{{ image_url }}"
+                         alt="Logo">
                 </div>
                 <ul class="nav col-sm-12 col-md-12 col-lg-10 mx-auto justify-content-center justify-content-lg-end list-unstyled d-flex">
                     <div class="text-end">
                         <ul class="nav">
                             <li class="nav-item mx-auto">
-                                <a class="nav-link btn-nav px-3" href="http://127.0.0.1:8000/members/myprofile/notifications/">
+                                <a class="nav-link btn-nav px-3"
+                                   href="http://127.0.0.1:8000/members/myprofile/notifications/">
                                     <h5 class="fw-light my-1">
                                         Zrezygnuj z biuletynu
                                     </h5>
@@ -113,17 +116,21 @@
                 </div>
                 <ul class="nav col-12 col-sm-12 col-md-6 px-sm-2 px-md-0 mx-auto justify-content-center justify-content-md-end list-unstyled d-flex">
                     <div class=" text-end">
-                        <a href="https://www.facebook.com" target="_blank" class="btn btn-socialmedia btn-facebook rounded-circle">
+                        <a href="https://www.facebook.com" target="_blank"
+                           class="btn btn-socialmedia btn-facebook rounded-circle">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.twitter.com" target="_blank" class="btn btn-socialmedia btn-twitter rounded-circle">
+                        <a href="https://www.twitter.com" target="_blank"
+                           class="btn btn-socialmedia btn-twitter rounded-circle">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="https://www.linkedin.com" target="_blank" class="btn btn-socialmedia btn-linkedin rounded-circle">
+                        <a href="https://www.linkedin.com" target="_blank"
+                           class="btn btn-socialmedia btn-linkedin rounded-circle">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://www.github.com" target="_blank" class="btn btn-socialmedia btn-github rounded-circle">
-                             <i class="fab fa-github"></i>
+                        <a href="https://www.github.com" target="_blank"
+                           class="btn btn-socialmedia btn-github rounded-circle">
+                            <i class="fab fa-github"></i>
                         </a>
                     </div>
                 </ul>

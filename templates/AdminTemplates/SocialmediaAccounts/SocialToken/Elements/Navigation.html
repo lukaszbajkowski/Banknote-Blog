@@ -1,9 +1,11 @@
 <div class="nav rounded-3 shadow-sm text-start p-3 admin-panel-nav-btn">
-    <button class="btn btn-list {% if request.resolver_match.url_name == 'social_token_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start" onclick="location.href='{% url 'social_token_add' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name == 'social_token_add' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'social_token_add' %}'">
         <i class="fa-solid fa-key me-2"></i>
         Stworzenie tokenu aplikacji społecznościowej
     </button>
-    <button class="btn btn-list {% if request.resolver_match.url_name in 'social_token_admin_panel, social_token_detail_admin_panel, social_token_edit_admin_panel, social_token_delete_admin_panel' %}btn-list-active{% endif %} my-1 text-start" onclick="location.href='{% url 'social_token_admin_panel' %}'">
+    <button class="btn btn-list {% if request.resolver_match.url_name in 'social_token_admin_panel, social_token_detail_admin_panel, social_token_edit_admin_panel, social_token_delete_admin_panel' %}btn-list-active{% endif %} my-1 text-start"
+            onclick="location.href='{% url 'social_token_admin_panel' %}'">
         <i class="fa-solid fa-user-lock me-2"></i>
         Zarządzanie tokenami aplikacji społecznościowymi
     </button>

@@ -1,0 +1,17 @@
+{% if page_obj.has_previous %}
+    <li class="page-item">
+        <a class="btn btn-arrow rounded-start-pill" href="?page={{ page_obj.previous_page_number }}">
+            <span aria-hidden="true">
+                &lsaquo;
+            </span>
+        </a>
+    </li>
+{% else %}
+    <li class="page-item">
+        <a class="btn btn-arrow rounded-start-pill" style="cursor: pointer">
+            <span aria-hidden="true">
+                &lsaquo;
+            </span>
+        </a>
+    </li>
+{% endif %}

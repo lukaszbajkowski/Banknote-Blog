@@ -20,9 +20,9 @@
     Numer telefonu
 </h6>
 {% if submitted_forms.phone_number == None %}
-Brak
+    Brak
 {% else %}
-{{ submitted_forms.phone_number }}
+    {{ submitted_forms.phone_number }}
 {% endif %}
 <h6 class="form-label pt-3 text-start fw-bold">
     Doświadczenie
@@ -36,11 +36,11 @@ Brak
     Status
 </h6>
 {% if submitted_forms.approved %}
-Zatwierdzono
+    Zatwierdzono
 {% elif submitted_forms.rejected %}
-Odrzucono
+    Odrzucono
 {% else %}
-Oczekuje na decyzję
+    Oczekuje na decyzję
 {% endif %}
 <h6 class="form-label pt-3 text-start fw-bold">
     Data przesłania aplikacji

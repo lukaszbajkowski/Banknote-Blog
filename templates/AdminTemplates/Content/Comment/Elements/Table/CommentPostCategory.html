@@ -2,7 +2,9 @@
     <tbody>
     {% for category in posts.category.all %}
         <tr>
-            <td> {{ category.name }}</td>
+            <td>
+                {{ category.name }}
+            </td>
         </tr>
     {% endfor %}
     </tbody>
