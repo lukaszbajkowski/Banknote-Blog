@@ -39,10 +39,10 @@ urlpatterns = [
     path('myprofile/author_application/history/', author_app_history_view, name='article_author_history'),
     path('myprofile/author_application/detail/<int:pk>', author_app_detail_view, name='article_author_detail'),
 
-    path('confirmation/', confirmation_page, name='confirmation'),
-    path('confirm/<str:uidb64>/<str:token>/', confirm_email, name='confirm_email'),
-    path('confirmed/', registration_confirmed, name='registration_confirmed'),
-    path('confirmation-error/', confirmation_error, name='confirmation_error'),
+    path('confirmation/', confirmation_page_view, name='confirmation'),
+    path('confirm/<str:uidb64>/<str:token>/', confirm_email_view, name='confirm_email'),
+    path('confirmed/', registration_confirmed_view, name='registration_confirmed'),
+    path('confirmation-error/', confirmation_error_view, name='confirmation_error'),
 
     path('reset_password/', views.CustomPasswordResetView.as_view(
         template_name='Registration/ResetPassword/PasswordResetForm.html',

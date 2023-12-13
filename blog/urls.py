@@ -24,7 +24,7 @@ from .views_user.article.article_views import *
 from .views_user.author.author_views import *
 from .views_user.category.category_views import *
 from .views_user.contact.contact_views import *
-from .views_user.home.hove_views import *
+from .views_user.home.home_views import *
 from .views_user.information.information_views import *
 from .views_user.newsletter.newsletter_views import *
 

@@ -2,7 +2,7 @@ import ssl
 
 from django.contrib.auth.views import PasswordResetView
 
-from .forms import *
+from members.forms import CustomPasswordResetForm
 
 ssl._create_default_https_context = ssl._create_unverified_context
 

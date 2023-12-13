@@ -7,7 +7,6 @@ from blog.form import NewsletterUserSignUpForm
 from blog.models import Blog
 from blog.models import Category
 from blog.models import Comment
-from blog.models import NewsletterUser
 from blog.views import handle_newsletter_signup
 
 

@@ -295,6 +295,8 @@ def send_newsletters_mail(subject, user, mail, mail_context):
     )
 
 
+# Funkcja odpowiedzialna za przekazanie danych do funkcji wysyłającej maile do użytkowników i przekazująca dane o
+# odpowiednich powiadomieniach
 def content_editorial_admin_panel(request, instance, userfield, mail_subject, mail, status):
     if instance.status_field == "Published":
         users_with_news = DjangoUser.objects.filter(**{userfield: True})

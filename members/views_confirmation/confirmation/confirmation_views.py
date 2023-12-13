@@ -7,7 +7,7 @@ from django.utils.http import urlsafe_base64_decode
 
 
 # Widoki potwierdzenia e-maila po rejestracji
-def confirm_email(request, uidb64, token):
+def confirm_email_view(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = get_user_model().objects.get(pk=uid)
@@ -23,7 +23,7 @@ def confirm_email(request, uidb64, token):
 
 
 # Widok potwierdzenia rejestracji
-def registration_confirmed(request):
+def registration_confirmed_view(request):
     return render(
         request,
         'Registration/Confirmed.html'
@@ -31,7 +31,7 @@ def registration_confirmed(request):
 
 
 # Widok błędu potwierdzenia e-maila po rejestracji
-def confirmation_error(request):
+def confirmation_error_view(request):
     return render(
         request,
         'Registration/ConfirmationError.html'
@@ -39,7 +39,7 @@ def confirmation_error(request):
 
 
 # Widok strony z informacją o potwierdzeniu rejestracji
-def confirmation_page(request):
+def confirmation_page_view(request):
     return render(
         request,
         'Registration/Confirmation.html'
