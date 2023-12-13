@@ -8,6 +8,7 @@ from .views_confirmation.confirmation.confirmation_views import *
 from .views_login.login.login_views import *
 from .views_notification.notification.notification_views import *
 from .views_register.register.register_views import *
+from .views_user.comment.comment_views import *
 from .views_user.email.email_views import *
 from .views_user.password.password_views import *
 from .views_user.settings.settings_views import *
@@ -16,7 +17,7 @@ urlpatterns = [
     path('register/', register_view, name='register'),
     path(r'^login/$', login_view, name='login'),
 
-    path('mycomments/', views.CommentListView, name='comments'),
+    path('mycomments/', comment_list_view, name='comments'),
 
     path('myprofile/', user_edit_view, name='edit_profile'),
     path('myprofile/security/', user_change_main_page_view, name='edit_security_page'),
