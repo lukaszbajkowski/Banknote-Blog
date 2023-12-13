@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Ustawienia - Zmiana email
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="bg-body-tertiary">
+        {% include 'UserTemplates/UserAccount/Elements/TopSite.html' %}
+        <div class="px-3 div_over_div" id="top_edit_profile_page">
+            <div class="container my-account-position">
+                <div class="row gx-5 p-0 ">
+                    <div class="col-12 col-lg-4 px-sm-5 px-lg-0">
+                        {% include 'UserTemplates/UserAccount/Elements/Navigation.html' %}
+                    </div>
+                    <div class="col-0 col-lg-8 px-sm-5 px-lg-4 pt-5 pt-lg-0">
+                        <div class="p-3 bg-white rounded-top-3 shadow">
+                            <h4 class="pt-2 ps-4 mb-0 fw-bold text-navy">
+                                Zmiana adresu e-mail
+                            </h4>
+                            {% include 'UserTemplates/UserAccount/Elements/Forms/EditEmail.html' %}
+                        </div>
+                    </div>
+                </div>
+                {% include 'Footers/FooterMembers.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    {{ edit_email_form.new_email2.label }}
+</h6>
+<input class="form-control {% if edit_email_form.new_email2.errors %}is-invalid{% endif %} {% if edit_email_form.new_email2.value and not edit_email_form.new_email2.errors %}is-valid{% endif %}"
+       type="text" id="{{ edit_email_form.new_email2.id_for_label }}" name="{{ edit_email_form.new_email2.html_name }}"
+       value="{{ edit_email_form.new_email2.value|default:'' }}">
+{% if edit_email_form.new_email2.errors %}
+    <div class="invalid-feedback">
+        {% for error in edit_email_form.new_email2.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

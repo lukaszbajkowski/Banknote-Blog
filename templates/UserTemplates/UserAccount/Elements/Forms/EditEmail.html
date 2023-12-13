@@ -1,0 +1,10 @@
+<form class="ps-4" method="post">
+    {% csrf_token %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditEmail/OldEmail.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditEmail/NewEmail.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditEmail/NewEmailConfirm.html' %}
+    <button class="d-flex justify-content-center btn btn-register px-4 mt-4 my-2 mx-auto"
+            id="submit-button-email" type="submit">
+        Zmień e-mail
+    </button>
+</form>

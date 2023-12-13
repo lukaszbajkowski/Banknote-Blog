@@ -30,13 +30,13 @@ def user_change_email_view(request):
             from_email = settings.EMAIL_HOST_USER
             to_email = [new_email]
             msg_plain = render_to_string(
-                'my_account/edit_email_confirmation.txt',
+                'UserTemplates/UserAccount/EditEmailConfirmation.txt',
                 {
                     'mail': new_email
                 }
             )
             msg_html = render_to_string(
-                'my_account/edit_email_confirmation.html',
+                'UserTemplates/UserAccount/EditEmailConfirmation.html',
                 {
                     'mail': new_email,
                     'image_url': 'http://127.0.0.1:8000/static/images/logo-no-background.png'
@@ -61,6 +61,6 @@ def user_change_email_view(request):
     }
     return render(
         request,
-        "my_account/edit_email.html",
+        "UserTemplates/UserAccount/EditEmail.html",
         context
     )
