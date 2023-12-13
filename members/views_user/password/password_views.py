@@ -30,6 +30,6 @@ def user_change_password_view(request):
     }
     return render(
         request,
-        'my_account/edit_security.html',
+        'UserTemplates/UserAccount/EditPassword.html',
         context
     )
