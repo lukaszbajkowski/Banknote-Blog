@@ -1,0 +1,21 @@
+<nav class="nav flex-column text-start mx-1 px-3">
+    <button class="btn {% if request.resolver_match.url_name == 'edit_profile' %}btn-list-active{% endif %} btn-list mt-2 mb-1 text-start"
+            onclick="location.href='{% url 'edit_profile' %}'">
+        <i class="fa-solid fa-circle-user me-2"></i>
+        Dane osobiste
+    </button>
+    <button class="btn {% if request.resolver_match.url_name == 'edit_security_page' %}btn-list-active{% endif %} btn-list my-1 text-start"
+            onclick="location.href='{% url 'edit_security_page' %}'">
+        <i class="fa-solid fa-shield-halved me-2"></i>
+        Zabezpieczenia
+    </button>
+    <button class="btn {% if request.resolver_match.url_name == 'notifications' %}btn-list-active{% endif %} btn-list my-1 text-start"
+            onclick="location.href='{% url 'notifications' %}'">
+        <i class="fa-solid fa-envelope-open-text me-2"></i>
+        Powiadomienia
+    </button>
+    <button class="btn {% if request.resolver_match.url_name == '' %}btn-list-active{% endif %} btn-list my-1 text-start">
+        <i class="fa-solid fa-sliders me-2"></i>
+        Preferencje
+    </button>
+</nav>

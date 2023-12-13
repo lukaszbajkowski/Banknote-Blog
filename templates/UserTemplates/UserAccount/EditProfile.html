@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Ustawienia - Banknoty
+{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="bg-body-tertiary">
+        {% include 'UserTemplates/UserAccount/Elements/TopSite.html' %}
+        <div class="px-3 div_over_div" id="top_edit_profile_page">
+            <div class="container my-account-position">
+                <div class="row gx-5 p-0 ">
+                    <div class="col-12 col-lg-4 px-sm-5 px-lg-0">
+                        {% include 'UserTemplates/UserAccount/Elements/Navigation.html' %}
+                    </div>
+                    <div class="col-0 col-lg-8 px-sm-5 px-lg-4 pt-5 pt-lg-0">
+                        <div class="p-3 bg-white rounded-top-3 shadow">
+                            <h4 class="pt-2 ps-4 mb-0 fw-bold text-navy">
+                                Dane osobiste
+                            </h4>
+                            {% include 'UserTemplates/UserAccount/Elements/Forms/EditProfile.html' %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row gx-5 p-0 pt-0 pt-lg-4">
+                    <div class="col-12 col-lg-4 px-sm-5 px-lg-0">
+                    </div>
+                    <div class="col-0 col-lg-8 px-sm-5 px-lg-4 pt-5 pt-lg-0">
+                        <div class="p-3 bg-white rounded-top-3 shadow">
+                            <h4 class="pt-2 ps-4 mb-0 fw-bold text-navy">
+                                Usuń swoje konto
+                            </h4>
+                            <p class="text-start message m-0 mx-4 my-2">
+                                Po usunięciu konta tracisz dostęp do usług związanych z kontem Banknoty, a my trwale
+                                usuwamy Twoje dane osobowe.
+                            </p>
+                            {% include 'UserTemplates/UserAccount/Elements/Forms/DeleteProfile.html' %}
+                        </div>
+                    </div>
+                </div>
+                {% include 'Footers/FooterMembers.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

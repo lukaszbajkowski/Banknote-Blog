@@ -1,0 +1,11 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    {{ user_form.gender.label }}
+</h6>
+<select class="form-select {% if user_form.gender.value and not user_form.is_bound %}is-not-submit{% endif %} {% if user_form.gender.errors %}is-invalid{% endif %} {% if user_form.gender.value and not user_form.gender.errors and user_form.is_bound %}is-valid{% endif %}"
+        id="{{ user_form.gender.id_for_label }}" name="{{ user_form.gender.html_name }}">
+    {% for value, label in user_form.gender.field.choices %}
+        <option value="{{ value }}" {% if value == user_form.gender.value %}selected{% endif %}>
+            {{ label }}
+        </option>
+    {% endfor %}
+</select>

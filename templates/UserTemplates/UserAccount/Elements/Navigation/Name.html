@@ -1,0 +1,11 @@
+<h4 class="pt-2 mb-0 text-capitalize text-navy">
+    {% if user.first_name and user.last_name %}
+        {{ user.first_name }} {{ user.last_name }}
+    {% elif user.first_name %}
+        {{ user.first_name }}
+    {% elif user.last_name %}
+        {{ user.last_name }}
+    {% else %}
+        {{ user.username }}
+    {% endif %}
+</h4>

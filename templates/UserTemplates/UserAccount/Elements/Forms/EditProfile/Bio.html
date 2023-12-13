@@ -1,0 +1,20 @@
+<h6 class="form-label pt-3 mb-0 text-start fw-bold">
+    {{ user_form.bio.label }}
+</h6>
+<p class="text-start message m-0 mb-2 text-muted fw-light">
+    {{ user_form.bio.help_text }}
+</p>
+<textarea
+        class="form-control bio-size {% if user_form.bio.value and not user_form.is_bound %}is-not-submit{% endif %} {% if user_form.bio.errors %}is-invalid{% endif %} {% if user_form.bio.value and not user_form.bio.errors and user_form.is_bound %}is-valid{% endif %}"
+        id="id_bio" name="bio" rows="5" cols="50">
+    {{ user_form.bio.value|default:'' }}
+</textarea>
+{% if user_form.bio.errors %}
+    <div class="invalid-feedback">
+        {% for error in user_form.bio.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,14 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    {{ edit_user_form.first_name.label }}
+</h6>
+<input class="form-control {% if edit_user_form.first_name.value and not edit_user_form.is_bound %}is-not-submit{% endif %} {% if edit_user_form.first_name.errors %}is-invalid{% endif %} {% if edit_user_form.first_name.value and not edit_user_form.first_name.errors and edit_user_form.is_bound %}is-valid{% endif %}"
+       type="text" id="id_first_name" name="first_name" value="{{ edit_user_form.first_name.value|default:'' }}">
+{% if edit_user_form.first_name.errors %}
+    <div class="invalid-feedback">
+        {% for error in edit_user_form.first_name.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

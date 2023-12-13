@@ -1,0 +1,12 @@
+<form class="ps-4" method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditProfile/FirstName.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditProfile/LastName.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditProfile/Bio.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditProfile/UserImg.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditProfile/PhoneNumber.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/EditProfile/Gender.html' %}
+    <button class="d-flex justify-content-center btn btn-register px-4 mt-4 my-2 mx-auto" type="submit">
+        Zapisz zmiany
+    </button>
+</form>

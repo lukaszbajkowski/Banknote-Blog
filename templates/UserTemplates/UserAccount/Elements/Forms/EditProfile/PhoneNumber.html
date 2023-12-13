@@ -1,0 +1,18 @@
+<h6 class="form-label pt-3 mb-0 text-start fw-bold">
+    {{ user_form.phone_number.label }}
+</h6>
+<p class="text-start message m-0 mb-2 fw-light text-muted">
+    {{ user_form.phone_number.help_text }}
+</p>
+<input class="form-control {% if user_form.phone_number.value and not user_form.is_bound %}is-not-submit{% endif %} {% if user_form.phone_number.errors %}is-invalid{% endif %} {% if user_form.phone_number.value and not user_form.phone_number.errors and user_form.is_bound %}is-valid{% endif %}"
+       type="text" id="{{ user_form.phone_number.id_for_label }}" name="{{ user_form.phone_number.html_name }}"
+       value="{{ user_form.phone_number.value|default:'' }}">
+{% if user_form.phone_number.errors %}
+    <div class="invalid-feedback">
+        {% for error in user_form.phone_number.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

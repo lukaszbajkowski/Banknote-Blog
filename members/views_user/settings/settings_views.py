@@ -44,7 +44,7 @@ def user_edit_view(request):
     }
     return render(
         request,
-        'my_account/edit_profile.html',
+        'UserTemplates/UserAccount/EditProfile.html',
         context
     )
 
@@ -61,6 +61,6 @@ def user_change_main_page_view(request):
     }
     return render(
         request,
-        'my_account/edit_security_page.html',
+        'UserTemplates/UserAccount/EditSecurityPage.html',
         context
     )

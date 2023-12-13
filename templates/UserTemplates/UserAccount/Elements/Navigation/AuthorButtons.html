@@ -1,0 +1,30 @@
+<nav class="nav flex-column text-start mx-1 px-3">
+    {% if user.author %}
+        <button class="btn btn-list {% if request.resolver_match.url_name == 'edit_author' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+                onclick="location.href='{% url 'edit_author' %}'">
+            <i class="fa-solid fa-id-card me-2"></i>
+            Strona autora
+        </button>
+        <button class="btn btn-list {% if request.resolver_match.url_name == 'my_posts' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+                onclick="location.href='{% url 'my_posts' %}'">
+            <i class="fa-regular fa-newspaper me-2"></i>
+            Moje artykuły
+        </button>
+        <button class="btn btn-list {% if request.resolver_match.url_name == 'my_posts_create' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+                onclick="location.href='{% url 'my_posts_create' %}'">
+            <i class="fa-solid fa-circle-plus me-2"></i>
+            Dodaj artykuł
+        </button>
+    {% else %}
+        <button class="btn btn-list {% if request.resolver_match.url_name == 'article_author_form' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+                onclick="location.href='{% url 'article_author_form' %}'">
+            <i class="fa-solid fa-user-pen me-2"></i>
+            Zostań autorem
+        </button>
+        <button class="btn btn-list {% if request.resolver_match.url_name == 'article_author_history' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+                onclick="location.href='{% url 'article_author_history' %}'">
+            <i class="fa-regular fa-folder-open me-2"></i>
+            Historia aplikacji
+        </button>
+    {% endif %}
+</nav>

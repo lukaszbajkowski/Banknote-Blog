@@ -1,0 +1,19 @@
+.my-account-position {
+    transform: translate(0, -80px);
+}
+
+.my-account-img {
+    aspect-ratio: 1/1 !important;
+    object-fit: cover;
+    object-position: center;
+}
+
+.my-account-email {
+    color: rgba(0, 0, 128, 0.5);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.bio-size {
+    resize: none;
+}
