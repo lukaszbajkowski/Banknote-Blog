@@ -34,6 +34,6 @@ def user_notification_view(request):
     }
     return render(
         request,
-        'my_account/notification.html',
+        'UserTemplates/UserAccount/Notification.html',
         context
     )

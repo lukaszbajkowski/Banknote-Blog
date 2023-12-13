@@ -1,0 +1,24 @@
+<form class="ps-0" method="post">
+    {% csrf_token %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/NewslettersCTA.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/Newsletter.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/MissNews.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/MeetupsNews.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/OpportunitiesNews.html' %}
+    <div class="d-flex justify-content-end">
+        <button class="d-flex justify-content-center btn btn-register px-4 mt-4 mx-4 my-2"
+                id="submit-button-email" type="submit">
+            Zapisz zmiany
+        </button>
+    </div>
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/CommunicationCTA.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/CompanyNews.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/ReplayNews.html' %}
+    {% include 'UserTemplates/UserAccount/Elements/Forms/Notification/DevelopmentNews.html' %}
+    <div class="d-flex justify-content-end">
+        <button class="d-flex justify-content-center btn btn-register px-4 mt-4 mx-4 my-2"
+                id="submit-button-email" type="submit">
+            Zapisz zmiany
+        </button>
+    </div>
+</form>
