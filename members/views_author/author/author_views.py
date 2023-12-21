@@ -40,7 +40,7 @@ def author_view(request):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author/edit_author_page.html',
+        'UserTemplates/UserAccount/Author/EditAuthorPage.html',
         context
     )
 

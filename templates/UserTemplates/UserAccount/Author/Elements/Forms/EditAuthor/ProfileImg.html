@@ -1,0 +1,31 @@
+<h6 class="form-label form-label-required pt-3 text-start fw-bold">
+    Zdjęcie profilowe
+</h6>
+<div class="container text-center">
+    <div class="row">
+        <div class="col-12 col-md-3 mb-3 my-md-auto">
+            <img src="{{ user.author.profile_pic.url }}" alt="Author Img"
+                 class="img rounded-circle shadow my-2 img-author">
+        </div>
+        <div class="col-12 col-md-9 px-0">
+            <div class="container text-start">
+                <div class="row px-0 my-auto">
+                    <div class="col-12 px-0 my-auto">
+                        <input type="file"
+                               class="form-control {% if form.profile_pic.value and not form.is_bound %}is-not-submit{% endif %} {% if form.profile_pic.errors %}is-invalid{% endif %} {% if form.profile_pic.value and not form.profile_pic.errors and form.is_bound %}is-valid{% endif %}"
+                               id="profile_pic" name="profile_pic" accept="image/*">
+                        {% if form.profile_pic.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.profile_pic.errors %}
+                                    <p class="mb-1">
+                                        {{ error }}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

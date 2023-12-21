@@ -1,0 +1,14 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do instagrama autora
+</h6>
+<input class="form-control {% if form.instagram_url.value and not form.is_bound %}is-not-submit{% endif %} {% if form.instagram_url.errors %}is-invalid{% endif %} {% if form.instagram_url.value and not form.instagram_url.errors and form.is_bound %}is-valid{% endif %}"
+       type="url" id="instagram_url" name="instagram_url" value="{{ form.instagram_url.value|default:'' }}">
+{% if form.instagram_url.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.instagram_url.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

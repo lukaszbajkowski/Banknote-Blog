@@ -1,0 +1,14 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do pinteresta autora
+</h6>
+<input class="form-control {% if form.pinterest_url.value and not form.is_bound %}is-not-submit{% endif %} {% if form.pinterest_url.errors %}is-invalid{% endif %} {% if form.pinterest_url.value and not form.pinterest_url.errors and form.is_bound %}is-valid{% endif %}"
+       type="url" id="pinterest_url" name="pinterest_url" value="{{ form.pinterest_url.value|default:'' }}">
+{% if form.pinterest_url.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.pinterest_url.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,14 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do strony autora
+</h6>
+<input class="form-control {% if form.author_url.value and not form.is_bound %}is-not-submit{% endif %} {% if form.author_url.errors %}is-invalid{% endif %} {% if form.author_url.value and not form.author_url.errors and form.is_bound %}is-valid{% endif %}"
+       type="url" id="author_url" name="author_url" value="{{ form.author_url.value|default:'' }}">
+{% if form.author_url.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.author_url.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

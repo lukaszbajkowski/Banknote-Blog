@@ -1,0 +1,20 @@
+<h6 class="form-label form-label-required pt-3 mb-0 text-start fw-bold">
+    Biogram
+</h6>
+<p class="text-start message m-0 mb-2 fw-light text-muted">
+    Krótka informacja o autorze, nie więcej niż 512 znaków.
+</p>
+<textarea
+        class="form-control {% if form.bio.value and not form.is_bound %}is-not-submit{% endif %} {% if form.bio.errors %}is-invalid{% endif %} {% if form.bio.value and not form.bio.errors and form.is_bound %}is-valid{% endif %}"
+        id="bio" name="bio" rows="5" cols="50" style="resize: none">
+    {{ form.bio.value|default:'' }}
+</textarea>
+{% if form.bio.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.bio.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

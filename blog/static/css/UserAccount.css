@@ -17,3 +17,7 @@
 .bio-size {
     resize: none;
 }
+
+.resize-textarea {
+    resize: none
+}
