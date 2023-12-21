@@ -1,0 +1,18 @@
+.comment-detail-content {
+    font-size: 1.2rem;
+}
+
+.comment-detail-position {
+    position: absolute;
+    bottom: 0;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.comment-detail-section {
+    position: relative;
+    background-color: navy;
+    color: white
+}

@@ -1,0 +1,34 @@
+<h1 class="text-center pt-2 pb-0 text-navy">
+    Moje komentarze
+</h1>
+<h5 class="text-center fw-normal pt-0 pb-4 text-navy">
+    {% if user_gender == "M" %}
+        Opublikowałeś
+    {% elif user_gender == "K" %}
+        Opublikowałaś
+    {% elif user_gender == "I" %}
+        {% if user_comments.count %}
+            {% if user_comments.count == 1 %}
+                Został przez Ciebie opublikowany
+            {% else %}
+                {% if 2 <= user_comments.count and user_comments.count <= 4 %}
+                    Zostały przez Ciebie opublikowane
+                {% else %}
+                    Zostało przez Ciebie opublikowane
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    w sumie
+    {% if user_comments.count %}
+        {% if user_comments.count == 1 %}
+            {{ user_comments.count }} komentarz
+        {% else %}
+            {% if 2 <= user_comments.count and user_comments.count <= 4 %}
+                {{ user_comments.count }} komentarze
+            {% else %}
+                {{ user_comments.count }} komentarzy
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</h5>

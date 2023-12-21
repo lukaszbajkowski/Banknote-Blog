@@ -1,0 +1,22 @@
+<div class="col-12 ps-0 ps-sm-1 ps-md-1 ps-lg-2">
+    <small class="fw-bold text-capitalize">
+        <a class="no-text-decoration first-post"
+           href="{% url 'author-detail' comment.blog.author.pk %}">
+            {% if comment.blog.author.user.first_name and comment.blog.author.user.last_name %}
+                {{ comment.blog.author.user.first_name }}
+                {{ comment.blog.author.user.last_name }}
+            {% elif comment.blog.author.user.first_name %}
+                {{ comment.blog.author.user.first_name }}
+            {% elif comment.blog.author.user.last_name %}
+                {{ comment.blog.author.user.last_name }}
+            {% else %}
+                {{ comment.blog.author.user.username }}
+            {% endif %}
+        </a>
+    </small>
+</div>
+<div class="col-12 ps-0 ps-sm-1 ps-md-2 ps-lg-2">
+    <small class="fw-light text-capitalize article-date-color">
+        {{ comment.blog.date_posted | date:"j E Y" }}
+    </small>
+</div>
