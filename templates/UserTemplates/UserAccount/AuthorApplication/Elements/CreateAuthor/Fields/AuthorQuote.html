@@ -1,0 +1,20 @@
+<h6 class="form-label form-label-required pt-3 mb-0 text-start fw-bold">
+    Cytat autora
+</h6>
+<p class="text-start message m-0 mb-2 fw-light text-muted">
+    Krótkie motto autora, nie więcej niż 128 znaków.
+</p>
+<textarea
+        class="form-control resize-textarea {% if form.author_quote.errors %}is-invalid{% endif %} {% if form.author_quote.value and not form.author_quote.errors %}is-valid{% endif %}"
+        id="author_quote" name="author_quote" rows="2" cols="30" maxlength="128">
+    {{ form.author_quote.value|default:"" }}
+</textarea>
+{% if form.author_quote.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.author_quote.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

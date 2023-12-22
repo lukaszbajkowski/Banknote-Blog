@@ -1,0 +1,12 @@
+<form class="ps-4" method="post">
+    {% csrf_token %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Form/FirstName.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Form/LastName.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Form/PhoneNumber.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Form/Experience.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Form/SampleArticle.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Form/AcceptTerms.html' %}
+    <button class="d-flex justify-content-center btn btn-register px-4 mt-4 my-2 mx-auto" type="submit">
+        Wyślij aplikację
+    </button>
+</form>

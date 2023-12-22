@@ -1,0 +1,14 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do facebooka autora
+</h6>
+<input class="form-control {% if form.facebook_url.errors %}is-invalid{% endif %} {% if form.facebook_url.value %}is-valid{% endif %}"
+       type="url" id="facebook_url" name="facebook_url" value="{{ form.facebook_url.value|default:'' }}">
+{% if form.facebook_url.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.facebook_url.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

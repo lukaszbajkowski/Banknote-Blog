@@ -1,0 +1,14 @@
+<h6 class="form-label pt-3 text-start fw-bold">
+    URL do twittera autora
+</h6>
+<input class="form-control {% if form.twitter_url.errors %}is-invalid{% endif %} {% if form.twitter_url.value %}is-valid{% endif %}"
+       type="url" id="twitter_url" name="twitter_url" value="{{ form.twitter_url.value|default:'' }}">
+{% if form.twitter_url.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.twitter_url.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

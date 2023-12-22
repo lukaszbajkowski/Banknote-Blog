@@ -1,0 +1,18 @@
+<h6 class="form-label form-label-required pt-3 text-start fw-bold">
+    Zaakceptuj regulamin aplikacji na autora
+</h6>
+<input class="form-check-input {% if form.accept_terms.errors %}is-invalid{% endif %} {% if form.accept_terms.value and not form.accept_terms.errors %}is-valid{% endif %}"
+       type="checkbox" id="{{ form.accept_terms.id_for_label }}" name="{{ form.accept_terms.html_name }}"
+       {% if form.accept_terms.value %}checked{% endif %}>
+<label class="form-check-label" for="{{ form.accept_terms.id_for_label }}">
+    Akceptuję regulamin
+</label>
+{% if form.accept_terms.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.accept_terms.errors %}
+            <p>
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

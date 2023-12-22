@@ -1,0 +1,25 @@
+<form class="ps-4" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                <p class="mb-1">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/Bio.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/AuthorImg.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/AuthorUrl.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/AuthorQuote.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/AuthorFunction.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/PinterestUrl.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/FacebookUrl.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/TwitterUrl.html' %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/CreateAuthor/Fields/InstagramUrl.html' %}
+    <button class="d-flex justify-content-center btn btn-register px-4 mt-4 my-2 mx-auto"
+            type="submit">
+        Zostań autorem
+    </button>
+</form>

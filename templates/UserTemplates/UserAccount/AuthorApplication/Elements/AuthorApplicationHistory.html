@@ -1,0 +1,8 @@
+{% if page_obj %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Table/AuthorApplicationHistory.html' %}
+{% else %}
+    <p class="pt-2 text-start message m-0 mb-2 text-muted fw-light">
+        Brak aplikacji na zostanie autorem. Jeśli zaaplikujesz na zostanie autorem Twój
+        wniosek pojawi się tutaj.
+    </p>
+{% endif %}

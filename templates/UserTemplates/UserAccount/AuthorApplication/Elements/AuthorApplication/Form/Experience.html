@@ -1,0 +1,17 @@
+<h6 class="form-label form-label-required pt-3 text-start fw-bold">
+    {{ form.experience.label }}
+</h6>
+<textarea
+        class="form-control resize-textarea {% if form.experience.errors %}is-invalid{% endif %} {% if form.experience.value and not form.experience.errors %}is-valid{% endif %}"
+        id="{{ form.experience.id_for_label }}" name="{{ form.experience.html_name }}" rows="5">
+    {{ form.experience.value|default:'' }}
+</textarea>
+{% if form.experience.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.experience.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

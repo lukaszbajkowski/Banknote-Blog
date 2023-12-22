@@ -1,0 +1,41 @@
+<div class="table-responsive">
+    <table class="table table-hover pt-4">
+        <thead>
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Data aplikacji</th>
+            <th scope="col">Szczegóły</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for sub in page_obj %}
+            <tr>
+                <td>
+                    <a class="admin_panel_link"
+                       href="{% url 'article_author_detail' sub.pk %}">
+                        {% if sub.approved and not sub.rejected %}
+                            Aplikacja zaakceptowana
+                        {% elif sub.rejected and not sub.approved %}
+                            Aplikacja odrzucona
+                        {% else %}
+                            Oczekuje na rozpatrzenie
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link"
+                       href="{% url 'article_author_detail' sub.pk %}">
+                        {{ sub.date_added }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_edit_link"
+                       href="{% url 'article_author_detail' sub.pk %}">
+                        Szczegóły
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,20 @@
+<h6 class="form-label form-label-required pt-3 mb-0 text-start fw-bold">
+    Stanowisko autora
+</h6>
+<p class="text-start message m-0 mb-2 fw-light text-muted">
+    Nazwa funkcji, jaką pełni autor.
+</p>
+<textarea
+        class="form-control resize-textarea{% if form.author_function.errors %}is-invalid{% endif %} {% if form.author_function.value and not form.author_function.errors %}is-valid{% endif %}"
+        id="author_function" name="author_function" rows="2" cols="30" maxlength="128">
+    {{ form.author_function.value|default:"" }}
+</textarea>
+{% if form.author_function.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.author_function.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

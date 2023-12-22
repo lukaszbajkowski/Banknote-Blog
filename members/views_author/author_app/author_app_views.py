@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 
+from blog.decorators import redirect_if_author
 from blog.models import ArticleAuthor
 from blog.models import Author
 from blog.models import Blog
@@ -14,6 +15,7 @@ from members.forms import CreateAuthorForm
 
 # Widok formularza do zgłoszenia się jako autor
 @login_required(login_url='home')
+@redirect_if_author
 def author_app_view(request):
     category = Category.objects.all()
     blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
@@ -21,9 +23,6 @@ def author_app_view(request):
     is_author = False
     current_user_email = request.user.email
     authors = ArticleAuthor.objects.filter(email=current_user_email).order_by('-date_added')
-
-    if Author.objects.filter(user=request.user).exists():
-        return redirect('home')
 
     if authors:
         has_rejected_submission = any(author.rejected for author in authors)
@@ -61,20 +60,17 @@ def author_app_view(request):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author_application/author_application.html',
+        'UserTemplates/UserAccount/AuthorApplication/AuthorApplication.html',
         context
     )
 
 
 # Widok historii zgłoszeń na autora
 @login_required(login_url='home')
+@redirect_if_author
 def author_app_history_view(request):
     category = Category.objects.all()
     blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
-
-    if Author.objects.filter(user=request.user).exists():
-        return redirect('home')
-
     submitted_forms = ArticleAuthor.objects.filter(email=request.user.email).order_by('-date_added')
 
     paginator = Paginator(submitted_forms, 10)
@@ -87,17 +83,15 @@ def author_app_history_view(request):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author_application/author_application_history.html',
+        'UserTemplates/UserAccount/AuthorApplication/AuthorApplicationHistory.html',
         context
     )
 
 
 # Widok szczegółów zgłoszeń na autora
 @login_required(login_url='home')
+@redirect_if_author
 def author_app_detail_view(request, pk):
-    if Author.objects.filter(user=request.user).exists():
-        return redirect('home')
-
     category = Category.objects.all()
     blog = Blog.objects.all().filter(publiction_status=True).order_by('-date_posted')[1:]
     submitted_forms = get_object_or_404(ArticleAuthor, pk=pk)
@@ -112,13 +106,14 @@ def author_app_detail_view(request, pk):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author_application/author_application_detail.html',
+        'UserTemplates/UserAccount/AuthorApplication/AuthorApplicationDetail.html',
         context
     )
 
 
 # Widok tworzenia autora przez użytkownika, który ma do tego uprawnienia
 @login_required(login_url='home')
+@redirect_if_author
 def author_create_view(request):
     user = request.user.user
 
@@ -151,7 +146,7 @@ def author_create_view(request):
             }
             return render(
                 request,
-                'UserTemplates/UserAccount/author_application/create_author.html',
+                'UserTemplates/UserAccount/AuthorApplication/CreateAuthor.html',
                 context
             )
         else:

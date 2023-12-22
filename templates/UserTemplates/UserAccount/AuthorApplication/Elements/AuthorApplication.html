@@ -1,0 +1,10 @@
+{% if is_author %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/IsAuthor.html' %}
+{% elif not is_blocked %}
+    <h4 class="pt-2 ps-4 mb-0 fw-bold text-navy">
+        Zostań autorem
+    </h4>
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/Form.html' %}
+{% elif is_blocked %}
+    {% include 'UserTemplates/UserAccount/AuthorApplication/Elements/AuthorApplication/IsBlocked.html' %}
+{% endif %}

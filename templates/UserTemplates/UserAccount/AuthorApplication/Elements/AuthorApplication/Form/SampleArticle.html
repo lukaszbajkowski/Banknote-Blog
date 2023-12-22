@@ -1,0 +1,14 @@
+<h6 class="form-label form-label-required pt-3 text-start fw-bold">
+    {{ form.sample_article.label }}
+</h6>
+{{ form.media }}
+{{ form.sample_article }}
+{% if form.sample_article.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.sample_article.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}
