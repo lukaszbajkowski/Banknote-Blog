@@ -1,0 +1,49 @@
+<div class="table-responsive">
+    <table class="table table-hover pt-4">
+        <thead>
+        <tr>
+            <th scope="col">Tytuł</th>
+            <th scope="col">Komentarze</th>
+            <th scope="col">Data utworzenia</th>
+            <th scope="col">Edytuj</th>
+            <th scope="col">Usuń</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for post in page_obj %}
+            <tr>
+                <td>
+                    <a class="admin_panel_link"
+                       href="{% url 'my_posts_detail' post.pk %}">
+                        {{ post.title }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link"
+                       href="{% url 'my_posts_detail' post.pk %}">
+                        {{ post.comment_set.count }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_link"
+                       href="{% url 'my_posts_detail' post.pk %}">
+                        {{ post.date_posted }}
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_edit_link"
+                       href="{% url 'my_posts_edit' post.pk %}">
+                        Edytuj
+                    </a>
+                </td>
+                <td>
+                    <a class="admin_panel_edit_link"
+                       href="{% url 'my_posts_delete' post.pk %}">
+                        Usuń
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

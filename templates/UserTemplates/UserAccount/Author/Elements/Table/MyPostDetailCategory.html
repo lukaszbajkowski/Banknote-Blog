@@ -1,0 +1,9 @@
+<table class="table mb-0">
+    <tbody>
+    {% for category in post.category.all %}
+        <tr>
+            <td> {{ category.name }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

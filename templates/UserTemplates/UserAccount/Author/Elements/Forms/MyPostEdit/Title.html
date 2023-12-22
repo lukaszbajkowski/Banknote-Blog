@@ -1,0 +1,14 @@
+<h6 class="form-label form-label-required pt-3 text-start fw-bold">
+    {{ form.title.label }}
+</h6>
+<input class="form-control {% if form.title.value and not form.is_bound %}is-not-submit{% endif %} {% if form.title.errors %}is-invalid{% endif %} {% if form.title.value and not form.title.errors and form.is_bound %}is-valid{% endif %}"
+       type="text" id="id_title" name="title" value="{{ form.title.value|default:'' }}">
+{% if form.title.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.title.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

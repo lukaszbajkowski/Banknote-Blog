@@ -1,0 +1,23 @@
+<form class="ps-4 mt-3" method="POST">
+    {% csrf_token %}
+    <div class="form-check fs-5">
+        <input type="checkbox" id="check-api-checkbox" class="form-check-input">
+        <label for="check-api-checkbox" class=" fw-light message mb-0">
+            Chcę usunąć artykuł {{ news.title }}
+        </label>
+        {{ form.is_active }}
+    </div>
+    <div class="btn-toolbar d-flex justify-content-center my-4" role="toolbar"
+         aria-label="Toolbar with button groups">
+        <div class="btn-group me-2" role="group" aria-label="First group">
+            <button class="btn btn-register px-4" type="submit">
+                Usuń
+            </button>
+        </div>
+        <div class="btn-group ms-2" role="group" aria-label="First group">
+            <button class="btn btn-log px-4" type="button" onclick="location.href='{% url 'my_posts' %}'">
+                Anuluj
+            </button>
+        </div>
+    </div>
+</form>

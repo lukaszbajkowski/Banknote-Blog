@@ -1,0 +1,13 @@
+<div class="btn-group special py-3" role="group" aria-label="...">
+    <a href="{% url 'my_posts' %}"
+       class="btn btn-show-article {% if show_published %}active{% endif %}">
+        Opublikowane
+        <div class="bottom-arrow {% if show_published %}active{% endif %}"></div>
+    </a>
+
+    <a href="{% url 'my_posts' %}?unpublished"
+       class="btn btn-show-article {% if not show_published %}active{% endif %}">
+        Nieopublikowane
+        <div class="bottom-arrow {% if not show_published %}active{% endif %}"></div>
+    </a>
+</div>

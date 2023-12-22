@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+<head>
+    {{ form.media }}
+</head>
+
+{% block title %}
+    Ustawienia - Moje artykuły
+{% endblock %}
+
+{% block navbar %}
+    {% include 'Navbar/Navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="bg-body-tertiary">
+        {% include 'UserTemplates/UserAccount/Elements/TopSite.html' %}
+        <div class="px-3 div_over_div" id="top_edit_profile_page">
+            <div class="container my-account-position">
+                <div class="row gx-5 p-0 ">
+                    <div class="col-12 col-lg-4 px-sm-5 px-lg-0">
+                        {% include 'UserTemplates/UserAccount/Elements/Navigation.html' %}
+                    </div>
+                    <div class="col-0 col-lg-8 px-sm-5 px-lg-4 pt-5 pt-lg-0">
+                        <div class="p-3 bg-white rounded-top-3 shadow">
+                            <div class="pt-2 ps-4 mb-0 fw-bold text-navy admin-panel-header-position">
+                                <h4 class="m-0 me-3 fw-bold text-navy">
+                                    {{ post }}
+                                </h4>
+                                <input type=button class="btn btn-register ms-auto" value="Powrót"
+                                       onClick="javascript:history.go(-1);">
+                            </div>
+                            <div class="px-4 mb-4">
+                                {% include 'UserTemplates/UserAccount/Author/Elements/MyPostDetail.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% include 'Footers/FooterMembers.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

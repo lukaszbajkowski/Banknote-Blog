@@ -70,7 +70,7 @@ def author_post_create_view(request):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author/my_posts_add.html',
+        'UserTemplates/UserAccount/Author/MyPostsAdd.html',
         context
     )
 
@@ -110,7 +110,7 @@ def author_post_view(request):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author/my_posts.html',
+        'UserTemplates/UserAccount/Author/MyPosts.html',
         context
     )
 
@@ -132,7 +132,7 @@ def author_post_detail_view(request, pk):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author/my_posts_detail.html',
+        'UserTemplates/UserAccount/Author/MyPostsDetail.html',
         context
     )
 
@@ -166,7 +166,7 @@ def author_post_edit_view(request, pk):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author/my_posts_edit.html',
+        'UserTemplates/UserAccount/Author/MyPostsEdit.html',
         context
     )
 
@@ -201,6 +201,6 @@ def author_post_delete_view(request, pk):
     }
     return render(
         request,
-        'UserTemplates/UserAccount/author/my_posts_delete.html',
+        'UserTemplates/UserAccount/Author/MyPostsDelete.html',
         context
     )

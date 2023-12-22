@@ -1,0 +1,13 @@
+{% if messages %}
+    {% for message in messages %}
+        <div
+                {% if message.tags %}
+                    class="{{ message.tags }}"
+                {% endif %}
+                    role="alert" id="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close" onClick="window.location.reload()"></button>
+        </div>
+    {% endfor %}
+{% endif %}

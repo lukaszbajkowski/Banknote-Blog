@@ -1,0 +1,15 @@
+<h6 class="form-label form-label-required pt-3 text-start fw-bold">
+    {{ form.background.label }}
+</h6>
+<input type="file"
+       class="form-control {% if form.background.value and not form.is_bound %}is-not-submit{% endif %} {% if form.background.errors %}is-invalid{% endif %} {% if form.background.value and not form.background.errors and form.is_bound %}is-valid{% endif %}"
+       id="id_profile_pic" name="background" accept="image/*">
+{% if form.background.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.background.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

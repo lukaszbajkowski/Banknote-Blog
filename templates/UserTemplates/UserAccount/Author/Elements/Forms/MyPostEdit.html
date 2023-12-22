@@ -1,0 +1,12 @@
+<form class="ps-4" method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'UserTemplates/UserAccount/Author/Elements/Forms/MyPostEdit/Title.html' %}
+    {% include 'UserTemplates/UserAccount/Author/Elements/Forms/MyPostEdit/Content.html' %}
+    {% include 'UserTemplates/UserAccount/Author/Elements/Forms/MyPostEdit/Introduction.html' %}
+    {% include 'UserTemplates/UserAccount/Author/Elements/Forms/MyPostEdit/BackgroundImg.html' %}
+    {% include 'UserTemplates/UserAccount/Author/Elements/Forms/MyPostEdit/Category.html' %}
+    <button class="d-flex justify-content-center btn btn-register px-4 mt-4 my-2 mx-auto"
+            type="submit">
+        Zapisz zmiany
+    </button>
+</form>

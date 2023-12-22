@@ -1,0 +1,15 @@
+<div class="px-4">
+    {% include 'UserTemplates/UserAccount/Author/Elements/Messages.html' %}
+    {% include 'UserTemplates/UserAccount/Author/Elements/Picker.html' %}
+    {% if page_obj %}
+        {% include 'UserTemplates/UserAccount/Author/Elements/Table/MyPosts.html' %}
+    {% else %}
+        <p class="pt-2 text-start message m-0 mb-2 text-muted fw-light">
+            {% if show_published %}
+                Brak opublikowanych artykułów
+            {% else %}
+                Brak nieopublikowanych artykułów
+            {% endif %}
+        </p>
+    {% endif %}
+</div>

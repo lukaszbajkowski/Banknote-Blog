@@ -5,7 +5,7 @@
             <i class="fa-solid fa-id-card me-2"></i>
             Strona autora
         </button>
-        <button class="btn btn-list {% if request.resolver_match.url_name == 'my_posts' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
+        <button class="btn btn-list {% if request.resolver_match.url_name in 'my_posts, my_posts_detail, my_posts_edit, my_posts_delete' %}btn-list-active{% endif %} mt-2 mb-1 text-start"
                 onclick="location.href='{% url 'my_posts' %}'">
             <i class="fa-regular fa-newspaper me-2"></i>
             Moje artykuły

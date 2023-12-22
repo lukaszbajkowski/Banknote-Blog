@@ -1,0 +1,20 @@
+<h6 class="form-label form-label-required pt-3 mb-0 text-start fw-bold">
+    {{ form.introduction.label }}
+</h6>
+<p class="text-start message m-0 mb-2 text-muted fw-light">
+    {{ form.introduction.help_text }}
+</p>
+<textarea
+        class="form-control resize-textarea {% if form.introduction.value and not form.is_bound %}is-not-submit{% endif %} {% if form.introduction.errors %}is-invalid{% endif %} {% if form.introduction.value and not form.bio.errors and form.is_bound %}is-valid{% endif %}"
+        id="id_introduction" name="introduction" rows="5" cols="50">
+    {{ form.introduction.value|default:'' }}
+</textarea>
+{% if form.introduction.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.introduction.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,22 @@
+<h6 class="form-label form-label-required pt-3 mb-0 text-start fw-bold">
+    {{ form.category.label }}
+</h6>
+<p class="text-start message m-0 mb-2 text-muted fw-light">
+    {{ form.category.help_text }}
+</p>
+<select multiple id="id_category" name="category"
+        class="form-control {% if form.category.value and not form.is_bound %}is-not-submit{% endif %} {% if form.category.errors %}is-invalid{% endif %} {% if form.category.value and not form.category.errors and form.is_bound %}is-valid{% endif %}">
+    {% for option in form.category.field.choices %}
+        <option value="{{ option.0 }}"
+                {% if form.category.value and option.0|stringformat:"s" in form.category.value|join:";" %}selected{% endif %}>{{ option.1 }}</option>
+    {% endfor %}
+</select>
+{% if form.category.errors %}
+    <div class="invalid-feedback">
+        {% for error in form.category.errors %}
+            <p class="mb-1">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+{% endif %}
