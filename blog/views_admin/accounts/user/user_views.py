@@ -1,20 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-
-from blog.form_users import UserCreationForm
-from blog.form_users import UserProfileForm
-from blog.form_users import UserEditForm
-from blog.form_users import CustomPasswordChangingForm
 from blog.form import UsersDeleteEmailForm
-
+from blog.forms_user.change_password_form import CustomPasswordChangingForm
+from blog.forms_user.user_form import UserCreationForm
+from blog.forms_user.user_form import UserEditForm
+from blog.forms_user.user_form import UserProfileForm
 from blog.models import User as DjangoUser
-
 from blog.views import get_paginated_context
 
 
@@ -55,7 +51,7 @@ def users_add_view(request):
 # Widok zarządzania użytkownikami (dla superusera)
 @superuser_required
 def users_manage_admin_panel_view(request):
-    users = DjangoUser.objects.select_related('user').all()\
+    users = DjangoUser.objects.select_related('user').all() \
         .order_by('-user__id')
 
     context = get_paginated_context(request, users, 10)
