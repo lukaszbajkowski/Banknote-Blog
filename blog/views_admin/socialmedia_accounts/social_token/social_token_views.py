@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import SocialTokenDeleteEmailForm
-from blog.form import SocialTokenForm
+from blog.forms.socialapp_form import SocialTokenDeleteForm
+from blog.forms.socialapp_form import SocialTokenForm
 from blog.views import edit_entity_admin_panel_view
 from blog.views import get_paginated_context
 from blog.views import process_delete_admin_panel_view
@@ -78,7 +78,7 @@ def social_token_delete_admin_panel_view(request, pk):
         request,
         pk,
         SocialToken,
-        SocialTokenDeleteEmailForm,
+        SocialTokenDeleteForm,
         'AdminTemplates/SocialmediaAccounts/SocialToken/SocialTokenDeleteAdmin.html',
         'Token aplikacji społecznościowej został usunięty',
         'social_token_admin_panel'

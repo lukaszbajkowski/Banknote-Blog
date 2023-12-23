@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import DevelopmentNewsCreationForm
-from blog.form import DevelopmentNewsDeleteEmailForm
-from blog.form import UserDevelopmentNewsForm
+from blog.forms.development_news_form import DevelopmentNewsCreationForm
+from blog.forms.development_news_form import DevelopmentNewsDeleteForm
+from blog.forms.development_news_form import UserDevelopmentNewsForm
 from blog.models import DevelopmentNews
 from blog.models import User as DjangoUser
 from blog.views import edit_admin_panel_view
@@ -77,7 +77,7 @@ def development_news_delete_admin_panel_view(request, pk):
         request,
         pk,
         DevelopmentNews,
-        DevelopmentNewsDeleteEmailForm,
+        DevelopmentNewsDeleteForm,
         'AdminTemplates/Newsletter/DevelopmentNews/DevelopmentNewsDeleteAdmin.html',
         'Mail z informacjami o rozwoju i zmianach na Banknoty został usunięty',
         'development_news_admin_panel'

@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import AuctionOpportunitiesCreationForm
-from blog.form import AuctionOpportunitiesDeleteEmailForm
-from blog.form import UserAuctionOpportunitiesForm
+from blog.forms.auction_opportunities_form import AuctionOpportunitiesCreationForm
+from blog.forms.auction_opportunities_form import AuctionOpportunitiesDeleteForm
+from blog.forms.auction_opportunities_form import UserAuctionOpportunitiesForm
 from blog.models import AuctionOpportunities
 from blog.models import User as DjangoUser
 from blog.views import edit_admin_panel_view
@@ -77,7 +77,7 @@ def auction_opportunities_delete_admin_panel_view(request, pk):
         request,
         pk,
         AuctionOpportunities,
-        AuctionOpportunitiesDeleteEmailForm,
+        AuctionOpportunitiesDeleteForm,
         'AdminTemplates/Newsletter/AuctionOpportunities/AuctionOpportunitiesDeleteAdmin.html',
         'Mail o okazjach z rynku aukcyjnego został usunięty',
         'auction_opportunities_admin_panel'

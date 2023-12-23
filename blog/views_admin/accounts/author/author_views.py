@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import AuthorCreateForm
-from blog.form import AuthorDeleteForm
-from blog.form import AuthorEditForm
+from blog.forms.author_form import AuthorCreateForm
+from blog.forms.author_form import AuthorDeleteForm
+from blog.forms.author_form import AuthorEditForm
 from blog.models import Author
 from blog.views import edit_entity_admin_panel_view
 from blog.views import get_paginated_context

@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 
-from blog.form import ContactForm
+from blog.forms.contact_form import ContactForm
 from blog.models import Blog
 from blog.models import Category
 from blog.views import IMAGE_URL

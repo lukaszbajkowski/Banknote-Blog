@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import SocialAccountDeleteEmailForm
-from blog.form import SocialAccountForm
+from blog.forms.socialapp_form import SocialAccountDeleteForm
+from blog.forms.socialapp_form import SocialAccountForm
 from blog.views import edit_entity_admin_panel_view
 from blog.views import get_paginated_context
 from blog.views import process_delete_admin_panel_view
@@ -78,7 +78,7 @@ def social_account_delete_admin_panel_view(request, pk):
         request,
         pk,
         SocialAccount,
-        SocialAccountDeleteEmailForm,
+        SocialAccountDeleteForm,
         'AdminTemplates/SocialmediaAccounts/SocialAccount/SocialAccountDeleteAdmin.html',
         'Konto aplikacji społecznościowej zostało usunięte',
         'social_account_admin_panel'

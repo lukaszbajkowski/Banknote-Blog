@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 
 from blog.views_admin.admin_panel.admin_views import *
 from .decorators import *
-from .form import *
+from .models import *
 from .models import User as DjangoUser
 
 # Stałe komunikaty

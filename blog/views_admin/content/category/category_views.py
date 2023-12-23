@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 
 from blog.decorators import superuser_required
-from blog.form import CategoryCreateForm
-from blog.form import CategoryDeleteForm
+from blog.forms.category_form import CategoryCreateForm
+from blog.forms.category_form import CategoryDeleteForm
 from blog.models import Category
 from blog.views import edit_entity_admin_panel_view
 from blog.views import get_paginated_context

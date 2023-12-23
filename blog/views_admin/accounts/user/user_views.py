@@ -5,11 +5,11 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import UsersDeleteEmailForm
 from blog.forms_user.change_password_form import CustomPasswordChangingForm
 from blog.forms_user.user_form import UserCreationForm
 from blog.forms_user.user_form import UserEditForm
 from blog.forms_user.user_form import UserProfileForm
+from blog.forms_user.user_form import UsersDeleteForm
 from blog.models import User as DjangoUser
 from blog.views import get_paginated_context
 
@@ -147,7 +147,7 @@ def users_delete_admin_panel_view(request, pk):
     user = get_object_or_404(DjangoUser, pk=pk)
 
     if request.method == "POST":
-        form = UsersDeleteEmailForm(request.POST, instance=user)
+        form = UsersDeleteForm(request.POST, instance=user)
         if form.is_valid():
             user = user.user
             user.delete()
@@ -158,7 +158,7 @@ def users_delete_admin_panel_view(request, pk):
             )
             return redirect('users_admin_panel')
     else:
-        form = UsersDeleteEmailForm(instance=user)
+        form = UsersDeleteForm(instance=user)
 
     context = {
         'form': form,

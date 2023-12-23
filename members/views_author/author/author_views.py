@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-from blog.form import PostDeleteForm
+from blog.forms.post_form import PostDeleteForm
 from blog.models import Author
 from blog.models import Blog
 from blog.models import Category

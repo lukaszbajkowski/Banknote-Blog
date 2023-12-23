@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import ReplayNewsCreationForm
-from blog.form import ReplayNewsDeleteEmailForm
-from blog.form import UserReplayNewsForm
+from blog.forms.replay_news_form import ReplayNewsCreationForm
+from blog.forms.replay_news_form import ReplayNewsDeleteForm
+from blog.forms.replay_news_form import UserReplayNewsForm
 from blog.models import ReplayNews
 from blog.models import User as DjangoUser
 from blog.views import edit_admin_panel_view
@@ -77,7 +77,7 @@ def replay_news_delete_admin_panel_view(request, pk):
         request,
         pk,
         ReplayNews,
-        ReplayNewsDeleteEmailForm,
+        ReplayNewsDeleteForm,
         'AdminTemplates/Newsletter/ReplayNews/ReplayNewsDeleteAdmin.html',
         'Mail z shotem od Banknoty został usunięty',
         'replay_news_admin_panel'

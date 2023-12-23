@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils import timezone
 
-from blog.form import CommentForm
-from blog.form import NewsletterUserSignUpForm
+from blog.forms.comment_form import CommentForm
+from blog.forms.newsletter_form import NewsletterUserSignUpForm
 from blog.models import Blog
 from blog.models import Category
 from blog.views import handle_newsletter_signup

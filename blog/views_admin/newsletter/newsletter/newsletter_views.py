@@ -4,10 +4,10 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import NewsletterAddUserForm
-from blog.form import NewsletterCreationForm
-from blog.form import NewsletterDeleteForm
-from blog.form import NewsletterUserDeleteForm
+from blog.forms.newsletter_form import NewsletterAddUserForm
+from blog.forms.newsletter_form import NewsletterCreationForm
+from blog.forms.newsletter_form import NewsletterDeleteForm
+from blog.forms.newsletter_form import NewsletterUserDeleteForm
 from blog.models import Newsletter
 from blog.models import NewsletterUser
 from blog.views import INVALID_EMAIL_MESSAGE

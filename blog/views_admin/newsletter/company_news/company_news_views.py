@@ -2,9 +2,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import CompanyNewsCreationForm
-from blog.form import CompanyNewsDeleteEmailForm
-from blog.form import UserCompanyNewsForm
+from blog.forms.company_news_form import CompanyNewsCreationForm
+from blog.forms.company_news_form import CompanyNewsDeleteForm
+from blog.forms.company_news_form import UserCompanyNewsForm
 from blog.models import CompanyNews
 from blog.models import User as DjangoUser
 from blog.views import edit_admin_panel_view
@@ -77,7 +77,7 @@ def company_news_delete_admin_panel_view(request, pk):
         request,
         pk,
         CompanyNews,
-        CompanyNewsDeleteEmailForm,
+        CompanyNewsDeleteForm,
         'AdminTemplates/Newsletter/CompanyNews/CompanyNewsDeleteAdmin.html',
         'Mail z wiadomością od Banknoty został usunięty',
         'company_news_admin_panel'

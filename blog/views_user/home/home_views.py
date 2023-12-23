@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-from blog.form import NewsletterUserSignUpForm
+from blog.forms.newsletter_form import NewsletterUserSignUpForm
 from blog.models import Blog
 from blog.models import Category
 from blog.models import User as DjangoUser

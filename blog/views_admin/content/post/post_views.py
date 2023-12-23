@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import PostCreateForm
-from blog.form import PostDeleteForm
+from blog.forms.post_form import PostCreateForm
+from blog.forms.post_form import PostDeleteForm
 from blog.models import Blog
 from blog.views import edit_entity_admin_panel_view
 from blog.views import get_paginated_context

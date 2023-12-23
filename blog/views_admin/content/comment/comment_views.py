@@ -3,7 +3,8 @@ from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 
 from blog.decorators import superuser_required
-from blog.form import CommentCreateForm, CommentDeleteForm
+from blog.forms.comment_form import CommentCreateForm
+from blog.forms.comment_form import CommentDeleteForm
 from blog.models import Blog
 from blog.models import Comment
 from blog.models import User

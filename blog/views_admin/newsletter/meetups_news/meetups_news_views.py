@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from blog.decorators import superuser_required
-from blog.form import Meetups_newsCreationForm
-from blog.form import UserMeetups_newsForm
+from blog.forms.meetups_news_form import MeetupsNewsCreationForm
+from blog.forms.meetups_news_form import UserMeetupsNewsForm
 from blog.models import Meetups_news
 from blog.models import User as DjangoUser
 from blog.views import edit_admin_panel_view
@@ -19,7 +19,7 @@ def meetups_news_add_view(request):
     return newsletter_add_panel_view(
         request,
         'meetups_news',
-        Meetups_newsCreationForm,
+        MeetupsNewsCreationForm,
         'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsAddAdmin.html',
         'AdminTemplates/Newsletter/MeetupsNews/Mail/MeetupsNewsMail',
         'Nadchodzące spotkania i wydarzenia'
@@ -62,7 +62,7 @@ def meetups_news_edit_admin_panel_view(request, pk):
         pk,
         Meetups_news,
         'meetups_news',
-        Meetups_newsCreationForm,
+        MeetupsNewsCreationForm,
         'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsEditAdmin.html',
         'AdminTemplates/Newsletter/MeetupsNews/Mail/MeetupsNewsMail',
         'Nadchodzące spotkania i wydarzenia'
@@ -76,7 +76,7 @@ def meetups_news_delete_admin_panel_view(request, pk):
         request,
         pk,
         Meetups_news,
-        Meetups_newsCreationForm,
+        MeetupsNewsCreationForm,
         'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsDeleteAdmin.html',
         'Mail o spotkaniach i wydarzeniach został usunięty',
         'meetups_news_admin_panel'
@@ -123,7 +123,7 @@ def meetups_news_user_edit_admin_panel_view(request, pk):
         request,
         pk,
         DjangoUser,
-        UserMeetups_newsForm,
+        UserMeetupsNewsForm,
         'AdminTemplates/Newsletter/MeetupsNews/MeetupsNewsUserEditAdmin.html',
         'Ustawienia e-maila o spotkaniach i wydarzeniach zostały zaaktualizowane.',
         'meetups_news_user_admin_panel',

@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 
 from blog.decorators import superuser_required
-from blog.form import UserMissNewsForm
+from blog.forms.miss_news_form import UserMissNewsForm
 from blog.models import Blog
 from blog.models import User as DjangoUser
 from blog.views import IMAGE_URL

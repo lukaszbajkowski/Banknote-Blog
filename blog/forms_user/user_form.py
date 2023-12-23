@@ -6,6 +6,7 @@ from django.core.validators import MinLengthValidator
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
+from blog.forms.base_form import DeleteForm
 from blog.models import User as User_extended
 
 
@@ -188,11 +189,13 @@ class BaseUserForm(forms.ModelForm):
         self.fields['last_name'].error_messages['required'] = _('Nazwisko jest wymagane.')
 
 
+# Formularz do edycji informacji o użytkowniku z modelu wbudowanego User.
 class UserEditForm(BaseUserForm):
     class Meta(BaseUserForm.Meta):
         fields = ('email', 'first_name', 'last_name')
 
 
+# Formularz do utworzenia użytkownika przez administratora.
 class UserCreationForm(BaseUserForm):
     username = forms.CharField(
         label=_('Nazwa użytkownika'),
@@ -219,3 +222,9 @@ class UserCreationForm(BaseUserForm):
         self.fields['username'].error_messages['required'] = _('Nazwa użytkownika jest wymagana.')
         self.fields['email'].error_messages['required'] = _('Adres e-mail jest wymagany.')
         self.fields['password'].error_messages['required'] = _('Hasło jest wymagane.')
+
+
+# Formularz do usuwania użytkowników
+class UsersDeleteForm(DeleteForm):
+    class Meta(DeleteForm.Meta):
+        model = User
