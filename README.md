@@ -169,7 +169,7 @@ _Section currently being built_
 
 ## Setup
 
-In this project, everything required to run and work with this project is included in the **package.json** file
+In this project, everything required to run and work with this project is included in the **requirements.txt** file
 
 ### Windows System Configuration
 
