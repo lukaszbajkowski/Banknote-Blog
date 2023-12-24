@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 
 from blog.models import Blog
 from blog.models import Category
-from members.forms import EmailChangeForm
+from members.forms.user_data_form import EmailChangeForm
 from pm_blog import settings
 
 

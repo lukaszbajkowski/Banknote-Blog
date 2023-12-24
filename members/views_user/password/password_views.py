@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 from blog.models import Blog
 from blog.models import Category
-from members.forms import PasswordChangingForm
+from members.forms.user_data_form import PasswordChangingForm
 
 
 # Widok zmiany hasła użytkownika

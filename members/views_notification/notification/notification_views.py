@@ -4,8 +4,8 @@ from django.shortcuts import render
 
 from blog.models import Category, Blog
 from blog.models import User as User_Custom
-from members.forms import CommunicationSettingForm
-from members.forms import NotificationSettingsForm
+from members.forms.newsletters_form import CommunicationSettingForm
+from members.forms.newsletters_form import NotificationSettingsForm
 
 
 # Widok zarządzania ustawieniami powiadomień użytkownika

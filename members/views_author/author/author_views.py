@@ -11,9 +11,9 @@ from blog.models import Author
 from blog.models import Blog
 from blog.models import Category
 from members.decorators import is_author
-from members.forms import AuthorForm
-from members.forms import PostAddForm
-from members.forms import PostEditForm
+from members.forms.author_form import AuthorForm
+from members.forms.post_form import PostAddForm
+from members.forms.post_form import PostEditForm
 
 
 # Widok tworzenia profilu autora

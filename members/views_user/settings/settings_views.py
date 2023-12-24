@@ -6,9 +6,8 @@ from django.shortcuts import render
 from blog.models import Blog
 from blog.models import Category
 from blog.models import User as User_Custom
-from members.forms import DeleteAccountForm
-from members.forms import EditUserForm
-from members.forms import UserForm
+from members.forms.user_data_form import DeleteAccountForm
+from members.forms.user_data_form import UserForm
 
 
 # Widok edycji profilu użytkownika
@@ -21,14 +20,11 @@ def user_edit_view(request):
     delete_form = DeleteAccountForm(request.POST or None)
     if request.method == 'POST':
         user_form = UserForm(request.POST, request.FILES, instance=user_custom)
-        edit_user_form = EditUserForm(request.POST, instance=user)
-        if user_form.is_valid() and edit_user_form.is_valid():
+        if user_form.is_valid():
             user_form.save()
-            edit_user_form.save()
             return redirect('edit_profile')
     else:
         user_form = UserForm(instance=user_custom)
-        edit_user_form = EditUserForm(instance=user)
 
     if delete_form.is_valid() and delete_form.cleaned_data['confirm_deletion']:
         user.delete()
@@ -39,7 +35,6 @@ def user_edit_view(request):
         'category': category,
         'blog': blog,
         'user_form': user_form,
-        'edit_user_form': edit_user_form,
         'delete_form': delete_form,
     }
     return render(

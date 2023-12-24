@@ -9,8 +9,8 @@ from blog.models import ArticleAuthor
 from blog.models import Author
 from blog.models import Blog
 from blog.models import Category
-from members.forms import ArticleAuthorForm
-from members.forms import CreateAuthorForm
+from members.forms.author_application_form import ArticleAuthorForm
+from members.forms.author_form import CreateAuthorForm
 
 
 # Widok formularza do zgłoszenia się jako autor
