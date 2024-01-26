@@ -6,6 +6,28 @@ from blog.models import NewsletterUser
 from blog.views import INVALID_EMAIL_MESSAGE, UNSUBSCRIBE_SUCCESS_MESSAGE
 
 
+class StaticPageViewTests(TestCase):
+    def setUp(self):
+        self.terms_conditions_url = reverse('terms_and_conditions')
+        self.privacy_policy_url = reverse('privacy_policy')
+        self.about_page_url = reverse('about_page')
+
+    def test_terms_conditions_view(self):
+        response = self.client.get(self.terms_conditions_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/TermsConditions/TermsConditions.html')
+
+    def test_privacy_policy_view(self):
+        response = self.client.get(self.privacy_policy_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/PrivacyPolicy/PrivacyPolicy.html')
+
+    def test_about_page_view(self):
+        response = self.client.get(self.about_page_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/About/About.html')
+
+
 class NewsletterViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
