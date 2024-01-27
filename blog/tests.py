@@ -1,5 +1,7 @@
+from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
-from django.test import TestCase, Client
+from django.test import Client
+from django.test import TestCase
 from django.urls import reverse
 
 from blog.models import NewsletterUser
@@ -80,3 +82,35 @@ class NewsletterViewTests(TestCase):
         response = self.client.get(self.unsubscribe_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'UserTemplates/NewsletterDelete/NewsletterDelete.html')
+
+
+class HomeViewTests(TestCase):
+    def setUp(self):
+        self.home_url = reverse('home')
+
+    def test_home_view_get(self):
+        response = self.client.get(self.home_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/Home/Home.html')
+
+    def test_home_view_post_newsletter_signup_valid_data(self):
+        data = {'email': 'test@example.com'}
+        response = self.client.post(self.home_url, data)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(response.json().get('success'), True)
+
+    def test_home_view_post_newsletter_signup_invalid_data(self):
+        data = {'email': 'invalid_email'}
+        response = self.client.post(self.home_url, data)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(response.json().get('success'), False)
+
+    def test_home_view_authenticated_user_redirect_to_edit_profile(self):
+        User.objects.create_user(username='testuser', password='testpassword')
+        self.client.login(username='testuser', password='testpassword')
+
+        response = self.client.get(self.home_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('edit_profile'))
