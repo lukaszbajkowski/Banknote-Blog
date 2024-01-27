@@ -1,5 +1,5 @@
 from django.contrib.messages import get_messages
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.urls import reverse
 
 from blog.models import NewsletterUser
@@ -8,6 +8,7 @@ from blog.views import INVALID_EMAIL_MESSAGE, UNSUBSCRIBE_SUCCESS_MESSAGE
 
 class StaticPageViewTests(TestCase):
     def setUp(self):
+        self.client = Client()
         self.terms_conditions_url = reverse('terms_and_conditions')
         self.privacy_policy_url = reverse('privacy_policy')
         self.about_page_url = reverse('about_page')
@@ -31,33 +32,34 @@ class StaticPageViewTests(TestCase):
 class NewsletterViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.client = Client()
         cls.signup_url = reverse('newsletter_signup')
         cls.unsubscribe_url = reverse('newsletter_unsubscribe')
 
-    def assertTemplateAndStatus(self, response, template_name, status_code):
-        self.assertEqual(response.status_code, status_code)
-        self.assertTemplateUsed(response, template_name)
-
     def test_newsletter_signup_view_get(self):
         response = self.client.get(self.signup_url)
-        self.assertTemplateAndStatus(response, 'UserTemplates/NewsletterRegister/NewsletterSingUp.html', 200)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/NewsletterRegister/NewsletterSingUp.html')
 
     def test_newsletter_signup_view_post_valid_data(self):
         data = {'email': 'test@example.com'}
         response = self.client.post(self.signup_url, data)
-        self.assertTemplateAndStatus(response, 'UserTemplates/NewsletterRegister/NewsletterSingUp.html', 200)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/NewsletterRegister/NewsletterSingUp.html')
 
     def test_newsletter_signup_view_post_invalid_data(self):
         data = {'email': 'invalid_email'}
         response = self.client.post(self.signup_url, data)
-        self.assertTemplateAndStatus(response, 'UserTemplates/NewsletterRegister/NewsletterSingUp.html', 200)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/NewsletterRegister/NewsletterSingUp.html')
 
     def test_newsletter_unsubscribe_view_post_valid_email(self):
         email = 'test@example.com'
         NewsletterUser.objects.create(email=email)
 
         response = self.client.post(self.unsubscribe_url, {'email': email})
-        self.assertTemplateAndStatus(response, 'UserTemplates/NewsletterDelete/NewsletterDelete.html', 200)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/NewsletterDelete/NewsletterDelete.html')
 
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
@@ -67,7 +69,8 @@ class NewsletterViewTests(TestCase):
         email = 'nonexistent@example.com'
 
         response = self.client.post(self.unsubscribe_url, {'email': email})
-        self.assertTemplateAndStatus(response, 'UserTemplates/NewsletterDelete/NewsletterDelete.html', 200)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/NewsletterDelete/NewsletterDelete.html')
 
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
@@ -75,4 +78,5 @@ class NewsletterViewTests(TestCase):
 
     def test_newsletter_unsubscribe_view_get(self):
         response = self.client.get(self.unsubscribe_url)
-        self.assertTemplateAndStatus(response, 'UserTemplates/NewsletterDelete/NewsletterDelete.html', 200)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'UserTemplates/NewsletterDelete/NewsletterDelete.html')
