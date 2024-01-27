@@ -4,6 +4,7 @@ from django.test import Client
 from django.test import TestCase
 from django.urls import reverse
 
+from blog.forms.contact_form import ContactForm
 from blog.models import NewsletterUser
 from blog.views import INVALID_EMAIL_MESSAGE, UNSUBSCRIBE_SUCCESS_MESSAGE
 
@@ -114,3 +115,62 @@ class HomeViewTests(TestCase):
         response = self.client.get(self.home_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('edit_profile'))
+
+
+class ContactViewTests(TestCase):
+    def test_contact_view_function_exists(self):
+        response = self.client.get(reverse('contact'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_contact_view_uses_correct_template(self):
+        response = self.client.get(reverse('contact'))
+        self.assertTemplateUsed(response, 'Contact/ContactPage.html')
+
+    def test_contact_view_contains_contact_form(self):
+        response = self.client.get(reverse('contact'))
+        self.assertIsInstance(response.context['form'], ContactForm)
+
+    def test_contact_view_post_valid_data(self):
+        valid_data = {
+            'name': 'John Doe',
+            'email': 'john@example.com',
+            'message': 'Test message'
+        }
+        response = self.client.post(reverse('contact'), valid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('success', response.json())
+        self.assertFalse(response.json()['success'])
+
+    def test_contact_view_post_invalid_data(self):
+        invalid_data = {
+            'name': '',
+            'email': 'invalid_email',
+            'message': ''
+        }
+        response = self.client.post(reverse('contact'), invalid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('success', response.json())
+        self.assertFalse(response.json()['success'])
+
+    def test_contact_view_csrf_token(self):
+        response = self.client.get(reverse('contact'))
+        self.assertContains(response, 'csrfmiddlewaretoken')
+
+    def test_contact_view_max_length_exceeded(self):
+        invalid_data = {
+            'name': 'a' * 129,
+            'email': 'john@example.com',
+            'message': 'Test message'
+        }
+        response = self.client.post(reverse('contact'), invalid_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('success', response.json())
+        self.assertFalse(response.json()['success'])
+
+    def test_contact_view_additional_logic(self):
+        valid_data = {
+            'name': 'John Doe',
+            'email': 'john@example.com',
+            'message': 'Test message'
+        }
+        response = self.client.post(reverse('contact'), valid_data)
